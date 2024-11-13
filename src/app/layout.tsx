@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { DesktopNav } from "@/components/desktop-nav";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,7 +32,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
-            className={cn(`${geistSans.variable} ${machina.variable}` , "antialiased font-[family-name:var(--font-geist-sans)] lg:max-w-[1200.5px] mx-auto") }
+            className={cn(`${geistSans.variable} ${machina.variable}` , "antialiased font-[family-name:var(--font-geist-sans)] lg:max-w-[1200px] mx-auto") }
         >
           <ThemeProvider
             attribute="class"
@@ -39,22 +40,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-{/* <GridPattern
-        width={20}
-        height={20}
-        x={-1}
-        y={-1}
-        className={cn(
-          "lg:lg:max-w-[1200.5px] border border-[#555555] border-opacity-25 mx-auto -z-20",
-        )}
-      /> */}
             <GridPattern
                  width={100}
                  height={100}
                  x={-1}
                  y={-1}
-                 className={cn( "[mask-image:radial-gradient(white,transparent)] lg:lg:max-w-[1200.5px] border border-[#555555] border-opacity-25 mx-auto -z-20" )}
-/>
+                 className={cn( "lg:max-w-[1200.5px] border border-[#555555] border-opacity-25 mx-auto -z-50" )}
+        /> <DesktopNav />
             {children}
 
           </ThemeProvider>
