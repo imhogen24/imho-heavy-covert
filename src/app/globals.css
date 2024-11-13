@@ -31,7 +31,7 @@
     --radius: 2.5rem;
   }
   .dark {
-    --background: 240, 10%, 4%;
+    --background: 240 3% 57% 100%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -47,7 +47,7 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
+    --border: 240 6% 90% 100%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
     --chart-1: 220 70% 50%;
@@ -55,6 +55,15 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --frame-border: 240 3% 23% 80%;
+    --brand-color: 31 100% 47% 100%;
+    --crossbar: 240 5% 96% 90%;
+    --grid-color: 0 0% 33% 100%;
+    --grid-color-cutout: 0 0% 33% 60%;
+    --ouline-button-border:0 5% 27% 14%;
+    --ouline-button-background: 0 2% 39% 1%;
+    --nav-background: 240 3% 57% 100%;
+    
   }
 }
 
