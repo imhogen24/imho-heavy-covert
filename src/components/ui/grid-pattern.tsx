@@ -1,72 +1,94 @@
+import { cn } from "@/lib/utils";
 import { useId } from "react";
 
-import { cn } from "@/lib/utils";
-
-interface GridPatternProps {
+interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   x?: number;
   y?: number;
-  squares?: Array<[x: number, y: number]>;
-  strokeDasharray?: string;
+  mainLineColor?: string;
+  subLineColor?: string;
+  mainLineOpacity?: number;
+  subLineOpacity?: number;
   className?: string;
-  [key: string]: unknown;
 }
 
-export function GridPattern({
-  width = 40,
-  height = 40,
+export const GridPattern = ({
+  width = 100,
+  height = 100,
   x = -1,
   y = -1,
-  strokeDasharray = "0",
-  squares,
+  mainLineColor = "#555555",
+  subLineColor = "#555555",
+  mainLineOpacity = 0.6,
+  subLineOpacity = 0.4,
   className,
   ...props
-}: GridPatternProps) {
+}: GridPatternProps) => {
   const id = useId();
+  const patternId = `grid-pattern-${id}`;
+  const subPatternId = `sub-grid-pattern-${id}`;
+  const clipId = `clip-path-${id}`;
 
   return (
     <svg
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/30",
-        className,
+        "pointer-events-none absolute inset-0 h-full w-full opacity-80 dark:opacity-100 -z-50",
+        className
       )}
       {...props}
     >
       <defs>
         <pattern
-          id={id}
+          id={patternId}
           width={width}
           height={height}
           patternUnits="userSpaceOnUse"
           x={x}
           y={y}
         >
-          <path
-            d={`M.5 ${height}V.5H${width}`}
-            fill="none"
-            strokeDasharray={strokeDasharray}
-          />
+          <g opacity={mainLineOpacity}>
+            <path
+              d={`M ${width} 0 V ${height}`}
+              stroke={mainLineColor}
+              strokeWidth="0.5"
+            />
+            <path
+              d={`M 0 ${height} H ${width}`}
+              stroke={mainLineColor}
+              strokeWidth="0.5"
+            />
+          </g>
+        </pattern>
+
+        <pattern
+          id={subPatternId}
+          width={width/5}
+          height={height/5}
+          patternUnits="userSpaceOnUse"
+          x={x}
+          y={y}
+        >
+          <g opacity={subLineOpacity}>
+            <path
+              d={`M ${width/5} 0 V ${height/5}`}
+              stroke={subLineColor}
+              strokeWidth="0.25"
+            />
+            <path
+              d={`M 0 ${height/5} H ${width/5}`}
+              stroke={subLineColor}
+              strokeWidth="0.25"
+            />
+          </g>
         </pattern>
       </defs>
-      <rect width="100%" height="100%" strokeWidth={0} fill={`url(#${id})`} />
-      {squares && (
-        <svg x={x} y={y} className="overflow-visible">
-          {squares.map(([x, y]) => (
-            <rect
-              strokeWidth="0"
-              key={`${x}-${y}`}
-              width={width - 1}
-              height={height - 1}
-              x={x * width + 1}
-              y={y * height + 1}
-            />
-          ))}
-        </svg>
-      )}
+
+      <rect width="100%" height="100%" fill={`url(#${subPatternId})`} />
+      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
     </svg>
   );
-}
+};
 
 export default GridPattern;

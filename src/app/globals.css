@@ -31,7 +31,7 @@
     --radius: 2.5rem;
   }
   .dark {
-    --background: 0 0% 10%;
+    --background: 240, 10%, 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
