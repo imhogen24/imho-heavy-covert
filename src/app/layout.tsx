@@ -31,7 +31,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
-          className={`${geistSans.variable} ${machina.variable} antialiased font-[family-name:var(--font-geist-sans)]`}
+            className={cn(`${geistSans.variable} ${machina.variable}` , "antialiased font-[family-name:var(--font-geist-sans)] lg:max-w-[1200.5px] mx-auto") }
         >
           <ThemeProvider
             attribute="class"
@@ -39,17 +39,24 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {" "}
+{/* <GridPattern
+        width={20}
+        height={20}
+        x={-1}
+        y={-1}
+        className={cn(
+          "lg:lg:max-w-[1200.5px] border border-[#555555] border-opacity-25 mx-auto -z-20",
+        )}
+      /> */}
             <GridPattern
-  width={100}
-  height={100}
-  x={-1}
-  y={-1}
-  className={cn(
-    "[mask-image:radial-gradient(white,transparent)] -z-20"
-  )}
+                 width={100}
+                 height={100}
+                 x={-1}
+                 y={-1}
+                 className={cn( "[mask-image:radial-gradient(white,transparent)] lg:lg:max-w-[1200.5px] border border-[#555555] border-opacity-25 mx-auto -z-20" )}
 />
             {children}
+
           </ThemeProvider>
         </body>
       </html>

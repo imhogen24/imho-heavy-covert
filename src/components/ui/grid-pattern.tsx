@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { useId } from "react";
+import { cn } from "@/lib/utils";
 
 interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
   width?: number;
@@ -16,11 +16,11 @@ interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
 export const GridPattern = ({
   width = 100,
   height = 100,
-  x = -1,
-  y = -1,
+  x = 0,
+  y = 0,
   mainLineColor = "#555555",
   subLineColor = "#555555",
-  mainLineOpacity = 0.6,
+  mainLineOpacity = 1,
   subLineOpacity = 0.4,
   className,
   ...props
@@ -28,15 +28,15 @@ export const GridPattern = ({
   const id = useId();
   const patternId = `grid-pattern-${id}`;
   const subPatternId = `sub-grid-pattern-${id}`;
-  const clipId = `clip-path-${id}`;
 
   return (
     <svg
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full opacity-80 dark:opacity-100 -z-50",
+        "pointer-events-none absolute inset-0 h-full w-full",
         className
       )}
+      preserveAspectRatio="xMidYMid slice"
       {...props}
     >
       <defs>
@@ -47,17 +47,26 @@ export const GridPattern = ({
           patternUnits="userSpaceOnUse"
           x={x}
           y={y}
+          patternTransform={`translate(${x},${y})`}
         >
           <g opacity={mainLineOpacity}>
-            <path
-              d={`M ${width} 0 V ${height}`}
+            <line
+              x1="0"
+              y1="0"
+              x2="0"
+              y2={height}
               stroke={mainLineColor}
               strokeWidth="0.5"
+              vectorEffect="non-scaling-stroke"
             />
-            <path
-              d={`M 0 ${height} H ${width}`}
+            <line
+              x1="0"
+              y1="0"
+              x2={width}
+              y2="0"
               stroke={mainLineColor}
               strokeWidth="0.5"
+              vectorEffect="non-scaling-stroke"
             />
           </g>
         </pattern>
@@ -69,24 +78,47 @@ export const GridPattern = ({
           patternUnits="userSpaceOnUse"
           x={x}
           y={y}
+          patternTransform={`translate(${x},${y})`}
         >
           <g opacity={subLineOpacity}>
-            <path
-              d={`M ${width/5} 0 V ${height/5}`}
+            <line
+              x1="0"
+              y1="0"
+              x2="0"
+              y2={height/5}
               stroke={subLineColor}
               strokeWidth="0.25"
+              vectorEffect="non-scaling-stroke"
             />
-            <path
-              d={`M 0 ${height/5} H ${width/5}`}
+            <line
+              x1="0"
+              y1="0"
+              x2={width/5}
+              y2="0"
               stroke={subLineColor}
               strokeWidth="0.25"
+              vectorEffect="non-scaling-stroke"
             />
           </g>
         </pattern>
       </defs>
 
-      <rect width="100%" height="100%" fill={`url(#${subPatternId})`} />
-      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+      <rect
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        fill={`url(#${subPatternId})`}
+        shapeRendering="crispEdges"
+      />
+      <rect
+        x="0"
+        y="0"
+        width="100%"
+        height="100%"
+        fill={`url(#${patternId})`}
+        shapeRendering="crispEdges"
+      />
     </svg>
   );
 };
