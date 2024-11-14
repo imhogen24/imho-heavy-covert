@@ -16,11 +16,7 @@ export const NAV_ITEMS: NavItemProps[] = [
         label: "Our team",
         href: "/#team",
     },
-    {
-        id: 4,
-        label: "Contact",
-        href: "/#contact",
-    },
+
     {
         id: 5,
         label: "Blog",

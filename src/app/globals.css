@@ -31,7 +31,8 @@
     --radius: 2.5rem;
   }
   .dark {
-    --background: 240 3% 57% 100%;
+
+    --background: 240 10% 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -63,7 +64,7 @@
     --ouline-button-border:0 5% 27% 14%;
     --ouline-button-background: 0 2% 39% 1%;
     --nav-background: 240 3% 57% 100%;
-    
+
   }
 }
 
