@@ -1,12 +1,17 @@
-import ToggleMode from "@/components/theme/theme-toggle";
-import { Button } from "@/components/ui/button";
-import { CrossPositinalIcon } from "@/lib/icons";
+import { Hero } from "./_compoennts/hero";
+import ImpactSection from "./_compoennts/impact";
+
+import VideoSection from "./_compoennts/video";
+
 
 
 export default function Home() {
   return (
-    <div className="min-h-dvh flex flex-col items-center justify-center gap-5">
-      <ToggleMode />
+    <div className="flex flex-col relative top-[200px]">
+
+      <Hero/>
+      <VideoSection/>
+      <ImpactSection/>
 
     </div>
   );
