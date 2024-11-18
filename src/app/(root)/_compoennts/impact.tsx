@@ -2,10 +2,11 @@ import { IMPACT_TEXT, SDG_GOALS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { gradientText } from "./hero";
 import RadialGradient from "./radial-gradient";
+import Image from "next/image";
 
 const ImpactSection = () => {
   return (
-    <div className="flex flex-col justify-center items-center relative h-[825px] w-full border border-[#555555] bg-[#09090B] border-opacity-25">
+    <div className="flex flex-col justify-center items-center relative h-full w-full border border-[#555555] bg-[#09090B] border-opacity-25">
 
       <div className="flex w-full h-[215px]"
              style={{
@@ -14,17 +15,17 @@ const ImpactSection = () => {
              }}
           >
             {/*  Header section */}
-        <div className="flex flex-col items-center w-[446px] m-auto gap-[16px] py-[54px]">
+        <div className="flex flex-col items-center w-[446px] m-auto gap-[16px]">
           <h2 className={cn("text-center text-[32px] font-[family-name:var(--font-machina)]", gradientText)}>
             Our Impact
           </h2>
-          <p className="text-center text-[20px] text-muted-foreground">IMHO&apos;s Distinct Impact: Advancing the UN SDGs and African Union's Agenda 2063 Goals</p>
+          <p className="text-center text-[20px] text-muted-foreground">IMHO&apos;s Distinct Impact: Advancing the UN SDGs and  African Union&apos;s Agenda 2063 Goals</p>
         </div>
       </div>
 
       {/* cards */}
       <div className="flex flex-row w-full h-full relative">
-        { IMPACT_TEXT.map((impact, index) => (
+        { IMPACT_TEXT.map((impact) => (
         <div className={cn("flex-1  relative ", impact.footer && "border-r border-[#555555] border-opacity-25")}>
           <div className="flex flex-col gap-5 py-[54px] px-[54px]">
             <h1 className=" text-[32px] font-[family-name:var(--font-machina)]">{impact.title}</h1>
@@ -42,12 +43,12 @@ const ImpactSection = () => {
       </div>
 
       {/* sdg goal logos here */}
-      <div className=" flex flex-row items-center justify-center w-full h-full">
+      <div className=" relative flex flex-row items-center justify-center w-full h-full">
        {
         SDG_GOALS.map((goal) => (
-          <div key={goal.id} className="flex flex-row justify-evenly w-full">
+          <div key={goal.id} className="flex flex-row justify-evenly items-center w-full h-[199px]">
             {/* TODO: FIX ISSUE WITH NAMING OF THE ALTERNATIVE TEXT */}
-            <img src={goal.image} alt={`SDG ${goal.id}`} className="w-[100px] h-[100px]" />
+            <Image width={goal.ImageWidth} height={goal.ImageHeight} src={goal.image} alt={`SDG ${goal.id}`} className="h-[120px]"/>
           </div>
         ))
        }

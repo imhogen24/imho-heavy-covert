@@ -1,7 +1,99 @@
-import { NavItemProps, SdgProps } from "./types";
+import { MarqueeProps, NavItemProps, ProjectCardProps, SdgProps } from "./types";
 
 
 
+export const PROJECTS: ProjectCardProps[]=[
+  {
+    title: "Enterprise CAD training",
+    customer: "MiningPro",
+    description: "looked to IMHO to train their new engineering team in the use of AutoCAD, from beginner to advanced levels. The skills training aimed to balance effective CAD systems with highly skilled experts.",
+    service: "Beginer level to Advanced level AutoCAD and enterprise CAD management system",
+    type: "Skill Development and Training",
+    date:"2024",
+    image:"",
+    Video:""
+  },
+  {
+    title: "Enterprise CAD training",
+    customer: "MiningPro",
+    description: "looked to IMHO to train their new engineering team in the use of AutoCAD, from beginner to advanced levels. The skills training aimed to balance effective CAD systems with highly skilled experts.",
+    service: "Beginer level to Advanced level AutoCAD and enterprise CAD management system",
+    type: "Skill Development and Training",
+    date:"2024",
+    image:"",
+    Video:""
+  }
+]
+
+export const MARQUEE: MarqueeProps[] = [
+  {
+    id: 4,
+    image: "/logos/commeph-logo.png",
+    ImageWidth: 68.27,
+    ImageHeight: 68.95,
+  },
+  {
+    id: 3,
+    image: "/logos/coe-logo.png",
+    ImageWidth: 67.67,
+    ImageHeight:89.13
+  },
+  {
+    id: 5,
+    image: "/logos/ic-logo.png",
+    ImageWidth: 191.18,
+    ImageHeight: 51.5,
+  },
+  {
+    id: 7,
+    image: "/logos/mining-pro.png",
+    ImageWidth:186.97,
+    ImageHeight: 64
+  },
+  {
+    id: 8,
+    image: "/logos/sayetech-logo.png",
+    ImageWidth: 58.54,
+    ImageHeight: 81.53
+  },
+  {
+    id: 2,
+    image: "/logos/africa-logo.png",
+    ImageWidth: 77.7,
+    ImageHeight: 93.62
+  },
+  {
+    id: 10,
+    image: "/logos/tcc-logo.png",
+    ImageWidth: 158.31,
+    ImageHeight: 89.62
+  },
+  {
+    id: 11,
+    image: "/logos/treck-logo.png",
+    ImageWidth: 205.86,
+    ImageHeight: 58.42
+  },
+  {
+    id: 9,
+    image: "/logos/smido-logo.png",
+    ImageWidth: 95.41,
+    ImageHeight: 112.34
+  },
+  {
+    id: 6,
+    image: "/logos/kbi-logo.png",
+    ImageWidth: 99.76,
+    ImageHeight: 83.18
+  },
+
+  {
+    id: 1,
+    image: "/logos/abu-diya.png",
+    ImageWidth: 199.28,
+    ImageHeight: 12.34
+  }
+]
 export const IMPACT_TEXT = [
   {
     title: "Improved Products and Processes",
@@ -19,18 +111,26 @@ export const SDG_GOALS: SdgProps[] = [
   {
     id: 1,
     image: "/sdgs/sdg-4.png",
+    ImageWidth: 100.24,
+    ImageHeight: 120.61,
   },
   {
     id: 2,
     image: "/sdgs/sdg-8.png",
+    ImageWidth: 136.65,
+    ImageHeight: 200.65,
   },
   {
     id: 3,
     image: "/sdgs/sdg-9.png",
+    ImageWidth: 151.46,
+    ImageHeight: 125.65,
   },
   {
     id: 4,
     image: "/sdgs/agenda-2026.png",
+    ImageWidth: 113.17,
+    ImageHeight: 120.54,
   },
 
 ]
