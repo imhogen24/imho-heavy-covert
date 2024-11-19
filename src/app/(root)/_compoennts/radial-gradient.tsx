@@ -1,11 +1,13 @@
-const RadialGradient =()=>{
+import { cn } from "@/lib/utils";
+
+const RadialGradient =(props:{bg: string; dimension:string})=>{
   return (
     <div className="absolute pointer-events-none">
         <div
-          className="rounded-full bg-white"
+          className={cn("rounded-full",props.bg)}
           style={{
-            width: '400px',
-            height: '400px',
+            width: `${props.dimension}`,
+            height: `${props.dimension}`,
             opacity: 0.15,
             filter: 'blur(100px)',
             position: 'absolute',

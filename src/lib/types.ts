@@ -1,6 +1,18 @@
+import { SVGProps } from 'react'
 
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  className?: string;
+}
 
+export type WorkWithUsProps = {
+  idx: number;
+  icon: React.FC<IconProps>
+  title: string
+  description: string
+  footer: string
+}
 export interface ProjectCardProps{
+  idx: number;
   title: string;
   customer: string;
   description: string;

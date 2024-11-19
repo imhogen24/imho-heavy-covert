@@ -4,6 +4,7 @@ import ImpactSection from "./_compoennts/impact";
 import Projects from "./_compoennts/projects/projects";
 
 import VideoSection from "./_compoennts/video";
+import WorkWithUs from "./_compoennts/work_with_us/work";
 
 
 
@@ -16,6 +17,7 @@ export default function Home() {
       <ImpactSection/>
       <CommitedTo/>
       <Projects/>
+      <WorkWithUs/>
 
     </div>
   );

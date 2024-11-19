@@ -1,9 +1,41 @@
-import { MarqueeProps, NavItemProps, ProjectCardProps, SdgProps } from "./types";
+import { HeavenEarthIcon, ObeliskIcon, PyramidIcon, SunIcon } from "./icons";
+import { MarqueeProps, NavItemProps, ProjectCardProps, SdgProps, WorkWithUsProps } from "./types";
 
+export const WORK_WITH_US: WorkWithUsProps[] = [
+  {
+    idx: 0,
+    icon: SunIcon,
+    title: "Consulting",
+    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
+    footer: "Contact us to learn more about our consulting services."
+  },
+  {
+    idx: 1,
+    icon: PyramidIcon,
+    title: "Consulting",
+    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
+    footer: "Contact us to learn more about our consulting services."
+  },
+  {
+    idx: 2,
+    icon: HeavenEarthIcon,
+    title: "Consulting",
+    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
+    footer: "Contact us to learn more about our consulting services."
+  },
+  {
+    idx: 3,
+    icon: ObeliskIcon,
+    title: "Consulting",
+    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
+    footer: "Contact us to learn more about our consulting services."
+  }
+]
 
 
 export const PROJECTS: ProjectCardProps[]=[
   {
+    idx: 2,
     title: "Enterprise CAD training",
     customer: "MiningPro",
     description: "looked to IMHO to train their new engineering team in the use of AutoCAD, from beginner to advanced levels. The skills training aimed to balance effective CAD systems with highly skilled experts.",
@@ -14,6 +46,7 @@ export const PROJECTS: ProjectCardProps[]=[
     Video:""
   },
   {
+    idx: 3,
     title: "Enterprise CAD training",
     customer: "MiningPro",
     description: "looked to IMHO to train their new engineering team in the use of AutoCAD, from beginner to advanced levels. The skills training aimed to balance effective CAD systems with highly skilled experts.",
