@@ -29,7 +29,7 @@ const ProjectCard = (props: ProjectCardProps) => {
       )}>
          <div className='flex flex-col gap-8'>
         <h1 className='text-muted-foreground'>
-       <span className={cn(gradientText)}>{props.customer}</span> {props.description}</h1>
+       <span className={cn(gradientText)}>{props.client}</span> {props.description}</h1>
 
        <h1 className='text-muted-foreground'>
        <span className='text-white'>Service Provided:</span> <br/>

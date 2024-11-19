@@ -85,7 +85,7 @@ const PointerDownIcon = ({ className, ...props }: IconProps) => (
     {...props}
   >
     <path d="M6 9L12 15L18 9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+  </svg>
 );
 
 const ScheduleMeetingIcon = ({ className, ...props }: IconProps) => (
@@ -132,9 +132,9 @@ const LinkedinIcon = ({ className, ...props }: IconProps) => (
     className={cn(className)}
     {...props}
   >
-    <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M6 9H2V21H6V9Z" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="#FAFAFA" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#FAFAFA" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M6 9H2V21H6V9Z" stroke="#FAFAFA" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="#FAFAFA" strokeLinecap="round" strokeLinejoin="round"/>
 
   </svg>
 );
@@ -151,7 +151,7 @@ const HamburgerIcon = ({ className, ...props }: IconProps) => (
     className={cn(className)}
     {...props}
   >
-    <path d="M4 12H20M4 6H20M4 18H20" stroke="#FAFAFA" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4 12H20M4 6H20M4 18H20" stroke="#FAFAFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 
   </svg>
 );
@@ -167,7 +167,7 @@ const CloseIcon = ({ className, ...props }: IconProps) => (
     className={cn(className)}
     {...props}
   >
-   <path d="M18 6L6 18M6 6L18 18" stroke="#FAFAFA" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="M18 6L6 18M6 6L18 18" stroke="#FAFAFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 
   </svg>
 );
@@ -183,7 +183,7 @@ const FilePickerIcon = ({ className, ...props }: IconProps) => (
     className={cn(className)}
     {...props}
   >
-<path d="M21.44 11.05L12.25 20.24C11.1242 21.3658 9.5972 21.9983 8.00502 21.9983C6.41283 21.9983 4.88586 21.3658 3.76002 20.24C2.63417 19.1142 2.00168 17.5872 2.00168 15.995C2.00168 14.4028 2.63417 12.8758 3.76002 11.75L12.33 3.18C13.0806 2.42811 14.0991 2.00518 15.1615 2.00424C16.2239 2.00331 17.2431 2.42444 17.995 3.175C18.7469 3.92557 19.1698 4.94407 19.1708 6.00647C19.1717 7.06886 18.7506 8.08811 18 8.84L9.41002 17.41C9.03473 17.7853 8.52574 17.9961 7.99502 17.9961C7.46429 17.9961 6.9553 17.7853 6.58002 17.41C6.20473 17.0347 5.9939 16.5257 5.9939 15.995C5.9939 15.4643 6.20473 14.9553 6.58002 14.58L15.07 6.1" stroke="#FAFAFA" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21.44 11.05L12.25 20.24C11.1242 21.3658 9.5972 21.9983 8.00502 21.9983C6.41283 21.9983 4.88586 21.3658 3.76002 20.24C2.63417 19.1142 2.00168 17.5872 2.00168 15.995C2.00168 14.4028 2.63417 12.8758 3.76002 11.75L12.33 3.18C13.0806 2.42811 14.0991 2.00518 15.1615 2.00424C16.2239 2.00331 17.2431 2.42444 17.995 3.175C18.7469 3.92557 19.1698 4.94407 19.1708 6.00647C19.1717 7.06886 18.7506 8.08811 18 8.84L9.41002 17.41C9.03473 17.7853 8.52574 17.9961 7.99502 17.9961C7.46429 17.9961 6.9553 17.7853 6.58002 17.41C6.20473 17.0347 5.9939 16.5257 5.9939 15.995C5.9939 15.4643 6.20473 14.9553 6.58002 14.58L15.07 6.1" stroke="#FAFAFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 
 
 
@@ -202,10 +202,10 @@ const SunIcon = ({ className, ...props }: IconProps) => (
     {...props}
   >
 
-<path d="M18.933 36.7532C28.7749 36.7532 36.7532 28.7749 36.7532 18.933C36.7532 9.09118 28.7749 1.11279 18.933 1.11279C9.09118 1.11279 1.11279 9.09118 1.11279 18.933C1.11279 28.7749 9.09118 36.7532 18.933 36.7532Z" stroke="#FAFBFB" stroke-width="0.548754" stroke-miterlimit="10"/>
-<path d="M27.8996 27.8996C32.8517 22.9476 32.8517 14.9186 27.8996 9.96657C22.9475 5.01449 14.9186 5.01449 9.96654 9.96657C5.01445 14.9187 5.01445 22.9476 9.96654 27.8996C14.9186 32.8517 22.9475 32.8517 27.8996 27.8996Z" stroke="#A2A1A9" stroke-width="0.548754" stroke-miterlimit="10"/>
-<path d="M21.8191 25.8992C25.6669 24.3054 27.4941 19.8942 25.9003 16.0464C24.3065 12.1987 19.8953 10.3715 16.0475 11.9653C12.1998 13.5591 10.3726 17.9703 11.9664 21.818C13.5602 25.6658 17.9714 27.493 21.8191 25.8992Z" stroke="#A2A1A9" stroke-width="0.548754" stroke-miterlimit="10"/>
-<path d="M18.9328 21.3339C17.6081 21.3339 16.5315 20.2562 16.5315 18.9326C16.5315 17.609 17.6092 16.5312 18.9328 16.5312C20.2564 16.5312 21.3342 17.609 21.3342 18.9326C21.3342 20.2562 20.2564 21.3339 18.9328 21.3339Z" stroke="#A2A1A9" stroke-width="0.548754" stroke-miterlimit="10"/>
+<path d="M18.933 36.7532C28.7749 36.7532 36.7532 28.7749 36.7532 18.933C36.7532 9.09118 28.7749 1.11279 18.933 1.11279C9.09118 1.11279 1.11279 9.09118 1.11279 18.933C1.11279 28.7749 9.09118 36.7532 18.933 36.7532Z" stroke="#FAFBFB" strokeWidth="0.548754" strokeMiterlimit="10"/>
+<path d="M27.8996 27.8996C32.8517 22.9476 32.8517 14.9186 27.8996 9.96657C22.9475 5.01449 14.9186 5.01449 9.96654 9.96657C5.01445 14.9187 5.01445 22.9476 9.96654 27.8996C14.9186 32.8517 22.9475 32.8517 27.8996 27.8996Z" stroke="#A2A1A9" strokeWidth="0.548754" strokeMiterlimit="10"/>
+<path d="M21.8191 25.8992C25.6669 24.3054 27.4941 19.8942 25.9003 16.0464C24.3065 12.1987 19.8953 10.3715 16.0475 11.9653C12.1998 13.5591 10.3726 17.9703 11.9664 21.818C13.5602 25.6658 17.9714 27.493 21.8191 25.8992Z" stroke="#A2A1A9" strokeWidth="0.548754" strokeMiterlimit="10"/>
+<path d="M18.9328 21.3339C17.6081 21.3339 16.5315 20.2562 16.5315 18.9326C16.5315 17.609 17.6092 16.5312 18.9328 16.5312C20.2564 16.5312 21.3342 17.609 21.3342 18.9326C21.3342 20.2562 20.2564 21.3339 18.9328 21.3339Z" stroke="#A2A1A9" strokeWidth="0.548754" strokeMiterlimit="10"/>
 
 
 
@@ -224,14 +224,14 @@ const HeavenEarthIcon = ({ className, ...props }: IconProps) => (
   >
 
 
-<path d="M31.6562 4.53605V4.45459L4.85846 4.45459V4.53605L31.6562 4.53605Z" stroke="#A2A1A9" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M35.5156 0.595703H1.00024V8.39468H35.5156V0.595703Z" stroke="#FAFBFB" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M34.229 7.10831V1.88184L2.2862 1.88184V7.10831L34.229 7.10831Z" stroke="#A2A1A9" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M32.9426 5.82242V3.16846L3.57233 3.16846V5.82242L32.9426 5.82242Z" stroke="#A2A1A9" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M35.5153 13.0493H1V20.8483H35.5153V13.0493Z" stroke="#FAFBFB" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M34.228 19.5634V14.3369L2.28522 14.3369V19.5634H34.228Z" stroke="#A2A1A9" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M32.9419 18.277V15.623L3.5716 15.623V18.277H32.9419Z" stroke="#A2A1A9" stroke-width="0.428751" stroke-miterlimit="10"/>
-<path d="M31.6555 16.9911V16.9097H4.85773V16.9911H31.6555Z" stroke="#A2A1A9" stroke-width="0.428751" stroke-miterlimit="10"/>
+<path d="M31.6562 4.53605V4.45459L4.85846 4.45459V4.53605L31.6562 4.53605Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M35.5156 0.595703H1.00024V8.39468H35.5156V0.595703Z" stroke="#FAFBFB" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M34.229 7.10831V1.88184L2.2862 1.88184V7.10831L34.229 7.10831Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M32.9426 5.82242V3.16846L3.57233 3.16846V5.82242L32.9426 5.82242Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M35.5153 13.0493H1V20.8483H35.5153V13.0493Z" stroke="#FAFBFB" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M34.228 19.5634V14.3369L2.28522 14.3369V19.5634H34.228Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M32.9419 18.277V15.623L3.5716 15.623V18.277H32.9419Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
+<path d="M31.6555 16.9911V16.9097H4.85773V16.9911H31.6555Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
 
 
 </svg>
@@ -247,10 +247,10 @@ const ObeliskIcon = ({ className, ...props }: IconProps) => (
   >
 
 
-<path d="M0.386719 42.3128L4.67969 9.37392L12.6938 0.881836L20.707 9.37392L24.9999 42.3128H0.386719Z" stroke="#FAFBFB" stroke-width="0.483769" stroke-miterlimit="10"/>
-<path d="M21.4775 39.2187H3.90991L7.61849 10.7682L12.6942 5.38965L17.7689 10.7682L21.4775 39.2187Z" stroke="#A2A1A9" stroke-width="0.483769" stroke-miterlimit="10"/>
-<path d="M7.43262 36.1255L10.5568 12.1625L12.6941 9.89746L14.8314 12.1625L17.9546 36.1255H7.43262Z" stroke="#A2A1A9" stroke-width="0.483769" stroke-miterlimit="10"/>
-<path d="M10.9563 33.031L12.694 19.7012L14.4307 33.031H10.9563Z" stroke="#A2A1A9" stroke-width="0.483769" stroke-miterlimit="10"/>
+<path d="M0.386719 42.3128L4.67969 9.37392L12.6938 0.881836L20.707 9.37392L24.9999 42.3128H0.386719Z" stroke="#FAFBFB" strokeWidth="0.483769" strokeMiterlimit="10"/>
+<path d="M21.4775 39.2187H3.90991L7.61849 10.7682L12.6942 5.38965L17.7689 10.7682L21.4775 39.2187Z" stroke="#A2A1A9" strokeWidth="0.483769" strokeMiterlimit="10"/>
+<path d="M7.43262 36.1255L10.5568 12.1625L12.6941 9.89746L14.8314 12.1625L17.9546 36.1255H7.43262Z" stroke="#A2A1A9" strokeWidth="0.483769" strokeMiterlimit="10"/>
+<path d="M10.9563 33.031L12.694 19.7012L14.4307 33.031H10.9563Z" stroke="#A2A1A9" strokeWidth="0.483769" strokeMiterlimit="10"/>
 </svg>
 
 )
@@ -267,10 +267,10 @@ const PyramidIcon = ({ className, ...props }: IconProps) => (
   >
 
 
-<path d="M21.1818 1L0.999756 35.955H41.3626L21.1818 1Z" stroke="#FAFBFB" stroke-width="0.599407" stroke-miterlimit="10"/>
-<path d="M5.77612 33.1984L21.1821 6.51514L36.5881 33.1984H5.77612Z" stroke="#A2A1A9" stroke-width="0.599407" stroke-miterlimit="10"/>
-<path d="M10.551 30.4402L21.1821 12.0288L31.812 30.4402H10.551Z" stroke="#A2A1A9" stroke-width="0.599407" stroke-miterlimit="10"/>
-<path d="M15.3269 27.6845L21.1819 17.5449L27.0357 27.6845H15.3269Z" stroke="#A2A1A9" stroke-width="0.599407" stroke-miterlimit="10"/>
+<path d="M21.1818 1L0.999756 35.955H41.3626L21.1818 1Z" stroke="#FAFBFB" strokeWidth="0.599407" strokeMiterlimit="10"/>
+<path d="M5.77612 33.1984L21.1821 6.51514L36.5881 33.1984H5.77612Z" stroke="#A2A1A9" strokeWidth="0.599407" strokeMiterlimit="10"/>
+<path d="M10.551 30.4402L21.1821 12.0288L31.812 30.4402H10.551Z" stroke="#A2A1A9" strokeWidth="0.599407" strokeMiterlimit="10"/>
+<path d="M15.3269 27.6845L21.1819 17.5449L27.0357 27.6845H15.3269Z" stroke="#A2A1A9" strokeWidth="0.599407" strokeMiterlimit="10"/>
 </svg>
 
 )

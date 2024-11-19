@@ -1,8 +1,8 @@
-import { IMPACT_TEXT, SDG_GOALS } from "@/lib/constants";
+import { IMPACT_TEXT, SDG_GOALS } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { gradientText } from "./hero";
 import RadialGradient from "./radial-gradient";
-import Image from "next/image";
 
 const ImpactSection = () => {
   return (
@@ -27,7 +27,7 @@ const ImpactSection = () => {
       <div className="flex flex-row w-full h-full relative">
         { IMPACT_TEXT.map((impact) => (
         <div className={cn("flex-1  relative ", impact.footer && "border-r border-[#555555] border-opacity-25")}>
-          <div className="flex flex-col gap-5 py-[54px] px-[54px]">
+          <div key={impact.idx} className="flex flex-col gap-5 py-[54px] px-[54px]">
             <h1 className=" text-[32px] font-[family-name:var(--font-machina)]">{impact.title}</h1>
             <p className="text-[20px] text-muted-foreground">{impact.description}</p>
             {impact.footer &&

@@ -37,7 +37,7 @@ export const PROJECTS: ProjectCardProps[]=[
   {
     idx: 2,
     title: "Enterprise CAD training",
-    customer: "MiningPro",
+    client: "MiningPro",
     description: "looked to IMHO to train their new engineering team in the use of AutoCAD, from beginner to advanced levels. The skills training aimed to balance effective CAD systems with highly skilled experts.",
     service: "Beginer level to Advanced level AutoCAD and enterprise CAD management system",
     type: "Skill Development and Training",
@@ -47,15 +47,54 @@ export const PROJECTS: ProjectCardProps[]=[
   },
   {
     idx: 3,
-    title: "Enterprise CAD training",
-    customer: "MiningPro",
-    description: "looked to IMHO to train their new engineering team in the use of AutoCAD, from beginner to advanced levels. The skills training aimed to balance effective CAD systems with highly skilled experts.",
-    service: "Beginer level to Advanced level AutoCAD and enterprise CAD management system",
-    type: "Skill Development and Training",
+    title: "Industrial Paper Management System",
+    client: "TCC-CIMET",
+    description:"TCC-CIMET looked to IMHO to help solve one of the university's oldest problem; a lot of waste papers and an ineffective way of managing. The equipment compacts paper, bloats out the ink, and bails it for reuse in industy.",
+    service: "Engineering Design, Prototyping and Testing",
+    type: "Industry Equipment",
     date:"2024",
+
     image:"",
     Video:""
-  }
+  },
+  {
+    idx: 4,
+    title: "Bitumen Mixer",
+    client: "TRECK",
+    description:"Researchers at the Transport Research and Education Centre Kumasi (TRECK) collaborated with IMHO and TCC-CIMET to design a specialized mixer for Bitumen and additive mixture.",
+    service: "Engineering Design Fabrication, Test and Operation",
+    type: "Specialized equipment for Researcher",
+    date:"2024",
+
+    image:"",
+    Video:""
+  },
+  {
+    idx: 5,
+    title: "Simple Pyrolysis System",
+    client: "Commeph and Associate",
+    description:"Senior Researcher Michael Commey engaged IMHO to conceptualize and develop engineering design documentation for a simple pyrolysis system for plastic fuel conversation. Read this article of success of the work.",
+
+    service: "Conceptual Development, Engineering Design Drawing, and 3D rendering",
+    type: "Process based  project",
+    date:"2024",
+
+    image:"",
+    Video:""
+  },
+  {
+    idx: 6,
+    title: "Breserve",
+    client: "WellFed",
+    description:"Wellfed collaborated with IMHO to design a modular evaporative cooling for vegetable storage, specifically tomatoes storage",
+
+    service: "Engineering Design, Prototyping, and Testing",
+    type: "Product Development for Startup",
+    date:"2024",
+
+    image:"",
+    Video:""
+  },
 ]
 
 export const MARQUEE: MarqueeProps[] = [
@@ -129,9 +168,12 @@ export const MARQUEE: MarqueeProps[] = [
 ]
 export const IMPACT_TEXT = [
   {
+
+    idx: 1,
     title: "Improved Products and Processes",
     description: "Small and medium-scale enterprises and startups have experienced massive growth in their businesses through improved product solutions, machine design, and process optimization.",
     footer: "This is driving a surge in enterprises actively solving problems across the continent.",
+
   },
   {
     title: "Increased Youth Skilled In Engineering Design Skill",

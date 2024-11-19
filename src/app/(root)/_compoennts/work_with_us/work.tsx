@@ -1,8 +1,7 @@
-import React from 'react'
+import { WORK_WITH_US } from '@/lib/data'
 import GradientTextHeader from '../gradient-text-header'
-import WorkCard from './work-card'
-import { WORK_WITH_US } from '@/lib/constants'
 import RadialGradient from '../radial-gradient'
+import WorkCard from './work-card'
 
 const WorkWithUs = () => {
   return (

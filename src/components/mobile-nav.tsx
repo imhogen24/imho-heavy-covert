@@ -1,5 +1,5 @@
 'use client'
-import { NAV_ITEMS } from "@/lib/constants"
+import { NAV_ITEMS } from "@/lib/data"
 import { CloseIcon } from "@/lib/icons"
 import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"

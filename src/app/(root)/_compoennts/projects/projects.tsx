@@ -1,7 +1,7 @@
-import { PROJECTS } from '@/lib/constants'
+import { PROJECTS } from '@/lib/data'
+import { cn } from '@/lib/utils'
 import GradientTextHeader from '../gradient-text-header'
 import ProjectCard from './project-card'
-import { cn } from '@/lib/utils'
 
 const projects = () => {
   return (

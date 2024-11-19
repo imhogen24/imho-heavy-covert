@@ -14,7 +14,7 @@ export type WorkWithUsProps = {
 export interface ProjectCardProps{
   idx: number;
   title: string;
-  customer: string;
+  client: string;
   description: string;
   type: string;
   service: string;
@@ -30,6 +30,7 @@ export interface MarqueeProps{
   ImageHeight?: number;
 }
 export interface ImpactTextProps{
+    idx: number;
     title: string;
     description: string;
     footer?: string;

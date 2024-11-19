@@ -1,8 +1,7 @@
 import Marquee from "@/components/ui/marquee";
-import { MARQUEE } from "@/lib/constants";
-import Image from "next/image";
-import GradientTextHeader from "./gradient-text-header";
+import { MARQUEE } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { gradientText } from "./hero";
 
 const CommitedTo =()=>{
