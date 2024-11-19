@@ -6,7 +6,7 @@ import RadialGradient from '../radial-gradient'
 
 const WorkWithUs = () => {
   return (
-    <div className='flex justify-center items-center flex-col border-x border-[#555555] border-opacity-25'>
+    <div className='bg-background flex justify-center items-center flex-col border-x border-[#555555] border-opacity-25'>
 
       <GradientTextHeader text="Work With Us"/>
       <div className='border-t border-[#555555] border-opacity-25 grid grid-cols-1 md:grid-cols-2'>

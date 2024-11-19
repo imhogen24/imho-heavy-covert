@@ -7,7 +7,7 @@ interface TextProps{
 const GradientTextHeader = (props: TextProps)=>{
   return(
 
-      <div className=" flex flex-col items-center w-[446px] m-auto gap-[16px] py-[54px]">
+      <div className=" flex flex-col items-center min-w-[446px] m-auto gap-[16px] py-[54px]">
           <h2 className={cn("text-center text-[32px] font-[family-name:var(--font-machina)]", gradientText)}>
             {props.text}
           </h2>

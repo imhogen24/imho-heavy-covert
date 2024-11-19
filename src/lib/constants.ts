@@ -5,30 +5,30 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
   {
     idx: 0,
     icon: SunIcon,
-    title: "Consulting",
-    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
-    footer: "Contact us to learn more about our consulting services."
+    title: "Design and Develop a Physical Product",
+    description: "Bring us on board to transform your ideas, requirements, and constraints into a physical product. From the engineering design phase, where exceptional function and form are seamlessly blended to create a robust product, we cover all aspects, including machine design, industrial design, prototyping, and testing."
+
   },
   {
     idx: 1,
     icon: PyramidIcon,
-    title: "Consulting",
-    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
-    footer: "Contact us to learn more about our consulting services."
+    title: "Training and Engineering Team Support",
+    description: "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. ",
+    footer: "Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting."
   },
   {
     idx: 2,
     icon: HeavenEarthIcon,
-    title: "Consulting",
-    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
-    footer: "Contact us to learn more about our consulting services."
+    title: "Design and Develop a Process",
+    description: "Our engineering team well vested in systems design can help optimize your processes be it manufacturing, materials, and various forms of production systems.",
+    footer: "Improve efficiency, safety, reduce cost, overall output and quality"
   },
   {
     idx: 3,
     icon: ObeliskIcon,
-    title: "Consulting",
-    description: "We provide consulting services to help you develop your product, process, or system. Our team of experts will work with you to develop a solution that meets your needs.",
-    footer: "Contact us to learn more about our consulting services."
+    title: "Engineering Drawing and Draftwork",
+    description: "Rely on our drafting team to document your designs and prototypes through detailed models, engineering drawings, and 3D renderings—whether for manufacturing, patent filings, presentations, marketing, user manuals, or academic publications.",
+
   }
 ]
 

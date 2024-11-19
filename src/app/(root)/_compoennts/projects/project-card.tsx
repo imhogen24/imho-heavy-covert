@@ -5,7 +5,7 @@ import { gradientText } from '../hero'
 
 const ProjectCard = (props: ProjectCardProps) => {
   return (
-    <div className={cn("flex w-full h-full border-y border-[#555555] border-opacity-25",
+    <div className={cn(" bg-background flex w-full h-full border-y border-[#555555] border-opacity-25",
                    (props.idx % 2 === 0) ?
                     'flex-row'
                     :'flex-row-reverse')}>
@@ -28,7 +28,7 @@ const ProjectCard = (props: ProjectCardProps) => {
                       :'border-r'
       )}>
          <div className='flex flex-col gap-8'>
-        <h1 className='text-muted-foreground'> 
+        <h1 className='text-muted-foreground'>
        <span className={cn(gradientText)}>{props.customer}</span> {props.description}</h1>
 
        <h1 className='text-muted-foreground'>

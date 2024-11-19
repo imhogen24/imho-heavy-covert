@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 const projects = () => {
   return (
-    <div className='border border-[#555555] border-opacity-25'>
+    <div className='w-full h-full bg-background border border-[#555555] border-opacity-25'>
       <GradientTextHeader text={"Some Projects"}/>
 
      {PROJECTS.map((item, index)=>(

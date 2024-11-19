@@ -9,7 +9,7 @@ export type WorkWithUsProps = {
   icon: React.FC<IconProps>
   title: string
   description: string
-  footer: string
+  footer?: string
 }
 export interface ProjectCardProps{
   idx: number;

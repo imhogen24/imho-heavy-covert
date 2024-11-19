@@ -8,7 +8,7 @@ export const Hero = () => {
 
 
     return (
-        <div className="w-full border border-[#555555] bg-[#09090B]  border-opacity-25 flex p-[100px] min-h-[400px] flex-col lg:flex-row items-center justify-center gap-[61px]
+        <div className="w-full border-x border-b border-[#555555] bg-background  border-opacity-25 flex p-[100px] min-h-[400px] flex-col lg:flex-row items-center justify-center gap-[61px]
       ">
         <div className="flex-1 flex items-center max-w-[500px] h-[168px]">
           <h1 className={cn("text-center lg:text-left lg:text-[38px] font-[family-name:var(--font-machina)]")}>

@@ -12,6 +12,7 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const machina = localFont({
   src: "./fonts/NeueMachina-Ultrabold.otf",
   variable: "--font-machina",
@@ -29,32 +30,49 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body
-            className={cn(`${geistSans.variable} ${machina.variable}` , "flex flex-col min-h-dvh antialiased font-[family-name:var(--font-geist-sans)] lg:max-w-[1200px] mx-auto") }
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          `${geistSans.variable} ${machina.variable}`,
+          "relative min-h-dvh antialiased",
+          "font-[family-name:var(--font-geist-sans)]"
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          //forcedTheme="light"
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            //forcedTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          > <DesktopNav />
-          <MobileNav />
-            <GridPattern
-                 width={100}
-                 height={100}
-                 x={-1}
-                 y={-1}
-                 className={cn( "mt-44 lg:mt-0 max-w-[1200px] border border-[#555555] opacity-30  dark:opacity-90      border-opacity-25 mx-auto -z-50" )}
-        />
+          {/* Background Grid Container */}
+          <div className="fixed inset-0 overflow-hidden pointer-events-none">
+            <div className="relative h-full max-w-[1200px] mx-auto">
+              <GridPattern
+                width={100}
+                height={100}
+                x={-1}
+                y={-1}
+                className={cn(
+                  "absolute inset-0",
+                  "border border-[#555555] border-opacity-25",
+                  "opacity-30 dark:opacity-90 -z-50"
+                )}
+              />
+            </div>
+          </div>
 
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+          {/* Main Content Container */}
+          <div className="relative flex flex-col min-h-dvh max-w-[1200px] mx-auto">
+            <DesktopNav />
+            <MobileNav />
+            <main className="flex-grow ">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

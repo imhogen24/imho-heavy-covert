@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const ImpactSection = () => {
   return (
-    <div className="flex flex-col justify-center items-center relative h-full w-full border border-[#555555]  border-opacity-25">
+    <div className="bg-background flex flex-col justify-center items-center relative h-full w-full border border-[#555555]  border-opacity-25">
 
       <div className="flex w-full h-[215px]"
              style={{
