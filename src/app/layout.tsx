@@ -1,16 +1,18 @@
+import DesktopNav from "@/components/desktop-nav";
+import MobileNav from "@/components/mobile-nav";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import GridPattern from "@/components/ui/grid-pattern";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { DesktopNav } from "@/components/desktop-nav";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const machina = localFont({
   src: "./fonts/NeueMachina-Ultrabold.otf",
   variable: "--font-machina",
@@ -28,30 +30,49 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
-        <body
-            className={cn(`${geistSans.variable} ${machina.variable}` , "antialiased font-[family-name:var(--font-geist-sans)] lg:max-w-[1200px] mx-auto") }
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          `${geistSans.variable} ${machina.variable}`,
+          "relative min-h-dvh antialiased",
+          "font-[family-name:var(--font-geist-sans)]"
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          //forcedTheme="light"
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <GridPattern
-                 width={100}
-                 height={100}
-                 x={-1}
-                 y={-1}
-                 className={cn( "lg:max-w-[1200.5px] border border-[#555555] border-opacity-25 mx-auto -z-50" )}
-        /> <DesktopNav />
-            {children}
+          {/* Background Grid Container */}
+          <div className="fixed inset-0 overflow-hidden pointer-events-none">
+            <div className="relative h-full max-w-[1200px] mx-auto">
+              <GridPattern
+                width={100}
+                height={100}
+                x={-1}
+                y={-1}
+                className={cn(
+                  "absolute inset-0",
+                  "border border-[#555555] border-opacity-25",
+                  "opacity-30 dark:opacity-90 -z-50"
+                )}
+              />
+            </div>
+          </div>
 
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+          {/* Main Content Container */}
+          <div className="relative flex flex-col min-h-dvh max-w-[1200px] mx-auto">
+            <DesktopNav />
+            <MobileNav />
+            <main className="flex-grow ">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

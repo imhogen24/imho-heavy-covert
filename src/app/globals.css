@@ -48,7 +48,7 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 6% 90% 100%;
+    --border: 240 6% 90%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
     --chart-1: 220 70% 50%;
@@ -59,7 +59,7 @@
     --frame-border: 240 3% 23% 80%;
     --brand-color: 31 100% 47% 100%;
     --crossbar: 240 5% 96% 90%;
-    --grid-color: 0 0% 33% 100%;
+    --grid-color: 0 0% 33%;
     --grid-color-cutout: 0 0% 33% 60%;
     --ouline-button-border:0 5% 27% 14%;
     --ouline-button-background: 0 2% 39% 1%;
@@ -75,4 +75,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+
+}
+
+.radial-gradient {
+  background-image: radial-gradient(closest-side, rgba(255, 255, 255, 0.8));
 }
