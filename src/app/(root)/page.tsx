@@ -11,7 +11,7 @@ import WorkWithUs from "./_compoennts/work_with_us/work";
 
 export default function Home() {
   return (
-    <div className="flex flex-col relative top-[200px] bg-backgorund">
+    <div className="flex flex-col relative  bg-backgorund">
 
       <Hero/>
       <VideoSection/>
