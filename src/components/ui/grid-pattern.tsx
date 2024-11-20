@@ -40,7 +40,7 @@ export const GridPattern = ({
       {...props}
     >
       <defs>
-        <pattern
+        {/* <pattern
           id={patternId}
           width={width}
           height={height}
@@ -69,7 +69,7 @@ export const GridPattern = ({
               vectorEffect="non-scaling-stroke"
             />
           </g>
-        </pattern>
+        </pattern> */}
 
         <pattern
           id={subPatternId}

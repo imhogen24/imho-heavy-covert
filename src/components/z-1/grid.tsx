@@ -38,7 +38,7 @@ export const ResponsiveGrid = ({
       {...props}
     >
       <defs>
-        {/* Main grid pattern */}
+        {/* Main grid pattern
         <pattern
           id={patternId}
           width={gridSize}
@@ -51,7 +51,7 @@ export const ResponsiveGrid = ({
             strokeWidth={mainLineWidth}
             opacity={mainLineOpacity}
           />
-        </pattern>
+        </pattern> */}
 
         {/* Sub grid pattern */}
         <pattern

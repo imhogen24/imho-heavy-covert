@@ -35,7 +35,7 @@ export default function RootLayout({
       <body
         className={cn(
           `${geistSans.variable} ${machina.variable}`,
-          "relative min-h-dvh antialiased",
+          "relative min-h-dvh antialiased overflow-hidden",
           "font-[family-name:var(--font-geist-sans)]"
         )}
       >
@@ -49,25 +49,25 @@ export default function RootLayout({
           {/* Background Grid Container */}
           <div className="fixed inset-0 overflow-hidden pointer-events-none">
             <div className="relative h-full max-w-[1200px] mx-auto">
-              <GridPattern
+                <GridPattern
                 width={100}
                 height={100}
                 x={-1}
                 y={-1}
                 className={cn(
-                  "absolute inset-0",
-                  "border border-[#555555] border-opacity-25",
-                  "opacity-30 dark:opacity-90 -z-50"
+                  "absolute inset-0  lg:mt-0",
+                  "overflow-x-hidden",
+                  " -z-50"
                 )}
               />
             </div>
           </div>
 
           {/* Main Content Container */}
-          <div className="relative flex flex-col min-h-dvh max-w-[1200px] mx-auto">
+          <div className="relative flex flex-col min-h-dvh lg:max-w-[980px] xl:max-w-[1200px] mx-auto">
             <DesktopNav />
             <MobileNav />
-            <main className="flex-grow ">
+            <main className="flex-grow relative mt-[150px] lg:mt-0">
               {children}
             </main>
           </div>
