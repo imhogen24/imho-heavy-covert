@@ -1,6 +1,6 @@
 import { ProjectCardProps } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { gradientText } from '../hero'
+import { gradientText } from '../hero/hero'
 
 
 const ProjectCard = (props: ProjectCardProps) => {

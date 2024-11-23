@@ -43,7 +43,7 @@ export const MobileNav = () => {
   }, [])
 
   return (
-    <nav className="z-50 inset-0 flex lg:hidden m-auto sticky w-full px-[10px] py-[5px] justify-center items-end">
+    <nav className="z-50 flex lg:hidden mx-auto mt-[24px] absolute buttom-0 w-full px-[10px] py-[5px] justify-center items-end">
       <motion.div
         className={cn(baseStyles)}
         variants={menuVariants}

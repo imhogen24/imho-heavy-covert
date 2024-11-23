@@ -1,14 +1,19 @@
 import { Button } from "@/components/ui/button"
 import { ScheduleMeetingIcon } from "@/lib/icons"
 import { cn } from "@/lib/utils"
+import MobileHero from "./mobile-hero"
 
  export const gradientText = "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]"
 export const Hero = () => {
 
 
 
-    return (
-    <div className="w-full  bg-background border-[#555555] mx-[10px] lg:mx-0 border-opacity-25 flex bg-white h-[400px] lg:p-[100px] min-h-[400px] flex-col lg:flex-row items-center justify-center lg:gap-[61px]
+return (
+  <>
+
+
+    <MobileHero/>
+    <div className="w-full md:w-[500px] lg:w-full mx-auto bg-background border-x border-b border-[#555555] lg:mx-0 border-opacity-25 flex h-[400px] lg:p-[100px] min-h-[400px] flex-col lg:flex-row items-center justify-center lg:gap-[61px]
       ">
         <div className="lg:flex-1 flex items-center  lg:max-w-[500px] lg:h-[168px]">
           {/* text size for small screens is actually 24 on small screens */}
@@ -32,5 +37,6 @@ export const Hero = () => {
        </div>
 
         </div>
+        </>
     )
 }

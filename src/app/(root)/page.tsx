@@ -1,5 +1,5 @@
 import CommitedTo from "./_compoennts/commited-to";
-import { Hero } from "./_compoennts/hero";
+import { Hero } from "./_compoennts/hero/hero";
 import ImpactSection from "./_compoennts/impact";
 import Projects from "./_compoennts/projects/projects";
 import TheTeam from "./_compoennts/The_team/the-team";

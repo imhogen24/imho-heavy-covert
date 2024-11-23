@@ -1,11 +1,12 @@
 import DesktopNav from "@/components/desktop-nav";
 import MobileNav from "@/components/mobile-nav";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import GridPattern from "@/components/ui/grid-pattern";
+
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import HeroGrid from "./(root)/_compoennts/layout/hero-grid";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +36,7 @@ export default function RootLayout({
       <body
         className={cn(
           `${geistSans.variable} ${machina.variable}`,
-          "relative min-h-dvh antialiased overflow-hidden",
+          "relative min-h-dvh antialiased",
           "font-[family-name:var(--font-geist-sans)]"
         )}
       >
@@ -47,27 +48,15 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {/* Background Grid Container */}
-          <div className="fixed inset-0 overflow-hidden pointer-events-none">
-            <div className="relative h-full max-w-[1200px] mx-auto">
-                <GridPattern
-                width={100}
-                height={100}
-                x={-1}
-                y={-1}
-                className={cn(
-                  "absolute inset-0  lg:mt-0",
-                  "overflow-x-hidden",
-                  " -z-50"
-                )}
-              />
-            </div>
+          <div className="fixed px-[10px] md:px-[11px] lg:px-0  inset-0 overflow-x-hidden pointer-events-none">
+            <HeroGrid/>
           </div>
 
           {/* Main Content Container */}
-          <div className="relative flex flex-col min-h-dvh lg:max-w-[980px] xl:max-w-[1200px] mx-auto">
+          <div className="relative px-[10px] md:px-[11px] lg:px-0 flex flex-col min-h-dvh lg:max-w-[980px] xl:max-w-[1200px] mx-auto">
             <DesktopNav />
             <MobileNav />
-            <main className="flex-grow relative mt-[150px] lg:mt-0">
+            <main className="mt-[120px] md:mt-[150px] lg:mt-0">
               {children}
             </main>
           </div>
