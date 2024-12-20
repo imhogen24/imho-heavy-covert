@@ -1,5 +1,5 @@
-import DesktopNav from "@/components/desktop-nav";
-import MobileNav from "@/components/mobile-nav";
+import DesktopNav from "@/components/navigations/desktop-nav";
+import MobileNav from "@/components/navigations/mobile-nav";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import GridPattern from "@/components/ui/grid-pattern";
 import { cn } from "@/lib/utils";
@@ -46,27 +46,7 @@ export default function RootLayout({
           //forcedTheme="light"
           disableTransitionOnChange
         >
-          {/* Background Grid Container */}
-          <div className="fixed inset-0 overflow-hidden pointer-events-none">
-            <div className="relative h-full max-w-[1200px] mx-auto">
-                <GridPattern
-                width={100}
-                height={100}
-                x={-1}
-                y={-1}
-                className={cn(
-                  "absolute inset-0  lg:mt-0",
-                  "overflow-x-hidden",
-                  " -z-50"
-                )}
-              />
-            </div>
-          </div>
-
-          {/* Main Content Container */}
-          <div className="relative flex flex-col min-h-dvh lg:max-w-[980px] xl:max-w-[1200px] mx-auto">
-            <DesktopNav />
-            <MobileNav />
+            <div className="relative flex flex-col min-h-dvh lg:max-w-[980px] xl:max-w-[1200px] mx-auto border-x border-[#555555] border-opacity-5">
             <main className="flex-grow relative mt-[150px] lg:mt-0">
               {children}
             </main>

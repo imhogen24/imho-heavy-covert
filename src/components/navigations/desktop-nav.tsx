@@ -1,7 +1,7 @@
 import { NAV_ITEMS } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 
  const DesktopNav = () => {

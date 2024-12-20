@@ -7,7 +7,7 @@ import { Menu } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useState } from "react"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 
 const baseStyles = "flex w-[800px] bg-gradient-to-r from-[#09090B] from-10% via-[#2D2D30] via-50% to-[#09090B] mx-auto px-[32px] py-[16px]"
 
