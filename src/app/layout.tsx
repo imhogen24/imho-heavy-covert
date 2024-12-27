@@ -1,11 +1,10 @@
-import DesktopNav from "@/components/navigations/desktop-nav";
-import MobileNav from "@/components/navigations/mobile-nav";
+
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import GridPattern from "@/components/ui/grid-pattern";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Navbar } from "@/components/nav/navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,29 +29,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
-      <body
-        className={cn(
-          `${geistSans.variable} ${machina.variable}`,
-          "relative min-h-dvh antialiased overflow-hidden",
-          "font-[family-name:var(--font-geist-sans)]"
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          //forcedTheme="light"
-          disableTransitionOnChange
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body
+            className={cn(`${geistSans.variable} ${machina.variable}` , "antialiased font-[family-name:var(--font-geist-sans)]") }
         >
-            <div className="relative flex flex-col min-h-dvh lg:max-w-[980px] xl:max-w-[1200px] mx-auto border-x border-[#555555] border-opacity-5">
-            <main className="flex-grow relative mt-[150px] lg:mt-0">
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          > <Navbar/>
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
   );
 }

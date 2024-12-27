@@ -7,11 +7,11 @@ body{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  
+
 }
 @layer base {
   :root {
-    --background: 0 0% 98%;
+    --background: 0 0% 98% 1;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -38,8 +38,7 @@ body{
     --radius: 2.5rem;
   }
   .dark {
-
-    --background: 240 10% 4%;
+    --background: 240 10% 4% 1%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;

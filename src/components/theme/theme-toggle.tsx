@@ -1,51 +1,26 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { MonitorCogIcon, MoonIcon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+'use client'
+import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import { Button } from "@/components/ui/button"
 
-const ToggleMode = () => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+export function ModeToggle() {
+  const { theme, setTheme } = useTheme()
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light")
+  }
 
   return (
-    <div className="w-fit rounded-full border grid grid-cols-3">
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={toggleTheme}
+      className="relative"
+    >
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
-      <span
-        className={cn(
-          "w-fit p-1 h-fit cursor-pointer transition-all",
-          theme === "system" && "border rounded-full"
-        )}
-        onClick={() => setTheme("system")}
-      >
-        <MonitorCogIcon size={16} className="m-auto" />
-      </span>
-      <span
-        className={cn(
-          "w-fit p-1 h-fit cursor-pointer transition-all",
-          theme === "light" && "border rounded-full"
-        )}
-        onClick={() => setTheme("light")}
-      >
-        <Sun size={16} className="m-auto" />
-      </span>
-      <span
-        className={cn(
-          "w-fit p-1 h-fit cursor-pointer transition-all",
-          theme === "dark" && "border rounded-full"
-        )}
-        onClick={() => setTheme("dark")}
-      >
-        <MoonIcon size={16} className="m-auto" />
-      </span>
-    </div>
-  );
-};
-
-export default ToggleMode;
+    </Button>
+  )
+}

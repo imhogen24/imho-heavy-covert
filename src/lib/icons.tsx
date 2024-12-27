@@ -151,7 +151,7 @@ const HamburgerIcon = ({ className, ...props }: IconProps) => (
     className={cn(className)}
     {...props}
   >
-    <path d="M4 12H20M4 6H20M4 18H20" stroke="#FAFAFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M4 12H20M4 6H20M4 18H20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 
   </svg>
 );
