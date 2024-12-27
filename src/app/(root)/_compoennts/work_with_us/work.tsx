@@ -1,4 +1,4 @@
-import { WORK_WITH_US } from '@/lib/data'
+import { WORK_WITH_US } from '@/lib/constants'
 import GradientTextHeader from '../gradient-text-header'
 import RadialGradient from '../radial-gradient'
 import WorkCard from './work-card'

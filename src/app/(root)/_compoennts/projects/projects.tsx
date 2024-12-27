@@ -1,4 +1,4 @@
-import { PROJECTS } from '@/lib/data'
+import { PROJECTS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import GradientTextHeader from '../gradient-text-header'
 import ProjectCard from './project-card'
