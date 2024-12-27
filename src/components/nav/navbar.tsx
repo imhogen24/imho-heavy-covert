@@ -1,10 +1,9 @@
-import { NAV_ITEMS } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../theme/theme-toggle";
-import Humburger from "./hamburger";
 import MobileHamburger from "./hamburger";
+import { NAV_ITEMS } from "@/lib/constants";
 
 
 export const Navbar = () => {
