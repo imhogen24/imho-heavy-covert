@@ -223,6 +223,11 @@ export const NAV_ITEMS: NavItemProps[] = [
         href: "/#about",
     },
     {
+        id: 4,
+        label: "Services",
+        href: "/#services",
+    },
+    {
         id: 3,
         label: "Our team",
         href: "/#team",
