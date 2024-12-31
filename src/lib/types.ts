@@ -1,5 +1,16 @@
 import { SVGProps } from 'react'
 
+
+export interface SocialIconProps{
+    idx: number;
+    icon: React.FC<IconProps> | undefined;
+    href: string;
+}
+export interface HeroIconProps {
+    idx: number;
+    icon: React.FC<IconProps> | undefined;
+
+}
 export interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }

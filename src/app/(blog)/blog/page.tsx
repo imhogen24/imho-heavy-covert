@@ -3,7 +3,7 @@ const BlogPage=()=>{
         <div className=" flex flex-col items-center justify-center gap-5">
             <h1>Blog page</h1>
             <p>Blog page content</p>
-            
+
         </div>
     )
 }

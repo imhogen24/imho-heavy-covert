@@ -192,9 +192,9 @@ const FilePickerIcon = ({ className, ...props }: IconProps) => (
 
 const SunIcon = ({ className, ...props }: IconProps) => (
   <svg
-    width="38"
-    height="38"
-    viewBox="0 0 38 38"
+    width="81"
+    height="81"
+    viewBox="0 0 81 81"
     fill="none"
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -202,10 +202,17 @@ const SunIcon = ({ className, ...props }: IconProps) => (
     {...props}
   >
 
-<path d="M18.933 36.7532C28.7749 36.7532 36.7532 28.7749 36.7532 18.933C36.7532 9.09118 28.7749 1.11279 18.933 1.11279C9.09118 1.11279 1.11279 9.09118 1.11279 18.933C1.11279 28.7749 9.09118 36.7532 18.933 36.7532Z" stroke="#FAFBFB" strokeWidth="0.548754" strokeMiterlimit="10"/>
-<path d="M27.8996 27.8996C32.8517 22.9476 32.8517 14.9186 27.8996 9.96657C22.9475 5.01449 14.9186 5.01449 9.96654 9.96657C5.01445 14.9187 5.01445 22.9476 9.96654 27.8996C14.9186 32.8517 22.9475 32.8517 27.8996 27.8996Z" stroke="#A2A1A9" strokeWidth="0.548754" strokeMiterlimit="10"/>
-<path d="M21.8191 25.8992C25.6669 24.3054 27.4941 19.8942 25.9003 16.0464C24.3065 12.1987 19.8953 10.3715 16.0475 11.9653C12.1998 13.5591 10.3726 17.9703 11.9664 21.818C13.5602 25.6658 17.9714 27.493 21.8191 25.8992Z" stroke="#A2A1A9" strokeWidth="0.548754" strokeMiterlimit="10"/>
-<path d="M18.9328 21.3339C17.6081 21.3339 16.5315 20.2562 16.5315 18.9326C16.5315 17.609 17.6092 16.5312 18.9328 16.5312C20.2564 16.5312 21.3342 17.609 21.3342 18.9326C21.3342 20.2562 20.2564 21.3339 18.9328 21.3339Z" stroke="#A2A1A9" strokeWidth="0.548754" strokeMiterlimit="10"/>
+   <g opacity="0.6" clip-path="url(#clip0_1149_237)">
+<path d="M68.3287 68.3272C83.8197 52.8361 83.8197 27.7202 68.3287 12.2291C52.8376 -3.26192 27.7217 -3.26192 12.2307 12.2291C-3.26039 27.7202 -3.26039 52.8361 12.2307 68.3272C27.7217 83.8182 52.8376 83.8182 68.3287 68.3272Z" stroke="#FAFBFB" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M60.2391 60.2374C71.2623 49.2142 71.2623 31.3421 60.2391 20.3189C49.2159 9.29569 31.3438 9.2957 20.3206 20.3189C9.29739 31.3421 9.29739 49.2142 20.3206 60.2374C31.3438 71.2606 49.2159 71.2606 60.2391 60.2374Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M46.7053 55.7856C55.2702 52.2379 59.3375 42.4186 55.7898 33.8537C52.2421 25.2887 42.4228 21.2214 33.8578 24.7692C25.2929 28.3169 21.2256 38.1361 24.7733 46.7011C28.321 55.2661 38.1403 59.3333 46.7053 55.7856Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M40.2789 45.6235C37.3302 45.6235 34.9336 43.2244 34.9336 40.2781C34.9336 37.3318 37.3326 34.9328 40.2789 34.9328C43.2252 34.9328 45.6242 37.3318 45.6242 40.2781C45.6242 43.2244 43.2252 45.6235 40.2789 45.6235Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+</g>
+<defs>
+<clipPath id="clip0_1149_237">
+<rect width="80.5537" height="80.5561" fill="white"/>
+</clipPath>
+</defs>
 
 
 
@@ -216,22 +223,28 @@ const SunIcon = ({ className, ...props }: IconProps) => (
 
 const HeavenEarthIcon = ({ className, ...props }: IconProps) => (
   <svg
-   width="36" height="22" viewBox="0 0 36 22" fill="none"
+   width="90" height="48" viewBox="0 0 90 48" fill="none"
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(className)}
     {...props}
   >
 
-
-<path d="M31.6562 4.53605V4.45459L4.85846 4.45459V4.53605L31.6562 4.53605Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M35.5156 0.595703H1.00024V8.39468H35.5156V0.595703Z" stroke="#FAFBFB" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M34.229 7.10831V1.88184L2.2862 1.88184V7.10831L34.229 7.10831Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M32.9426 5.82242V3.16846L3.57233 3.16846V5.82242L32.9426 5.82242Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M35.5153 13.0493H1V20.8483H35.5153V13.0493Z" stroke="#FAFBFB" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M34.228 19.5634V14.3369L2.28522 14.3369V19.5634H34.228Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M32.9419 18.277V15.623L3.5716 15.623V18.277H32.9419Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
-<path d="M31.6555 16.9911V16.9097H4.85773V16.9911H31.6555Z" stroke="#A2A1A9" strokeWidth="0.428751" strokeMiterlimit="10"/>
+  <g opacity="0.6" clip-path="url(#clip0_1149_244)">
+<path d="M79.1113 10.6468V10.438L10.4375 10.438V10.6468L79.1113 10.6468Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M89.0001 0.549316H0.548828V20.5355H89.0001V0.549316Z" stroke="#FAFBFB" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M85.7051 17.2393V3.84558L3.84627 3.84558V17.2393L85.7051 17.2393Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M82.4082 13.943V7.14178L7.14192 7.14178V13.943L82.4082 13.943Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M89.0001 27.3389H0.548828V47.3251H89.0001V27.3389Z" stroke="#FAFBFB" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M85.7012 44.0311V30.6374L3.84236 30.6374V44.0311L85.7012 44.0311Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M82.4062 40.7349V33.9336L7.13998 33.9336V40.7349L82.4062 40.7349Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M79.1094 37.4386V37.2298L10.4356 37.2298V37.4386L79.1094 37.4386Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+</g>
+<defs>
+<clipPath id="clip0_1149_244">
+<rect width="89.55" height="47.8745" fill="white"/>
+</clipPath>
+</defs>
 
 
 </svg>
@@ -239,18 +252,24 @@ const HeavenEarthIcon = ({ className, ...props }: IconProps) => (
 
 const ObeliskIcon = ({ className, ...props }: IconProps) => (
   <svg
-   width="26" height="43" viewBox="0 0 26 43" fill="none"
+   width="55" height="93" viewBox="0 0 55 93" fill="none"
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(className)}
     {...props}
   >
 
-
-<path d="M0.386719 42.3128L4.67969 9.37392L12.6938 0.881836L20.707 9.37392L24.9999 42.3128H0.386719Z" stroke="#FAFBFB" strokeWidth="0.483769" strokeMiterlimit="10"/>
-<path d="M21.4775 39.2187H3.90991L7.61849 10.7682L12.6942 5.38965L17.7689 10.7682L21.4775 39.2187Z" stroke="#A2A1A9" strokeWidth="0.483769" strokeMiterlimit="10"/>
-<path d="M7.43262 36.1255L10.5568 12.1625L12.6941 9.89746L14.8314 12.1625L17.9546 36.1255H7.43262Z" stroke="#A2A1A9" strokeWidth="0.483769" strokeMiterlimit="10"/>
-<path d="M10.9563 33.031L12.694 19.7012L14.4307 33.031H10.9563Z" stroke="#A2A1A9" strokeWidth="0.483769" strokeMiterlimit="10"/>
+<g opacity="0.6" clip-path="url(#clip0_1149_255)">
+<path d="M1.08789 91.794L10.2232 20.1951L27.2771 1.73599L44.329 20.1951L53.4643 91.794H1.08789Z" stroke="#FAFBFB" stroke-width="0.442197" stroke-miterlimit="10"/>
+<path d="M45.9694 85.0682H8.58594L16.4777 23.2257L27.2787 11.5345L38.0777 23.2257L45.9694 85.0682Z" stroke="#A2A1A9" stroke-width="0.442197" stroke-miterlimit="10"/>
+<path d="M16.084 78.3446L22.7322 26.2564L27.2803 21.333L31.8284 26.2564L38.4746 78.3446H16.084Z" stroke="#A2A1A9" stroke-width="0.442197" stroke-miterlimit="10"/>
+<path d="M23.5801 71.6187L27.2779 42.6439L30.9736 71.6187H23.5801Z" stroke="#A2A1A9" stroke-width="0.442197" stroke-miterlimit="10"/>
+</g>
+<defs>
+<clipPath id="clip0_1149_255">
+<rect width="53.55" height="91.3493" fill="white" transform="translate(0.5 0.970551)"/>
+</clipPath>
+</defs>
 </svg>
 
 )
@@ -259,18 +278,24 @@ const ObeliskIcon = ({ className, ...props }: IconProps) => (
 
 const PyramidIcon = ({ className, ...props }: IconProps) => (
   <svg
-   width="42" height="37" viewBox="0 0 42 37" fill="none"
+   width="81" height="70" viewBox="0 0 81 70" fill="none"
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     className={cn(className)}
     {...props}
   >
 
-
-<path d="M21.1818 1L0.999756 35.955H41.3626L21.1818 1Z" stroke="#FAFBFB" strokeWidth="0.599407" strokeMiterlimit="10"/>
-<path d="M5.77612 33.1984L21.1821 6.51514L36.5881 33.1984H5.77612Z" stroke="#A2A1A9" strokeWidth="0.599407" strokeMiterlimit="10"/>
-<path d="M10.551 30.4402L21.1821 12.0288L31.812 30.4402H10.551Z" stroke="#A2A1A9" strokeWidth="0.599407" strokeMiterlimit="10"/>
-<path d="M15.3269 27.6845L21.1819 17.5449L27.0357 27.6845H15.3269Z" stroke="#A2A1A9" strokeWidth="0.599407" strokeMiterlimit="10"/>
+<g opacity="0.6" clip-path="url(#clip0_1149_230)">
+<path d="M40.276 1.1662L1.00977 69.1748H79.5399L40.276 1.1662Z" stroke="#FAFBFB" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M10.3027 63.8102L40.2766 11.8953L70.2505 63.8102H10.3027Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M19.5938 58.4457L40.2776 22.6245L60.9592 58.4457H19.5938Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M28.8848 53.0811L40.2763 33.3535L51.6655 53.0811H28.8848Z" stroke="#A2A1A9" stroke-width="0.5" stroke-miterlimit="10"/>
+</g>
+<defs>
+<clipPath id="clip0_1149_230">
+<rect width="80.55" height="69.7579" fill="white"/>
+</clipPath>
+</defs>
 </svg>
 
 )
@@ -379,6 +404,29 @@ const XLeftYDownPositinalIcon = ({ className, ...props }: IconProps) => (
 </svg>
 )
 
+const GoldenEyeIcon = ({ className, ...props }: IconProps) => (
+    <svg
+      width="110"
+      height="110"
+      viewBox="0 0 110 110"
+      fill="none"
+      stroke="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn(className)}
+      {...props}
+    >
+
+<path d="M54.9993 109.793C85.2602 109.793 109.792 85.2613 109.792 55.0003C109.792 24.7394 85.2602 0.208069 54.9993 0.208069C24.7384 0.208069 0.207031 24.7394 0.207031 55.0003C0.207031 85.2613 24.7384 109.793 54.9993 109.793Z" stroke="#ED7E23" stroke-width="0.5" stroke-miterlimit="10"/>
+<path d="M44.4715 26.7105L39.0187 95.4726H39.0034L13.1016 81.3509L44.4715 26.7105Z" stroke="#ED7E23" stroke-width="0.416139" stroke-miterlimit="10"/>
+<path d="M65.5742 26.7182L70.9806 95.483H70.9958L96.9067 81.3794L65.5742 26.7182Z" stroke="#ED7E23" stroke-width="0.416139" stroke-miterlimit="10"/>
+<path d="M68.8633 95.551L55.0295 95.542H41.1367L41.1423 95.467L46.9481 22.2579L55.0295 8.18127L63.1019 22.2627L68.8633 95.551Z" stroke="#EE7F22" stroke-width="0.5" stroke-miterlimit="10"/>
+
+
+  </svg>
+  )
+
+
+
 export {
-  CloseIcon, ContactIcon, CrossPositinalIcon, FacebookIcon, FilePickerIcon, HamburgerIcon, HeavenEarthIcon, InstagramIcon, LinkedinIcon, LocationIcon, ObeliskIcon, PointerDownIcon, PyramidIcon, ScheduleMeetingIcon, SunIcon, XIcon, XLeftPositinalIcon, XLeftYDownPositinalIcon, XRightPositinalIcon, XRightYDownPositinalIcon
+  CloseIcon, ContactIcon, CrossPositinalIcon, FacebookIcon, FilePickerIcon, HamburgerIcon, HeavenEarthIcon, InstagramIcon, LinkedinIcon, LocationIcon, ObeliskIcon, PointerDownIcon, PyramidIcon, ScheduleMeetingIcon, SunIcon, XIcon, XLeftPositinalIcon, XLeftYDownPositinalIcon, XRightPositinalIcon, XRightYDownPositinalIcon, GoldenEyeIcon
 };

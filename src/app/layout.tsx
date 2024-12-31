@@ -6,11 +6,18 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/nav/navbar";
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
+const calligraffitti = localFont({
+    src: "./fonts/Calligraffitti-Regular.ttf",
+    variable: "--font-calligraffitti",
+    weight: "100 900",
+    });
 
 const machina = localFont({
   src: "./fonts/NeueMachina-Ultrabold.otf",
@@ -33,15 +40,18 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
-            className={cn(`${geistSans.variable} ${machina.variable}` , "antialiased font-[family-name:var(--font-geist-sans)]") }
+            className={cn(`${geistSans.variable} ${machina.variable} ${calligraffitti.variable}` , "antialiased font-[family-name:var(--font-geist-sans)]") }
         >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          > <Navbar/>
+          >
+          <Navbar/>
             {children}
+            {/* <Toaster /> */}
+
           </ThemeProvider>
         </body>
       </html>
