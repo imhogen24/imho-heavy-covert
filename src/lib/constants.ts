@@ -1,5 +1,62 @@
-import { HeavenEarthIcon, ObeliskIcon, PyramidIcon, SunIcon } from "./icons";
-import { MarqueeProps, NavItemProps, ProjectCardProps, SdgProps, WorkWithUsProps } from "./types";
+import { FacebookIcon, GoldenEyeIcon, HeavenEarthIcon, InstagramIcon, LinkedinIcon, ObeliskIcon, PyramidIcon, SunIcon, XIcon } from "./icons";
+import { HeroIconProps, MarqueeProps, NavItemProps, ProjectCardProps, SdgProps, SocialIconProps, WorkWithUsProps } from "./types";
+
+
+export const SOCIAL_ICONS:SocialIconProps[] = [
+    {
+        idx: 1,
+        icon: FacebookIcon,
+        href: "https://www.facebook.com/"
+    },
+    {
+        idx: 2,
+        icon: XIcon,
+        href: "https://twitter.com/"
+    },
+    {
+        idx: 3,
+        icon: InstagramIcon,
+        href: "https://www.instagram.com/"
+    },
+    {
+        idx: 4,
+        icon: LinkedinIcon,
+        href: "https://www.linkedin.com/"
+    }
+
+]
+
+export const HERO_ICONS: HeroIconProps[] = [
+    {
+        idx: 0,
+        icon: undefined
+    },
+
+    {
+        idx: 1,
+        icon: ObeliskIcon
+    },
+    {
+        idx: 2,
+        icon: HeavenEarthIcon
+    },
+    {
+        idx: 3,
+        icon: GoldenEyeIcon
+    },
+    {
+        idx: 4,
+        icon: SunIcon
+    },
+    {
+        idx: 5,
+        icon: PyramidIcon
+    },
+    {
+        idx: 6,
+        icon: undefined
+    }
+]
 
 export const WORK_WITH_US: WorkWithUsProps[] = [
   {
