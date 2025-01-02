@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
-import { gradientText } from "./hero"
+import { gradientText } from "./hero/hero-text";
+
 
 interface TextProps{
   text: string;
