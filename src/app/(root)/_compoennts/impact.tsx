@@ -1,8 +1,9 @@
 import { IMPACT_TEXT, SDG_GOALS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { gradientText } from "./hero";
+
 import RadialGradient from "./radial-gradient";
+import { gradientText } from "./hero/hero-text";
 
 const ImpactSection = () => {
   return (
