@@ -9,13 +9,13 @@ const HeroText = () => {
 
          <div className="relative flex flex-col items-center justify-center  md:w-[800px] px-5 lg:px-[100px] gap-[16px]">
           {/* text size for small screens is actually 24px */}
-          <h1 className={cn("text-center  text-[28px] md:text-[38px] lg:text-[38px] font-[family-name:var(--font-machina)]")}>
+          <h1 className={cn("text-center  text-3xl md:text-[38px] lg:text-[38px] font-[family-name:var(--font-machina)]")}>
               We{" "}
             <span className={cn(gradientText, "leading-tight")}>
               Design
             </span>
-              {" "}Highly  <br /> Functional and Robust
-            <span className={cn(gradientText)}><br className="lg:hidden"/> Products </span>
+              {" "}Highly Functional and Robust
+            <span className={cn(gradientText)}> Products </span>
               & Processes
           </h1>
           <p className="text-center text-muted-foreground text-[15px] md:text-[16px] lg:text-[20px]">
