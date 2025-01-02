@@ -1,9 +1,11 @@
 import { PROJECTS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import GradientTextHeader from '../gradient-text-header'
-import ProjectCard from './project-card'
 
-const projects = () => {
+import ProjectCard from './project-card'
+import GradientTextHeader from '../gradient-text-header'
+
+
+const Projects = () => {
   return (
     <div className='w-full h-full bg-background border border-[#555555] border-opacity-25'>
       <GradientTextHeader text={"Some Projects"}/>
@@ -21,4 +23,4 @@ const projects = () => {
   )
 }
 
-export default projects
+export default Projects

@@ -1,38 +1,23 @@
-'use client';
-import { Play } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { HeroVideoDialog } from "@/components/ui/video-dialogue";
 
-const VideoSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef(null);
 
-  const togglePlay = () => {
-    return;
-  };
-
+export function HeroVideoDialogDemo() {
   return (
-    <div className="relative h-[675px] bg-black group">
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover"
-        src="/api/placeholder/1920/1080"
-        poster="/api/placeholder/1920/1080"
+    <div className="relative">
+      <HeroVideoDialog
+        className="dark:hidden block"
+        animationStyle="from-center"
+        videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+        thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1735661003/Hero_Video_Thumbnail_e1cb2g.png"
+        thumbnailAlt="Hero Video"
       />
-
-      {/* Large Centered Play Button */}
-      {!isPlaying && (
-        <button
-          onClick={togglePlay}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                   bg-white/30 hover:bg-white/40 backdrop-blur-sm
-                   rounded-full p-8 transition-all duration-300
-                   group-hover:scale-110"
-        >
-          <Play className="w-12 h-12 text-white" />
-        </button>
-      )}
+      <HeroVideoDialog
+        className="hidden dark:block"
+        animationStyle="from-center"
+        videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+        thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1735660830/Hero_Video_Thumbnail--dark_t5a0ib.png"
+        thumbnailAlt="Hero Video"
+      />
     </div>
   );
-};
-
-export default VideoSection;
+}
