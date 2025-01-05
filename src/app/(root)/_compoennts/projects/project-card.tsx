@@ -1,56 +1,126 @@
 import { ProjectCardProps } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { gradientText } from '../hero/hero-text'
+import { HeroVideoDialog } from '@/components/ui/video-dialogue'
+import Image from 'next/image'
 
+const ProjectCard = ({ idx, title, client, description, service, type, date, Video, image,width,height }: ProjectCardProps) => {
+  const hasVideo = Video !== undefined
 
+  if (hasVideo) {
+    return (
+      <div className="flex w-full h-full border-t muted-border flex-col lg:flex-row">
+        {/* heading div - 1/3 width for video layout */}
+        <div className="w-full lg:w-1/3 lg:flex-2">
+          <h1 className="py-6 px-6 lg:py-14 lg:px-14 scroll-m-20 font-semibold tracking-tight text-2xl font-[family-name:var(--font-machina)] text-left">
+            {title}
+          </h1>
+        </div>
 
-const ProjectCard = (props: ProjectCardProps) => {
+        {/* content div - 2/3 width for video layout */}
+        <div className="flex flex-col flex-1 gap-6 lg:gap-10 muted-border py-6 px-6 lg:py-14 lg:px-14 justify-between lg:border-t-0 lg:border-l">
+          <div className="flex flex-col gap-6 lg:gap-8">
+            <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+              <span className={cn(gradientText)}>{client}</span> {description}
+            </p>
+
+            <p className="leading-7 [&:not(:first-child)]  text-muted-foreground">
+              <span className="text-white">Service Provided:</span> <br />
+              {service}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-10">
+              <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+                <span className="text-white">Type:</span> <br />
+                {type}
+              </p>
+              <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+                <span className="text-white">Date:</span> <br />
+                {date}
+              </p>
+            </div>
+          </div>
+
+          <div className="w-full overflow-hidden bg-neutral-800">
+            <HeroVideoDialog
+                   className="dark:hidden block"
+                   animationStyle="from-center"
+                   videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+                   thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1736030615/Enterprise_CAD_Tag__owggrm.png"
+                   thumbnailAlt="Hero Video"
+                 />
+                 <HeroVideoDialog
+                   className="hidden dark:block"
+                   animationStyle="from-center"
+                   videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
+                   thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1736030616/Enterprise_CAD_Tag--dark_s0ffky.png"
+                   thumbnailAlt="Hero Video"
+                 />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Image-based layout for all other projects
   return (
-    <div className={cn(" bg-background flex w-full h-full border-y border-[#555555] border-opacity-25",
-                   (props.idx % 2 === 0) ?
-                    'flex-row'
-                    :'flex-row-reverse')}>
+    <div className={cn(
+      "flex w-full h-full lg:border-y muted-border",
+      "flex-col lg:flex-row",
+      idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+    )}>
 
-      {/* heading div */}
-      <div className='flex-2  h-full w-1/3'>
-      <h1 className={cn( "py-[54px] px-[54px] text-[32px] font-[family-name:var(--font-machina)]",
-                        (props.idx % 2 === 0) ?
-                        'text-left'
-                        :'text-right'
+
+      {/* Content div - 1/2 width */}
+      <div className={cn(
+        "flex flex-col flex-1 gap-6 lg:gap-10 muted-border",
+        "py-6 px-6 lg:py-14 lg:px-14",
+        
+        idx % 2 === 0 ? 'lg:border-r' : 'lg:border-l',
+        "border-t lg:border-t-0"
       )}>
-        {props.title}
-      </h1>
+        <div className="flex flex-col gap-6 lg:gap-8">
+          <h4 className="scroll-m-20 font-semibold tracking-tight text-2xl font-[family-name:var(--font-machina)]">
+            {title}
+          </h4>
+
+          <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+            <span className={cn(gradientText)}>{client}</span> {description}
+          </p>
+
+          <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+            <span className="text-white">Service Provided:</span> <br />
+            {service}
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-10">
+            <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+              <span className="text-white">Type:</span> <br />
+              {type}
+            </p>
+            <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+              <span className="text-white">Date:</span> <br />
+              {date}
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* descriptive div */}
-      <div className={cn( "flex flex-col flex-1 gap-10  border-[#555555] border-opacity-25 py-[54px] px-[54px] text-[20px]  justify-between",
-                    (props.idx % 2 === 0) ?
-                      'border-l'
-                      :'border-r'
-      )}>
-         <div className='flex flex-col gap-8'>
-        <h1 className='text-muted-foreground'>
-       <span className={cn(gradientText)}>{props.client}</span> {props.description}</h1>
+      {/* Image div - 1/2 width */}
+      <div className="w-full lg:w-1/2">
+        <div className="flex justify-center items-center pb-10 lg:p-28">
+        <div>
+            <Image
+            src={image || '/api/placeholder/800/450'}
+            alt={title}
+            height={height}
+            width={width}
+            className="mx-auto object-cover"
+          />
+        </div>
 
-       <h1 className='text-muted-foreground'>
-       <span className='text-white'>Service Provided:</span> <br/>
-        {props.service}</h1>
-
-        <span className='w-full inline-flex gap-10'>
-        <h1 className='text-muted-foreground'>
-       <span className='text-white'>Type:</span> <br/>
-        {props.type}</h1>
-        <h1 className='text-muted-foreground'>
-       <span className='text-white'>Date:</span> <br/>
-        {props.date}</h1>
-
-        </span>
-       </div>
-      <div className='bg-neutral-600 aspect-video'>
-
+        </div>
       </div>
-      </div>
-
     </div>
   )
 }

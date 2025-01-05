@@ -7,7 +7,7 @@ import GradientTextHeader from '../gradient-text-header'
 
 const Projects = () => {
   return (
-    <div className='w-full h-full bg-background border border-[#555555] border-opacity-25'>
+    <div className='w-full h-full'>
       <GradientTextHeader text={"Some Projects"}/>
 
      {PROJECTS.map((item, index)=>(

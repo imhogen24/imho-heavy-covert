@@ -32,6 +32,8 @@ export interface ProjectCardProps{
   date:  string;
   image?: string;
   Video?: string;
+  height?: number;
+  width?: number;
 
 }
 export interface MarqueeProps{
