@@ -12,9 +12,9 @@ const ProjectCard = ({ idx, title, client, description, service, type, date, Vid
       <div className="flex w-full h-full border-t muted-border flex-col lg:flex-row">
         {/* heading div - 1/3 width for video layout */}
         <div className="w-full lg:w-1/3 lg:flex-2">
-          <h1 className="py-6 px-6 lg:py-14 lg:px-14 scroll-m-20 font-semibold tracking-tight text-2xl font-[family-name:var(--font-machina)] text-left">
+          <h4 className="py-6 px-6 lg:py-14 lg:px-14 scroll-m-20 font-semibold tracking-tight text-2xl text-left">
             {title}
-          </h1>
+          </h4>
         </div>
 
         {/* content div - 2/3 width for video layout */}
@@ -75,12 +75,12 @@ const ProjectCard = ({ idx, title, client, description, service, type, date, Vid
       <div className={cn(
         "flex flex-col flex-1 gap-6 lg:gap-10 muted-border",
         "py-6 px-6 lg:py-14 lg:px-14",
-        
+
         idx % 2 === 0 ? 'lg:border-r' : 'lg:border-l',
         "border-t lg:border-t-0"
       )}>
         <div className="flex flex-col gap-6 lg:gap-8">
-          <h4 className="scroll-m-20 font-semibold tracking-tight text-2xl font-[family-name:var(--font-machina)]">
+          <h4 className="scroll-m-20 font-semibold tracking-tight text-2xl">
             {title}
           </h4>
 

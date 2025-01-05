@@ -17,7 +17,7 @@ const ImpactSection = () => {
           >
             {/*  Header section */}
         <div className="flex flex-col items-center md:w-[446px] m-auto gap-[16px] p-2">
-          <h4 className={cn("text-center scroll-m-20 font-semibold tracking-tight text-2xl font-[family-name:var(--font-machina)]", gradientText)}>
+          <h4 className={cn("text-center scroll-m-20 font-semibold tracking-tight text-2xl", gradientText)}>
             Our Impact
           </h4>
           <p className="text-center leading-7 [&:not(:first-child)] text-muted-foreground">IMHO&apos;s Distinct Impact: Advancing the UN SDGs and  African Union&apos;s Agenda 2063 Goals</p>
