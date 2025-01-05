@@ -7,7 +7,7 @@ import { gradientText } from "./hero/hero-text";
 
 const ImpactSection = () => {
   return (
-    <div className="flex flex-col justify-center overflow-x-hidden items-center relative h-full w-full">
+    <div className="flex flex-col justify-center border-t muted-border overflow-x-hidden items-center relative h-full w-full">
 
       <div className="flex w-full h-[215px]"
              style={{
