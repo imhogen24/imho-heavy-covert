@@ -17,10 +17,11 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
 
 export type WorkWithUsProps = {
   idx: number;
-  icon: React.FC<IconProps>
-  title: string
-  description: string
-  footer?: string
+  icon: React.FC<IconProps>;
+  title: string;
+  description: string;
+  footer?: string;
+  cta?: string;
 }
 export interface ProjectCardProps{
   idx: number;

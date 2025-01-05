@@ -53,30 +53,32 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
   {
     idx: 0,
     icon: SunIcon,
-    title: "Design and Develop a Physical Product",
-    description: "Bring us on board to transform your ideas, requirements, and constraints into a physical product. From the engineering design phase, where exceptional function and form are seamlessly blended to create a robust product, we cover all aspects, including machine design, industrial design, prototyping, and testing."
-
+    title: "Product",
+    description: "Bring us on board to transform your ideas, requirements, and constraints into a physical product. From the engineering design phase, where exceptional function and form are seamlessly blended to create a robust product, we cover all aspects, including machine design, industrial design, prototyping, and testing.",
+    cta:"Develop a Product"
   },
   {
     idx: 1,
     icon: PyramidIcon,
-    title: "Training and Engineering Team Support",
+    title: "Engineering Support",
     description: "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. ",
-    footer: "Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting."
+    footer: "Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting.",
+    cta: 'Launch Support'
   },
   {
     idx: 2,
     icon: HeavenEarthIcon,
-    title: "Design and Develop a Process",
+    title: "Process",
     description: "Our engineering team well vested in systems design can help optimize your processes be it manufacturing, materials, and various forms of production systems.",
-    footer: "Improve efficiency, safety, reduce cost, overall output and quality"
+    footer: "Improve efficiency, safety, reduce cost, overall output and quality",
+    cta: 'Develop a process'
   },
   {
     idx: 3,
     icon: ObeliskIcon,
-    title: "Engineering Drawing and Draftwork",
+    title: "Draftwork",
     description: "Rely on our drafting team to document your designs and prototypes through detailed models, engineering drawings, and 3D renderings—whether for manufacturing, patent filings, presentations, marketing, user manuals, or academic publications.",
-
+    cta: 'Start Documentation'
   }
 ]
 

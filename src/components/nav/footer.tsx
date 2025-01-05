@@ -56,7 +56,7 @@ const Footer = () => {
 
         </section>
 
-        <section className="flex flex-col justify-center p-[24px] md:p-[48px] gap-[16px] border-t muted-border ">
+        <section className="flex flex-col justify-center p-[24px] md:p-[48px] gap-[16px]">
         <h1 className="font-[family-name:var(--font-machina)] text-[24px]">Talk to <span className="text-[#EF7D00]     ">IMHO</span></h1>
                 <ContactForm/>
         </section>
@@ -64,7 +64,7 @@ const Footer = () => {
        </div>
        <div className="flex justify-center items-center border-t muted-border">
         <div className="hidden lg:block w-full">
-           
+
         </div>
         <div className="h-full lg:hidden gap-2 flex-col justify-center items-center border-t muted-border p-[24px] md:p-[48px]">
                 <div className="flex justify-center items-center my-2 gap-2">
