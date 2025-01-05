@@ -1,5 +1,5 @@
 import GradientTextHeader from "@/app/(root)/_compoennts/gradient-text-header"
-import TopSection from "@/app/(root)/_compoennts/top"
+
 import { CrossPositinalIcon } from "@/lib/icons"
 import { cn } from "@/lib/utils"
 import { Icon, MapPinned, PhoneCall } from "lucide-react"
@@ -64,7 +64,7 @@ const Footer = () => {
        </div>
        <div className="flex justify-center items-center border-t muted-border">
         <div className="hidden lg:block w-full">
-            <TopSection/>
+           
         </div>
         <div className="h-full lg:hidden gap-2 flex-col justify-center items-center border-t muted-border p-[24px] md:p-[48px]">
                 <div className="flex justify-center items-center my-2 gap-2">

@@ -28,11 +28,6 @@ export const SOCIAL_ICONS:SocialIconProps[] = [
 
 export const HERO_ICONS: HeroIconProps[] = [
     {
-        idx: 0,
-        icon: undefined
-    },
-
-    {
         idx: 1,
         icon: ObeliskIcon
     },
@@ -51,10 +46,6 @@ export const HERO_ICONS: HeroIconProps[] = [
     {
         idx: 5,
         icon: PyramidIcon
-    },
-    {
-        idx: 6,
-        icon: undefined
     }
 ]
 
@@ -99,7 +90,6 @@ export const PROJECTS: ProjectCardProps[]=[
     service: "Beginer level to Advanced level AutoCAD and enterprise CAD management system",
     type: "Skill Development and Training",
     date:"2024",
-    image:"",
     Video:""
   },
   {
@@ -110,9 +100,11 @@ export const PROJECTS: ProjectCardProps[]=[
     service: "Engineering Design, Prototyping and Testing",
     type: "Industry Equipment",
     date:"2024",
+    height: 436.83,
+    width: 300,
 
-    image:"",
-    Video:""
+    image:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736030531/SC2_heavy_covert.17_transp_jdsmxx.png",
+
   },
   {
     idx: 4,
@@ -122,9 +114,11 @@ export const PROJECTS: ProjectCardProps[]=[
     service: "Engineering Design Fabrication, Test and Operation",
     type: "Specialized equipment for Researcher",
     date:"2024",
+    height: 435.85,
+    width: 227.68,
 
-    image:"",
-    Video:""
+    image:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736030606/bitmix_custom2.19_transp_ww0wiv.png",
+
   },
   {
     idx: 5,
@@ -135,9 +129,11 @@ export const PROJECTS: ProjectCardProps[]=[
     service: "Conceptual Development, Engineering Design Drawing, and 3D rendering",
     type: "Process based  project",
     date:"2024",
+    height: 418.08,
+    width: 435.31,
 
-    image:"",
-    Video:""
+    image:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736030594/MoonWalk__1.18_transp_cp1wi7.png",
+
   },
   {
     idx: 6,
@@ -148,9 +144,10 @@ export const PROJECTS: ProjectCardProps[]=[
     service: "Engineering Design, Prototyping, and Testing",
     type: "Product Development for Startup",
     date:"2024",
+    height: 430,
+    width: 257.2,
+    image:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736030609/natsys_transp_dizq6l.png",
 
-    image:"",
-    Video:""
   },
 ]
 
