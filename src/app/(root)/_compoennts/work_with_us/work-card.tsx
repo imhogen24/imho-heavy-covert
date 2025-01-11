@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { WorkWithUsProps } from "@/lib/types"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 
 const WorkCard = (props: WorkWithUsProps) => {
@@ -23,8 +24,8 @@ const WorkCard = (props: WorkWithUsProps) => {
 
       {props.description}</p>
         <p className="leading-7 [&:not(:first-child)]">{props.footer}</p>
-        <Button className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 p-5" variant={"secondary"}>
-               {props.cta}
+        <Button asChild className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 p-5" variant={"secondary"}>
+              <Link href={props.route}>{props.cta}</Link>
           </Button>
       </div>
 

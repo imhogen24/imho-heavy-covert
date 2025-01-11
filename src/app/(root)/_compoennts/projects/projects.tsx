@@ -11,9 +11,8 @@ const Projects = () => {
       <GradientTextHeader text={"Some Projects"}/>
 
      {PROJECTS.map((item, index)=>(
-      <div className={cn()}>
+      <div  key={item.idx}>
         <ProjectCard
-           key={item.idx}
            {...item}
           idx={index}/>
       </div>

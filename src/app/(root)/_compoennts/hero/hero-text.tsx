@@ -4,13 +4,14 @@ import Balancer from 'react-wrap-balancer'
 import { cn } from '@/lib/utils'
 import { ScheduleMeetingIcon } from '@/lib/icons'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 export const gradientText = "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]"
 const HeroText = () => {
   return (
 
          <div className="relative flex flex-col items-center justify-center  md:w-[800px] p-10">
             <div className='w-full h-full flex flex-col items-center justify-center gap-[16px]'>
-            <h1 className={cn("text-center text-2xl max-w-lg md:text-3xl lg:text-3xl font-[family-name:var(--font-machina)]")}>
+            <h1 className={cn("text-center text-2xl max-w-lg md:text-3xl lg:text-4xl font-[family-name:var(--font-machina)]")}>
               We{" "}
             <span className={cn(gradientText, "leading-tight")}>
               Design
@@ -26,8 +27,10 @@ const HeroText = () => {
           </p>
         </Balancer>
 
-          <Button className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85" variant={"secondary"}>
-              <ScheduleMeetingIcon/>  Schedule a meeting
+          <Button asChild className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85" variant={"secondary"}>
+              <Link href="https://zcal.co/kennyanyi9" target='_blank'>
+                    <ScheduleMeetingIcon/>  Schedule a meeting
+              </Link>
           </Button>
             </div>
 
