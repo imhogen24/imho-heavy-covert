@@ -51,7 +51,7 @@ export default function RootLayout({
           <Navbar/>
             {children}
             {/* <Toaster /> */}
-
+    
           </ThemeProvider>
         </body>
       </html>

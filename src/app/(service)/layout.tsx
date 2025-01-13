@@ -8,9 +8,9 @@ const ServiceLayout = ({ children }:{children: React.ReactNode}) => {
 
     <ServiceRoutes/>
     <div className="relative mx-[10px] md:mx-[11px] max-w-[68rem] border muted-border mt-5 min-h-dvh">
-   
-      {children}
 
+      {children}
+        
     </div>
     </div>
   );
