@@ -6,7 +6,7 @@ import React from 'react'
 import Image from 'next/image';
 import { TimerIcon } from 'lucide-react';
 import BackButton from '../../_components/back-button';
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
