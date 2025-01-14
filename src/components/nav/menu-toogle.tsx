@@ -69,6 +69,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
           {NAV_ITEMS.map((item) => (
               <motion.div
                 key={item.id}
+                className="w-full"
                 variants={{
                   initial: {
                     opacity: 0,
@@ -84,7 +85,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
                   },
                 }}
               >
-                <Link href={item.href} onClick={handleLinkClick}>
+                <Link className="w-full block" href={item.href} onClick={handleLinkClick}>
                     <span className="text-muted-foreground text-[16px]">{item.label}</span>
                 </Link>
 
