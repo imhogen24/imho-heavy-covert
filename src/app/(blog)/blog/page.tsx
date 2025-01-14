@@ -4,7 +4,6 @@ import Link from "next/link";
 
 const BlogPage = async()=>{
     const posts = await fetchPages();
-    console.log(posts);
     return (
         <div className="max-w-screen min-h-dvh flex flex-col">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

@@ -53,7 +53,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
 
   return (
     <Sheet open={isMenuOpen} onOpenChange={onToggleMenuOpen}>
-      <SheetContent className="w-full border-muted" side={"top"}>
+      <SheetContent className=" w-full border-muted" side={"top"}>
             <Link href="/" onClick={handleLinkClick} >
                 <Image src="/logos/nav-logo.png" alt="Logo" width={100} height={30} />
             </Link>
