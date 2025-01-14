@@ -1,8 +1,5 @@
-import GradientTextHeader from "@/app/(root)/_compoennts/gradient-text-header"
-
 import { CrossPositinalIcon } from "@/lib/icons"
-import { cn } from "@/lib/utils"
-import { Icon, MapPinned, PhoneCall } from "lucide-react"
+import {MapPinned, PhoneCall } from "lucide-react"
 import Image from "next/image"
 import { ContactForm } from "./contact-form"
 import { SOCIAL_ICONS } from "@/lib/constants"

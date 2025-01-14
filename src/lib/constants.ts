@@ -1,6 +1,29 @@
 import { FacebookIcon, GoldenEyeIcon, HeavenEarthIcon, InstagramIcon, LinkedinIcon, ObeliskIcon, PyramidIcon, SunIcon, XIcon } from "./icons";
-import { HeroIconProps, MarqueeProps, NavItemProps, ProjectCardProps, SdgProps, SocialIconProps, WorkWithUsProps } from "./types";
+import { HeroIconProps, MarqueeProps, NavItemProps, ProjectCardProps, SdgProps, ServiceRouteProps, SocialIconProps, WorkWithUsProps } from "./types";
 
+
+export const SERVICE_ROUTES: ServiceRouteProps[] = [
+    {
+        idx: 1,
+        label: "Product",
+        href: "/services/product",
+    },
+    {
+        idx: 2,
+        label: "Engineering Support",
+        href: "/services/engineering-support",
+    },
+    {
+        idx: 3,
+        label: "Process",
+        href: "/services/process",
+    },
+    {
+        idx: 4,
+        label: "Draftwork",
+        href: "/services/draftwork",
+    }
+]
 
 export const SOCIAL_ICONS:SocialIconProps[] = [
     {
@@ -55,7 +78,8 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
     icon: SunIcon,
     title: "Product",
     description: "Bring us on board to transform your ideas, requirements, and constraints into a physical product. From the engineering design phase, where exceptional function and form are seamlessly blended to create a robust product, we cover all aspects, including machine design, industrial design, prototyping, and testing.",
-    cta:"Develop a Product"
+    cta:"Develop a Product",
+    route: "/services/product"
   },
   {
     idx: 1,
@@ -63,7 +87,8 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
     title: "Engineering Support",
     description: "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. ",
     footer: "Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting.",
-    cta: 'Launch Support'
+    cta: 'Launch Support',
+    route: "/services/engineering-support"
   },
   {
     idx: 2,
@@ -71,14 +96,16 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
     title: "Process",
     description: "Our engineering team well vested in systems design can help optimize your processes be it manufacturing, materials, and various forms of production systems.",
     footer: "Improve efficiency, safety, reduce cost, overall output and quality",
-    cta: 'Develop a process'
+    cta: 'Develop a process',
+    route: "/services/process"
   },
   {
     idx: 3,
     icon: ObeliskIcon,
     title: "Draftwork",
     description: "Rely on our drafting team to document your designs and prototypes through detailed models, engineering drawings, and 3D renderings—whether for manufacturing, patent filings, presentations, marketing, user manuals, or academic publications.",
-    cta: 'Start Documentation'
+    cta: 'Start Documentation',
+    route: "/services/draftwork"
   }
 ]
 
@@ -156,68 +183,79 @@ export const PROJECTS: ProjectCardProps[]=[
 export const MARQUEE: MarqueeProps[] = [
   {
     id: 4,
-    image: "/logos/commeph-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514481/Commeph_dark_o36kna.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514482/Commeph_qr0hat.png",
     ImageWidth: 68.27,
     ImageHeight: 68.95,
   },
   {
     id: 3,
-    image: "/logos/coe-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514483/COE_dark_jibmwe.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514483/COE_f4u5ec.png",
     ImageWidth: 67.67,
     ImageHeight:89.13
   },
   {
     id: 5,
-    image: "/logos/ic-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514479/IC_dark_qykuuw.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514480/IC_kx8zmg.png",
     ImageWidth: 191.18,
     ImageHeight: 51.5,
   },
   {
     id: 7,
-    image: "/logos/mining-pro.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514474/Mining_Pro_dark_yrg453.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514476/Mining_Pro_gaojxw.png",
     ImageWidth:186.97,
     ImageHeight: 64
   },
   {
     id: 8,
-    image: "/logos/sayetech-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514474/SAYeTECH_dark_rfjzyw.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514474/SAYeTECH_cvwf04.png",
     ImageWidth: 58.54,
     ImageHeight: 81.53
   },
   {
     id: 2,
-    image: "/logos/africa-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514469/TF_AFRICA_dark_dy07gk.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514469/TF_AFRICA_fscenp.png",
     ImageWidth: 77.7,
     ImageHeight: 93.62
   },
   {
     id: 10,
-    image: "/logos/tcc-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514470/TCC_KNUST_dark_dap30r.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514472/TCC_KNUST_hjpknt.png",
     ImageWidth: 158.31,
     ImageHeight: 89.62
   },
   {
     id: 11,
-    image: "/logos/treck-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514468/Treck_dark_oy13xb.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514469/Treck_gtamts.png",
     ImageWidth: 205.86,
     ImageHeight: 58.42
   },
   {
     id: 9,
-    image: "/logos/smido-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514473/SMIDO_dark_v3tj3p.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514473/SMIDO_tpxt5g.png",
     ImageWidth: 95.41,
     ImageHeight: 112.34
   },
   {
     id: 6,
-    image: "/logos/kbi-logo.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514477/KBI_dark_hxpkvs.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514478/KBI_mfy19r.png",
     ImageWidth: 99.76,
     ImageHeight: 83.18
   },
 
   {
     id: 1,
-    image: "/logos/abu-diya.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514484/ABU_DIYAH_dark_biwhaa.png",
+    imageLight: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514484/ABU_DIYAH_yubrha.png",
     ImageWidth: 199.28,
     ImageHeight: 12.34
   }
@@ -241,25 +279,29 @@ export const IMPACT_TEXT = [
 export const SDG_GOALS: SdgProps[] = [
   {
     id: 1,
-    image: "/sdgs/sdg-4.png",
+    imageLight:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/4_kn3qlp.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/4_d_npq2lj.png",
     ImageWidth: 100.24,
     ImageHeight: 120.61,
   },
   {
     id: 2,
-    image: "/sdgs/sdg-8.png",
+    imageLight:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/8_t0mmmj.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/8_d_hh8cd5.png",
     ImageWidth: 136.65,
     ImageHeight: 200.65,
   },
   {
     id: 3,
-    image: "/sdgs/sdg-9.png",
+    imageLight:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/9_daazu6.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/9_d_hl17mq.png",
     ImageWidth: 151.46,
     ImageHeight: 125.65,
   },
   {
     id: 4,
-    image: "/sdgs/agenda-2026.png",
+    imageLight:"https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/A_Agenda_ycampk.png",
+    image: "https://res.cloudinary.com/dstrel8mi/image/upload/v1736514182/agenda_d_gecy4g.png",
     ImageWidth: 113.17,
     ImageHeight: 120.54,
   },

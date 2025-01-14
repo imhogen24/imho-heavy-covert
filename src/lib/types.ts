@@ -1,6 +1,12 @@
 import { SVGProps } from 'react'
 
 
+export interface ServiceRouteProps {
+    idx: number;
+    label: string;
+    href: string;
+    active?: boolean;
+    }
 export interface SocialIconProps{
     idx: number;
     icon: React.FC<IconProps> | undefined;
@@ -22,6 +28,7 @@ export type WorkWithUsProps = {
   description: string;
   footer?: string;
   cta?: string;
+  route: string;
 }
 export interface ProjectCardProps{
   idx: number;
@@ -40,6 +47,7 @@ export interface ProjectCardProps{
 export interface MarqueeProps{
   id: number;
   image: string;
+  imageLight:string;
   ImageWidth?: number;
   ImageHeight?: number;
 }
@@ -61,6 +69,7 @@ export interface NavItemProps{
 export interface SdgProps{
     id: number;
     image: string;
+    imageLight: string;
     ImageWidth?: number;
     ImageHeight?: number;
 }

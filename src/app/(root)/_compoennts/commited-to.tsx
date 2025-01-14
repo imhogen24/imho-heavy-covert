@@ -1,29 +1,39 @@
+import react from 'react'
 import Marquee from "@/components/ui/marquee";
-
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-
 import { MARQUEE } from "@/lib/constants";
 import { gradientText } from "./hero/hero-text";
 
+
 const CommitedTo =()=>{
     return (
-        <div className="flex flex-col w-full h-fit bg-[#030E11]  border-x muted-border">
-      <h2 className={cn(gradientText, "text-center scroll-m-20 font-semibold tracking-tight text-2xl font-[family-name:var(--font-machina)] mt-10 ")}>Commited To</h2>
+        <div className="flex flex-col w-full h-fit dark:bg-[#030E11]  border-y muted-border">
+      <h2 className={cn("text-center scroll-m-20 font-semibold tracking-tight text-2xl  mt-10 ")}>we are <span className={cn(gradientText)}>commited</span> to</h2>
       <Marquee
           className="z-50 overflow-hidden [--duration:60s] [--gap:1rem] h-[215px]"
           horizontal
         >
           {MARQUEE.map((data, idx) => (
+            <react.Fragment key={idx}>
             <Image
-              key={idx}
               src={data.image}
               alt={data.image}
               width={data.ImageWidth}
               height={data.ImageHeight}
-              className=" my-auto mx-10"
+              className="hidden dark:block my-auto mx-10 invert"
             />
+
+            <Image
+              src={data.image}
+              alt={data.imageLight}
+              width={data.ImageWidth}
+              height={data.ImageHeight}
+              className="block dark:hidden my-auto mx-10"
+            />
+            </react.Fragment>
           ))}
+
         </Marquee>
         </div>
     )

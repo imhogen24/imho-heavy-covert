@@ -6,7 +6,7 @@ const TopSection = () => {
 
     <div className="relative grid grid-rows-1 grid-flow-col md:grid-cols-5 border-b border-muted w-full">
             {[1,2,3,4,5].map((index)=>(
-             <div className='aspect-square border-r  muted-border'>
+             <div key={index} className='aspect-square border-r  muted-border'>
                 {/* <div className='flex justify-center items-center w-full aspect-square border muted-border rounded-full'>
                  <Image src='/logos/i-dashed.svg' alt="logo" width={30} height={30} />
                 </div> */}
