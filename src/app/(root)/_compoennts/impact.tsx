@@ -13,7 +13,7 @@ const ImpactSection = () => {
 
             {/*  Header section */}
         <div className="flex flex-col items-center  m-auto gap-[16px] p-2">
-          <h4 className={cn("text-center scroll-m-20 font-semibold tracking-tight text-4xl font-[family-name:var(--font-machina)]", gradientText)}>
+          <h4 className={cn("text-center scroll-m-20 font-semibold tracking-tight text-2xl md:text-3xl lg:text-4xl", gradientText)}>
             Our Impact
           </h4>
           <p className="text-center text-muted-foreground md:text-2xl max-w-sm md:max-w-2xl">IMHO&apos;s Distinct Impact: Advancing the UN SDGs and  African Union&apos;s Agenda 2063 Goals</p>
@@ -26,10 +26,10 @@ const ImpactSection = () => {
         <div  key={index}  className={cn("relative ", impact.footer && " md:border-r muted-border")}>
           <div className="flex border-b muted-border md:border-none flex-col gap-5
            p-[32px] lg:p-[64px]">
-            <h4 className="scroll-m-20 font-semibold tracking-tight text-3xl">{impact.title}</h4>
-            <p className="leading-7 [&:not(:first-child)] text-xl text-muted-foreground">{impact.description}</p>
+            <h4 className="scroll-m-20 font-semibold tracking-tight text-2xl md:text-3xl">{impact.title}</h4>
+            <p className="leading-7 [&:not(:first-child)] body-text text-muted-foreground">{impact.description}</p>
             {impact.footer &&
-            <p className="leading-7 [&:not(:first-child)] text-xl text-muted-foreground">
+            <p className="leading-7 [&:not(:first-child)] body-text text-muted-foreground">
               {impact.footer}
             </p>
 
