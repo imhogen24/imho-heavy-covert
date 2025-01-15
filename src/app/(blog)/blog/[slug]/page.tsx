@@ -40,9 +40,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const createdTime = post.created_time;
 
   return (
-    <div className='w-full p-10 flex items-center gap-10 flex-col min-h-dvh'>
+    <div className='max-w-screen overflow-x-hidden px-5 md:p-10 flex items-center gap-10 flex-col min-h-dvh'>
         <BackButton/>
-        <h1 className='mx-auto text-center text-3xl font-[family-name:var(--font-machina)] max-w-2xl '>
+        <h1 className='mx-auto text-center md:text-3xl font-[family-name:var(--font-machina)] max-w-2xl '>
             {title}
         </h1>
         <div className='flex flex-row justify-center items-center gap-2'>
@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
              <span>{createdTime.split("T")[0]}</span>
         </div>
 
-        <div className="prose dark:prose-invert max-w-3xl mx-auto" dangerouslySetInnerHTML={{__html: html}}>
+        <div className="prose dark:prose-invert max-w-full p-2 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-3xl mx-auto" dangerouslySetInnerHTML={{__html: html}}>
         </div>
     </div>
   )
