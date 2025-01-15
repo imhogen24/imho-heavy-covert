@@ -40,7 +40,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
-            className={cn(`${geistSans.variable} ${machina.variable} ${calligraffitti.variable}` , "antialiased font-[family-name:var(--font-geist-sans)] max-w-screen overflow-x-hidden") }
+            className={cn(`${geistSans.variable} ${machina.variable} ${calligraffitti.variable}` , "antialiased font-[family-name:var(--font-geist-sans)] max-w-screen") }
         >
           <ThemeProvider
             attribute="class"
