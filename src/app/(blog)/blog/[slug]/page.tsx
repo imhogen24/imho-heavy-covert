@@ -40,14 +40,17 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const createdTime = post.created_time;
 
   return (
-    <div className='max-w-screen overflow-x-hidden p-5 md:p-10 flex items-center gap-10 flex-col min-h-dvh'>
+    <div className='max-w-screen overflow-x-hidden p-5 md:p-10 flex items-center gap-5 md:gap-10 flex-col min-h-dvh'>
+        <div className='flex flex-col gap-5 items-center'>
         <BackButton/>
-        <h1 className='mx-auto text-center text-xl font-bold md:text-3xl max-w-2xl '>
+        <h1 className='px-5 mx-auto text-center text-xl font-bold md:text-3xl max-w-2xl '>
             {title}
         </h1>
+
         <div className='flex flex-row justify-center items-center gap-2'>
             <Image src={"/logos/footer-logo.png"} height={20} width={20} alt="image"/>
             <span className='text-xs text-muted-foreground'>IMHO Team</span>
+        </div>
         </div>
         <div className='w-full max-w-3xl mx-auto flex justity-between'>
              <span className='flex-1 flex flex-row justify-start items-center gap-1'>
