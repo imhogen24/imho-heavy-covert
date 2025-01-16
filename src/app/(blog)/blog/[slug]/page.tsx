@@ -40,22 +40,22 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const createdTime = post.created_time;
 
   return (
-    <div className='max-w-screen overflow-x-hidden px-5 md:p-10 flex items-center gap-10 flex-col min-h-dvh'>
+    <div className='max-w-screen overflow-x-hidden p-5 md:p-10 flex items-center gap-10 flex-col min-h-dvh'>
         <BackButton/>
-        <h1 className='mx-auto text-center md:text-3xl font-[family-name:var(--font-machina)] max-w-2xl '>
+        <h1 className='mx-auto text-center text-xl font-bold md:text-3xl max-w-2xl '>
             {title}
         </h1>
         <div className='flex flex-row justify-center items-center gap-2'>
-            <Image src={"/logos/footer-logo.png"} height={30} width={30} alt="image"/>
-            <span className='text-sm'>IMHO Team</span>
+            <Image src={"/logos/footer-logo.png"} height={20} width={20} alt="image"/>
+            <span className='text-xs text-muted-foreground'>IMHO Team</span>
         </div>
         <div className='w-full max-w-3xl mx-auto flex justity-between'>
-             <span className='flex-1 inline-flex gap-2'>
-                <TimerIcon/>
-                <p>3 mins read</p>
+             <span className='flex-1 flex flex-row justify-start items-center gap-1'>
+                <TimerIcon size={16} className='my-auto text-muted-foreground'/>
+                <p className='my-auto text-xs text-muted-foreground'>3 mins read</p>
              </span>
 
-             <span>{createdTime.split("T")[0]}</span>
+             <span className='text-xs text-muted-foreground'>{createdTime.split("T")[0]}</span>
         </div>
 
         <div className="prose dark:prose-invert max-w-full p-2 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-3xl mx-auto" dangerouslySetInnerHTML={{__html: html}}>
