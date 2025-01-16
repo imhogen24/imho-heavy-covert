@@ -14,7 +14,15 @@ const Footer = () => {
         <section className="flex flex-col  gap-[16px]  lg:border-r muted-border ">
            <div className="flex flex-col md:grid grid-cols-2 md:place-items-center lg:place-items-start lg:flex lg:flex-col">
             <div className="flex flex-row md:flex-col lg:flex-row gap-[32px] p-[24px] md:p-[48px] ">
-                <Image src="/logos/footer-logo.png" alt="logo" width={64} height={64}/>
+            <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                    <Image
+                        src="/logos/footer-logo.png"
+                        alt="logo"
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 768px) 64px, 64px"
+                    />
+                </div>
                 <span>
                     <h1 className="text-[20px] font-[family-name:var(--font-machina)]">Innovate Make and Have Ours</h1>
                     <p className="text-[20px] font-[family-name:var(--font-calligraffitti)]">Make it Real</p>
