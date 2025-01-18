@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 407.51 217.86">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #fafbfb;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 5px;
+      }
+
+      .cls-2 {
+        stroke: #a2a1a9;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <rect class="cls-2" x="203.28" y="-108.28" width=".95" height="312.51" transform="translate(251.73 -155.78) rotate(90)"/>
+      <rect class="cls-1" x="2.5" y="2.5" width="402.51" height="90.95"/>
+      <rect class="cls-2" x="173.28" y="-138.28" width="60.95" height="372.51" transform="translate(251.73 -155.78) rotate(90)"/>
+      <rect class="cls-2" x="188.28" y="-123.28" width="30.95" height="342.51" transform="translate(251.73 -155.78) rotate(90)"/>
+      <rect class="cls-1" x="2.5" y="124.41" width="402.51" height="90.95"/>
+      <rect class="cls-2" x="173.28" y="-16.36" width="60.95" height="372.51" transform="translate(373.64 -33.86) rotate(90)"/>
+      <rect class="cls-2" x="188.28" y="-1.36" width="30.95" height="342.51" transform="translate(373.64 -33.86) rotate(90)"/>
+      <rect class="cls-2" x="203.28" y="13.64" width=".95" height="312.51" transform="translate(373.64 -33.86) rotate(90)"/>
+    </g>
+  </g>
+</svg>
