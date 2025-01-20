@@ -1,11 +1,23 @@
-import { ProjectCardProps } from '@/lib/types'
-import { cn } from '@/lib/utils'
-import { gradientText } from '../hero/hero-text'
-import { HeroVideoDialog } from '@/components/ui/video-dialogue'
-import Image from 'next/image'
+import { ProjectCardProps } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { gradientText } from "../hero/hero-text";
+import { HeroVideoDialog } from "@/components/ui/video-dialogue";
+import Image from "next/image";
 
-const ProjectCard = ({ idx, title, client, description, service, type, date, Video, image,width,height }: ProjectCardProps) => {
-  const hasVideo = Video !== undefined
+const ProjectCard = ({
+  idx,
+  title,
+  client,
+  description,
+  service,
+  type,
+  date,
+  Video,
+  image,
+  width,
+  height,
+}: ProjectCardProps) => {
+  const hasVideo = Video !== undefined;
 
   if (hasVideo) {
     return (
@@ -43,42 +55,44 @@ const ProjectCard = ({ idx, title, client, description, service, type, date, Vid
 
           <div className="w-full overflow-hidden bg-neutral-800">
             <HeroVideoDialog
-                   className="dark:hidden block"
-                   animationStyle="from-center"
-                   videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-                   thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1736030615/Enterprise_CAD_Tag__owggrm.png"
-                   thumbnailAlt="Hero Video"
-                 />
-                 <HeroVideoDialog
-                   className="hidden dark:block"
-                   animationStyle="from-center"
-                   videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-                   thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1736030616/Enterprise_CAD_Tag--dark_s0ffky.png"
-                   thumbnailAlt="Hero Video"
-                 />
+              className="dark:hidden block"
+              animationStyle="from-center"
+              videoSrc="https://res.cloudinary.com/dstrel8mi/video/upload/v1737336657/lv_0_20240822174611_vwsyie.mp4"
+              thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1736030615/Enterprise_CAD_Tag__owggrm.png"
+              thumbnailAlt="Hero Video"
+            />
+            <HeroVideoDialog
+              className="hidden dark:block"
+              animationStyle="from-center"
+              videoSrc="https://res.cloudinary.com/dstrel8mi/video/upload/v1737336657/lv_0_20240822174611_vwsyie.mp4"
+              thumbnailSrc="https://res.cloudinary.com/dstrel8mi/image/upload/v1736030616/Enterprise_CAD_Tag--dark_s0ffky.png"
+              thumbnailAlt="Hero Video"
+            />
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // Image-based layout for all other projects
   return (
-    <div className={cn(
-      "flex w-full h-full lg:border-y muted-border",
-      "flex-col lg:flex-row",
-      idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-    )}>
-
-
+    <div
+      className={cn(
+        "flex w-full h-full lg:border-y muted-border",
+        "flex-col lg:flex-row",
+        idx % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse",
+      )}
+    >
       {/* Content div - 1/2 width */}
-      <div className={cn(
-        "flex flex-col flex-1 gap-6 lg:gap-10 muted-border",
-        "py-6 px-6 lg:py-14 lg:px-14",
+      <div
+        className={cn(
+          "flex flex-col flex-1 gap-6 lg:gap-10 muted-border",
+          "py-6 px-6 lg:py-14 lg:px-14",
 
-        idx % 2 === 0 ? 'lg:border-r' : 'lg:border-l',
-        "border-t lg:border-t-0"
-      )}>
+          idx % 2 === 0 ? "lg:border-r" : "lg:border-l",
+          "border-t lg:border-t-0",
+        )}
+      >
         <div className="flex flex-col gap-6 lg:gap-8">
           <h4 className="scroll-m-20 font-semibold tracking-tight text-2xl">
             {title}
@@ -109,20 +123,19 @@ const ProjectCard = ({ idx, title, client, description, service, type, date, Vid
       {/* Image div - 1/2 width */}
       <div className="w-full lg:w-1/2">
         <div className="flex justify-center items-center pb-10 lg:p-28">
-        <div>
+          <div>
             <Image
-            src={image || '/api/placeholder/800/450'}
-            alt={title}
-            height={height}
-            width={width}
-            className="mx-auto object-cover"
-          />
-        </div>
-
+              src={image || "/api/placeholder/800/450"}
+              alt={title}
+              height={height}
+              width={width}
+              className="mx-auto object-cover"
+            />
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProjectCard
+export default ProjectCard;
