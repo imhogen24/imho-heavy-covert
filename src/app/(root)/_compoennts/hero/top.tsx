@@ -1,54 +1,129 @@
-import { HERO_ICONS } from '@/lib/constants';
-import Image from "next/image"
+import React from "react";
 
-const TopSection = () => {
+const Top = () => {
   return (
-
-    <div className="relative grid grid-rows-1 grid-flow-col md:grid-cols-5 border-b border-muted w-full">
-            {[1,2,3,4,5].map((index)=>(
-             <div key={index} className='aspect-square border-r  muted-border'>
-                {/* <div className='flex justify-center items-center w-full aspect-square border muted-border rounded-full'>
-                 <Image src='/logos/i-dashed.svg' alt="logo" width={30} height={30} />
-                </div> */}
+    <div className="hidden md:block w-full border-b muted-border">
+      {/* Container with aspect ratio to maintain square cells */}
+      <div className="relative w-full" style={{ aspectRatio: "6/1" }}>
+        {/* Grid container */}
+        <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 grid-rows-2 gap-0">
+          {/* Half Left Circle */}
+          <div className="relative row-span-2 col-span-1">
+            <div className="absolute inset-0">
+              <div className="absolute w-[200%] h-full rounded-full border muted-border -left-full"></div>
             </div>
+          </div>
 
-            ))}
+          {/* Full Circle 1 */}
+          <div className="relative border-x muted-border row-span-2 col-span-2">
+            <div className="absolute inset-0">
+              <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
+                <div className="w-1/2 h-1/2">
+                  <img
+                    src="/obelisk.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-40 object-contain dark:hidden"
+                  />
+                  <img
+                    src="/obelisk.svg"
+                    alt="Next.js Logo"
+                    className="w-full opacity-10 h-full object-contain hidden dark:block"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Hidden Circle on Small */}
+          <div className="relative row-span-2 col-span-2">
+            <div className="absolute inset-0">
+              <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
+                <div className="w-1/2 h-1/2">
+                  <img
+                    src="/heaven-and-earth.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-40 object-contain dark:hidden"
+                  />
+                  <img
+                    src="/heaven-and-earth.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-10 object-contain hidden dark:block"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Logo Circle */}
+          <div className="relative row-span-2 col-span-2 md:col-span-2 border-x muted-border">
+            <div className="absolute inset-0">
+              <div className="w-full h-full rounded-full border muted-border flex items-center justify-center">
+                <div className="w-1/2 h-1/2">
+                  <img
+                    src="/logos/imho-outlined.png"
+                    alt="Next.js Logo"
+                    className="w-full h-full object-contain dark:hidden"
+                  />
+                  <img
+                    src="/logos/imho-outlined.png"
+                    alt="Next.js Logo"
+                    className="w-full h-full object-contain hidden dark:block"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Hidden Circle on Small */}
+          <div className="relative row-span-2 col-span-2">
+            <div className="absolute inset-0">
+              <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
+                <div className="w-1/2 h-1/2">
+                  <img
+                    src="/sun.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-40 object-contain dark:hidden"
+                  />
+                  <img
+                    src="/sun.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-10 object-contain hidden dark:block"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Full Circle 2 */}
+          <div className="relative row-span-2 col-span-2 md:col-span-2 border-x muted-border">
+            <div className="absolute inset-0">
+              <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
+                <div className="w-1/2 h-1/2">
+                  <img
+                    src="/pyramid.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-40 object-contain dark:hidden"
+                  />
+                  <img
+                    src="/pyramid.svg"
+                    alt="Next.js Logo"
+                    className="w-full h-full opacity-10 object-contain hidden dark:block"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Half Right Circle */}
+          <div className="relative row-span-2 col-span-2 md:col-span-1">
+            <div className="absolute inset-0">
+              <div className="absolute w-[200%] h-full rounded-full border muted-border -right-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default TopSection;
-
-
- {/* Circle with icon */}
-          {/* <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative">
-              <div className="absolute -top-24 -left-24 size-48 rounded-full border border-muted bg-background flex items-center justify-center">
-                {icon.icon && (
-                  <icon.icon className="size-24 transition-transform group-hover:scale-110" />
-                )}
-              </div>
-            </div>
-          </div> */}
-
-
-
-
-  /*
-    {HERO_ICONS.map((icon) => (
-        <div
-          key={icon.idx}
-          className="group w-full aspect-square relative border-l border-muted"
-        >
-          {/* Grid cells */
-          /* <div className="grid grid-cols-2">
-            {[1, 2, 3, 4].map((index) => (
-              <div
-                key={index}
-                className="aspect-square border-r border-b border-muted/25"
-              />
-            ))}
-          </div> }
-          </div>
-        ))}
-   */
+export default Top;
