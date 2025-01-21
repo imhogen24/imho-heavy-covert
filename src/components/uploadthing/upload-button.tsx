@@ -1,6 +1,6 @@
-'use client'
-import * as React from "react"
-import { Loader, Paperclip } from "lucide-react"
+"use client";
+import * as React from "react";
+import { Loader, Paperclip } from "lucide-react";
 import { UploadButton } from "@/lib/uploadthing";
 
 export function CustomUploadButton() {
@@ -16,23 +16,18 @@ export function CustomUploadButton() {
       }}
       content={{
         button({ ready }) {
-            if (ready) return  (
-            <div className="flex items-center justify-center">
-              <Paperclip
-                size={20}
-                color={ready ? "#FAFAFA" : "#FAFAFA/50"}
-                className="p-0"
-              />
-            </div>
-          )
+          if (ready)
+            return (
+              <div className="flex items-center justify-center">
+                <Paperclip
+                  size={20}
+                  color={ready ? "#FAFAFA" : "#FAFAFA/50"}
+                  className="p-0"
+                />
+              </div>
+            );
           return <Loader className="animate-spin" />;
         },
-
-        // allowedContent({ ready, fileTypes, isUploading }) {
-        //     if (!ready) return "Checking what you allow";
-        //     if (isUploading) return "Seems like stuff is uploading";
-        //     return `Stuff you can upload: ${fileTypes.join(", ")}`;
-        //   },
       }}
       appearance={{
         container: "w-fit p-0 m-2",
@@ -45,9 +40,9 @@ export function CustomUploadButton() {
           py-2
           px-3
           h-8
-          ${!ready ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-        `
+          ${!ready ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+        `,
       }}
     />
-  )
+  );
 }

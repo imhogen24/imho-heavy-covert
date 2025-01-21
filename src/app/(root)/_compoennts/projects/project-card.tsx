@@ -32,7 +32,7 @@ const ProjectCard = ({
         {/* content div - 2/3 width for video layout */}
         <div className="flex flex-col flex-1 gap-6 lg:gap-10 muted-border py-6 px-6 lg:py-14 lg:px-14 justify-between lg:border-t-0 lg:border-l">
           <div className="flex flex-col gap-6 lg:gap-8">
-            <p className="leading-7 [&:not(:first-child)] text-muted-foreground">
+            <p className="leading-7 [&:not(:first-child)]  placeholder:text-muted-foreground">
               <span className={cn(gradientText)}>{client}</span> {description}
             </p>
 
@@ -78,7 +78,7 @@ const ProjectCard = ({
   return (
     <div
       className={cn(
-        "flex w-full h-full lg:border-y muted-border",
+        "flex w-full h-full lg:border-t muted-border",
         "flex-col lg:flex-row",
         idx % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse",
       )}
@@ -89,7 +89,7 @@ const ProjectCard = ({
           "flex flex-col flex-1 gap-6 lg:gap-10 muted-border",
           "py-6 px-6 lg:py-14 lg:px-14",
 
-          idx % 2 === 0 ? "lg:border-r" : "lg:border-l",
+          idx % 2 === 0 ? "" : "lg:border-l",
           "border-t lg:border-t-0",
         )}
       >
@@ -121,7 +121,12 @@ const ProjectCard = ({
       </div>
 
       {/* Image div - 1/2 width */}
-      <div className="w-full lg:w-1/2">
+      <div
+        className={cn(
+          "w-full lg:w-1/2",
+          idx % 2 === 0 ? "lg:border-l muted-border" : "",
+        )}
+      >
         <div className="flex justify-center items-center pb-10 lg:p-28">
           <div>
             <Image
@@ -129,7 +134,7 @@ const ProjectCard = ({
               alt={title}
               height={height}
               width={width}
-              className="mx-auto object-cover"
+              className={cn("mx-auto object-cover")}
             />
           </div>
         </div>
