@@ -23,7 +23,7 @@ export interface IconProps extends SVGProps<SVGSVGElement> {
 
 export type WorkWithUsProps = {
   idx: number;
-  icon: React.FC<IconProps>;
+  image: string;
   title: string;
   description: string;
   footer?: string;
