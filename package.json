@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@conform-to/react": "^1.2.2",
+    "@conform-to/zod": "^1.2.2",
     "@hookform/resolvers": "^3.10.0",
     "@notion-render/bookmark-plugin": "^0.0.2",
     "@notion-render/client": "^0.0.2",
