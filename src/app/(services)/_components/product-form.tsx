@@ -1,6 +1,6 @@
 "use client";
 
-import { Action } from "@/action";
+import { ProductFormAction } from "@/action";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { ProductSchema } from "@/lib/z-schema";
 
 export const ProductForm = () => {
-  const [lastResult, action] = useActionState(Action, undefined);
+  const [lastResult, action] = useActionState(ProductFormAction, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
