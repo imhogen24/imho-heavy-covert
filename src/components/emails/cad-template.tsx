@@ -5,6 +5,7 @@ import {
   Head,
   Heading,
   Hr,
+  Img,
   Html,
   Link,
   Preview,
@@ -61,174 +62,150 @@ export const CadRequestEmail = ({
 }: CadRequestEmailProps) => (
   <Html>
     <Head />
-    <Preview>Your CAD Request Confirmation</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Section style={track.container}>
+    <Preview>New CAD Documentation Request - Immediate Review Required</Preview>
+    <Body style={styles.main}>
+      <Container style={styles.container}>
+        <Section style={styles.header}>
           <Row>
-            <Column>
-              <Text style={global.paragraphWithBold}>Request Number</Text>
-              <Text style={track.number}>{requestNumber}</Text>
+            <Column style={{ textAlign: "center" }}>
+              <Img
+                src={`https://res.cloudinary.com/dstrel8mi/image/upload/v1737805863/nav-logo_okx0tv.png`}
+                width="200"
+                height="45"
+                alt="Company Logo"
+                style={{ margin: "0 auto" }}
+              />
             </Column>
           </Row>
         </Section>
 
-        <Hr style={global.hr} />
+        <Section style={styles.content}>
+          <Heading style={styles.heading}>CAD Request Notification</Heading>
+          <Text style={styles.subHeading}>
+            A new CAD documentation request requires your immediate attention.
+          </Text>
 
-        <Section style={message}>
-          <Heading style={global.heading}>CAD Request Received</Heading>
-          <Text style={global.text}>
-            Thank you for submitting your detailed Computer Aided Design (CAD)
-            request.
-          </Text>
-        </Section>
-
-        <Hr style={global.hr} />
-
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Client Information</Text>
-          <Text style={global.text}>
-            <strong>Organization:</strong> {organizationName}
-          </Text>
-          <Text style={global.text}>
-            <strong>Contact Person:</strong> {contactPerson}
-          </Text>
-          <Text style={global.text}>
-            <strong>Email:</strong> {email}
-          </Text>
-          <Text style={global.text}>
-            <strong>Phone:</strong> {phoneNumber}
-          </Text>
-          <Text style={global.text}>
-            <strong>Address:</strong> {address}
-          </Text>
-        </Section>
-
-        <Hr style={global.hr} />
-
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Organizational Details</Text>
-          <Text style={global.text}>
-            <strong>Operations:</strong> {organizationOperations}
-          </Text>
-          <Text style={global.text}>
-            <strong>Documentation Purpose:</strong> {documentationPurpose}
-          </Text>
-        </Section>
-
-        <Hr style={global.hr} />
-
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Documentation Requirements</Text>
-          <Text style={global.text}>
-            <strong>Documentation Types:</strong>{" "}
-            {documentationTypes.join(", ")}
-            {otherDocumentationType && ` (Other: ${otherDocumentationType})`}
-          </Text>
-          <Text style={global.text}>
-            <strong>Preferred File Formats:</strong> {fileFormats.join(", ")}
-            {otherFileFormat && ` (Other: ${otherFileFormat})`}
-          </Text>
-        </Section>
-
-        <Hr style={global.hr} />
-
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Technical Specifications</Text>
-          {technicalSpecifications && (
-            <Text style={global.text}>
-              <strong>Technical Specifications:</strong>{" "}
-              {technicalSpecifications}
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
+            <Text style={styles.infoText}>
+              <strong>Request Number:</strong> {requestNumber}
             </Text>
-          )}
-          {technicalStandards && (
-            <Text style={global.text}>
-              <strong>Technical Standards:</strong> {technicalStandards}
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
+            <Text style={styles.infoText}>
+              <strong>Organization:</strong> {organizationName}
             </Text>
-          )}
-        </Section>
-
-        <Hr style={global.hr} />
-
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Design Preferences</Text>
-          {visualStylePreferences && (
-            <Text style={global.text}>
-              <strong>Visual Style Preferences:</strong>{" "}
-              {visualStylePreferences}
+            <Text style={styles.infoText}>
+              <strong>Contact Person:</strong> {contactPerson}
             </Text>
-          )}
-          {layoutPreferences && (
-            <Text style={global.text}>
-              <strong>Layout Preferences:</strong> {layoutPreferences}
+            <Text style={styles.infoText}>
+              <strong>Email:</strong> {email}
             </Text>
-          )}
-        </Section>
-
-        <Hr style={global.hr} />
-
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Project Timeline</Text>
-          {preferredTimeline && (
-            <Text style={global.text}>
-              <strong>Preferred Timeline:</strong> {preferredTimeline}
+            <Text style={styles.infoText}>
+              <strong>Phone:</strong> {phoneNumber}
             </Text>
-          )}
-          <Text style={global.text}>
-            <strong>Periodic Drafts Required:</strong>{" "}
-            {requirePeriodicDrafts ? "Yes" : "No"}
-          </Text>
-        </Section>
+            <Text style={styles.infoText}>
+              <strong>Address:</strong> {address}
+            </Text>
+          </Section>
 
-        {(additionalServices || additionalComments) && (
-          <>
-            <Hr style={global.hr} />
-            <Section style={global.defaultPadding}>
-              <Text style={adressTitle}>Additional Information</Text>
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>ORGANIZATIONAL DETAILS</Text>
+            <Text style={styles.infoText}>
+              <strong>Operations:</strong> {organizationOperations}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Documentation Purpose:</strong> {documentationPurpose}
+            </Text>
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>DOCUMENTATION REQUIREMENTS</Text>
+            <Text style={styles.infoText}>
+              <strong>Documentation Types:</strong>{" "}
+              {documentationTypes.join(", ") || "None"}
+              {otherDocumentationType && ` (Other: ${otherDocumentationType})`}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Preferred File Formats:</strong>{" "}
+              {fileFormats.join(", ") || "None"}
+              {otherFileFormat && ` (Other: ${otherFileFormat})`}
+            </Text>
+          </Section>
+
+          {(technicalSpecifications || technicalStandards) && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>TECHNICAL SPECIFICATIONS</Text>
+              {technicalSpecifications && (
+                <Text style={styles.infoText}>
+                  <strong>Technical Specifications:</strong>{" "}
+                  {technicalSpecifications}
+                </Text>
+              )}
+              {technicalStandards && (
+                <Text style={styles.infoText}>
+                  <strong>Technical Standards:</strong> {technicalStandards}
+                </Text>
+              )}
+            </Section>
+          )}
+
+          {(visualStylePreferences || layoutPreferences) && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>DESIGN PREFERENCES</Text>
+              {visualStylePreferences && (
+                <Text style={styles.infoText}>
+                  <strong>Visual Style Preferences:</strong>{" "}
+                  {visualStylePreferences}
+                </Text>
+              )}
+              {layoutPreferences && (
+                <Text style={styles.infoText}>
+                  <strong>Layout Preferences:</strong> {layoutPreferences}
+                </Text>
+              )}
+            </Section>
+          )}
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>PROJECT TIMELINE</Text>
+            {preferredTimeline && (
+              <Text style={styles.infoText}>
+                <strong>Preferred Timeline:</strong> {preferredTimeline}
+              </Text>
+            )}
+            <Text style={styles.infoText}>
+              <strong>Periodic Drafts Required:</strong>{" "}
+              {requirePeriodicDrafts ? "Yes" : "No"}
+            </Text>
+          </Section>
+
+          {(additionalServices || additionalComments) && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>ADDITIONAL INFORMATION</Text>
               {additionalServices && (
-                <Text style={global.text}>
+                <Text style={styles.infoText}>
                   <strong>Additional Services:</strong> {additionalServices}
                 </Text>
               )}
               {additionalComments && (
-                <Text style={global.text}>
+                <Text style={styles.infoText}>
                   <strong>Additional Comments:</strong> {additionalComments}
                 </Text>
               )}
             </Section>
-          </>
-        )}
-
-        <Hr style={global.hr} />
-
-        <Section style={menu.container}>
-          <Row style={menu.content}>
-            <Column style={{ width: "50%" }} colSpan={1}>
-              <Link href="#" style={menu.text}>
-                Track Request Status
-              </Link>
-            </Column>
-            <Column style={{ width: "50%" }} colSpan={1}>
-              <Link href="#" style={menu.text}>
-                Contact Support
-              </Link>
-            </Column>
-          </Row>
+          )}
         </Section>
 
-        <Hr style={global.hr} />
-
-        <Section style={footer.policy}>
-          <Row>
-            <Text style={footer.text}>
-              © 2024 Your CAD Services. All Rights Reserved.
-            </Text>
-          </Row>
-          <Row>
-            <Text style={footer.text}>
-              Please do not reply to this automated email.
-            </Text>
-          </Row>
+        <Section style={styles.footer}>
+          <Text style={styles.footerText}>
+            © 2024 CAD Documentation Services. Confidential Communication.
+          </Text>
+          <Text style={styles.footerDisclaimer}>
+            This is an automated notification. Do not reply directly.
+          </Text>
         </Section>
       </Container>
     </Body>
@@ -237,112 +214,66 @@ export const CadRequestEmail = ({
 
 export default CadRequestEmail;
 
-const main = {
-  backgroundColor: "#ffffff",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-};
-
-const container = {
-  margin: "10px auto",
-  width: "600px",
-  maxWidth: "100%",
-  border: "1px solid #E5E5E5",
-};
-
-const track = {
+const styles = {
+  main: {
+    backgroundColor: "#FFFFFF",
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+  },
   container: {
-    padding: "22px 40px",
-    backgroundColor: "#F7F7F7",
+    maxWidth: "600px",
+    margin: "0 auto",
+    border: "1px solid #E0E0E0",
   },
-  number: {
-    margin: "12px 0 0 0",
-    fontWeight: 500,
-    lineHeight: "1.4",
-    color: "#6F6F6F",
-  },
-};
-
-const message = {
-  padding: "40px 74px",
-  textAlign: "center" as const,
-};
-
-const global = {
-  paragraphWithBold: { margin: 0, fontWeight: "bold" },
-  heading: {
-    fontSize: "32px",
-    lineHeight: "1.3",
-    fontWeight: "700",
-    textAlign: "center",
-    letterSpacing: "-1px",
-  } as React.CSSProperties,
-  text: {
-    margin: 0,
-    color: "#747474",
-    fontWeight: "500",
-  },
-  button: {
-    border: "1px solid #929292",
-    fontSize: "16px",
-    textDecoration: "none",
-    padding: "10px 0px",
-    width: "220px",
-    display: "block",
-    textAlign: "center",
-    fontWeight: 500,
-    color: "#000",
-  } as React.CSSProperties,
-  hr: {
-    borderColor: "#E5E5E5",
-    margin: "0",
-  },
-  defaultPadding: {
-    paddingLeft: "40px",
-    paddingRight: "40px",
-    paddingTop: "22px",
-    paddingBottom: "22px",
-  },
-};
-
-const adressTitle = {
-  margin: 0,
-  fontSize: "15px",
-  fontWeight: "bold",
-};
-
-const menu = {
-  container: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    paddingTop: "20px",
-    backgroundColor: "#F7F7F7",
+  header: {
+    backgroundColor: "#F5F5F5",
+    padding: "20px",
+    textAlign: "center" as const,
   },
   content: {
-    paddingTop: "22px",
-    paddingBottom: "22px",
-    paddingLeft: "20px",
-    paddingRight: "20px",
+    padding: "30px",
   },
-  text: {
-    fontSize: "13.5px",
-    marginTop: 0,
-    fontWeight: 500,
-    color: "#000",
+  heading: {
+    color: "#000000",
+    fontSize: "28px",
+    fontWeight: "700",
+    marginBottom: "10px",
     textAlign: "center" as const,
   },
-};
-
-const footer = {
-  policy: {
-    paddingTop: "22px",
-    paddingBottom: "22px",
+  subHeading: {
+    color: "#555555",
+    fontSize: "16px",
+    textAlign: "center" as const,
+    marginBottom: "20px",
+  },
+  detailSection: {
+    marginBottom: "20px",
+  },
+  sectionTitle: {
+    color: "#000000",
+    fontSize: "14px",
+    fontWeight: "700",
+    letterSpacing: "1px",
+    marginBottom: "10px",
+  },
+  infoText: {
+    color: "#333333",
+    fontSize: "15px",
+    lineHeight: "1.6",
+    marginBottom: "5px",
+  },
+  footer: {
+    backgroundColor: "#F5F5F5",
+    padding: "15px",
     textAlign: "center" as const,
   },
-  text: {
-    margin: "0",
-    color: "#AFAFAF",
-    fontSize: "13px",
-    textAlign: "center" as const,
+  footerText: {
+    color: "#666666",
+    fontSize: "12px",
+    marginBottom: "5px",
+  },
+  footerDisclaimer: {
+    color: "#999999",
+    fontSize: "11px",
   },
 };
