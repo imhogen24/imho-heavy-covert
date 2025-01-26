@@ -62,26 +62,18 @@ export const CadSchema = z.object({
   documentationPurpose: z.string().min(2).max(200),
 
   // Documentation Requirements
-  documentationTypes: z
-    .array(
-      z.enum([
-        "2D Engineering Drawings",
-        "3D Models",
-        "Rendered Images",
-        "Technical Illustrations",
-        "User Manuals",
-      ]),
-    )
-    .optional()
-    .or(z.literal("")),
+  documentationTypes: z.array(
+    z.enum([
+      "2D Engineering Drawings",
+      "3D Models",
+      "Rendered Images",
+      "Technical Illustrations",
+      "User Manuals",
+    ]),
+  ),
   otherDocumentationType: z.string().optional(),
 
-  fileFormats: z.array(
-    z
-      .enum(["CAD files", "Vector images", "PDF documents"])
-      .optional()
-      .or(z.literal("")),
-  ),
+  fileFormats: z.array(z.enum(["CAD files", "Vector images", "PDF documents"])),
   otherFileFormat: z.string().trim().optional(),
 
   // Technical Details
