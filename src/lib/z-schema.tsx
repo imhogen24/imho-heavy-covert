@@ -31,8 +31,6 @@ export const ProductSchema = z.object({
   preferredTimeline: z.string().min(5).max(100),
   requirePrototypes: z.boolean().default(false),
   numberOfPrototypes: z.number(),
-  requiredTests: z.string().min(5).max(100),
-  comparableProducts: z.string().min(5).max(100),
   collaborationPreferences: z
     .array(
       z.enum([
@@ -43,6 +41,8 @@ export const ProductSchema = z.object({
     )
     .optional()
     .or(z.literal("")),
+  requiredTests: z.string().min(5).max(100),
+  comparableProducts: z.string().min(5).max(100),
   additionalComments: z.string().min(5).max(100),
 
   // Metadata
@@ -92,6 +92,48 @@ export const CadSchema = z.object({
   additionalComments: z.string().trim().optional(),
 
   // Metadata (optional as these are typically auto-generated)
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});
+
+export const SupportSchema = z.object({
+  // Section A: Client Information
+  organizationName: z.string().min(2).max(200),
+  contactPerson: z.string().min(2).max(100),
+  email: z.string().email(),
+  phoneNumber: z.string().min(10).max(20),
+  physicalPostalAddress: z.string().min(5).max(200),
+
+  // Section B: Training Requirements
+  trainingNeeds: z.string().min(10).max(500),
+  trainingObjectives: z.string().min(10).max(500),
+  numberOfParticipants: z.number().min(1).max(1000),
+  participantRoles: z.string().min(5).max(200),
+  participantSkillLevel: z.enum(["Beginner", "Intermediate", "Advanced"]),
+  trainingDeliveryMode: z.enum(["On-site", "Virtual", "Blended"]),
+  trainingTimeline: z.string().min(5).max(100),
+
+  // Section C: Project Support Requirements
+  projectOverview: z.string().min(10).max(500),
+  projectScopeDeliverables: z.string().min(10).max(500),
+  collaborationPreferences: z
+    .array(
+      z.enum([
+        "Regular meetings",
+        "Weekly updates via email",
+        "On-demand reporting",
+      ]),
+    )
+    .optional()
+    .or(z.literal("")),
+  projectDeadline: z.date(),
+
+  // Section D: Additional Considerations
+  toolsAndResources: z.string().min(5).max(500),
+  longTermCollaboration: z.boolean().default(false),
+  additionalInformation: z.string().min(5).max(500).optional(),
+
+  // Metadata
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });

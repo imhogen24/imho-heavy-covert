@@ -149,9 +149,9 @@ export const ProductForm = () => {
             key={fields.productPurpose.key}
             name={fields.productPurpose.name}
             defaultValue={fields.productPurpose.initialValue}
-            id="documentation-purpose"
+            id="product-purpose"
             typeof="text"
-            placeholder="Describe the purpose of your documentation"
+            placeholder="Describe the purpose of your product"
           />
           {fields.productPurpose.errors && (
             <p className="text-red-500 text-sm">
@@ -223,7 +223,7 @@ export const ProductForm = () => {
             defaultValue={fields.coreFunctions.initialValue}
             id="core-functions"
             typeof="text"
-            placeholder="core functions"
+            placeholder="what should be the core functions of the product"
           />
           {fields.coreFunctions.errors && (
             <p className="text-red-500 text-sm">
@@ -241,7 +241,7 @@ export const ProductForm = () => {
             defaultValue={fields.performanceMetrics.initialValue}
             id="performace-metrics"
             typeof="text"
-            placeholder="performanc metrics"
+            placeholder="specify the performance metrics"
           />
           {fields.performanceMetrics.errors && (
             <p className="text-red-500 text-sm">
@@ -259,7 +259,7 @@ export const ProductForm = () => {
             defaultValue={fields.preferredMaterials.initialValue}
             id="prefered-materials"
             typeof="text"
-            placeholder="Describe your prefered materials"
+            placeholder="what are your prefered materials"
           />
           {fields.preferredMaterials.errors && (
             <p className="text-red-500 text-sm">
