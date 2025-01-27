@@ -1,12 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet";
 import { cadFormAction } from "@/action";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -383,8 +375,9 @@ export const CadForm = () => {
             </p>
           )}
         </div>
-
-        <Submit label="Send CAD Request" />
+        <div className="mt-8">
+          <Submit label="Send CAD Request" />
+        </div>
       </form>
     </div>
   );

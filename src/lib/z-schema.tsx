@@ -137,3 +137,84 @@ export const SupportSchema = z.object({
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });
+
+export const ProcessSchema = z.object({
+  // Section A: Client Information
+  organizationName: z.string().min(2).max(200),
+  contactPerson: z.string().min(2).max(100),
+  email: z.string().email(),
+  phoneNumber: z.string().min(10).max(20),
+  address: z.string().min(5).max(200),
+
+  // Section B: Business Overview
+  businessOperations: z.string().min(10).max(1000),
+  processPurpose: z.string().min(10).max(500),
+
+  // Section C: Current Process Overview
+  currentProcess: z.string().min(10).max(1000),
+  currentProcessPurpose: z.string().min(10).max(500),
+  currentPerformanceMetrics: z.string().min(10).max(500),
+
+  // Section C: Challenges
+  painPoints: z
+    .array(
+      z.enum([
+        "Low efficiency",
+        "High operating costs",
+        "Safety concerns",
+        "Low output",
+        "Quality issues",
+        "Other",
+      ]),
+    )
+    .min(1),
+  specificChallenges: z.string().min(10).max(500),
+
+  // Section D: Desired Improvements
+  improvementGoals: z
+    .array(
+      z.enum([
+        "Increased efficiency",
+        "Reduced costs",
+        "Improved safety",
+        "Enhanced quality",
+        "Higher output",
+        "Other",
+      ]),
+    )
+    .min(1),
+  performanceTargets: z.string().min(10).max(500),
+
+  // Section E: Functional Requirements
+  primaryFunctions: z.string().min(10).max(1000),
+  operationalNeeds: z
+    .array(z.enum(["Manually", "Conveyor or automated systems", "Other"]))
+    .min(1),
+  specialRequirements: z.string().min(10).max(500),
+
+  // Section F: Space and Power Constraints
+  spaceAvailability: z.string().min(10).max(500),
+  powerSupply: z.string().min(10).max(500),
+  environmentalFactors: z.string().min(10).max(500),
+
+  // Section G: Scalability
+  anticipateFutureGrowth: z.boolean(),
+  growthAccommodation: z.string().min(10).max(500),
+  comparableSystems: z.string().min(10).max(500),
+
+  // Section H: Additional Information
+  collaborationPreferences: z
+    .array(
+      z.enum([
+        "Regular Meetings",
+        "Weekly Updates via Email",
+        "On-demand Reporting",
+      ]),
+    )
+    .optional(),
+  additionalComments: z.string().min(10).max(1000).optional(),
+
+  // Metadata
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});

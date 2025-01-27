@@ -18,7 +18,13 @@ export function Submit({ label }: BUTTON_PROPS) {
       type="submit"
       aria-disabled={pending}
     >
-      {pending ? <LoaderCircle className="animate-spin" /> : <>{label}</>}
+      {pending ? (
+        <>
+          <LoaderCircle className="animate-spin" /> submitting...
+        </>
+      ) : (
+        <>{label}</>
+      )}
     </Button>
   );
 }
