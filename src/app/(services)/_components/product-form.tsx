@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Submit } from "./submit";
 import {
   Select,
   SelectContent,
@@ -149,9 +150,9 @@ export const ProductForm = () => {
             key={fields.productPurpose.key}
             name={fields.productPurpose.name}
             defaultValue={fields.productPurpose.initialValue}
-            id="documentation-purpose"
+            id="product-purpose"
             typeof="text"
-            placeholder="Describe the purpose of your documentation"
+            placeholder="Describe the purpose of your product"
           />
           {fields.productPurpose.errors && (
             <p className="text-red-500 text-sm">
@@ -223,7 +224,7 @@ export const ProductForm = () => {
             defaultValue={fields.coreFunctions.initialValue}
             id="core-functions"
             typeof="text"
-            placeholder="core functions"
+            placeholder="what should be the core functions of the product"
           />
           {fields.coreFunctions.errors && (
             <p className="text-red-500 text-sm">
@@ -241,7 +242,7 @@ export const ProductForm = () => {
             defaultValue={fields.performanceMetrics.initialValue}
             id="performace-metrics"
             typeof="text"
-            placeholder="performanc metrics"
+            placeholder="specify the performance metrics"
           />
           {fields.performanceMetrics.errors && (
             <p className="text-red-500 text-sm">
@@ -259,7 +260,7 @@ export const ProductForm = () => {
             defaultValue={fields.preferredMaterials.initialValue}
             id="prefered-materials"
             typeof="text"
-            placeholder="Describe your prefered materials"
+            placeholder="what are your prefered materials"
           />
           {fields.preferredMaterials.errors && (
             <p className="text-red-500 text-sm">
@@ -502,13 +503,10 @@ export const ProductForm = () => {
           )}
         </div>
 
-        <Button
-          className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
-          variant={"secondary"}
-          type="submit"
-        >
-          Submit Product Request
-        </Button>
+        {/* Submit Button */}
+        <div className="mt-8">
+          <Submit label="Submit Process Request" />
+        </div>
       </form>
     </div>
   );

@@ -15,69 +15,67 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-export interface ProductRequestEmailProps {
+export interface ProcessRequestEmailProps {
   organizationName: string;
   contactPerson: string;
   email: string;
   phoneNumber: string;
   address: string;
   businessOperations: string;
-  productPurpose: string;
-  productVision: string;
-  productObjectives: string;
-  targetAudience: string;
-  coreFunctions: string;
-  performanceMetrics: string;
-  preferredMaterials: string;
-  complianceStandards: string;
-  environmentalConditions: string;
-  visualStyle: string;
-  ergonomicFeatures: string;
-  brandingRequirements: string;
-  budgetRange: string;
-  preferredTimeline: string;
-  requirePrototypes: boolean;
-  numberOfPrototypes: number;
-  requiredTests: string;
-  comparableProducts: string;
-  collaborationPreferences?: string[];
+  processPurpose: string;
+  currentProcess: string;
+  currentProcessPurpose: string;
+  currentPerformanceMetrics: string;
+  painPoints: string[];
+  specificChallenges: string;
+  improvementGoals: string[];
+  performanceTargets: string;
+  primaryFunctions: string;
+  operationalNeeds: string[];
+  specialRequirements: string;
+  spaceAvailability: string;
+  powerSupply: string;
+  environmentalFactors: string;
+  anticipateFutureGrowth: boolean;
+  growthAccommodation: string;
+  comparableSystems: string;
+  collaborationPreferences: string[];
   additionalComments: string;
   requestNumber: string;
 }
 
-export const ProductRequestEmail = ({
+export const ProcessRequestEmail = ({
   organizationName,
   contactPerson,
   email,
   phoneNumber,
   address,
   businessOperations,
-  productPurpose,
-  productVision,
-  productObjectives,
-  targetAudience,
-  coreFunctions,
-  performanceMetrics,
-  preferredMaterials,
-  complianceStandards,
-  environmentalConditions,
-  visualStyle,
-  ergonomicFeatures,
-  brandingRequirements,
-  budgetRange,
-  preferredTimeline,
-  requirePrototypes,
-  numberOfPrototypes,
-  requiredTests,
-  comparableProducts,
+  processPurpose,
+  currentProcess,
+  currentProcessPurpose,
+  currentPerformanceMetrics,
+  painPoints,
+  specificChallenges,
+  improvementGoals,
+  performanceTargets,
+  primaryFunctions,
+  operationalNeeds,
+  specialRequirements,
+  spaceAvailability,
+  powerSupply,
+  environmentalFactors,
+  anticipateFutureGrowth,
+  growthAccommodation,
+  comparableSystems,
   collaborationPreferences,
   additionalComments,
   requestNumber,
-}: ProductRequestEmailProps) => (
+}: ProcessRequestEmailProps) => (
   <Html>
     <Head />
     <Preview>
-      New Product Development Request - Immediate Review Required
+      New Process Improvement Request - Immediate Review Required
     </Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
@@ -96,9 +94,9 @@ export const ProductRequestEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>Product Development Request</Heading>
+          <Heading style={styles.heading}>Process Improvement Request</Heading>
           <Text style={styles.subHeading}>
-            A new product development request requires your immediate attention.
+            A new process improvement request requires your immediate attention.
           </Text>
 
           <Section style={styles.detailSection}>
@@ -133,97 +131,101 @@ export const ProductRequestEmail = ({
               <strong>Business Operations:</strong> {businessOperations}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Product Purpose:</strong> {productPurpose}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Product Vision:</strong> {productVision}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Product Objectives:</strong> {productObjectives}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Target Audience:</strong> {targetAudience}
+              <strong>Process Purpose:</strong> {processPurpose}
             </Text>
           </Section>
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>TECHNICAL SPECIFICATIONS</Text>
-            <Text style={styles.infoText}>
-              <strong>Core Functions:</strong> {coreFunctions}
+            <Text style={styles.sectionTitle}>
+              CURRENT PROCESS & CHALLENGES
             </Text>
             <Text style={styles.infoText}>
-              <strong>Performance Metrics:</strong> {performanceMetrics}
+              <strong>Current Process:</strong> {currentProcess}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Preferred Materials:</strong> {preferredMaterials}
+              <strong>Current Process Purpose:</strong> {currentProcessPurpose}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Compliance Standards:</strong> {complianceStandards}
+              <strong>Current Performance Metrics:</strong>{" "}
+              {currentPerformanceMetrics}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Environmental Conditions:</strong>{" "}
-              {environmentalConditions}
-            </Text>
-          </Section>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>DESIGN REQUIREMENTS</Text>
-            <Text style={styles.infoText}>
-              <strong>Visual Style:</strong> {visualStyle}
+              <strong>Pain Points:</strong> {painPoints.join(", ") || "None"}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Ergonomic Features:</strong> {ergonomicFeatures}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Branding Requirements:</strong> {brandingRequirements}
+              <strong>Specific Challenges:</strong> {specificChallenges}
             </Text>
           </Section>
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>PROJECT SPECIFICATIONS</Text>
+            <Text style={styles.sectionTitle}>DESIRED IMPROVEMENTS</Text>
             <Text style={styles.infoText}>
-              <strong>Budget Range:</strong> {budgetRange}
+              <strong>Improvement Goals:</strong>{" "}
+              {improvementGoals.join(", ") || "None"}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Preferred Timeline:</strong> {preferredTimeline}
+              <strong>Performance Targets:</strong> {performanceTargets}
             </Text>
-            <Text style={styles.infoText}>
-              <strong>Prototypes Required:</strong>{" "}
-              {requirePrototypes ? "Yes" : "No"}
-            </Text>
-            {requirePrototypes && (
-              <Text style={styles.infoText}>
-                <strong>Number of Prototypes:</strong> {numberOfPrototypes}
-              </Text>
-            )}
-            <Text style={styles.infoText}>
-              <strong>Required Tests:</strong> {requiredTests}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Comparable Products:</strong> {comparableProducts}
-            </Text>
-            {collaborationPreferences &&
-              collaborationPreferences.length > 0 && (
-                <Text style={styles.infoText}>
-                  <strong>Collaboration Preferences:</strong>{" "}
-                  {collaborationPreferences.join(", ")}
-                </Text>
-              )}
           </Section>
 
-          {additionalComments && (
-            <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>ADDITIONAL INFORMATION</Text>
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>FUNCTIONAL REQUIREMENTS</Text>
+            <Text style={styles.infoText}>
+              <strong>Primary Functions:</strong> {primaryFunctions}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Operational Needs:</strong>{" "}
+              {operationalNeeds.join(", ") || "None"}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Special Requirements:</strong> {specialRequirements}
+            </Text>
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>SPACE AND POWER CONSTRAINTS</Text>
+            <Text style={styles.infoText}>
+              <strong>Space Availability:</strong> {spaceAvailability}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Power Supply:</strong> {powerSupply}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Environmental Factors:</strong> {environmentalFactors}
+            </Text>
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>SCALABILITY</Text>
+            <Text style={styles.infoText}>
+              <strong>Anticipate Future Growth:</strong>{" "}
+              {anticipateFutureGrowth ? "Yes" : "No"}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Growth Accommodation:</strong> {growthAccommodation}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Comparable Systems:</strong> {comparableSystems}
+            </Text>
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>ADDITIONAL INFORMATION</Text>
+            <Text style={styles.infoText}>
+              <strong>Collaboration Preferences:</strong>{" "}
+              {collaborationPreferences.join(", ") || "None"}
+            </Text>
+            {additionalComments && (
               <Text style={styles.infoText}>
                 <strong>Additional Comments:</strong> {additionalComments}
               </Text>
-            </Section>
-          )}
+            )}
+          </Section>
         </Section>
 
         <Section style={styles.footer}>
           <Text style={styles.footerText}>
-            © 2024 Product Development Services. Confidential Communication.
+            © 2024 Process Improvement Services. Confidential Communication.
           </Text>
           <Text style={styles.footerDisclaimer}>
             This is an automated notification. Do not reply directly.
@@ -234,7 +236,7 @@ export const ProductRequestEmail = ({
   </Html>
 );
 
-export default ProductRequestEmail;
+export default ProcessRequestEmail;
 
 const styles = {
   main: {

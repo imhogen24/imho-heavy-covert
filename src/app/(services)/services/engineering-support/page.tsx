@@ -1,12 +1,11 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { ObeliskIcon } from "@/lib/icons";
 import { CadForm } from "../../_components/cad-form";
-import { ProductForm } from "../../_components/product-form";
+import { SupportForm } from "../../_components/engineering-support-form";
 
-const ProductPage = () => {
+const EngineeringSupportPage = () => {
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">
       <div className="grid grid-cols-3 relative h-fit w-full border-b muted-border">
@@ -42,7 +41,7 @@ const ProductPage = () => {
       <div className="flex flex-row w-full h-full justify-between">
         <div className="hidden relative lg:grid grid-cols-1 w-28 border-r muted-border border-dashed min-h-full"></div>
         <div className="w-full">
-          <ProductForm />
+          <SupportForm />
         </div>
         <div className="hidden relative lg:grid grid-cols-1 w-28 border-l muted-border border-dashed min-h-full"></div>
       </div>
@@ -50,4 +49,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default EngineeringSupportPage;
