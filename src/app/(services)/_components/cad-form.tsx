@@ -1,5 +1,5 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import {
   Sheet,
   SheetContent,
@@ -7,9 +7,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import { useState } from "react";
 import { cadFormAction } from "@/action";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,8 +23,11 @@ import { useActionState } from "react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { CadSchema } from "@/lib/z-schema";
+import { Submit } from "./submit";
+import { useRef } from "react";
 
 export const CadForm = () => {
+  const ref = useRef<HTMLFormElement>(null);
   const [lastResult, action] = useActionState(cadFormAction, undefined);
   const [form, fields] = useForm({
     lastResult,
@@ -43,6 +44,7 @@ export const CadForm = () => {
         Computer Aided Design (CAD) Request
       </h1>
       <form
+        ref={ref}
         id={form.id}
         onSubmit={form.onSubmit}
         action={action}
@@ -128,7 +130,7 @@ export const CadForm = () => {
             name={fields.address.name}
             defaultValue={fields.address.initialValue}
             id="address"
-            placeholder="KNUST, Kumasi"
+            placeholder="Physical/Postal Address"
             type="text"
           />
           {fields.address.errors && (
@@ -144,7 +146,7 @@ export const CadForm = () => {
             defaultValue={fields.organizationOperations.initialValue}
             id="organization-operations"
             typeof="text"
-            placeholder="Describe your organization's operations"
+            placeholder="Briefly describe your company's core business and primary activities"
           />
           {fields.organizationOperations.errors && (
             <p className="text-red-500 text-sm">
@@ -161,7 +163,7 @@ export const CadForm = () => {
             defaultValue={fields.documentationPurpose.initialValue}
             id="documentation-purpose"
             typeof="text"
-            placeholder="Describe your organization's operations"
+            placeholder="Explain the specific goals and intended use of the requested documentation"
           />
           {fields.documentationPurpose.errors && (
             <p className="text-red-500 text-sm">
@@ -269,7 +271,7 @@ export const CadForm = () => {
           <Textarea
             name="technicalSpecifications"
             id="technical-specifications"
-            placeholder="Describe any specific technical specifications"
+            placeholder="List critical dimensions, tolerances, or technical requirements"
           />
 
           {fields.technicalSpecifications.errors && (
@@ -284,7 +286,7 @@ export const CadForm = () => {
           <Input
             name="technicalStandards"
             id="technical-standards"
-            placeholder="Any specific technical standards to follow"
+            placeholder="Specify any industry or engineering standards to be followed"
           />
 
           {fields.technicalStandards.errors && (
@@ -300,7 +302,7 @@ export const CadForm = () => {
           <Textarea
             name="visualStylePreferences"
             id="visual-style"
-            placeholder="Describe your preferred visual style"
+            placeholder="Describe desired aesthetic and visual approach for documentation"
           />
 
           {fields.visualStylePreferences.errors && (
@@ -315,7 +317,7 @@ export const CadForm = () => {
           <Textarea
             name="layoutPreferences"
             id="layout-preferences"
-            placeholder="Describe your layout preferences"
+            placeholder="Specify requirements for document layout and presentation"
           />
 
           {fields.layoutPreferences.errors && (
@@ -331,7 +333,7 @@ export const CadForm = () => {
           <Input
             name="preferredTimeline"
             id="preferred-timeline"
-            placeholder="Describe your project timeline"
+            placeholder="Estimated timeframe for project completion"
           />
 
           {fields.preferredTimeline.errors && (
@@ -372,7 +374,7 @@ export const CadForm = () => {
           <Textarea
             name="additionalComments"
             id="additional-comments"
-            placeholder="Any other comments or special instructions"
+            placeholder="Any extra information, special requests, or additional context"
           />
 
           {fields.additionalComments.errors && (
@@ -382,13 +384,7 @@ export const CadForm = () => {
           )}
         </div>
 
-        <Button
-          className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
-          variant={"secondary"}
-          type="submit"
-        >
-          Submit CAD Request
-        </Button>
+        <Submit label="Send CAD Request" />
       </form>
     </div>
   );

@@ -24,7 +24,7 @@ const DraftworkPage = () => {
           </h1>
           <Button
             asChild
-            className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+            className="!cursor-not-allowed w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
             variant={"secondary"}
           >
             <Link href="https://zcal.co/kennyanyi9" target="_blank">
