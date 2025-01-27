@@ -6,7 +6,7 @@ import { UploadButton } from "@/lib/uploadthing";
 export function CustomUploadButton() {
   return (
     <UploadButton
-      endpoint="imageUploader"
+      endpoint="messageAttachment"
       onClientUploadComplete={(res) => {
         console.log("Files: ", res);
         alert("Upload Completed");
