@@ -7,7 +7,7 @@ import { gradientText } from "../hero/hero-text";
 
 const Projects = () => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full" id="projects">
       <div className="h-20 md:h-40 flex flex-col items-center jusitfy-center m-auto gap-[16px] p-2">
         <h2
           className={cn(

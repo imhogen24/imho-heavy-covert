@@ -1,13 +1,13 @@
-import Grid from "./grid-hero";
 import HeroText from "./hero-text";
 import Top from "./top";
+import SmTop from "./top-sm";
 import { HeroVideoDialogDemo } from "./video";
 import Image from "next/image";
 
 const Hero = () => {
   return (
-    <section className="flex flex-col  w-full">
-      <Top />
+    <section className="flex flex-col  w-full" id="/">
+      <SmTop />
       <div className="relative flex flex-row justify-center lg:justify-between border-b muted-border">
         <div className="hidden lg:grid grid-rows-2 w-[200px] border-r muted-border">
           <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">

@@ -34,7 +34,7 @@ const Top = () => {
             </div>
           </div>
 
-          {/* Hidden Circle on Small */}
+          {/* circle 2*/}
           <div className="relative row-span-2 col-span-2">
             <div className="absolute inset-0">
               <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
@@ -74,7 +74,7 @@ const Top = () => {
             </div>
           </div>
 
-          {/* Hidden Circle on Small */}
+          {/* circle 3 */}
           <div className="relative row-span-2 col-span-2">
             <div className="absolute inset-0">
               <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
@@ -94,7 +94,7 @@ const Top = () => {
             </div>
           </div>
 
-          {/* Full Circle 2 */}
+          {/* Full Circle 4 */}
           <div className="relative row-span-2 col-span-2 md:col-span-2 border-x muted-border">
             <div className="absolute inset-0">
               <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
