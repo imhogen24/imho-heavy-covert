@@ -7,10 +7,7 @@ import TheTeam from "./_compoennts/the_team/the-team";
 
 export default function Home() {
   return (
-    <div
-      className="max-w-screen min-h-dvh flex flex-col overflow-x-hidden"
-      id=""
-    >
+    <div className="max-w-screen min-h-dvh flex flex-col overflow-x-hidden">
       <Hero />
       <ImpactSection />
       <CommitedTo />

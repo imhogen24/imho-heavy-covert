@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="relative flex flex-col border-t muted-border">
+    <div className="relative flex flex-col border-t muted-border" id="contact">
       <CrossPositinalIcon className="hidden lg:block absolute h-8 w-8 -top-4 -left-4 stroke-black" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 ">
