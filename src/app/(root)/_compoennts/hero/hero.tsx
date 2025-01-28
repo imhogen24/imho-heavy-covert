@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <section className="flex flex-col  w-full">
+    <section className="flex flex-col  w-full" id="/">
       <Top />
       <div className="relative flex flex-row justify-center lg:justify-between border-b muted-border">
         <div className="hidden lg:grid grid-rows-2 w-[200px] border-r muted-border">

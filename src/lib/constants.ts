@@ -375,7 +375,7 @@ export const NAV_ITEMS: NavItemProps[] = [
   {
     id: 2,
     label: "Projects",
-    href: "/#about",
+    href: "/#projects",
   },
   {
     id: 4,

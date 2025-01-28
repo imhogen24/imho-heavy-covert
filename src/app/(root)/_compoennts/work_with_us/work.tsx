@@ -6,7 +6,10 @@ import { gradientText } from "../hero/hero-text";
 
 const WorkWithUs = () => {
   return (
-    <div className="flex justify-center items-center flex-col border-t muted-border">
+    <div
+      className="flex justify-center items-center flex-col border-t muted-border"
+      id="services"
+    >
       <div className="h-20 md:h-40 flex flex-col items-center jusitfy-center m-auto gap-[16px] p-2">
         <h2
           className={cn(
