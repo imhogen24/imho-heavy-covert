@@ -1,13 +1,43 @@
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { ModeToggle } from "../theme/theme-toggle";
 import MobileHamburger from "./hamburger";
 import { NAV_ITEMS } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 w-full h-[72px] border-b border-muted py-[16px] px-[32px] lg:py-[20px] lg:px-[130px] bg-background backdrop-blur-2xl supports-[backdrop-filter]:bg-background z-50">
+    <nav
+      className={cn(
+        "fixed top-0 left-0 w-full h-[72px] py-[16px] px-[32px] lg:py-[20px]",
+        "lg:px-[130px] bg-background backdrop-blur-2xl supports-[backdrop-filter]:bg-background",
+        "z-50 transition-[border-opacity] duration-200",
+        isScrolled && "border-b muted-border",
+      )}
+    >
       <div className="flex justify-between items-center h-full w-full">
         <div>
           <Link href="/">
@@ -36,8 +66,13 @@ export const Navbar = () => {
           {/* LARGE SCREENS */}
           <div className="hidden lg:inline-flex gap-2">
             <ModeToggle />
-            <Button variant="default" size={"nav"} className="text-white">
-              Contact
+            <Button
+              asChild
+              variant="default"
+              size={"nav"}
+              className="text-white"
+            >
+              <Link href="/#contact">Contact</Link>
             </Button>
           </div>
           {/* MEDIUM AND SMALL SCREENS*/}
@@ -47,3 +82,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+export default Navbar;
