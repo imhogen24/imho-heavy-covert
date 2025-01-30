@@ -11,7 +11,7 @@ const BlogPage = async () => {
   console.log(posts);
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 border-b muted-border">
         <div className="p-8 flex justify-start items-center">
           <h1
             className={cn(
@@ -29,19 +29,13 @@ const BlogPage = async () => {
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {posts.results.map((post: any, index) => {
-          const hasLeftBorder =
-            post.properties.border_left?.select?.name === "false";
-          const hasBottomBorder =
-            post.properties.border_bottom?.select?.name === "false";
           return (
             <Link
               href={`/blog/${post.properties.slug.rich_text[0].plain_text}`}
               key={post.id}
               className={cn(
                 "flex flex-col gap-5 p-8 w-full h-full hover:bg-gray-50 dark:hover:bg-neutral-900",
-                "border-t muted-border ",
-                !hasLeftBorder ? "border-l" : "",
-                !hasBottomBorder ? "" : "",
+                "muted-border",
               )}
             >
               <div className="flex flex-col gap-5 w-full h-1/3">
