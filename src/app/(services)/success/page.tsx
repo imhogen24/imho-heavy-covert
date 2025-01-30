@@ -7,9 +7,9 @@ export default function SuccessPage() {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
-      <div className="flex flex-col justify-center rounded-sm items-center w-1/2 gap-5 border border-dashed muted-border p-10 ">
+      <div className="flex flex-col justify-center rounded-sm items-center w-11/12 lg:w-1/2 gap-5 border border-dashed muted-border p-10 ">
         <CircleCheckBig color="#ef7d00" size={70} />
-        <h1 className=" text-center text-2xl">
+        <h1 className=" text-center text-xl md:text-2xl">
           Your request has been successfully submitted, our team will review and
           get back to you soon.
         </h1>
