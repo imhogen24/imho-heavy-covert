@@ -15,7 +15,7 @@ const DraftworkPage = () => {
           <ObeliskIcon className="dark:opacity-25" />
         </div>
         <div className="absolute p-10 space-y-5">
-          <h1 className="md:text-2xl font-bold">
+          {/* <h1 className="md:text-2xl font-bold">
             Ready to bring your vision to life?
           </h1>
           <h1 className="md:text-xl opacity-50">
@@ -31,7 +31,7 @@ const DraftworkPage = () => {
               <Play /> watch video
             </Link>
           </Button>
-          {}
+          {} */}
         </div>
       </div>
       <div className="flex flex-row w-full h-full justify-between">
