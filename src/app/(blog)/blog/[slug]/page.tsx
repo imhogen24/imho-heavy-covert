@@ -7,6 +7,7 @@ import Image from "next/image";
 import { TimerIcon } from "lucide-react";
 import BackButton from "../../_components/back-button";
 import PostNotFound from "../../_components/post-not-found";
+import estimateReadingTime from "../../_components/reading-time";
 export default async function Page({
   params,
 }: {
@@ -38,6 +39,8 @@ export default async function Page({
   renderer.use(hljsPlugin({}));
   renderer.use(bookmarkPlugin(undefined));
   const html = await renderer.render(...blocks);
+  const strippedHtml = html.replace(/<[^>]+>/g, "");
+  const readingTime = estimateReadingTime(strippedHtml);
 
   const title = post.properties.Title.title[0].plain_text;
   const createdTime = post.created_time;
@@ -63,7 +66,9 @@ export default async function Page({
       <div className="w-full max-w-3xl mx-auto flex justity-between">
         <span className="flex-1 flex flex-row justify-start items-center gap-1">
           <TimerIcon size={16} className="my-auto text-muted-foreground" />
-          <p className="my-auto text-xs text-muted-foreground">3 mins read</p>
+          <p className="my-auto text-xs text-muted-foreground">
+            {readingTime} mins read
+          </p>
         </span>
 
         <span className="text-xs text-muted-foreground">
