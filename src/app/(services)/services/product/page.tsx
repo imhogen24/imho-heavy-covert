@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
-import { ObeliskIcon } from "@/lib/icons";
+import { ObeliskIcon, SunIcon } from "@/lib/icons";
 import { CadForm } from "../../_components/cad-form";
 import { ProductForm } from "../../_components/product-form";
 
@@ -13,10 +13,10 @@ const ProductPage = () => {
         <div className="h-60 w-full border-r border-dashed muted-border"></div>
         <div className="h-60 w-full border-r border-dashed muted-border"></div>
         <div className="flex justify-center items-center h-60 w-full bg-neutral-100 dark:bg-neutral-900">
-          <ObeliskIcon className="dark:opacity-25" />
+          <SunIcon className="dark:opacity-25" />
         </div>
         <div className="absolute p-10 space-y-5">
-          <h1 className="md:text-2xl font-bold">
+          {/* <h1 className="md:text-2xl font-bold">
             Ready to bring your vision to life?
           </h1>
           <h1 className="md:text-xl opacity-50">
@@ -36,7 +36,7 @@ const ProductPage = () => {
               <Play /> watch video
             </Link>
           </Button>
-          {}
+          {} */}
         </div>
       </div>
       <div className="flex flex-row w-full h-full justify-between">
