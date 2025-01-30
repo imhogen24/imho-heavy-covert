@@ -1,6 +1,5 @@
 import { ServiceRoutes } from "@/components/services/tabs";
 import { CrossPositinalIcon } from "@/lib/icons";
-import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/nav/footer";
 
 const ServiceLayout = ({ children }: { children: React.ReactNode }) => {
