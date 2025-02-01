@@ -15,27 +15,33 @@ const EngineeringSupportPage = () => {
           <PyramidIcon className="dark:opacity-25" />
         </div>
         <div className="absolute p-10 space-y-5">
-          {/* <h1 className="md:text-2xl font-bold">
-            Ready to bring your vision to life?
+          <div className="flex flex-col md:flex-row gap-2 mb-3">
+            <span className="w-fit  my-auto px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
+              BETA
+            </span>
+            <span className="inline-flex gap-1 text-sm text-gray-600 dark:text-gray-400">
+              We're currently in beta - please
+              <Link
+                className="underline"
+                target="_blank"
+                href={
+                  "https://github.com/imhogen24/imho-heavy-covert/issues/new?template=Blank+issue"
+                }
+              >
+                {" "}
+                report
+              </Link>{" "}
+              any issues
+            </span>
+          </div>
+
+          <h1 className="md:text-2xl font-bold">
+            Experience smoother services
           </h1>
-          <h1 className="md:text-xl opacity-50">
-            Start by filling the form below. Click below to watch a video on how
-            to fill the form.
+          <h1 className="hidden md:block md:text-xl opacity-50">
+            Skip the meeting scheduling hassle. Our forms make communication
+            effortless and organized.
           </h1>
-          <Button
-            asChild
-            className="!cursor-not-allowed w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
-            variant={"secondary"}
-          >
-            <Link
-              href="https://zcal.co/kennyanyi9"
-              target="_blank"
-              className=""
-            >
-              <Play /> watch video
-            </Link>
-          </Button>
-          {} */}
         </div>
       </div>
       <div className="flex flex-row w-full h-full justify-between">
