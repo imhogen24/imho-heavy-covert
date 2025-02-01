@@ -32,7 +32,7 @@ export const ProductForm = () => {
 
   return (
     <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8">Product Request</h1>
+      <h1 className="text-2xl font-bold mb-8">Physical Product Request Form</h1>
       <form
         id={form.id}
         onSubmit={form.onSubmit}
@@ -41,14 +41,14 @@ export const ProductForm = () => {
       >
         {/* Client Information Section */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="name">Organization Name</Label>
             <Input
               key={fields.organizationName.key}
               name={fields.organizationName.name}
               defaultValue={fields.organizationName.initialValue}
               id="organization-name"
-              placeholder="IMHO Heavy Covert"
+              placeholder="TechNova Solutions Ltd."
               type="text"
             />
             {fields.organizationName.errors && (
@@ -58,14 +58,14 @@ export const ProductForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="name">Contact Person</Label>
             <Input
               key={fields.contactPerson.key}
               name={fields.contactPerson.name}
               defaultValue={fields.contactPerson.initialValue}
               id="contact-person"
-              placeholder="Kennedy Anyidoho"
+              placeholder="John Doe"
               type="text"
             />
             {fields.contactPerson.errors && (
@@ -78,7 +78,7 @@ export const ProductForm = () => {
 
         {/* Contact Details */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="email">Email</Label>
             <Input
               key={fields.email.key}
@@ -86,21 +86,21 @@ export const ProductForm = () => {
               defaultValue={fields.email.initialValue}
               id="email"
               type="email"
-              placeholder="email@example.com"
+              placeholder="johndoe@technovasolutions.com"
             />
             {fields.email.errors && (
               <p className="text-red-500 text-sm">{fields.email.errors}</p>
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="number">Phone Number</Label>
             <Input
               key={fields.phoneNumber.key}
               name={fields.phoneNumber.name}
               defaultValue={fields.phoneNumber.initialValue}
               id="phone-number"
-              placeholder="0557685929"
+              placeholder="0244567890"
               type="tel"
             />
             {fields.phoneNumber.errors && (
@@ -112,14 +112,14 @@ export const ProductForm = () => {
         </div>
 
         {/* Address and Operations */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="address">Address</Label>
           <Input
             key={fields.address.key}
             name={fields.address.name}
             defaultValue={fields.address.initialValue}
             id="address"
-            placeholder="KNUST, Kumasi"
+            placeholder="P.O. Box AN 1234, Accra, Ghana"
             type="text"
           />
           {fields.address.errors && (
@@ -127,7 +127,7 @@ export const ProductForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Business Operations</Label>
           <Textarea
             key={fields.businessOperations.key}
@@ -135,7 +135,7 @@ export const ProductForm = () => {
             defaultValue={fields.businessOperations.initialValue}
             id="buniness-operations"
             typeof="text"
-            placeholder="Describe your organization's operations"
+            placeholder="TechNova Solutions specializes in providing technological hardware and software solutions to small and medium-sized enterprises in Africa."
           />
           {fields.businessOperations.errors && (
             <p className="text-red-500 text-sm">
@@ -144,7 +144,7 @@ export const ProductForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Product Purpose</Label>
           <Textarea
             key={fields.productPurpose.key}
@@ -152,7 +152,7 @@ export const ProductForm = () => {
             defaultValue={fields.productPurpose.initialValue}
             id="product-purpose"
             typeof="text"
-            placeholder="Describe the purpose of your product"
+            placeholder="To enhance productivity and improve safety in small-scale manufacturing environments through an ergonomic workstation tool."
           />
           {fields.productPurpose.errors && (
             <p className="text-red-500 text-sm">
@@ -162,7 +162,7 @@ export const ProductForm = () => {
         </div>
 
         {/* product vision */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Product Vision</Label>
           <Textarea
             key={fields.productVision.key}
@@ -170,7 +170,7 @@ export const ProductForm = () => {
             defaultValue={fields.productVision.initialValue}
             id="product-vision"
             typeof="text"
-            placeholder="Describe the vision of your product"
+            placeholder="A lightweight, adjustable workstation designed for small-scale manufacturing that combines efficiency, durability, and ergonomic comfort."
           />
           {fields.productVision.errors && (
             <p className="text-red-500 text-sm">
@@ -180,7 +180,7 @@ export const ProductForm = () => {
         </div>
 
         {/* product objectives */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Product Objectives</Label>
           <Textarea
             key={fields.productObjectives.key}
@@ -188,7 +188,9 @@ export const ProductForm = () => {
             defaultValue={fields.productObjectives.initialValue}
             id="product-objectives"
             typeof="text"
-            placeholder="Describe your product objectives"
+            placeholder="Increase efficiency in small-scale manufacturing,
+            Reduce worker fatigue through ergonomic features,
+            Ensure durability and cost-effectiveness"
           />
           {fields.productObjectives.errors && (
             <p className="text-red-500 text-sm">
@@ -198,7 +200,7 @@ export const ProductForm = () => {
         </div>
 
         {/* target audience*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Target Audience</Label>
           <Textarea
             key={fields.targetAudience.key}
@@ -206,7 +208,7 @@ export const ProductForm = () => {
             defaultValue={fields.targetAudience.initialValue}
             id="target-audience"
             typeof="text"
-            placeholder="Describe your target audience"
+            placeholder="Small-scale manufacturers in the furniture and textile industries across Africa"
           />
           {fields.targetAudience.errors && (
             <p className="text-red-500 text-sm">
@@ -216,7 +218,7 @@ export const ProductForm = () => {
         </div>
 
         {/* core functions*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Core Functions</Label>
           <Textarea
             key={fields.coreFunctions.key}
@@ -224,7 +226,9 @@ export const ProductForm = () => {
             defaultValue={fields.coreFunctions.initialValue}
             id="core-functions"
             typeof="text"
-            placeholder="what should be the core functions of the product"
+            placeholder="Provide a stable and adjustable work surface,
+            Enable easy movement and storage,
+            Accommodate tools and materials securely"
           />
           {fields.coreFunctions.errors && (
             <p className="text-red-500 text-sm">
@@ -234,7 +238,7 @@ export const ProductForm = () => {
         </div>
 
         {/* performance metrics*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Performance metrics</Label>
           <Textarea
             key={fields.performanceMetrics.key}
@@ -242,7 +246,9 @@ export const ProductForm = () => {
             defaultValue={fields.performanceMetrics.initialValue}
             id="performace-metrics"
             typeof="text"
-            placeholder="specify the performance metrics"
+            placeholder="Durable for 10+ years of daily use,
+            Support up to 100 kg of distributed weight,
+            Adjustable height range: 50–100 cm"
           />
           {fields.performanceMetrics.errors && (
             <p className="text-red-500 text-sm">
@@ -252,7 +258,7 @@ export const ProductForm = () => {
         </div>
 
         {/* prefered materials*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Prefered materials</Label>
           <Textarea
             key={fields.preferredMaterials.key}
@@ -260,7 +266,7 @@ export const ProductForm = () => {
             defaultValue={fields.preferredMaterials.initialValue}
             id="prefered-materials"
             typeof="text"
-            placeholder="what are your prefered materials"
+            placeholder="Lightweight aluminum frame, high-grade rubber feet for stability, and MDF surface coated with scratch-resistant laminate"
           />
           {fields.preferredMaterials.errors && (
             <p className="text-red-500 text-sm">
@@ -270,7 +276,7 @@ export const ProductForm = () => {
         </div>
 
         {/* compliance standards*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Compliance Standards</Label>
           <Textarea
             key={fields.complianceStandards.key}
@@ -278,7 +284,8 @@ export const ProductForm = () => {
             defaultValue={fields.complianceStandards.initialValue}
             id="compliance-standards"
             typeof="text"
-            placeholder="Describe your compliance standards"
+            placeholder="ISO 9001 for quality assurance,
+            CE marking for safety compliance"
           />
           {fields.complianceStandards.errors && (
             <p className="text-red-500 text-sm">
@@ -288,7 +295,7 @@ export const ProductForm = () => {
         </div>
 
         {/* environmental conditions*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Environtmental Conditions</Label>
           <Textarea
             key={fields.environmentalConditions.key}
@@ -296,7 +303,7 @@ export const ProductForm = () => {
             defaultValue={fields.environmentalConditions.initialValue}
             id="environmental-conditions"
             typeof="text"
-            placeholder="Describe your environmental conditions"
+            placeholder="Indoor use with occasional exposure to high humidity (e.g., 80%)"
           />
           {fields.environmentalConditions.errors && (
             <p className="text-red-500 text-sm">
@@ -306,14 +313,14 @@ export const ProductForm = () => {
         </div>
 
         {/* visual style*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Visual Style</Label>
           <Textarea
             key={fields.visualStyle.key}
             name={fields.visualStyle.name}
             defaultValue={fields.visualStyle.initialValue}
             id="visual-style"
-            placeholder="Describe your visual style"
+            placeholder="Modern and sleek with matte black and gray finishes"
           />
           {fields.visualStyle.errors && (
             <p className="text-red-500 text-sm">{fields.visualStyle.errors}</p>
@@ -321,7 +328,7 @@ export const ProductForm = () => {
         </div>
 
         {/* egornomic features*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Egornomic Features</Label>
           <Textarea
             key={fields.ergonomicFeatures.key}
@@ -329,7 +336,8 @@ export const ProductForm = () => {
             defaultValue={fields.ergonomicFeatures.initialValue}
             id="ergonomic-features"
             typeof="text"
-            placeholder="egornomic features"
+            placeholder="Easy-to-use height adjustment mechanism,
+            Rounded edges for safety"
           />
           {fields.ergonomicFeatures.errors && (
             <p className="text-red-500 text-sm">
@@ -339,7 +347,7 @@ export const ProductForm = () => {
         </div>
 
         {/* branding requirements*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Branding requirements</Label>
           <Textarea
             key={fields.brandingRequirements.key}
@@ -347,7 +355,8 @@ export const ProductForm = () => {
             defaultValue={fields.brandingRequirements.initialValue}
             id="branding-requirements"
             typeof="text"
-            placeholder="Describe your brand requirements"
+            placeholder="Incorporate our logo on the surface,
+            Customizable color scheme (branding kit attached)"
           />
           {fields.brandingRequirements.errors && (
             <p className="text-red-500 text-sm">
@@ -357,7 +366,7 @@ export const ProductForm = () => {
         </div>
 
         {/* budget range*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Budget Range</Label>
           <Textarea
             key={fields.budgetRange.key}
@@ -365,7 +374,7 @@ export const ProductForm = () => {
             defaultValue={fields.budgetRange.initialValue}
             id="budget-purpose"
             typeof="text"
-            placeholder="Describe your budget purpose"
+            placeholder="$5,000–$7,500 for initial design and prototyping"
           />
           {fields.budgetRange.errors && (
             <p className="text-red-500 text-sm">{fields.budgetRange.errors}</p>
@@ -373,7 +382,7 @@ export const ProductForm = () => {
         </div>
 
         {/* prefered timeline*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Prefered timeline</Label>
           <Textarea
             key={fields.preferredTimeline.key}
@@ -381,7 +390,7 @@ export const ProductForm = () => {
             defaultValue={fields.preferredTimeline.initialValue}
             id="prefered-timeline"
             typeof="text"
-            placeholder="Describe your prefered timeline"
+            placeholder="8 weeks from the start date"
           />
           {fields.preferredTimeline.errors && (
             <p className="text-red-500 text-sm">
@@ -391,7 +400,7 @@ export const ProductForm = () => {
         </div>
 
         {/* require prototypes */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label>Require Prototypes</Label>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -400,12 +409,15 @@ export const ProductForm = () => {
               name={fields.requirePrototypes.name}
               defaultValue={fields.requirePrototypes.initialValue}
             />
-            <Label>Yes, we require prototypes</Label>
+            <Label className="text-muted-foreground">
+              Yes, we require prototypes
+            </Label>
+            clas
           </div>
         </div>
 
         {/* number of prototypes */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="numberOfPrototypes">Number of Prototypes</Label>
           <Input
             key={fields.numberOfPrototypes.key}
@@ -413,7 +425,7 @@ export const ProductForm = () => {
             defaultValue={fields.numberOfPrototypes.initialValue}
             id="number-of-prototypes"
             type="number"
-            placeholder="Enter number of prototypes"
+            placeholder="Three (for testing in different environments)"
           />
           {fields.numberOfPrototypes.errors && (
             <p className="text-red-500 text-sm">
@@ -423,7 +435,7 @@ export const ProductForm = () => {
         </div>
 
         {/* collaboration preferences */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label>Collaboration Preferences</Label>
           <div className="grid md:grid-cols-3 gap-4">
             {[
@@ -441,6 +453,7 @@ export const ProductForm = () => {
                 />
                 <Label
                   htmlFor={`collab-type-${type.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="text-muted-foreground"
                 >
                   {type}
                 </Label>
@@ -450,7 +463,7 @@ export const ProductForm = () => {
         </div>
 
         {/* required tests*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Required Tests</Label>
           <Textarea
             key={fields.requiredTests.key}
@@ -458,7 +471,8 @@ export const ProductForm = () => {
             defaultValue={fields.requiredTests.initialValue}
             id="required-tests"
             typeof="text"
-            placeholder="indicate the required tests"
+            placeholder="Load-bearing tests,
+            Ergonomic usability tests"
           />
           {fields.requiredTests.errors && (
             <p className="text-red-500 text-sm">
@@ -468,7 +482,7 @@ export const ProductForm = () => {
         </div>
 
         {/* comparable products*/}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Comparable products</Label>
           <Textarea
             key={fields.comparableProducts.key}
@@ -476,7 +490,7 @@ export const ProductForm = () => {
             defaultValue={fields.comparableProducts.initialValue}
             id="comparable-products"
             typeof="text"
-            placeholder="comparable products"
+            placeholder="similar to the Ikea Skarsta desk but with enhanced load capacity"
           />
           {fields.comparableProducts.errors && (
             <p className="text-red-500 text-sm">
@@ -486,14 +500,14 @@ export const ProductForm = () => {
         </div>
 
         {/* additional comments */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="additional-comments">Additional Comments</Label>
           <Textarea
             key={fields.additionalComments.key}
             name={fields.additionalComments.name}
             defaultValue={fields.additionalComments.initialValue}
             id="additional-comments"
-            placeholder="Any other comments or special instructions"
+            placeholder="Consider compatibility with add-on accessories like monitor mounts and tool holders"
           />
 
           {fields.additionalComments.errors && (

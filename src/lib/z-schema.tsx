@@ -1,12 +1,5 @@
 import { z } from "zod";
 
-export const TestSchema = z.object({
-  firstName: z.string().min(2).max(20),
-  lastName: z.string().min(2).max(20),
-  email: z.string().email(),
-  password: z.string().min(8).max(20),
-});
-
 /*PRODUCT SCHEMA */
 export const ProductSchema = z.object({
   organizationName: z.string().min(2).max(200),
@@ -88,7 +81,10 @@ export const CadSchema = z.object({
   // Project Specifics
   preferredTimeline: z.string(),
   requirePeriodicDrafts: z.boolean().optional(),
-  additionalServices: z.string().trim().optional(),
+  additionalServices: z
+    .array(z.enum(["Prototyping", "Testing", "Further design work"]))
+    .optional()
+    .or(z.literal("")),
   additionalComments: z.string().trim().optional(),
 
   // Metadata (optional as these are typically auto-generated)

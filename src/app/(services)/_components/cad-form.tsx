@@ -33,7 +33,7 @@ export const CadForm = () => {
   return (
     <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-8">
-        Computer Aided Design (CAD) Request
+        Engineering Drawing and Draftwork Request Form
       </h1>
       <form
         ref={ref}
@@ -44,14 +44,14 @@ export const CadForm = () => {
       >
         {/* Client Information Section */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="name">Organization Name</Label>
             <Input
               key={fields.organizationName.key}
               name={fields.organizationName.name}
               defaultValue={fields.organizationName.initialValue}
               id="organization-name"
-              placeholder="IMHO Heavy Covert"
+              placeholder="GreenTech Machinery Ltd.	"
               type="text"
             />
             {fields.organizationName.errors && (
@@ -61,14 +61,14 @@ export const CadForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="name">Contact Person</Label>
             <Input
               key={fields.contactPerson.key}
               name={fields.contactPerson.name}
               defaultValue={fields.contactPerson.initialValue}
               id="contact-person"
-              placeholder="Kennedy Anyidoho"
+              placeholder="Daniel Osei	"
               type="text"
             />
             {fields.contactPerson.errors && (
@@ -81,7 +81,7 @@ export const CadForm = () => {
 
         {/* Contact Details */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="email">Email</Label>
             <Input
               key={fields.email.key}
@@ -89,21 +89,21 @@ export const CadForm = () => {
               defaultValue={fields.email.initialValue}
               id="email"
               type="email"
-              placeholder="email@example.com"
+              placeholder="daniel.osei@greentechmachinery.com"
             />
             {fields.email.errors && (
               <p className="text-red-500 text-sm">{fields.email.errors}</p>
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="number">Phone Number</Label>
             <Input
               key={fields.phoneNumber.key}
               name={fields.phoneNumber.name}
               defaultValue={fields.phoneNumber.initialValue}
               id="phone-number"
-              placeholder="0557685929"
+              placeholder="0244123456"
               type="tel"
             />
             {fields.phoneNumber.errors && (
@@ -115,14 +115,14 @@ export const CadForm = () => {
         </div>
 
         {/* Address and Operations */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="address">Address</Label>
           <Input
             key={fields.address.key}
             name={fields.address.name}
             defaultValue={fields.address.initialValue}
             id="address"
-            placeholder="Physical/Postal Address"
+            placeholder="P.O. Box 1234, Industrial Zone, Kumasi, Ghana"
             type="text"
           />
           {fields.address.errors && (
@@ -130,7 +130,7 @@ export const CadForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Organizational Operations</Label>
           <Textarea
             key={fields.organizationOperations.key}
@@ -138,7 +138,7 @@ export const CadForm = () => {
             defaultValue={fields.organizationOperations.initialValue}
             id="organization-operations"
             typeof="text"
-            placeholder="Briefly describe your company's core business and primary activities"
+            placeholder="GreenTech Machinery Ltd. specializes in manufacturing agricultural equipment for small-scale farmers in West Africa."
           />
           {fields.organizationOperations.errors && (
             <p className="text-red-500 text-sm">
@@ -147,7 +147,7 @@ export const CadForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">Documentation Purpose</Label>
           <Textarea
             key={fields.documentationPurpose.key}
@@ -155,7 +155,7 @@ export const CadForm = () => {
             defaultValue={fields.documentationPurpose.initialValue}
             id="documentation-purpose"
             typeof="text"
-            placeholder="Explain the specific goals and intended use of the requested documentation"
+            placeholder="The drawings are required for manufacturing and marketing purposes, as well as for a patent filing for a new product design."
           />
           {fields.documentationPurpose.errors && (
             <p className="text-red-500 text-sm">
@@ -165,7 +165,7 @@ export const CadForm = () => {
         </div>
 
         {/* Documentation Types */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label>Documentation Types</Label>
           <div className="grid md:grid-cols-3 gap-4">
             {[
@@ -185,6 +185,7 @@ export const CadForm = () => {
                 />
                 <Label
                   htmlFor={`doc-type-${type.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="text-muted-foreground"
                 >
                   {type}
                 </Label>
@@ -193,7 +194,7 @@ export const CadForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="name">
             Please specify other documentation types if applicable
           </Label>
@@ -212,7 +213,7 @@ export const CadForm = () => {
         </div>
 
         {/* File Formats */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label>Preferred File Formats</Label>
           <div className="grid md:grid-cols-3 gap-4">
             {["CAD files", "Vector images", "PDF documents"].map((format) => (
@@ -224,6 +225,7 @@ export const CadForm = () => {
                 />
                 <Label
                   htmlFor={`file-format-${format.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="text-muted-foreground"
                 >
                   {format}
                 </Label>
@@ -238,7 +240,7 @@ export const CadForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="other-file-format">
             Please specify other file formats if applicable
           </Label>
@@ -256,14 +258,15 @@ export const CadForm = () => {
         </div>
 
         {/* Technical Details */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="technical-specifications">
-            Technical Specifications
+            Key dimensions, tolerances, or technical specifications
           </Label>
           <Textarea
             name="technicalSpecifications"
             id="technical-specifications"
-            placeholder="List critical dimensions, tolerances, or technical requirements"
+            placeholder="Tolerances of ±0.5 mm for critical components.
+            Dimensions provided in metric units."
           />
 
           {fields.technicalSpecifications.errors && (
@@ -273,12 +276,14 @@ export const CadForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="technical-standards">Technical Standards</Label>
+        <div className="space-y-4">
+          <Label htmlFor="technical-standards">
+            Specific standards or conventions to follow
+          </Label>
           <Input
             name="technicalStandards"
             id="technical-standards"
-            placeholder="Specify any industry or engineering standards to be followed"
+            placeholder="ISO 2768 for general tolerances and ASME Y14.5 for geometric dimensioning and tolerancing (GD&T)."
           />
 
           {fields.technicalStandards.errors && (
@@ -289,12 +294,14 @@ export const CadForm = () => {
         </div>
 
         {/* Aesthetic Preferences */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="visual-style">Visual Style Preferences</Label>
           <Textarea
             name="visualStylePreferences"
             id="visual-style"
-            placeholder="Describe desired aesthetic and visual approach for documentation"
+            placeholder="Modern and clean with a focus on functionality. Use light gray for non-critical annotations and red for dimensions requiring attention.
+
+"
           />
 
           {fields.visualStylePreferences.errors && (
@@ -304,12 +311,13 @@ export const CadForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="layout-preferences">Layout Preferences</Label>
           <Textarea
             name="layoutPreferences"
             id="layout-preferences"
-            placeholder="Specify requirements for document layout and presentation"
+            placeholder="Include a standard title block with GreenTech Machinery Ltd.'s logo.
+            Use Arial font for all annotations."
           />
 
           {fields.layoutPreferences.errors && (
@@ -319,13 +327,15 @@ export const CadForm = () => {
           )}
         </div>
 
+        {/* TODO: add 'additinal desing features' field */}
+
         {/* Project Specifics */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="preferred-timeline">Preferred Timeline</Label>
           <Input
             name="preferredTimeline"
             id="preferred-timeline"
-            placeholder="Estimated timeframe for project completion"
+            placeholder="6 weeks from the date of approval."
           />
 
           {fields.preferredTimeline.errors && (
@@ -337,7 +347,9 @@ export const CadForm = () => {
 
         <div className="flex items-center space-x-2">
           <Checkbox name="requirePeriodicDrafts" id="periodic-drafts" />
-          <Label htmlFor="periodic-drafts">Require Periodic Drafts</Label>
+          <Label htmlFor="periodic-drafts" className="text-muted-foreground">
+            Require Periodic Drafts
+          </Label>
 
           {fields.requirePeriodicDrafts.errors && (
             <p className="text-red-500 text-sm">
@@ -346,27 +358,36 @@ export const CadForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="additional-services">Additional Services</Label>
-          <Textarea
-            name="additionalServices"
-            id="additional-services"
-            placeholder="Any additional services you require"
-          />
-
-          {fields.additionalServices.errors && (
-            <p className="text-red-500 text-sm">
-              {fields.additionalServices.errors}
-            </p>
-          )}
+        <div className="space-y-4">
+          <Label>Additional Services</Label>
+          <div className="grid md:grid-cols-3 gap-4">
+            {["Prototyping", "Testing", "Further design work"].map((type) => (
+              <div key={type} className="flex items-center space-x-2">
+                <Checkbox
+                  key={fields.additionalServices.name}
+                  name={fields.additionalServices.name}
+                  defaultValue={`fields.additionalServices${type}.initialValue`}
+                  value={type}
+                  id={`service-type-${type.toLowerCase().replace(/\s+/g, "-")}`}
+                />
+                <Label
+                  htmlFor={`service-type-${type.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="text-muted-foreground"
+                >
+                  {type}
+                </Label>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="additional-comments">Additional Comments</Label>
           <Textarea
             name="additionalComments"
             id="additional-comments"
-            placeholder="Any extra information, special requests, or additional context"
+            placeholder="Please include a legend for all symbols used in the drawings.
+            All drawings should include a revision history table."
           />
 
           {fields.additionalComments.errors && (
