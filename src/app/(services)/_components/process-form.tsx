@@ -34,7 +34,9 @@ export const ProcessForm = () => {
 
   return (
     <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8">Process Improvement Request</h1>
+      <h1 className="text-2xl font-bold mb-8">
+        Process Design and Development Request Form
+      </h1>
 
       <form
         ref={ref}
@@ -48,13 +50,13 @@ export const ProcessForm = () => {
           <h2 className="text-xl font-semibold">Client Information</h2>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
+            <div className="space-y-4">
               <Label htmlFor="organization-name">Organization Name</Label>
               <Input
                 key={fields.organizationName.key}
                 name={fields.organizationName.name}
                 defaultValue={fields.organizationName.initialValue}
-                placeholder="Your Organization Name"
+                placeholder="EcoSoap Industries Ltd"
                 id="organization-name"
               />
               {fields.organizationName.errors && (
@@ -64,13 +66,13 @@ export const ProcessForm = () => {
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
               <Label htmlFor="contact-person">Contact Person</Label>
               <Input
                 key={fields.contactPerson.key}
                 name={fields.contactPerson.name}
                 defaultValue={fields.contactPerson.initialValue}
-                placeholder="Full Name"
+                placeholder="Mr. Emmanuel Asare"
                 id="contact-person"
               />
               {fields.contactPerson.errors && (
@@ -82,7 +84,7 @@ export const ProcessForm = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
+            <div className="space-y-4">
               <Label htmlFor="email">Email</Label>
               <Input
                 key={fields.email.key}
@@ -90,21 +92,21 @@ export const ProcessForm = () => {
                 defaultValue={fields.email.initialValue}
                 type="email"
                 id="email"
-                placeholder="email@example.com"
+                placeholder="emmanuel.asare@ecosoap.com"
               />
               {fields.email.errors && (
                 <p className="text-red-500 text-sm">{fields.email.errors}</p>
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
               <Label htmlFor="phone-number">Phone Number</Label>
               <Input
                 key={fields.phoneNumber.key}
                 name={fields.phoneNumber.name}
                 defaultValue={fields.phoneNumber.initialValue}
                 type="tel"
-                placeholder="Phone Number"
+                placeholder="0241234567"
                 id="phone-number"
               />
               {fields.phoneNumber.errors && (
@@ -115,13 +117,13 @@ export const ProcessForm = () => {
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="address">Address</Label>
             <Input
               key={fields.address.key}
               name={fields.address.name}
               defaultValue={fields.address.initialValue}
-              placeholder="Physical/Postal Address"
+              placeholder="Plot 45, Industrial Area, Accra, Ghana"
               id="address"
             />
             {fields.address.errors && (
@@ -134,13 +136,13 @@ export const ProcessForm = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">Business Overview</h2>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="business-operations">Business Operations</Label>
             <Textarea
               key={fields.businessOperations.key}
               name={fields.businessOperations.name}
               defaultValue={fields.businessOperations.initialValue}
-              placeholder="Describe your business operations"
+              placeholder="EcoSoap Industries Ltd. specializes in the production of eco-friendly soaps using sustainable materials sourced from local farmers."
               id="business-operations"
             />
             {fields.businessOperations.errors && (
@@ -150,13 +152,13 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="process-purpose">Process Purpose</Label>
             <Textarea
               key={fields.processPurpose.key}
               name={fields.processPurpose.name}
               defaultValue={fields.processPurpose.initialValue}
-              placeholder="Describe the purpose of this process"
+              placeholder="To streamline the mixing and curing stages of soap production to reduce lead times and improve product consistency."
               id="process-purpose"
             />
             {fields.processPurpose.errors && (
@@ -173,13 +175,13 @@ export const ProcessForm = () => {
             Current Process & Challenges
           </h2>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="current-process">Current Process</Label>
             <Textarea
               key={fields.currentProcess.key}
               name={fields.currentProcess.name}
               defaultValue={fields.currentProcess.initialValue}
-              placeholder="Describe your current process"
+              placeholder="Currently, soap production involves manual mixing, hand pouring into molds, and air curing in a temperature-controlled room."
               id="current-process"
             />
             {fields.currentProcess.errors && (
@@ -189,7 +191,7 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="current-process-purpose">
               Current Process Purpose
             </Label>
@@ -197,7 +199,7 @@ export const ProcessForm = () => {
               key={fields.currentProcessPurpose.key}
               name={fields.currentProcessPurpose.name}
               defaultValue={fields.currentProcessPurpose.initialValue}
-              placeholder="Explain the purpose of your current process"
+              placeholder="Manufacturing of soap bars in small batches."
               id="current-process-purpose"
             />
             {fields.currentProcessPurpose.errors && (
@@ -207,7 +209,7 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="current-performance-metrics">
               Current Performance Metrics
             </Label>
@@ -215,7 +217,9 @@ export const ProcessForm = () => {
               key={fields.currentPerformanceMetrics.key}
               name={fields.currentPerformanceMetrics.name}
               defaultValue={fields.currentPerformanceMetrics.initialValue}
-              placeholder="Describe your current performance metrics"
+              placeholder="Throughput: 300 bars/day,
+              Efficiency: ~70%,
+              Error rate: 5% (due to uneven mixing and curing inconsistencies)"
               id="current-performance-metrics"
             />
             {fields.currentPerformanceMetrics.errors && (
@@ -225,8 +229,11 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="pain-points">Pain Points</Label>
+          <div className="space-y-4">
+            <Label htmlFor="pain-points">
+              What challenges or inefficiencies are you currently experiencing
+              in your process?
+            </Label>
             <div className="grid md:grid-cols-2 gap-4">
               {[
                 "Low efficiency",
@@ -255,13 +262,15 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="specific-challenges">Specific Challenges</Label>
             <Textarea
               key={fields.specificChallenges.key}
               name={fields.specificChallenges.name}
               defaultValue={fields.specificChallenges.initialValue}
-              placeholder="Describe specific challenges you're facing"
+              placeholder="Manual mixing leads to inconsistent soap texture,
+              High labor costs due to reliance on manual work,
+              Limited production capacity due to small batch sizes."
               id="specific-challenges"
             />
             {fields.specificChallenges.errors && (
@@ -276,8 +285,10 @@ export const ProcessForm = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">Desired Improvements</h2>
 
-          <div className="space-y-2">
-            <Label htmlFor="improvement-goals">Improvement Goals</Label>
+          <div className="space-y-4">
+            <Label htmlFor="improvement-goals">
+              What improvements are you seeking?
+            </Label>
             <div className="grid md:grid-cols-2 gap-4">
               {[
                 "Increased efficiency",
@@ -308,13 +319,14 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="performance-targets">Performance Targets</Label>
             <Textarea
               key={fields.performanceTargets.key}
               name={fields.performanceTargets.name}
               defaultValue={fields.performanceTargets.initialValue}
-              placeholder="Describe your desired performance targets"
+              placeholder="Increase throughput to 600 bars/day,
+              Reduce defect rate to below 2%."
               id="performance-targets"
             />
             {fields.performanceTargets.errors && (
@@ -329,13 +341,14 @@ export const ProcessForm = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">Functional Requirements</h2>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="primary-functions">Primary Functions</Label>
             <Textarea
               key={fields.primaryFunctions.key}
               name={fields.primaryFunctions.name}
               defaultValue={fields.primaryFunctions.initialValue}
-              placeholder="Describe the primary functions required"
+              placeholder="Automated mixing and pouring of soap,
+              Temperature-controlled curing."
               id="primary-functions"
             />
             {fields.primaryFunctions.errors && (
@@ -345,8 +358,10 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="operational-needs">Operational Needs</Label>
+          <div className="space-y-4">
+            <Label htmlFor="operational-needs">
+              How will materials or inputs be introduced into the process?
+            </Label>
             <div className="grid md:grid-cols-2 gap-4">
               {["Manually", "Conveyor or automated systems", "Other"].map(
                 (need) => (
@@ -372,13 +387,14 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="special-requirements">Special Requirements</Label>
             <Textarea
               key={fields.specialRequirements.key}
               name={fields.specialRequirements.name}
               defaultValue={fields.specialRequirements.initialValue}
-              placeholder="Describe any special requirements"
+              placeholder="Noise reduction for indoor operations,
+              Safety guards around moving parts."
               id="special-requirements"
             />
             {fields.specialRequirements.errors && (
@@ -393,13 +409,13 @@ export const ProcessForm = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">Space and Power Constraints</h2>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="space-availability">Space Availability</Label>
             <Textarea
               key={fields.spaceAvailability.key}
               name={fields.spaceAvailability.name}
               defaultValue={fields.spaceAvailability.initialValue}
-              placeholder="Describe the available space"
+              placeholder="10m x 8m"
               id="space-availability"
             />
             {fields.spaceAvailability.errors && (
@@ -409,13 +425,13 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="power-supply">Power Supply</Label>
             <Textarea
               key={fields.powerSupply.key}
               name={fields.powerSupply.name}
               defaultValue={fields.powerSupply.initialValue}
-              placeholder="Describe power supply specifications"
+              placeholder="240V, single-phase, 10HP available."
               id="power-supply"
             />
             {fields.powerSupply.errors && (
@@ -425,13 +441,13 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="environmentalFactors">Environmental Factors</Label>
             <Textarea
               key={fields.environmentalFactors.key}
               name={fields.environmentalFactors.name}
               defaultValue={fields.environmentalFactors.initialValue}
-              placeholder="Describe environmental considerations"
+              placeholder="Indoor use in a temperature-controlled environment (~22°C)."
               id="environmental-factors"
             />
             {fields.environmentalFactors.errors && (
@@ -453,17 +469,19 @@ export const ProcessForm = () => {
               name={fields.anticipateFutureGrowth.name}
               defaultValue={fields.anticipateFutureGrowth.initialValue}
             />
-            <Label>Anticipate Future Growth</Label>
+            <Label>
+              Do you anticipate scaling up the process in the future?
+            </Label>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="growthAccommodation">Growth Accommodation</Label>
             <Textarea
               key={fields.growthAccommodation.key}
               id="growth-accomodation"
               name={fields.growthAccommodation.name}
               defaultValue={fields.growthAccommodation.initialValue}
-              placeholder="Describe how future growth can be accommodated"
+              placeholder="Modular design for easy capacity expansion."
             />
             {fields.growthAccommodation.errors && (
               <p className="text-red-500 text-sm">
@@ -472,14 +490,14 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="comparableSystems">Comparable Systems</Label>
             <Textarea
               key={fields.comparableSystems.key}
               id="comparable-system"
               name={fields.comparableSystems.name}
               defaultValue={fields.comparableSystems.initialValue}
-              placeholder="Describe any comparable systems you're aware of"
+              placeholder="Observed an automated soap production system at GreenGlow Enterprises during a site visit in May 2024."
             />
             {fields.comparableSystems.errors && (
               <p className="text-red-500 text-sm">
@@ -493,8 +511,10 @@ export const ProcessForm = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">Additional Information</h2>
 
-          <div className="space-y-2">
-            <Label>Collaboration Preferences</Label>
+          <div className="space-y-4">
+            <Label>
+              How would you like us to engage with you during the project?
+            </Label>
             <div className="grid md:grid-cols-2 gap-4">
               {[
                 "Regular Meetings",
@@ -522,14 +542,14 @@ export const ProcessForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="additionalComments">Additional Comments</Label>
             <Textarea
               key={fields.additionalComments.key}
               name={fields.additionalComments.name}
               id="additional-comments"
               defaultValue={fields.additionalComments.initialValue}
-              placeholder="Any additional information or special requirements"
+              placeholder="The system should be designed to integrate with a future packaging automation process."
             />
             {fields.additionalComments.errors && (
               <p className="text-red-500 text-sm">

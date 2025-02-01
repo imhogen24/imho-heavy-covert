@@ -41,14 +41,14 @@ export const SupportForm = () => {
       >
         {/* Section A: Client Information */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="organizationName">Organization Name</Label>
             <Input
               key={fields.organizationName.key}
               name={fields.organizationName.name}
               defaultValue={fields.organizationName.initialValue}
               id="organization-name"
-              placeholder="Your Organization Name"
+              placeholder="TechBuild Solutions Ltd"
               type="text"
             />
             {fields.organizationName.errors && (
@@ -58,14 +58,14 @@ export const SupportForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="contactPerson">Contact Person</Label>
             <Input
               key={fields.contactPerson.key}
               name={fields.contactPerson.name}
               defaultValue={fields.contactPerson.initialValue}
               id="contact-person"
-              placeholder="Full Name"
+              placeholder="Kwame Appiah"
               type="text"
             />
             {fields.contactPerson.errors && (
@@ -77,7 +77,7 @@ export const SupportForm = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="email">Email</Label>
             <Input
               key={fields.email.key}
@@ -85,21 +85,21 @@ export const SupportForm = () => {
               defaultValue={fields.email.initialValue}
               id="email"
               type="email"
-              placeholder="email@example.com"
+              placeholder="kwame.appiah@techbuild.com"
             />
             {fields.email.errors && (
               <p className="text-red-500 text-sm">{fields.email.errors}</p>
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="phoneNumber">Phone Number</Label>
             <Input
               key={fields.phoneNumber.key}
               name={fields.phoneNumber.name}
               defaultValue={fields.phoneNumber.initialValue}
               id="phone-number"
-              placeholder="Your Phone Number"
+              placeholder="0205567890"
               type="tel"
             />
             {fields.phoneNumber.errors && (
@@ -110,14 +110,14 @@ export const SupportForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="physicalPostalAddress">Physical/Postal Address</Label>
           <Input
             key={fields.physicalPostalAddress.key}
             name={fields.physicalPostalAddress.name}
             defaultValue={fields.physicalPostalAddress.initialValue}
             id="physical-postal-address"
-            placeholder="Your Complete Address"
+            placeholder="No. 15 Industrial Lane, Accra, Ghana"
             type="text"
           />
           {fields.physicalPostalAddress.errors && (
@@ -126,16 +126,19 @@ export const SupportForm = () => {
             </p>
           )}
         </div>
+        {/* BUSINESS OVERVIEW WAS SUPPOSED TO COME AFTER THIS BUT WE WOULD JUST HAVE TO FIX IT LATER */}
 
         {/* Section B: Training Requirements */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="trainingNeeds">Training Needs</Label>
           <Textarea
             key={fields.trainingNeeds.key}
             name={fields.trainingNeeds.name}
             defaultValue={fields.trainingNeeds.initialValue}
             id="training-needs"
-            placeholder="Describe your training needs"
+            placeholder="Advanced CAD modeling (SolidWorks and AutoCAD),
+            Engineering design process optimization,
+            Prototyping techniques for product development"
           />
           {fields.trainingNeeds.errors && (
             <p className="text-red-500 text-sm">
@@ -144,14 +147,15 @@ export const SupportForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="trainingObjectives">Training Objectives</Label>
           <Textarea
             key={fields.trainingObjectives.key}
             name={fields.trainingObjectives.name}
             defaultValue={fields.trainingObjectives.initialValue}
             id="training-objectives"
-            placeholder="Describe your training objectives"
+            placeholder="To enhance the team's proficiency in CAD software,
+            To implement a structured design process for better project efficiency."
           />
           {fields.trainingObjectives.errors && (
             <p className="text-red-500 text-sm">
@@ -161,7 +165,7 @@ export const SupportForm = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="numberOfParticipants">Number of Participants</Label>
             <Input
               key={fields.numberOfParticipants.key}
@@ -169,7 +173,7 @@ export const SupportForm = () => {
               defaultValue={fields.numberOfParticipants.initialValue}
               id="number-of-participants"
               type="number"
-              placeholder="Enter number of participants"
+              placeholder="10"
             />
             {fields.numberOfParticipants.errors && (
               <p className="text-red-500 text-sm">
@@ -178,14 +182,14 @@ export const SupportForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="participantRoles">Participant Roles</Label>
             <Input
               key={fields.participantRoles.key}
               name={fields.participantRoles.name}
               defaultValue={fields.participantRoles.initialValue}
               id="participant-roles"
-              placeholder="Describe participant roles"
+              placeholder="Mechanical Engineers, Design Technicians, CAD Specialists"
               type="text"
             />
             {fields.participantRoles.errors && (
@@ -197,7 +201,7 @@ export const SupportForm = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="participantSkillLevel">
               Participant Skill Level
             </Label>
@@ -221,7 +225,7 @@ export const SupportForm = () => {
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-4">
             <Label htmlFor="trainingDeliveryMode">Training Delivery Mode</Label>
             <Select
               name={fields.trainingDeliveryMode.name}
@@ -244,14 +248,15 @@ export const SupportForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
+          {/* TODO: change this to start date and end data pickers */}
           <Label htmlFor="trainingTimeline">Training Timeline</Label>
           <Input
             key={fields.trainingTimeline.key}
             name={fields.trainingTimeline.name}
             defaultValue={fields.trainingTimeline.initialValue}
             id="training-timeline"
-            placeholder="Specify your preferred timeline"
+            placeholder="8 weeks from the start date"
             type="text"
           />
           {fields.trainingTimeline.errors && (
@@ -262,14 +267,14 @@ export const SupportForm = () => {
         </div>
 
         {/* Section C: Project Support Requirements */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="projectOverview">Project Overview</Label>
           <Textarea
             key={fields.projectOverview.key}
             name={fields.projectOverview.name}
             defaultValue={fields.projectOverview.initialValue}
             id="project-overview"
-            placeholder="Provide an overview of your project"
+            placeholder="Development of a modular food processing machine for cassava milling and packaging."
           />
           {fields.projectOverview.errors && (
             <p className="text-red-500 text-sm">
@@ -278,7 +283,7 @@ export const SupportForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="projectScopeDeliverables">
             Project Scope & Deliverables
           </Label>
@@ -287,7 +292,9 @@ export const SupportForm = () => {
             name={fields.projectScopeDeliverables.name}
             defaultValue={fields.projectScopeDeliverables.initialValue}
             id="project-scope-deliverables"
-            placeholder="Describe the project scope and deliverables"
+            placeholder="Provide detailed design schematics for the modular machine,
+            Conduct feasibility analysis on proposed design concepts,
+            Collaborate on prototype testing and iteration"
           />
           {fields.projectScopeDeliverables.errors && (
             <p className="text-red-500 text-sm">
@@ -296,7 +303,7 @@ export const SupportForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label>Collaboration Preferences</Label>
           <div className="grid md:grid-cols-3 gap-4">
             {[
@@ -313,6 +320,7 @@ export const SupportForm = () => {
                 />
                 <Label
                   htmlFor={`collab-type-${type.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="text-muted-foreground"
                 >
                   {type}
                 </Label>
@@ -321,7 +329,7 @@ export const SupportForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="projectDeadline">Project Deadline</Label>
           <Input
             key={fields.projectDeadline.key}
@@ -338,14 +346,14 @@ export const SupportForm = () => {
         </div>
 
         {/* Section D: Additional Considerations */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="toolsAndResources">Tools and Resources</Label>
           <Textarea
             key={fields.toolsAndResources.key}
             name={fields.toolsAndResources.name}
             defaultValue={fields.toolsAndResources.initialValue}
             id="tools-and-resources"
-            placeholder="Describe required tools and resources"
+            placeholder="SolidWorks, AutoCAD, Microsoft Project"
           />
           {fields.toolsAndResources.errors && (
             <p className="text-red-500 text-sm">
@@ -354,7 +362,7 @@ export const SupportForm = () => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label>Long-term Collaboration</Label>
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -363,18 +371,21 @@ export const SupportForm = () => {
               name={fields.longTermCollaboration.name}
               defaultValue={fields.longTermCollaboration.initialValue}
             />
-            <Label>Interested in long-term collaboration</Label>
+            <Label className="text-muted-foreground">
+              Interested in long-term collaboration?
+            </Label>
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <Label htmlFor="additionalInformation">Additional Information</Label>
           <Textarea
             key={fields.additionalInformation.key}
             name={fields.additionalInformation.name}
             defaultValue={fields.additionalInformation.initialValue}
             id="additional-information"
-            placeholder="Any other relevant information"
+            placeholder="Ensure that training includes hands-on workshops,
+            Include a post-training assessment to measure the effectiveness of the sessions"
           />
           {fields.additionalInformation.errors && (
             <p className="text-red-500 text-sm">
