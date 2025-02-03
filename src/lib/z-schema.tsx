@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+/*CONTACT FORM SCHEMA */
+export const ContactFormSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Please enter a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters long"),
+});
+
 /*PRODUCT SCHEMA */
 export const ProductSchema = z.object({
   organizationName: z.string().min(2).max(200),
