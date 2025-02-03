@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/nav/navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { siteConfig } from "./siteConfig";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,9 +26,34 @@ const machina = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "IMHO",
-  description:
-    "Research and Development company specialized in engineering design.",
+  metadataBase: new URL("https://imhogen.com"),
+  title: siteConfig.name,
+  description: siteConfig.description,
+  keywords: ["Engineering", "Research and Developement", "Engineering design"],
+  authors: [
+    {
+      name: "imhogen",
+      url: "",
+    },
+  ],
+  creator: "imhogen",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    creator: "imhogen",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
