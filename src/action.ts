@@ -1,20 +1,55 @@
 "use server";
+
 import { parseWithZod } from "@conform-to/zod";
 import {
   CadSchema,
   ProcessSchema,
   ProductSchema,
   SupportSchema,
+  ContactFormSchema,
 } from "./lib/z-schema";
 import { redirect } from "next/navigation";
 import { CadRequestEmail } from "../src/components/emails/cad-template";
 import { Resend } from "resend";
-import { NextResponse } from "next/server";
 import ProductRequestEmail from "./components/emails/product-template";
 import SupportRequestEmail from "./components/emails/engieering-support-template";
 import ProcessRequestEmail from "./components/emails/process-template";
+import ContactFormEmail from "./components/emails/contact-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+export const contactFormAction = async (
+  initialState: unknown,
+  formData: FormData,
+) => {
+  const submission = parseWithZod(formData, {
+    schema: ContactFormSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: `Contact Form <onboarding@resend.dev>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Contact Form Submission from ${formData.get("name")}`,
+      react: ContactFormEmail({
+        name: formData.get("name") as string,
+        email: formData.get("email") as string,
+        message: formData.get("message") as string,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      return { error };
+    }
+  } catch (error: any) {
+    return { error: error };
+  }
+  redirect("/success");
+};
 
 export const cadFormAction = async (
   initialState: unknown,

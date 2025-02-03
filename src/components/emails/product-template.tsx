@@ -223,10 +223,7 @@ export const ProductRequestEmail = ({
 
         <Section style={styles.footer}>
           <Text style={styles.footerText}>
-            © 2024 Product Development Services. Confidential Communication.
-          </Text>
-          <Text style={styles.footerDisclaimer}>
-            This is an automated notification. Do not reply directly.
+            © 2024 Innovate Make & Have Ours. All rights reserved.
           </Text>
         </Section>
       </Container>

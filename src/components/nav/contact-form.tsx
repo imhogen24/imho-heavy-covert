@@ -1,91 +1,90 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { useState, useRef } from "react";
+import { useActionState } from "react";
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
+import { ContactFormSchema } from "@/lib/z-schema";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { contactFormAction } from "@/action";
+import { Submit } from "@/app/(services)/_components/submit";
 
+export const ContactForm = () => {
+  const ref = useRef<HTMLFormElement>(null);
+  const [lastResult, action] = useActionState(contactFormAction, undefined);
 
-import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "../ui/text-area"
-import { UploadButton } from "@/lib/uploadthing"
-
-const FormSchema = z.object({
-    email: z.string().min(2, {
-    message: "invalid email!.",
-  }),
-  message: z.string().min(10, {
-    message: "This field cannot be empty",
-  }),
-})
-
-export function ContactForm() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: "",
-      message: "",
+  const [form, fields] = useForm({
+    lastResult,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: ContactFormSchema });
     },
-  })
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // })
-  }
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="example@email.com" {...field}  className="rounded-xl"/>
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
+    <div className="w-full mx-auto py-10">
+      <form
+        ref={ref}
+        id={form.id}
+        onSubmit={form.onSubmit}
+        action={action}
+        className="space-y-8"
+      >
+        <div className="space-y-4">
+          <label htmlFor="name">Name</label>
+          <Input
+            key={fields.name.key}
+            name={fields.name.name}
+            defaultValue={fields.name.initialValue}
+            id="name"
+            placeholder="Jane Doe"
+            type="text"
+          />
+          {fields.name.errors && (
+            <p className="text-red-500 text-sm">{fields.name.errors}</p>
           )}
-        />
+        </div>
 
-            <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-              <Textarea placeholder="Type your message here." id="message" className="rounded-xl h-[200px]" />
-              </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
+        <div className="space-y-4">
+          <label htmlFor="email">Email</label>
+          <Input
+            key={fields.email.key}
+            name={fields.email.name}
+            defaultValue={fields.email.initialValue}
+            id="email"
+            type="email"
+            placeholder="jane.doe@example.com"
+          />
+          {fields.email.errors && (
+            <p className="text-red-500 text-sm">{fields.email.errors}</p>
           )}
-        />
-        <Button type="submit" className="w-full text-[#FAFAFA]">Submit</Button>
+        </div>
+
+        <div className="space-y-4">
+          <label htmlFor="message">Message</label>
+          <Textarea
+            key={fields.message.key}
+            name={fields.message.name}
+            defaultValue={fields.message.initialValue}
+            id="message"
+            placeholder="eg. Hello team..."
+            className="resize-none"
+            typeof="text"
+          />
+          <p className="text-sm text-muted-foreground">
+            Please provide a detailed message.
+          </p>
+          {fields.message.errors && (
+            <p className="text-red-500 text-sm">{fields.message.errors}</p>
+          )}
+        </div>
+
+        <div className="mt-8">
+          <Submit label="Send message" />
+        </div>
       </form>
-    </Form>
-  )
-}
+    </div>
+  );
+};
