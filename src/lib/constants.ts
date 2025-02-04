@@ -150,7 +150,7 @@ export const PROJECTS: ProjectCardProps[] = [
     title: "Industrial Paper Management System",
     client: "TCC-CIMET",
     description:
-      "TCC-CIMET looked to IMHO to help solve one of the university's oldest problem; a lot of waste papers and an ineffective way of managing. The equipment compacts paper, bloats out the ink, and bails it for reuse in industy.",
+      "looked to IMHO to help solve one of the university's oldest problem; a lot of waste papers and an ineffective way of managing. The equipment compacts paper, bloats out the ink, and bails it for reuse in industy.",
     service: "Engineering Design, Prototyping and Testing",
     type: "Industry Equipment",
     date: "2024",

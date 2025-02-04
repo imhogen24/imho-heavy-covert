@@ -1,9 +1,9 @@
 import { CrossPositinalIcon } from "@/lib/icons";
 import { MapPinned, PhoneCall } from "lucide-react";
 import Image from "next/image";
-import { ContactForm } from "./contact-form";
 import { SOCIAL_ICONS } from "@/lib/constants";
 import Link from "next/link";
+import { FileForm } from "./file-form";
 
 const Footer = () => {
   return (
@@ -77,7 +77,7 @@ const Footer = () => {
           <h1 className="font-[family-name:var(--font-machina)] text-[24px]">
             Talk to <span className="text-[#EF7D00]     ">IMHO</span>
           </h1>
-          <ContactForm />
+          <FileForm />
         </section>
       </div>
       <div className="flex justify-center items-center border-t muted-border">

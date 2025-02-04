@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { CustomUploadButton } from "../uploadthing/upload-button";
 
 const Textarea = React.forwardRef<
   HTMLTextAreaElement,
