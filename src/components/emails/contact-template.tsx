@@ -11,6 +11,7 @@ import {
   Row,
   Section,
   Text,
+  Link,
 } from "@react-email/components";
 import * as React from "react";
 
@@ -18,37 +19,22 @@ export interface ContactFormEmailProps {
   name: string;
   email: string;
   message: string;
+  file?: string; // Make file optional
 }
 
 export const ContactFormEmail = ({
   name,
   email,
   message,
+  file,
 }: ContactFormEmailProps) => (
   <Html>
     <Head />
     <Preview>New Contact Form Submission from {name}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
-        <Section style={styles.header}>
-          <Row>
-            <Column style={{ textAlign: "center" }}>
-              <Img
-                src={`https://res.cloudinary.com/dstrel8mi/image/upload/v1737805863/nav-logo_okx0tv.png`}
-                width="200"
-                height="45"
-                alt="Company Logo"
-                style={{ margin: "0 auto" }}
-              />
-            </Column>
-          </Row>
-        </Section>
-
         <Section style={styles.content}>
           <Heading style={styles.heading}>Contact Form Submission</Heading>
-          <Text style={styles.subHeading}>
-            A new contact form submission requires your attention.
-          </Text>
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CONTACT INFORMATION</Text>
             <Text style={styles.infoText}>
@@ -58,24 +44,28 @@ export const ContactFormEmail = ({
               <strong>Email:</strong> {email}
             </Text>
           </Section>
-
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>MESSAGE</Text>
             <Text style={styles.infoText}>{message}</Text>
           </Section>
-        </Section>
-
-        <Section style={styles.footer}>
-          <Text style={styles.footerText}>
-            © 2024 Innovate Make & Have Ours. All rights reserved.
-          </Text>
+          {file && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>ATTACHED FILE</Text>
+              <Link
+                href={file}
+                style={styles.infoText}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Attached File
+              </Link>
+            </Section>
+          )}
         </Section>
       </Container>
     </Body>
   </Html>
 );
-
-export default ContactFormEmail;
 
 const styles = {
   main: {
