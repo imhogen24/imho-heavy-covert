@@ -7,10 +7,10 @@ export const PostNotFound: React.FC = () => {
   const router = useRouter();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full min-h-screen">
-      <div className="p-20 flex flex-col justify-center gap-5 cols-span-1 h-full border-r muted-border border-dashed ">
+      <div className="p-5 md:p-20 flex flex-col justify-center gap-5 cols-span-1 h-full border-r muted-border border-dashed ">
         <h1 className="font-medium text-4xl">This Blog does not exist</h1>
         <Button
-          className=" w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+          className=" w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
           variant={"secondary"}
           onClick={() => router.back()}
         >
