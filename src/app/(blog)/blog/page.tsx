@@ -40,7 +40,7 @@ const BlogPage = async () => {
             >
               <div className="flex flex-col gap-5 w-full h-1/3">
                 <span className="text-sm text-muted-foreground">
-                  {post.properties.Created.created_time.split("T")[0]}
+                  {post.properties.published_date.date.start.split("T")[0]}
                 </span>
                 <h1 className="text-2xl font-semibold line-clamp-3">
                   {post.properties.Title.title[0].plain_text}
