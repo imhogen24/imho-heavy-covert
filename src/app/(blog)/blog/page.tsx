@@ -1,3 +1,4 @@
+
 import { gradientText } from "@/app/(root)/_compoennts/hero/hero-text";
 import { fetchPages } from "@/lib/notion";
 import { cn } from "@/lib/utils";
@@ -5,9 +6,11 @@ import { Rss } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
+import { ImageWithSkeleton } from "../_components/skeleton";
 
 const BlogPage = async () => {
   const posts = await fetchPages();
+
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">
       <div className="grid grid-cols-2 border-b muted-border">
@@ -26,6 +29,7 @@ const BlogPage = async () => {
           <Rss size={100} strokeWidth={0.5} absoluteStrokeWidth />
         </div>
       </div>
+
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {posts.results.map((post: any, index) => {
           return (
@@ -46,22 +50,18 @@ const BlogPage = async () => {
                 </h1>
               </div>
 
+              <ImageWithSkeleton
+                src={post.properties.cover_image.url}
+                alt={post.properties.Title.title[0].plain_text}
+                priority={index < 6}
+              />
+
               <div>
-                <Image
-                  src={post.properties.cover_image.url}
-                  height={100}
-                  width={400}
-                  alt="image"
-                  className="rounded-xl"
-                />
-              </div>
-
-              <div className="">
-                <p className=" text-muted-foreground">
+                <p className="text-muted-foreground">
                   <Balancer ratio={0.0} preferNative={false}>
-
-                    <span className="line-clamp-3">{post.properties.Summary.rich_text[0].plain_text}</span>
-
+                    <span className="line-clamp-3">
+                      {post.properties.Summary.rich_text[0].plain_text}
+                    </span>
                   </Balancer>
                 </p>
               </div>
