@@ -8,7 +8,6 @@ import Balancer from "react-wrap-balancer";
 
 const BlogPage = async () => {
   const posts = await fetchPages();
-  console.log(posts);
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">
       <div className="grid grid-cols-2 border-b muted-border">
@@ -58,11 +57,13 @@ const BlogPage = async () => {
               </div>
 
               <div className="">
-                <Balancer ratio={0.0} preferNative={false}>
-                  <p className="line-clamp-3 text-muted-foreground">
-                    {post.properties.Summary.rich_text[0].plain_text}
-                  </p>
-                </Balancer>
+                <p className=" text-muted-foreground">
+                  <Balancer ratio={0.0} preferNative={false}>
+
+                    <span className="line-clamp-3">{post.properties.Summary.rich_text[0].plain_text}</span>
+
+                  </Balancer>
+                </p>
               </div>
             </Link>
           );
