@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   keywords: ["Engineering", "Research and Developement", "Engineering design"],
   authors: [
     {
-      name: "imhogen",
+      name: "Imhogen",
       url: "",
     },
   ],
