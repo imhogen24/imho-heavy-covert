@@ -8,8 +8,11 @@ import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 import { ImageWithSkeleton } from "../_components/skeleton";
 
+
+export const revalidate = 60;
 const BlogPage = async () => {
   const posts = await fetchPages();
+
 
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">

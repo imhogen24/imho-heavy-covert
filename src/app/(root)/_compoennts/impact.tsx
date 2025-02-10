@@ -40,14 +40,14 @@ const ImpactSection = () => {
               className="flex border-b muted-border md:border-none flex-col gap-5
            p-[32px] lg:p-[64px]"
             >
-              <h4 className="scroll-m-20 font-semibold tracking-tight text-2xl md:text-3xl">
+              <h4 className="scroll-m-20 my-auto font-semibold tracking-tight text-2xl">
                 {impact.title}
               </h4>
-              <p className="leading-7 [&:not(:first-child)] text-md md:text-xl text-muted-foreground">
+              <p className="text-muted-foreground leading-relaxed leading-7 [&:not(:first-child)]">
                 {impact.description}
               </p>
               {impact.footer && (
-                <p className="leading-7 [&:not(:first-child)] text-md md:text-xl text-muted-foreground">
+                <p className="text-muted-foreground leading-relaxed leading-7 [&:not(:first-child)]">
                   {impact.footer}
                 </p>
               )}
