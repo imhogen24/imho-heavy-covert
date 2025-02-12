@@ -5,18 +5,9 @@ export const FileUploadSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Please enter a valid email address"),
   message: z.string().min(10, "Message must be at least 10 characters long"),
-  file: z
-    .union([
-      z.string().url(),
-      z.object({
-        url: z.string().url(),
-        name: z.string(),
-      }),
-      z.literal(""),
-      z.undefined(),
-    ])
-    .nullish(),
-});
+  files: z.array(z.string()).default([])
+})
+
 
 /*CONTACT FORM SCHEMA */
 export const ContactFormSchema = z.object({

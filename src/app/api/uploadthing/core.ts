@@ -1,22 +1,32 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
 
 const f = createUploadthing();
 
+
+
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-  fileUploader: f({
-    "application/pdf": {
-      maxFileSize: "128MB",
-      maxFileCount: 1,
-    },
-    image: {
-      maxFileSize: "128MB",
-      maxFileCount: 1,
-    },
-  }).onUploadComplete(async ({ file }) => {
-    console.log("file url", file.url);
-  }),
+    // Define as many FileRoutes as you like, each with a unique routeSlug
+    fileAttachment: f({
+        image: {
+            maxFileSize: "16MB",
+            maxFileCount: 5,
+        },
+        pdf: {
+            maxFileSize: "16MB",
+            maxFileCount: 5,
+        }
+    })
+
+        .onUploadComplete(async ({ metadata, file }) => {
+
+            console.log("file url", file.url);
+
+            // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+            return {
+                fileUrl: file.url
+            }
+        }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        pathname: "**",
+      },
     ],
   },
 };
