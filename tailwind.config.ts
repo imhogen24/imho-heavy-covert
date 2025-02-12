@@ -1,12 +1,14 @@
 import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
 
+
 const config = {
-    darkMode: ["class"],
-    content: [
+  darkMode: ["class"],
+  content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // "./node_modules/@uploadthing/react/dist**"
   ],
   theme: {
     extend: {
@@ -41,7 +43,7 @@ const config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))'
         },
-        frame:'hsl(var(--frame-border))',
+        frame: 'hsl(var(--frame-border))',
         grid: 'hsl(var(--grid-color))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
