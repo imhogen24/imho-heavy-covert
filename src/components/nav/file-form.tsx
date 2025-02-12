@@ -135,14 +135,22 @@ export const FileForm = () => {
                   {field.value.length > 0 && (
                     <div className="flex flex-col mt-4 gap-2">
                       {field.value.map((file: string, index: number) => (
-                        <div key={index} className="w-full p-2 bg-accent inline-flex justify-between rounded-[0.5em] gap-1 items-center">
-                          <div className="inline-flex gap-1">
-                            <FileIcon className="w-4 h-4 my-auto" />
-                            <span>{file.split(",")[1]}</span>
+                        <div
+                          key={index}
+                          className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
+                        >
+                          {/* Left: File Icon & Name */}
+                          <div className="flex items-center gap-2 min-w-0">
+                            <FileIcon className="w-4 h-4 flex-shrink-0" />
+                            <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] overflow-hidden whitespace-nowrap">
+                              {file.split(",")[1]}
+                            </span>
                           </div>
-                          <div className="inline-flex gap-2">
+
+                          {/* Right: Action Buttons */}
+                          <div className="flex gap-2 items-center">
                             <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
-                              <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground duration-200 ease-in-out" />
+                              <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
                             </Link>
                             <button
                               type="button"
@@ -152,10 +160,11 @@ export const FileForm = () => {
                               }}
                             >
                               <span className="sr-only">remove item {index}</span>
-                              <Trash2 className="w-4 h-4 hover:stroke-destructive duration-200 ease-in-out" />
+                              <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
                             </button>
                           </div>
                         </div>
+
                       ))}
                     </div>
                   )}
@@ -166,14 +175,13 @@ export const FileForm = () => {
         />
         <div className="mt-8">
           <Button
-            className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
-            variant={"secondary"}
-            type="submit"
+            className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+            variant={"secondary"} type="submit"
             aria-disabled={pending}
           >
             {pending ? (
               <>
-                <LoaderCircle className="animate-spin" /> submitting...
+                <LoaderCircle className="animate-spin" />
               </>
             ) : (
               <>Send message</>
