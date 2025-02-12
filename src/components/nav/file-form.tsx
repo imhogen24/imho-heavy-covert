@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { XIcon, FileIcon } from "lucide-react";
+import { XIcon, FileIcon, Trash2, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import { contactFormAction } from "@/action";
 import { LoaderCircle, CloudUpload } from "lucide-react";
@@ -22,6 +22,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { UploadDropzone } from "@/lib/uploadthing";
+import Link from "next/link";
+
 
 export const FileForm = () => {
   const form = useForm<z.infer<typeof FileUploadSchema>>({
@@ -30,42 +32,39 @@ export const FileForm = () => {
       name: "",
       email: "",
       message: "",
-      file: undefined, //{ url: "", name: "" },
+      files: [],
     },
   });
   const [pending, setPending] = useState(false);
+  //const [files, setFiles] = useState<string[]>([]);
 
   async function onSubmit(values: z.infer<typeof FileUploadSchema>) {
     setPending(true);
-
+    console.log(values);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
     formData.append("message", values.message);
-    if (values.file) {
-      const fileValue =
-        typeof values.file === "string"
-          ? values.file
-          : (values.file as { url: string }).url;
-
-      if (fileValue) {
-        formData.append("file", fileValue);
-      }
-    }
+    formData.append("files", JSON.stringify(values.files));
 
     try {
       const result = await contactFormAction(formData);
 
       if (result?.error) {
+
+
         toast.error(result.error);
       } else {
+
         toast.success("Message sent successfully!");
+        console.log(values)
         form.reset();
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setPending(false);
+
     }
   }
   return (
@@ -112,53 +111,53 @@ export const FileForm = () => {
         />
         <FormField
           control={form.control}
-          name="file"
+          name="files"
           render={({ field }) => (
             <FormItem>
               <FormLabel>File upload</FormLabel>
               <FormControl>
                 <div>
-                  {field.value &&
-                  typeof field.value === "object" &&
-                  field.value.url ? (
-                    <div className="relative w-fit">
-                      <div className="border rounded-[1rem] p-2  muted-border">
-                        <CloudUpload
-                          size={48}
-                          strokeWidth={0.75}
-                          className="mx-auto"
-                        />
-                        {/* {`${field.value.name.split(" ")[0]}...${field.value.name.split(".")[1]}`} */}
-                        1 File
-                      </div>
-
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute -top-2 -right-2 "
-                        onClick={() => field.onChange("")}
-                      >
-                        <XIcon className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ) : (
+                  <div className="relative border border-dashed muted-border rounded-[0.5rem]">
                     <UploadDropzone
-                      endpoint="fileUploader"
-                      onClientUploadComplete={(res) => {
-                        field.onChange({
-                          url: res[0].url,
-                          name: res[0].name,
-                        });
-                        toast.success("File uploaded successfully!");
+                      className="ut-button:bg-accent"
+                      endpoint="fileAttachment"
+                      onClientUploadComplete={(res: any) => {
+                        const newFile = `${res[0].serverData.fileUrl},${res[0].name}`;
+                        field.onChange([...field.value, newFile]); // Update form value
+                        toast.success("Upload Completed");
                       }}
-                      onUploadError={() => {
-                        toast.error(
-                          "Something went wrong. Consider uploading a file with smaller size.",
-                        );
+                      onUploadError={(error: any) => {
+                        toast.error("Something went wrong, check your internet connection or consider reducing the file size");
                       }}
-                      className="rounded-[1rem] ut-button:bg-secondary ut-button:text-black dark:ut-button:text-white ut-button:hover:bg-secondary/90 ut-label:text-muted-foreground ut-allowed-content:text-muted-foreground muted-border"
                     />
+                  </div>
+
+                  {field.value.length > 0 && (
+                    <div className="flex flex-col mt-4 gap-2">
+                      {field.value.map((file: string, index: number) => (
+                        <div key={index} className="w-full p-2 bg-accent inline-flex justify-between rounded-[0.5em] gap-1 items-center">
+                          <div className="inline-flex gap-1">
+                            <FileIcon className="w-4 h-4 my-auto" />
+                            <span>{file.split(",")[1]}</span>
+                          </div>
+                          <div className="inline-flex gap-2">
+                            <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
+                              <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground duration-200 ease-in-out" />
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const newFiles = field.value.filter((_, i) => i !== index);
+                                field.onChange(newFiles);
+                              }}
+                            >
+                              <span className="sr-only">remove item {index}</span>
+                              <Trash2 className="w-4 h-4 hover:stroke-destructive duration-200 ease-in-out" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               </FormControl>
@@ -182,6 +181,6 @@ export const FileForm = () => {
           </Button>
         </div>
       </form>
-    </Form>
+    </Form >
   );
 };

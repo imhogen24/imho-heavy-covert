@@ -32,7 +32,10 @@ export const contactFormAction = async (formData: FormData) => {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
-    const fileUrl = (formData.get("file") as string) || null;
+    const filesString = formData.get("files") as string;
+
+    // Parse the JSON string back to an array
+    const files = filesString ? JSON.parse(filesString) : [];
 
     const { data, error } = await resend.emails.send({
       from: `Contact Form <onboarding@resend.dev>`,
@@ -42,7 +45,7 @@ export const contactFormAction = async (formData: FormData) => {
         name,
         email,
         message,
-        file: fileUrl || undefined,
+        files,
       }) as React.ReactElement,
     });
 
@@ -57,7 +60,6 @@ export const contactFormAction = async (formData: FormData) => {
     return { error: error.message || "An unexpected error occurred" };
   }
 };
-
 export const cadFormAction = async (
   initialState: unknown,
   formData: FormData,
