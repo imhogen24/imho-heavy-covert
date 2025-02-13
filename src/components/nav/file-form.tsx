@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { ContactFormSchema, FileUploadSchema } from "@/lib/z-schema";
+import { FileUploadSchema } from "@/lib/z-schema";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/form";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Link from "next/link";
+import { FormPreview } from "@/app/(services)/_components/preview";
 
 
 export const FileForm = () => {
@@ -36,7 +37,7 @@ export const FileForm = () => {
     },
   });
   const [pending, setPending] = useState(false);
-  //const [files, setFiles] = useState<string[]>([]);
+
 
   async function onSubmit(values: z.infer<typeof FileUploadSchema>) {
     setPending(true);

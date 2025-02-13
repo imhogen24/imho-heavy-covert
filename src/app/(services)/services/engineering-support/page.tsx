@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { ObeliskIcon, PyramidIcon } from "@/lib/icons";
-import { CadForm } from "../../_components/cad-form";
+import { CadForm } from "../../_components/cad/cad-form";
 import { SupportForm } from "../../_components/engineering-support-form";
 import ServiceHero from "../../_components/service-hero";
 
@@ -15,7 +15,7 @@ const EngineeringSupportPage = () => {
         <div className="flex justify-center items-center h-60 w-full bg-neutral-100 dark:bg-neutral-900">
           <PyramidIcon className="dark:opacity-25" />
         </div>
-        <ServiceHero/>
+        <ServiceHero />
       </div>
       <div className="flex flex-row w-full h-full justify-between">
         <div className="hidden relative lg:grid grid-cols-1 w-28 border-r muted-border border-dashed min-h-full"></div>
