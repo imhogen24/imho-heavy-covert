@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { ObeliskIcon, SunIcon } from "@/lib/icons";
-import { CadForm } from "../../_components/cad-form";
+import { CadForm } from "../../_components/cad/modules/cad-form";
 import { ProductForm } from "../../_components/product-form";
-import ServiceHero  from "../../_components/service-hero";
+import ServiceHero from "../../_components/service-hero";
 const ProductPage = () => {
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">
@@ -15,8 +15,8 @@ const ProductPage = () => {
         <div className="flex justify-center items-center h-60 w-full bg-neutral-100 dark:bg-neutral-900">
           <SunIcon className="dark:opacity-25" />
         </div>
-      
-       <ServiceHero/>
+
+        <ServiceHero />
       </div>
       <div className="flex flex-row w-full h-full justify-between">
         <div className="hidden relative lg:grid grid-cols-1 w-28 border-r muted-border border-dashed min-h-full"></div>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { ObeliskIcon } from "@/lib/icons";
-import { CadForm } from "../../_components/cad/cad-form";
+import { CadForm } from "../../_components/cad/modules/cad-form";
 import ServiceHero from "../../_components/service-hero";
 
 const DraftworkPage = () => {

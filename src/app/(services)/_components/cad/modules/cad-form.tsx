@@ -21,8 +21,8 @@ import { cadFormAction } from "@/action";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { FormSection, SectionChild } from "../shell";
-import { FormPreview } from "../preview";
+import { FormSection, SectionChild } from "../../shell";
+import { FormPreview } from "./preview";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const documentationTypes = [
