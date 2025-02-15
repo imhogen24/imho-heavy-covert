@@ -33,164 +33,135 @@ export const ContactFormEmail = ({
     <Preview>New Contact Form Submission from {name}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
-        {/* Header with IMHO Letters */}
-        <Row style={styles.headerRow}>
-          <Column style={styles.letterColumn}>
-            <Img
-              src="https://res.cloudinary.com/dstrel8mi/image/upload/v1739358526/i-dashed_bfetsc_lokziu.png"
-              alt="Letter I"
-              width="40"
-              height="80"
-              style={styles.letterImage}
-            />
-          </Column>
-          <Column style={styles.letterColumn}>
-            <Img
-              src="https://res.cloudinary.com/dstrel8mi/image/upload/v1739358543/m-dashed_sdmj7t_b5qsxq.png"
-              alt="Letter M"
-              width="80"
-              height="80"
-              style={styles.letterImage}
-            />
-          </Column>
-          <Column style={styles.letterColumn}>
-            <Img
-              src="https://res.cloudinary.com/dstrel8mi/image/upload/v1739358556/h-dashed_smsmfr_wfwlik.png"
-              alt="Letter H"
-              width="80"
-              height="80"
-              style={styles.letterImage}
-            />
-          </Column>
-          <Column style={styles.letterColumn}>
-            <Img
-              src="https://res.cloudinary.com/dstrel8mi/image/upload/v1739358491/o-dashed_wu7tgu_kwfngs.png"
-              alt="Letter O"
-              width="80"
-              height="80"
-              style={styles.letterImage}
-            />
-          </Column>
-        </Row>
+        <Section style={styles.header}>
+          <Row>
+            <Column style={{ textAlign: "center" }}>
+              <Img
+                src={`https://res.cloudinary.com/dstrel8mi/image/upload/v1737805863/nav-logo_okx0tv.png`}
+                width="200"
+                height="45"
+                alt="Company Logo"
+                style={{ margin: "0 auto" }}
+              />
+            </Column>
+          </Row>
+        </Section>
 
-        {/* Content Section */}
-        <Row>
-          <Column style={styles.contentColumn}>
-            <Section style={styles.content}>
-              <Heading style={styles.heading}>New Message Received</Heading>
-              <Section style={styles.detailSection}>
-                <Text style={styles.sectionTitle}>FROM</Text>
-                <Text style={styles.infoText}>
-                  {name} ({email})
-                </Text>
-              </Section>
-              <Hr style={styles.divider} />
-              <Section style={styles.detailSection}>
-                <Text style={styles.sectionTitle}>MESSAGE</Text>
-                <Text style={styles.messageText}>{message}</Text>
-              </Section>
-              {files && files.length > 0 && (
-                <>
-                  <Hr style={styles.divider} />
-                  <Section style={styles.detailSection}>
-                    <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
-                    {files.map((file: string, index: number) => {
-                      const [fileUrl, fileName] = file.split(",");
-                      return (
-                        <Text key={index} style={styles.attachmentText}>
-                          <Link
-                            href={fileUrl}
-                            style={styles.fileLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            📎 {fileName || `Attachment ${index + 1}`}
-                          </Link>
-                        </Text>
-                      );
-                    })}
-                  </Section>
-                </>
-              )}
+        <Section style={styles.content}>
+          <Heading style={styles.heading}>New Message Received</Heading>
+          <Text style={styles.subHeading}>
+            A new contact form submission requires your attention.
+          </Text>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>CONTACT INFORMATION</Text>
+            <Text style={styles.infoText}>
+              <strong>Name:</strong> {name}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Email:</strong> {email}
+            </Text>
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>MESSAGE</Text>
+            <Text style={styles.infoText}>{message}</Text>
+          </Section>
+
+          {files && files.length > 0 && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
+              {files.map((file: string, index: number) => {
+                const [fileUrl, fileName] = file.split(",");
+                return (
+                  <Text key={index} style={styles.infoText}>
+                    <Link href={fileUrl} style={styles.fileLink}>
+                      📎 {fileName || `Attachment ${index + 1}`}
+                    </Link>
+                  </Text>
+                );
+              })}
             </Section>
-          </Column>
-        </Row>
+          )}
+        </Section>
+
+        <Section style={styles.footer}>
+          <Text style={styles.footerText}>
+            © 2024 Innovate Make & Have Ours. All rights reserved.
+          </Text>
+        </Section>
       </Container>
     </Body>
   </Html>
 );
 
+export default ContactFormEmail;
+
 const styles = {
   main: {
-    backgroundColor: "#f6f9fc",
+    backgroundColor: "#FFFFFF",
     fontFamily:
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
   },
   container: {
-    margin: "0 auto",
-    padding: "10px 0 20px",
-    width: "100%",
     maxWidth: "600px",
-    borderRadius: "12px",
-    backgroundColor: "#ffffff",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06)",
+    margin: "0 auto",
+    border: "1px solid #E0E0E0",
+    borderRadius: "12px", // Added rounded edges
   },
-  headerRow: {
+  header: {
+    backgroundColor: "#F5F5F5",
+    padding: "20px",
+    textAlign: "center" as const,
+    borderTopLeftRadius: "12px", // Rounded top corners
+    borderTopRightRadius: "12px",
+  },
+  content: {
+    padding: "30px",
+  },
+  heading: {
+    color: "#000000",
+    fontSize: "28px",
+    fontWeight: "700",
+    marginBottom: "10px",
+    textAlign: "center" as const,
+  },
+  subHeading: {
+    color: "#555555",
+    fontSize: "16px",
     textAlign: "center" as const,
     marginBottom: "20px",
   },
-  letterColumn: {
-    textAlign: "center" as const,
-    padding: "5px",
-  },
-  letterImage: {
-    display: "block",
-    margin: "auto",
-  },
-  contentColumn: {
-    width: "100%",
-  },
-  content: {
-    padding: "20px",
-    borderRadius: "8px",
-  },
-  heading: {
-    color: "#1f2937",
-    fontSize: "20px",
-    fontWeight: "600",
-    marginBottom: "16px",
-    textAlign: "left" as const,
-  },
   detailSection: {
-    marginBottom: "16px",
+    marginBottom: "20px",
   },
   sectionTitle: {
-    color: "#6b7280",
-    fontSize: "12px",
-    fontWeight: "600",
-    textTransform: "uppercase" as const,
-    letterSpacing: "0.05em",
-    marginBottom: "6px",
+    color: "#000000",
+    fontSize: "14px",
+    fontWeight: "700",
+    letterSpacing: "1px",
+    marginBottom: "10px",
   },
   infoText: {
-    color: "#374151",
-    fontSize: "14px",
-  },
-  messageText: {
-    color: "#374151",
-    fontSize: "14px",
-    whiteSpace: "pre-wrap" as const,
-  },
-  attachmentText: {
-    margin: "4px 0",
+    color: "#333333",
+    fontSize: "15px",
+    lineHeight: "1.6",
+    marginBottom: "5px",
   },
   fileLink: {
     color: "#2563eb",
     textDecoration: "none",
-    fontSize: "14px",
   },
-  divider: {
-    borderTop: "1px solid #e5e7eb",
-    margin: "16px 0",
+  footer: {
+    backgroundColor: "#F5F5F5",
+    padding: "15px",
+    textAlign: "center" as const,
+    borderBottomLeftRadius: "12px", // Rounded bottom corners
+    borderBottomRightRadius: "12px",
+  },
+  footerText: {
+    color: "#666666",
+    fontSize: "12px",
+    marginBottom: "5px",
   },
 };

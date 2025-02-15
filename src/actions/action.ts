@@ -10,6 +10,8 @@ import { ContactFormEmail } from "../components/emails/contact/contact-template"
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+
+//CONTACT FORM ACTION
 export const contactFormAction = async (formData: FormData) => {
   try {
     const name = formData.get("name") as string;
@@ -44,6 +46,8 @@ export const contactFormAction = async (formData: FormData) => {
   }
 };
 
+
+//CAD FORM ACTION
 export const cadFormAction = async (formData: FormData) => {
   try {
     const organizationName = formData.get("organizationName") as string;
@@ -54,18 +58,22 @@ export const cadFormAction = async (formData: FormData) => {
     const organizationOperations = formData.get("organizationOperations") as string;
     const documentationPurpose = formData.get("documentationPurpose") as string;
     const documentationTypes = JSON.parse(formData.get("documentationTypes") as string || "[]");
-    const otherDocumentationType = formData.get("otherDocumentationType") as string;
+    const otherDocumentationTypes = formData.get("otherDocumentationTypes") as string;
     const fileFormats = JSON.parse(formData.get("fileFormats") as string || "[]");
-    const otherFileFormat = formData.get("otherFileFormat") as string;
+    const otherFileFormats = formData.get("otherFileFormats") as string;
     const technicalSpecifications = formData.get("technicalSpecifications") as string;
     const technicalStandards = formData.get("technicalStandards") as string;
     const visualStylePreferences = formData.get("visualStylePreferences") as string;
     const layoutPreferences = formData.get("layoutPreferences") as string;
-    const filesString = formData.get("files") as string;
-    const files = filesString ? JSON.parse(filesString) : [];
+    const additionalDesignFeatures = formData.get("additionalDesignFeatures") as string;
+    const preferredTimeline = formData.get("preferredTimeline") as string;
+    const requirePeriodicDrafts = formData.get("requirePeriodicDrafts") === "true";
+    const additionalServices = JSON.parse(formData.get("additionalServices") as string || "[]");
+    const additionalComments = formData.get("additionalComments") as string;
+    const fileAttachments = JSON.parse(formData.get("fileAttachments") as string || "[]");
 
     const { data, error } = await resend.emails.send({
-      from: "CAD Request <onboarding@resend.dev>",
+      from: `CAD Request <onboarding@resend.dev>`,
       to: ["imhogen22@gmail.com"],
       subject: `New CAD Request from ${organizationName}`,
       react: CadRequestEmail({
@@ -77,15 +85,19 @@ export const cadFormAction = async (formData: FormData) => {
         organizationOperations,
         documentationPurpose,
         documentationTypes,
-        otherDocumentationType,
+        otherDocumentationTypes,
         fileFormats,
-        otherFileFormat,
+        otherFileFormats,
         technicalSpecifications,
         technicalStandards,
         visualStylePreferences,
         layoutPreferences,
-        files,
-        requestNumber: `CAD-${Date.now()}`,
+        additionalDesignFeatures,
+        preferredTimeline,
+        requirePeriodicDrafts,
+        additionalServices,
+        additionalComments,
+        fileAttachments,
       }) as React.ReactElement,
     });
 
@@ -183,6 +195,8 @@ export const ProductFormAction = async (
   redirect("/success");
 };
 
+
+//SUPPORT FORM ACTION
 export const SupportFormAction = async (
   initialState: unknown,
   formData: FormData,
@@ -251,6 +265,8 @@ export const SupportFormAction = async (
   redirect("/success");
 };
 
+
+//PROCESS FORM ACTION
 export const ProcessFormAction = async (
   initialState: unknown,
   formData: FormData,

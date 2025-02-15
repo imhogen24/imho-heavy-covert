@@ -7,11 +7,11 @@ import {
   Hr,
   Img,
   Html,
-  Link,
   Preview,
   Row,
   Section,
   Text,
+  Link,
 } from "@react-email/components";
 import * as React from "react";
 
@@ -24,20 +24,19 @@ export interface CadRequestEmailProps {
   organizationOperations: string;
   documentationPurpose: string;
   documentationTypes: string[];
-  otherDocumentationType?: string;
+  otherDocumentationTypes: string;
   fileFormats: string[];
-  otherFileFormat?: string;
-  technicalSpecifications?: string;
-  technicalStandards?: string;
-  visualStylePreferences?: string;
-  layoutPreferences?: string;
-  additionalDesignFeatures?: string;
+  otherFileFormats: string;
+  technicalSpecifications: string;
+  technicalStandards: string;
+  visualStylePreferences: string;
+  layoutPreferences: string;
+  additionalDesignFeatures: string;
   preferredTimeline: string;
-  requirePeriodicDrafts?: boolean;
-  additionalServices?: string[];
-  additionalComments?: string;
-  files: string[];
-  requestNumber: string;
+  requirePeriodicDrafts: boolean;
+  additionalServices: string[];
+  additionalComments: string;
+  fileAttachments: string[];
 }
 
 export const CadRequestEmail = ({
@@ -49,9 +48,9 @@ export const CadRequestEmail = ({
   organizationOperations,
   documentationPurpose,
   documentationTypes,
-  otherDocumentationType,
+  otherDocumentationTypes,
   fileFormats,
-  otherFileFormat,
+  otherFileFormats,
   technicalSpecifications,
   technicalStandards,
   visualStylePreferences,
@@ -61,12 +60,11 @@ export const CadRequestEmail = ({
   requirePeriodicDrafts,
   additionalServices,
   additionalComments,
-  files,
-  requestNumber,
+  fileAttachments,
 }: CadRequestEmailProps) => (
   <Html>
     <Head />
-    <Preview>New CAD Documentation Request - Immediate Review Required</Preview>
+    <Preview>New CAD Request from {organizationName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.header}>
@@ -84,17 +82,10 @@ export const CadRequestEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>CAD Request Notification</Heading>
+          <Heading style={styles.heading}>CAD Request Submission</Heading>
           <Text style={styles.subHeading}>
-            A new CAD documentation request requires your immediate attention.
+            A new CAD request requires your attention.
           </Text>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
-            <Text style={styles.infoText}>
-              <strong>Request Number:</strong> {requestNumber}
-            </Text>
-          </Section>
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
@@ -116,9 +107,9 @@ export const CadRequestEmail = ({
           </Section>
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>ORGANIZATIONAL DETAILS</Text>
+            <Text style={styles.sectionTitle}>PROJECT OVERVIEW</Text>
             <Text style={styles.infoText}>
-              <strong>Operations:</strong> {organizationOperations}
+              <strong>Organization Operations:</strong> {organizationOperations}
             </Text>
             <Text style={styles.infoText}>
               <strong>Documentation Purpose:</strong> {documentationPurpose}
@@ -128,81 +119,62 @@ export const CadRequestEmail = ({
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>DOCUMENTATION REQUIREMENTS</Text>
             <Text style={styles.infoText}>
-              <strong>Documentation Types:</strong>{" "}
-              {documentationTypes.join(", ") || "None"}
-              {otherDocumentationType && ` (Other: ${otherDocumentationType})`}
+              <strong>Documentation Types:</strong> {documentationTypes.join(", ")}
             </Text>
+            {otherDocumentationTypes && (
+              <Text style={styles.infoText}>
+                <strong>Other Documentation Types:</strong> {otherDocumentationTypes}
+              </Text>
+            )}
             <Text style={styles.infoText}>
-              <strong>Preferred File Formats:</strong>{" "}
-              {fileFormats.join(", ") || "None"}
-              {otherFileFormat && ` (Other: ${otherFileFormat})`}
+              <strong>File Formats:</strong> {fileFormats.join(", ")}
             </Text>
-          </Section>
-
-          {(technicalSpecifications || technicalStandards) && (
-            <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>TECHNICAL SPECIFICATIONS</Text>
-              {technicalSpecifications && (
-                <Text style={styles.infoText}>
-                  <strong>Technical Specifications:</strong>{" "}
-                  {technicalSpecifications}
-                </Text>
-              )}
-              {technicalStandards && (
-                <Text style={styles.infoText}>
-                  <strong>Technical Standards:</strong> {technicalStandards}
-                </Text>
-              )}
-            </Section>
-          )}
-
-          {(visualStylePreferences || layoutPreferences) && (
-            <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>DESIGN PREFERENCES</Text>
-              {visualStylePreferences && (
-                <Text style={styles.infoText}>
-                  <strong>Visual Style Preferences:</strong>{" "}
-                  {visualStylePreferences}
-                </Text>
-              )}
-              {layoutPreferences && (
-                <Section style={styles.detailSection}>
-                  <Text style={styles.sectionTitle}>LAYOUT PREFERENCES</Text>
-                  <Text style={styles.infoText}>{layoutPreferences}</Text>
-                </Section>
-              )}
-            </Section>
-          )}
-
-          {additionalDesignFeatures && (
-            <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>ADDITIONAL DESIGN FEATURES</Text>
-              <Text style={styles.infoText}>{additionalDesignFeatures}</Text>
-            </Section>
-          )}
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>PREFERRED TIMELINE</Text>
-            <Text style={styles.infoText}>{preferredTimeline}</Text>
+            {otherFileFormats && (
+              <Text style={styles.infoText}>
+                <strong>Other File Formats:</strong> {otherFileFormats}
+              </Text>
+            )}
           </Section>
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>PERIODIC DRAFTS</Text>
+            <Text style={styles.sectionTitle}>TECHNICAL DETAILS</Text>
             <Text style={styles.infoText}>
-              {requirePeriodicDrafts ? "Required" : "Not Required"}
+              <strong>Technical Specifications:</strong> {technicalSpecifications}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Technical Standards:</strong> {technicalStandards}
             </Text>
           </Section>
 
-          {additionalServices && additionalServices.length > 0 && (
-            <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>ADDITIONAL SERVICES</Text>
-              {additionalServices.map((service, index) => (
-                <Text key={index} style={styles.infoText}>
-                  • {service}
-                </Text>
-              ))}
-            </Section>
-          )}
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>AESTHETIC PREFERENCES</Text>
+            <Text style={styles.infoText}>
+              <strong>Visual Style:</strong> {visualStylePreferences}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Layout Preferences:</strong> {layoutPreferences}
+            </Text>
+            {additionalDesignFeatures && (
+              <Text style={styles.infoText}>
+                <strong>Additional Design Features:</strong> {additionalDesignFeatures}
+              </Text>
+            )}
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>PROJECT SPECIFICS</Text>
+            <Text style={styles.infoText}>
+              <strong>Preferred Timeline:</strong> {preferredTimeline}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Periodic Drafts Required:</strong> {requirePeriodicDrafts ? "Yes" : "No"}
+            </Text>
+            {additionalServices.length > 0 && (
+              <Text style={styles.infoText}>
+                <strong>Additional Services:</strong> {additionalServices.join(", ")}
+              </Text>
+            )}
+          </Section>
 
           {additionalComments && (
             <Section style={styles.detailSection}>
@@ -211,21 +183,26 @@ export const CadRequestEmail = ({
             </Section>
           )}
 
-          {files && files.length > 0 && (
+          {fileAttachments && fileAttachments.length > 0 && (
             <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>UPLOADED FILES</Text>
-              {files.map((file, index) => (
-                <Text key={index} style={styles.infoText}>
-                  <Link href={file}>File {index + 1}</Link>
-                </Text>
-              ))}
+              <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
+              {fileAttachments.map((file, index) => {
+                const [fileUrl, fileName] = file.split(",");
+                return (
+                  <Text key={index} style={styles.infoText}>
+                    <Link href={fileUrl} style={styles.fileLink}>
+                      📎 {fileName || `Attachment ${index + 1}`}
+                    </Link>
+                  </Text>
+                );
+              })}
             </Section>
           )}
         </Section>
 
         <Section style={styles.footer}>
           <Text style={styles.footerText}>
-            2024 Innovate Make & Have Ours. All rights reserved.
+            © 2024 Innovate Make & Have Ours. All rights reserved.
           </Text>
         </Section>
       </Container>
@@ -245,11 +222,14 @@ const styles = {
     maxWidth: "600px",
     margin: "0 auto",
     border: "1px solid #E0E0E0",
+    borderRadius: "12px",
   },
   header: {
     backgroundColor: "#F5F5F5",
     padding: "20px",
     textAlign: "center" as const,
+    borderTopLeftRadius: "12px",
+    borderTopRightRadius: "12px",
   },
   content: {
     padding: "30px",
@@ -283,18 +263,20 @@ const styles = {
     lineHeight: "1.6",
     marginBottom: "5px",
   },
+  fileLink: {
+    color: "#2563eb",
+    textDecoration: "none",
+  },
   footer: {
     backgroundColor: "#F5F5F5",
     padding: "15px",
     textAlign: "center" as const,
+    borderBottomLeftRadius: "12px",
+    borderBottomRightRadius: "12px",
   },
   footerText: {
     color: "#666666",
     fontSize: "12px",
     marginBottom: "5px",
-  },
-  footerDisclaimer: {
-    color: "#999999",
-    fontSize: "11px",
   },
 };
