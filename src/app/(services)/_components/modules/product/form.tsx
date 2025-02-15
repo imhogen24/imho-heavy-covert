@@ -1,11 +1,11 @@
 "use client";
 
-import { ProductFormAction } from "@/action";
+import { ProductFormAction } from "@/actions/action";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Submit } from "./submit";
+import { Submit } from "../../submit";
 import {
   Select,
   SelectContent,
@@ -32,15 +32,20 @@ export const ProductForm = () => {
 
   return (
     <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-8">Physical Product Request Form</h1>
+
+
+
+
+
       <form
         id={form.id}
         onSubmit={form.onSubmit}
         action={action}
-        className="space-y-6"
+        className="space-y-6 border muted-border p-5 md:p-10 rounded-[0.5rem]"
       >
+        <h1 className="text-lg md:text-3xl pb-5 md:pb-8 font-bold ">Physical Product Request</h1>
         {/* Client Information Section */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 mt-10">
           <div className="space-y-4">
             <Label htmlFor="name">Organization Name</Label>
             <Input

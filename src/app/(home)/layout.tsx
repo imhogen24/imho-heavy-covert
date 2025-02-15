@@ -1,6 +1,6 @@
 "use client";
 
-import Footer from "@/components/nav/footer";
+import Footer from "@/components/layout/footer/footer";
 import { CrossPositinalIcon } from "@/lib/icons";
 
 const HomeLayout = ({ children }: { children: React.ReactNode }) => {

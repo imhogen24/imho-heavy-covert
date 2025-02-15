@@ -3,7 +3,8 @@ import Marquee from "@/components/ui/marquee";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { MARQUEE } from "@/lib/constants";
-import { gradientText } from "./hero/hero-text";
+import { gradientText } from "../hero/hero-text";
+
 
 const CommitedTo = () => {
   return (

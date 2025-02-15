@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { ObeliskIcon, PyramidIcon } from "@/lib/icons";
-import { CadForm } from "../../_components/cad/modules/cad-form";
-import { SupportForm } from "../../_components/engineering-support-form";
+import { CadForm } from "../../_components/modules/cad/form";
+import { SupportForm } from "../../_components/modules/support/form";
 import ServiceHero from "../../_components/service-hero";
 
 const EngineeringSupportPage = () => {

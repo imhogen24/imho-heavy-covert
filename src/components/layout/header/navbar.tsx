@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { ModeToggle } from "../theme/theme-toggle";
+import { Button } from "../../ui/button";
+import { ModeToggle } from "../../theme/theme-toggle";
 import MobileHamburger from "./hamburger";
 import { NAV_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";

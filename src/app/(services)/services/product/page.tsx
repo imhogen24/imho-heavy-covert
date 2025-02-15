@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { ObeliskIcon, SunIcon } from "@/lib/icons";
-import { CadForm } from "../../_components/cad/modules/cad-form";
-import { ProductForm } from "../../_components/product-form";
+import { CadForm } from "../../_components/modules/cad/form";
+import { ProductForm } from "../../_components/modules/product/form";
 import ServiceHero from "../../_components/service-hero";
 const ProductPage = () => {
   return (

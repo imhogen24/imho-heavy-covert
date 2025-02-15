@@ -1,6 +1,6 @@
 import { CrossPositinalIcon } from "@/lib/icons";
-import Footer from "@/components/nav/footer";
-import { ServiceRoutes } from "@/components/services/tabs";
+import Footer from "@/components/layout/footer/footer";
+import { ServiceRoutes } from "@/components/layout/services/sub-routes";
 
 const ServiceLayout = ({ children }: { children: React.ReactNode }) => {
   return (

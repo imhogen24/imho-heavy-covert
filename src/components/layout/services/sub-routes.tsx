@@ -1,6 +1,6 @@
 import { AnimatedBackground } from "@/components/ui/animated-background";
 import { SERVICE_ROUTES } from "@/lib/constants";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import Link from "next/link";
 
 export function ServiceRoutes() {

@@ -31,10 +31,12 @@ export interface CadRequestEmailProps {
   technicalStandards?: string;
   visualStylePreferences?: string;
   layoutPreferences?: string;
-  preferredTimeline?: string;
+  additionalDesignFeatures?: string;
+  preferredTimeline: string;
   requirePeriodicDrafts?: boolean;
-  additionalServices?: string;
+  additionalServices?: string[];
   additionalComments?: string;
+  files: string[];
   requestNumber: string;
 }
 
@@ -54,10 +56,12 @@ export const CadRequestEmail = ({
   technicalStandards,
   visualStylePreferences,
   layoutPreferences,
+  additionalDesignFeatures,
   preferredTimeline,
   requirePeriodicDrafts,
   additionalServices,
   additionalComments,
+  files,
   requestNumber,
 }: CadRequestEmailProps) => (
   <Html>
@@ -162,46 +166,66 @@ export const CadRequestEmail = ({
                 </Text>
               )}
               {layoutPreferences && (
-                <Text style={styles.infoText}>
-                  <strong>Layout Preferences:</strong> {layoutPreferences}
-                </Text>
+                <Section style={styles.detailSection}>
+                  <Text style={styles.sectionTitle}>LAYOUT PREFERENCES</Text>
+                  <Text style={styles.infoText}>{layoutPreferences}</Text>
+                </Section>
               )}
             </Section>
           )}
 
+          {additionalDesignFeatures && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>ADDITIONAL DESIGN FEATURES</Text>
+              <Text style={styles.infoText}>{additionalDesignFeatures}</Text>
+            </Section>
+          )}
+
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>PROJECT TIMELINE</Text>
-            {preferredTimeline && (
-              <Text style={styles.infoText}>
-                <strong>Preferred Timeline:</strong> {preferredTimeline}
-              </Text>
-            )}
+            <Text style={styles.sectionTitle}>PREFERRED TIMELINE</Text>
+            <Text style={styles.infoText}>{preferredTimeline}</Text>
+          </Section>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>PERIODIC DRAFTS</Text>
             <Text style={styles.infoText}>
-              <strong>Periodic Drafts Required:</strong>{" "}
-              {requirePeriodicDrafts ? "Yes" : "No"}
+              {requirePeriodicDrafts ? "Required" : "Not Required"}
             </Text>
           </Section>
 
-          {(additionalServices || additionalComments) && (
+          {additionalServices && additionalServices.length > 0 && (
             <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>ADDITIONAL INFORMATION</Text>
-              {additionalServices && (
-                <Text style={styles.infoText}>
-                  <strong>Additional Services:</strong> {additionalServices}
+              <Text style={styles.sectionTitle}>ADDITIONAL SERVICES</Text>
+              {additionalServices.map((service, index) => (
+                <Text key={index} style={styles.infoText}>
+                  • {service}
                 </Text>
-              )}
-              {additionalComments && (
-                <Text style={styles.infoText}>
-                  <strong>Additional Comments:</strong> {additionalComments}
+              ))}
+            </Section>
+          )}
+
+          {additionalComments && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>ADDITIONAL COMMENTS</Text>
+              <Text style={styles.infoText}>{additionalComments}</Text>
+            </Section>
+          )}
+
+          {files && files.length > 0 && (
+            <Section style={styles.detailSection}>
+              <Text style={styles.sectionTitle}>UPLOADED FILES</Text>
+              {files.map((file, index) => (
+                <Text key={index} style={styles.infoText}>
+                  <Link href={file}>File {index + 1}</Link>
                 </Text>
-              )}
+              ))}
             </Section>
           )}
         </Section>
 
         <Section style={styles.footer}>
           <Text style={styles.footerText}>
-            © 2024 Innovate Make & Have Ours. All rights reserved.
+            2024 Innovate Make & Have Ours. All rights reserved.
           </Text>
         </Section>
       </Container>

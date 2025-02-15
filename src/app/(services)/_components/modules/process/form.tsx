@@ -17,9 +17,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Submit } from "./submit";
+import { Submit } from "../../submit";
 import { useActionState } from "react";
-import { ProcessFormAction } from "@/action";
+import { ProcessFormAction } from "@/actions/action";
 
 export const ProcessForm = () => {
   const ref = useRef<HTMLFormElement>(null);

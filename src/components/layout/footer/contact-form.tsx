@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { XIcon, FileIcon, Trash2, EyeIcon } from "lucide-react";
 import Image from "next/image";
-import { contactFormAction } from "@/action";
+import { contactFormAction } from "@/actions/action";
 import { LoaderCircle, CloudUpload } from "lucide-react";
 import {
   Form,
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Link from "next/link";
-import { FormPreview } from "@/app/(services)/_components/preview";
+import { FormPreview } from "@/app/(services)/_components/modules/cad/preview";
 
 
 export const FileForm = () => {
@@ -120,7 +120,7 @@ export const FileForm = () => {
                 <div>
                   <div className="relative border border-dashed muted-border rounded-[0.5rem]">
                     <UploadDropzone
-                      className="ut-button:bg-accent"
+                      className="ut-button:bg-accent ut-button:text-accent-foreground border-none"
                       endpoint="fileAttachment"
                       onClientUploadComplete={(res: any) => {
                         const newFile = `${res[0].serverData.fileUrl},${res[0].name}`;

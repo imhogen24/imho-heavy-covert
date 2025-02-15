@@ -6,9 +6,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { HamburgerIcon } from "@/lib/icons";
 import Image from "next/image";
-
-import { ModeToggle } from "../theme/switch-mode-toggle";
 import { NAV_ITEMS } from "@/lib/constants";
+import { ModeToggle } from "@/components/theme/switch-mode-toggle";
 
 
 
