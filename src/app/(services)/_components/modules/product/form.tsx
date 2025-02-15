@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Submit } from "../../submit";
+
 import {
   Select,
   SelectContent,
@@ -524,7 +524,7 @@ export const ProductForm = () => {
 
         {/* Submit Button */}
         <div className="mt-8">
-          <Submit label="Submit Process Request" />
+        
         </div>
       </form>
     </div>

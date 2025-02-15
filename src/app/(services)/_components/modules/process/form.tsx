@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Submit } from "../../submit";
 import { useActionState } from "react";
 import { ProcessFormAction } from "@/actions/action";
 
@@ -561,7 +560,7 @@ export const ProcessForm = () => {
 
         {/* Submit Button */}
         <div className="mt-8">
-          <Submit label="Submit Process Request" />
+         
         </div>
       </form>
     </div>
