@@ -3,6 +3,7 @@ import { gradientText } from "../hero/hero-text";
 
 
 
+
 interface TextProps {
   text: string;
 }

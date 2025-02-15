@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import { ScheduleMeetingIcon } from "@/lib/icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-export const gradientText =
-  "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
+
+
+export const gradientText = "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
+
 const HeroText = () => {
   return (
     <div className="relative flex flex-col items-center justify-center  md:w-[800px] p-10">
