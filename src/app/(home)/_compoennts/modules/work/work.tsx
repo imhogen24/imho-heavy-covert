@@ -1,5 +1,5 @@
 import { WORK_WITH_US } from "@/lib/constants";
-import GradientTextHeader from "../gradient-text-header";
+
 import WorkCard from "./work-card";
 import { cn } from "@/lib/utils";
 import { gradientText } from "../hero/hero-text";
