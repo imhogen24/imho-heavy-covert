@@ -21,7 +21,7 @@ import { cadFormAction } from "@/actions/action";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { FormSection, SectionChild } from "../../shell";
+import { FormSection, SectionChild } from "../../wrapper";
 import { FormPreview } from "./preview";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -125,7 +125,7 @@ export const CadForm = () => {
     }
 
     try {
-      console.log(values)
+      // console.log(values)
       const result = await cadFormAction(formData);
       if (result.error) {
         toast.error(result.error);

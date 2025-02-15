@@ -5,44 +5,61 @@ import {
   Head,
   Heading,
   Hr,
+  Img,
   Html,
   Preview,
   Row,
   Section,
   Text,
-  Img,
+  Link,
 } from "@react-email/components";
 import * as React from "react";
 
-export interface SupportRequestEmailProps {
+export interface SupportFormEmailProps {
+  // Client Information
   organizationName: string;
   contactPerson: string;
   email: string;
   phoneNumber: string;
   physicalPostalAddress: string;
+  businessOverview: string;
+
+  // Training Requirements
   trainingNeeds: string;
   trainingObjectives: string;
   numberOfParticipants: number;
   participantRoles: string;
   participantSkillLevel: string;
   trainingDeliveryMode: string;
-  trainingTimeline: string;
+  trainingTimeline: {
+    startDate: Date;
+    endDate: Date;
+  };
+
+
+  // Project Support
   projectOverview: string;
   projectScopeDeliverables: string;
-  collaborationPreferences?: string[];
+  collaborationPreferences: string[];
   projectDeadline: Date;
+
+  // Additional Info
   toolsAndResources: string;
   longTermCollaboration: boolean;
-  additionalInformation?: string;
-  requestNumber: string;
+  additionalInformation: string;
+  fileAttachments: string[];
 }
 
-export const SupportRequestEmail = ({
+export const SupportFormEmail = ({
+  // Client Information
   organizationName,
   contactPerson,
   email,
   phoneNumber,
   physicalPostalAddress,
+  businessOverview,
+
+  // Training Requirements
   trainingNeeds,
   trainingObjectives,
   numberOfParticipants,
@@ -50,18 +67,22 @@ export const SupportRequestEmail = ({
   participantSkillLevel,
   trainingDeliveryMode,
   trainingTimeline,
+
+  // Project Support
   projectOverview,
   projectScopeDeliverables,
   collaborationPreferences,
   projectDeadline,
+
+  // Additional Info
   toolsAndResources,
   longTermCollaboration,
   additionalInformation,
-  requestNumber,
-}: SupportRequestEmailProps) => (
+  fileAttachments,
+}: SupportFormEmailProps) => (
   <Html>
     <Head />
-    <Preview>New Support and Training Request - Review Required</Preview>
+    <Preview>New Support & Training Request from {organizationName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.header}>
@@ -79,12 +100,10 @@ export const SupportRequestEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
-            <Text style={styles.infoText}>
-              <strong>Request Number:</strong> {requestNumber}
-            </Text>
-          </Section>
+          <Heading style={styles.heading}>Support & Training Request</Heading>
+          <Text style={styles.subHeading}>
+            A new support and training request has been submitted.
+          </Text>
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
@@ -103,7 +122,12 @@ export const SupportRequestEmail = ({
             <Text style={styles.infoText}>
               <strong>Address:</strong> {physicalPostalAddress}
             </Text>
+            <Text style={styles.infoText}>
+              <strong>Business Overview:</strong> {businessOverview}
+            </Text>
           </Section>
+
+          <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>TRAINING REQUIREMENTS</Text>
@@ -111,7 +135,7 @@ export const SupportRequestEmail = ({
               <strong>Training Needs:</strong> {trainingNeeds}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Training Objectives:</strong> {trainingObjectives}
+              <strong>Objectives:</strong> {trainingObjectives}
             </Text>
             <Text style={styles.infoText}>
               <strong>Number of Participants:</strong> {numberOfParticipants}
@@ -126,30 +150,30 @@ export const SupportRequestEmail = ({
               <strong>Delivery Mode:</strong> {trainingDeliveryMode}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Timeline:</strong> {trainingTimeline}
+              <strong>Schedule:</strong>{" "}
+              {`${trainingTimeline.startDate.toLocaleDateString()} - ${trainingTimeline.endDate.toLocaleDateString()}`}
             </Text>
           </Section>
 
+          <Hr style={styles.divider} />
+
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>PROJECT DETAILS</Text>
+            <Text style={styles.sectionTitle}>PROJECT SUPPORT DETAILS</Text>
             <Text style={styles.infoText}>
               <strong>Project Overview:</strong> {projectOverview}
             </Text>
             <Text style={styles.infoText}>
               <strong>Scope & Deliverables:</strong> {projectScopeDeliverables}
             </Text>
-            {collaborationPreferences &&
-              collaborationPreferences.length > 0 && (
-                <Text style={styles.infoText}>
-                  <strong>Collaboration Preferences:</strong>{" "}
-                  {collaborationPreferences.join(", ")}
-                </Text>
-              )}
             <Text style={styles.infoText}>
-              <strong>Project Deadline:</strong>{" "}
-              {projectDeadline.toLocaleDateString()}
+              <strong>Collaboration Preferences:</strong> {collaborationPreferences.join(", ")}
+            </Text>
+            <Text style={styles.infoText}>
+              <strong>Project Deadline:</strong> {projectDeadline.toLocaleDateString()}
             </Text>
           </Section>
+
+          <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>ADDITIONAL CONSIDERATIONS</Text>
@@ -157,15 +181,31 @@ export const SupportRequestEmail = ({
               <strong>Tools & Resources:</strong> {toolsAndResources}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Long-term Collaboration:</strong>{" "}
-              {longTermCollaboration ? "Yes" : "No"}
+              <strong>Long-term Collaboration:</strong> {longTermCollaboration ? "Yes" : "No"}
             </Text>
-            {additionalInformation && (
-              <Text style={styles.infoText}>
-                <strong>Additional Information:</strong> {additionalInformation}
-              </Text>
-            )}
+            <Text style={styles.infoText}>
+              <strong>Additional Information:</strong> {additionalInformation}
+            </Text>
           </Section>
+
+          {fileAttachments && fileAttachments.length > 0 && (
+            <>
+              <Hr style={styles.divider} />
+              <Section style={styles.detailSection}>
+                <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
+                {fileAttachments.map((file, index) => {
+                  const [fileUrl, fileName] = file.split(",");
+                  return (
+                    <Text key={index} style={styles.infoText}>
+                      <Link href={fileUrl} style={styles.fileLink}>
+                        📎 {fileName || `Attachment ${index + 1}`}
+                      </Link>
+                    </Text>
+                  );
+                })}
+              </Section>
+            </>
+          )}
         </Section>
 
         <Section style={styles.footer}>
@@ -178,7 +218,7 @@ export const SupportRequestEmail = ({
   </Html>
 );
 
-export default SupportRequestEmail;
+export default SupportFormEmail;
 
 const styles = {
   main: {
@@ -190,23 +230,33 @@ const styles = {
     maxWidth: "600px",
     margin: "0 auto",
     border: "1px solid #E0E0E0",
+    borderRadius: "12px",
   },
   header: {
     backgroundColor: "#F5F5F5",
     padding: "20px",
     textAlign: "center" as const,
+    borderTopLeftRadius: "12px",
+    borderTopRightRadius: "12px",
   },
   content: {
     padding: "30px",
   },
   heading: {
     color: "#000000",
-    fontSize: "24px",
-    fontWeight: "600",
-    marginBottom: "0",
+    fontSize: "28px",
+    fontWeight: "700",
+    marginBottom: "10px",
+    textAlign: "center" as const,
+  },
+  subHeading: {
+    color: "#555555",
+    fontSize: "16px",
+    textAlign: "center" as const,
+    marginBottom: "20px",
   },
   detailSection: {
-    marginBottom: "25px",
+    marginBottom: "20px",
   },
   sectionTitle: {
     color: "#000000",
@@ -217,22 +267,28 @@ const styles = {
   },
   infoText: {
     color: "#333333",
-    fontSize: "14px",
-    lineHeight: "1.5",
+    fontSize: "15px",
+    lineHeight: "1.6",
     marginBottom: "5px",
+  },
+  divider: {
+    borderTop: "1px solid #E0E0E0",
+    margin: "20px 0",
+  },
+  fileLink: {
+    color: "#2563eb",
+    textDecoration: "none",
   },
   footer: {
     backgroundColor: "#F5F5F5",
-    padding: "20px",
+    padding: "15px",
     textAlign: "center" as const,
+    borderBottomLeftRadius: "12px",
+    borderBottomRightRadius: "12px",
   },
   footerText: {
     color: "#666666",
     fontSize: "12px",
     marginBottom: "5px",
-  },
-  footerDisclaimer: {
-    color: "#999999",
-    fontSize: "11px",
   },
 };
