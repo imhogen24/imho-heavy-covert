@@ -1,8 +1,6 @@
 import { PROJECTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-
 import ProjectCard from "./project-card";
-import GradientTextHeader from "../gradient-text-header";
 import { gradientText } from "../hero/hero-text";
 
 const Projects = () => {
