@@ -79,7 +79,7 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
-            <Toaster />
+            <Toaster position="bottom-center" />
           </ThemeProvider>
         </body>
       </html>
