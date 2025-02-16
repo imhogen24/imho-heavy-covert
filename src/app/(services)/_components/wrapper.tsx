@@ -1,25 +1,36 @@
 import { cn } from "@/lib/utils";
-import { BookUser, FileText, Settings, User, GraduationCap, Calendar, Info, LucideIcon, BookOpen, Lightbulb } from "lucide-react";
-import React from "react";
-
+import {
+    User, FileText, BookUser, Paintbrush,
+    FolderOpen, GraduationCap, Calendar, Info, BookOpen,
+    Lightbulb, Settings, Package, Users, ShieldCheck,
+    MessageSquare,
+    LucideIcon,
+    Nut
+} from "lucide-react";
 interface FORM_SECTION_PROPS extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
     label?: string;
 }
+
 
 const iconMap: Record<string, LucideIcon> = {
     "client information": User,
     "documentation requirements": FileText,
     "technical details": Settings,
     "project specifics": BookUser,
-    "aesthetic preferences": Settings,
-    "Project specifics": BookUser,
-    "file attachments": FileText,
+    "aesthetic preferences": Paintbrush,
+    "file attachments": FolderOpen,
     "training requirements": GraduationCap,
     "project details": Calendar,
     "additional information": Info,
     "project support requirements": BookOpen,
     "additional considerations": Lightbulb,
+    "input requirements": Settings, 
+    "transformation requirements": Settings,
+    "output requirements": Package,
+    "operational agents": Users,
+    "safety, maintenance and scalability": ShieldCheck,
+    "collaboration and communication": MessageSquare,
 };
 
 

@@ -69,42 +69,7 @@ export const CadSchema = z.object({
 
 export type CadFormData = z.infer<typeof CadSchema>;
 
-/*PRODUCT SCHEMA */
-export const ProductSchema = z.object({
-  organizationName: z.string().min(2).max(200),
-  contactPerson: z.string().min(2).max(20),
-  email: z.string().email(),
-  phoneNumber: z.string().min(10).max(10),
-  address: z.string().min(2).max(20),
-  businessOperations: z.string().min(10).max(200),
-  productPurpose: z.string().min(10).max(200),
-  productVision: z.string().min(10).max(200),
-  productObjectives: z.string().min(10).max(200),
-  targetAudience: z.string().min(2).max(100),
-  coreFunctions: z.string().min(5).max(100),
-  performanceMetrics: z.string().min(5).max(100),
-  preferredMaterials: z.string().min(5).max(100),
-  complianceStandards: z.string().min(5).max(100),
-  environmentalConditions: z.string().min(5).max(100),
-  visualStyle: z.string().min(5).max(100),
-  ergonomicFeatures: z.string().min(5).max(100),
-  brandingRequirements: z.string().min(5).max(100),
-  budgetRange: z.string().min(5).max(100),
-  preferredTimeline: z.string().min(5).max(100),
-  requirePrototypes: z.boolean().default(false),
-  numberOfPrototypes: z.number(),
-  collaborationPreferences: z
-    .array(z.enum(["Regular Meetings", "Weekly Updates via Email", "On-demand Reporting"]))
-    .optional(),
-  requiredTests: z.string().min(5).max(100),
-  comparableProducts: z.string().min(5).max(100),
-  additionalComments: z.string().min(5).max(100),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-});
-
 /*SUPPORT SCHEMA */
-
 
 export const SupportSchema = z.object({
 
@@ -130,8 +95,8 @@ export const SupportSchema = z.object({
     message: "End date must be after or equal to start date",
     path: ["endDate"]
   }),
-  
-  
+
+
   //PROJECT SUPPORT REQUIREMENTS
   projectOverview: z.string().min(10).max(500),
   projectScopeDeliverables: z.string().min(10).max(500),
@@ -144,13 +109,74 @@ export const SupportSchema = z.object({
   //ADDITIONAL CONSIDERTATIONS
   toolsAndResources: z.string().min(5).max(500),
   longTermCollaboration: z.boolean().default(false),
-  additionalInformation: z.string().min(5).max(500).optional(),
+  additionalInformation: z.string().max(500).optional(),
   fileAttachments: z.array(z.string()).default([]),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });
 
 export type SupportFormData = z.infer<typeof SupportSchema>;
+
+
+
+
+/*PRODUCT SCHEMA */
+export const ProductSchema = z.object({
+
+  //CLIENT INFORMATION
+  organizationName: z.string().min(2).max(200),
+  contactPerson: z.string().min(2).max(100),
+  email: z.string().email(),
+  phoneNumber: z.string().min(10).max(20),
+  address: z.string().min(2).max(200),
+  businessOverview: z.string().min(10).max(500),
+
+  //INPUT REQUIREMENTS
+  materialInputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  energyInputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  dataInputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  livingSystemInputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  biologicalComponent: z.boolean().default(false),
+  biologicalInputDescription: z.string().min(5).max(200).optional().or(z.literal('')),
+
+
+  //TRANSFORMATION REQUIREMENTS(SYSTEM PROCESS)
+  transformationDescription: z.string().min(5).max(200).optional().or(z.literal('')),
+  performanceTargets: z.string().min(5).max(200).optional().or(z.literal('')),
+
+
+  //OUTPUT REQUIREMENTS
+  systemOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  dataOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  energyOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  livingThingsOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
+
+
+  // OPERATIONAL AGENTS
+  humanSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+  technicalSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+  environmentalSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+  informationSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+  managementSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+
+  //  SAFETY, MAINTENANCE AND SCALABILITY
+  safetyRequirements: z.string().min(5).max(200).optional().or(z.literal('')),
+  maintenanceNeeds: z.array(z.enum(
+    ["In-house Maintenance", "Ongoing maintenance service form IMHO"]))
+    .optional(),
+  futureScalability: z.string().min(5).max(200).optional().or(z.literal('')),
+
+
+  //COLLABORATION AND COMMUNICATION
+  collaborationPreferences: z
+    .array(z.enum(["Regular Meetings", "Weekly Updates via Email", "On-demand Reporting"])),
+  additionalComments: z.string().min(5).max(100).optional().or(z.literal('')),
+  fileAttachments: z.array(z.string()).default([]),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});
+
+export type ProductFormData = z.infer<typeof ProductSchema>;
 
 /*PROCESS SCHEMA */
 export const ProcessSchema = z.object({

@@ -7,78 +7,110 @@ import {
   Hr,
   Img,
   Html,
-  Link,
   Preview,
   Row,
   Section,
   Text,
+  Link,
 } from "@react-email/components";
 import * as React from "react";
 
-export interface ProductRequestEmailProps {
+export interface ProductFormEmailProps {
+  // Client Information
   organizationName: string;
   contactPerson: string;
   email: string;
   phoneNumber: string;
   address: string;
-  businessOperations: string;
-  productPurpose: string;
-  productVision: string;
-  productObjectives: string;
-  targetAudience: string;
-  coreFunctions: string;
-  performanceMetrics: string;
-  preferredMaterials: string;
-  complianceStandards: string;
-  environmentalConditions: string;
-  visualStyle: string;
-  ergonomicFeatures: string;
-  brandingRequirements: string;
-  budgetRange: string;
-  preferredTimeline: string;
-  requirePrototypes: boolean;
-  numberOfPrototypes: number;
-  requiredTests: string;
-  comparableProducts: string;
+  businessOverview: string;
+
+  // Input Requirements
+  materialInputs?: string;
+  energyInputs?: string;
+  dataInputs?: string;
+  livingSystemInputs?: string;
+  biologicalComponent: boolean;
+  biologicalInputDescription?: string;
+
+  // Transformation Requirements
+  transformationDescription?: string;
+  performanceTargets?: string;
+
+  // Output Requirements
+  systemOutputs?: string;
+  dataOutputs?: string;
+  energyOutputs?: string;
+  livingThingsOutputs?: string;
+
+  // Operational Agents
+  humanSystems?: string;
+  technicalSystems?: string;
+  environmentalSystems?: string;
+  informationSystems?: string;
+  managementSystems?: string;
+
+  // Safety, Maintenance and Scalability
+  safetyRequirements?: string;
+  maintenanceNeeds?: string[];
+  futureScalability?: string;
+
+  // Collaboration and Communication
   collaborationPreferences?: string[];
   additionalComments: string;
-  requestNumber: string;
+  fileAttachments: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export const ProductRequestEmail = ({
+export const ProductFormEmail = ({
+  // Client Information
   organizationName,
   contactPerson,
   email,
   phoneNumber,
   address,
-  businessOperations,
-  productPurpose,
-  productVision,
-  productObjectives,
-  targetAudience,
-  coreFunctions,
-  performanceMetrics,
-  preferredMaterials,
-  complianceStandards,
-  environmentalConditions,
-  visualStyle,
-  ergonomicFeatures,
-  brandingRequirements,
-  budgetRange,
-  preferredTimeline,
-  requirePrototypes,
-  numberOfPrototypes,
-  requiredTests,
-  comparableProducts,
+  businessOverview,
+
+  // Input Requirements
+  materialInputs,
+  energyInputs,
+  dataInputs,
+  livingSystemInputs,
+  biologicalComponent,
+  biologicalInputDescription,
+
+  // Transformation Requirements
+  transformationDescription,
+  performanceTargets,
+
+  // Output Requirements
+  systemOutputs,
+  dataOutputs,
+  energyOutputs,
+  livingThingsOutputs,
+
+  // Operational Agents
+  humanSystems,
+  technicalSystems,
+  environmentalSystems,
+  informationSystems,
+  managementSystems,
+
+  // Safety, Maintenance and Scalability
+  safetyRequirements,
+  maintenanceNeeds,
+  futureScalability,
+
+  // Collaboration and Communication
   collaborationPreferences,
   additionalComments,
-  requestNumber,
-}: ProductRequestEmailProps) => (
+  fileAttachments,
+  createdAt,
+  updatedAt,
+}: ProductFormEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      New Product Development Request - Immediate Review Required
-    </Preview>
+    <Preview>New Product Request from {organizationName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.header}>
@@ -96,17 +128,10 @@ export const ProductRequestEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>Product Development Request</Heading>
+          <Heading style={styles.heading}>Product Request Form</Heading>
           <Text style={styles.subHeading}>
-            A new product development request requires your immediate attention.
+            A new product request has been submitted.
           </Text>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
-            <Text style={styles.infoText}>
-              <strong>Request Number:</strong> {requestNumber}
-            </Text>
-          </Section>
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
@@ -125,100 +150,172 @@ export const ProductRequestEmail = ({
             <Text style={styles.infoText}>
               <strong>Address:</strong> {address}
             </Text>
-          </Section>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>BUSINESS OVERVIEW</Text>
             <Text style={styles.infoText}>
-              <strong>Business Operations:</strong> {businessOperations}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Product Purpose:</strong> {productPurpose}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Product Vision:</strong> {productVision}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Product Objectives:</strong> {productObjectives}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Target Audience:</strong> {targetAudience}
+              <strong>Business Overview:</strong> {businessOverview}
             </Text>
           </Section>
 
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>TECHNICAL SPECIFICATIONS</Text>
-            <Text style={styles.infoText}>
-              <strong>Core Functions:</strong> {coreFunctions}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Performance Metrics:</strong> {performanceMetrics}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Preferred Materials:</strong> {preferredMaterials}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Compliance Standards:</strong> {complianceStandards}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Environmental Conditions:</strong>{" "}
-              {environmentalConditions}
-            </Text>
-          </Section>
+          <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>DESIGN REQUIREMENTS</Text>
-            <Text style={styles.infoText}>
-              <strong>Visual Style:</strong> {visualStyle}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Ergonomic Features:</strong> {ergonomicFeatures}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Branding Requirements:</strong> {brandingRequirements}
-            </Text>
-          </Section>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>PROJECT SPECIFICATIONS</Text>
-            <Text style={styles.infoText}>
-              <strong>Budget Range:</strong> {budgetRange}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Preferred Timeline:</strong> {preferredTimeline}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Prototypes Required:</strong>{" "}
-              {requirePrototypes ? "Yes" : "No"}
-            </Text>
-            {requirePrototypes && (
+            <Text style={styles.sectionTitle}>INPUT REQUIREMENTS</Text>
+            {materialInputs && (
               <Text style={styles.infoText}>
-                <strong>Number of Prototypes:</strong> {numberOfPrototypes}
+                <strong>Material Inputs:</strong> {materialInputs}
+              </Text>
+            )}
+            {energyInputs && (
+              <Text style={styles.infoText}>
+                <strong>Energy Inputs:</strong> {energyInputs}
+              </Text>
+            )}
+            {dataInputs && (
+              <Text style={styles.infoText}>
+                <strong>Data Inputs:</strong> {dataInputs}
+              </Text>
+            )}
+            {livingSystemInputs && (
+              <Text style={styles.infoText}>
+                <strong>Living System Inputs:</strong> {livingSystemInputs}
               </Text>
             )}
             <Text style={styles.infoText}>
-              <strong>Required Tests:</strong> {requiredTests}
+              <strong>Biological Component:</strong> {biologicalComponent ? "Yes" : "No"}
             </Text>
-            <Text style={styles.infoText}>
-              <strong>Comparable Products:</strong> {comparableProducts}
-            </Text>
-            {collaborationPreferences &&
-              collaborationPreferences.length > 0 && (
-                <Text style={styles.infoText}>
-                  <strong>Collaboration Preferences:</strong>{" "}
-                  {collaborationPreferences.join(", ")}
-                </Text>
-              )}
+            {biologicalInputDescription && (
+              <Text style={styles.infoText}>
+                <strong>Biological Input Description:</strong> {biologicalInputDescription}
+              </Text>
+            )}
           </Section>
 
-          {additionalComments && (
-            <Section style={styles.detailSection}>
-              <Text style={styles.sectionTitle}>ADDITIONAL INFORMATION</Text>
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>TRANSFORMATION REQUIREMENTS</Text>
+            {transformationDescription && (
               <Text style={styles.infoText}>
-                <strong>Additional Comments:</strong> {additionalComments}
+                <strong>Transformation Description:</strong> {transformationDescription}
               </Text>
-            </Section>
-          )}
+            )}
+            {performanceTargets && (
+              <Text style={styles.infoText}>
+                <strong>Performance Targets:</strong> {performanceTargets}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>OUTPUT REQUIREMENTS</Text>
+            {systemOutputs && (
+              <Text style={styles.infoText}>
+                <strong>System Outputs:</strong> {systemOutputs}
+              </Text>
+            )}
+            {dataOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Data Outputs:</strong> {dataOutputs}
+              </Text>
+            )}
+            {energyOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Energy Outputs:</strong> {energyOutputs}
+              </Text>
+            )}
+            {livingThingsOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Living Things Outputs:</strong> {livingThingsOutputs}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>OPERATIONAL AGENTS</Text>
+            {humanSystems && (
+              <Text style={styles.infoText}>
+                <strong>Human Systems:</strong> {humanSystems}
+              </Text>
+            )}
+            {technicalSystems && (
+              <Text style={styles.infoText}>
+                <strong>Technical Systems:</strong> {technicalSystems}
+              </Text>
+            )}
+            {environmentalSystems && (
+              <Text style={styles.infoText}>
+                <strong>Environmental Systems:</strong> {environmentalSystems}
+              </Text>
+            )}
+            {informationSystems && (
+              <Text style={styles.infoText}>
+                <strong>Information Systems:</strong> {informationSystems}
+              </Text>
+            )}
+            {managementSystems && (
+              <Text style={styles.infoText}>
+                <strong>Management Systems:</strong> {managementSystems}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>SAFETY, MAINTENANCE AND SCALABILITY</Text>
+            {safetyRequirements && (
+              <Text style={styles.infoText}>
+                <strong>Safety Requirements:</strong> {safetyRequirements}
+              </Text>
+            )}
+            {maintenanceNeeds && maintenanceNeeds.length > 0 && (
+              <Text style={styles.infoText}>
+                <strong>Maintenance Needs:</strong> {maintenanceNeeds.join(", ")}
+              </Text>
+            )}
+            {futureScalability && (
+              <Text style={styles.infoText}>
+                <strong>Future Scalability:</strong> {futureScalability}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>COLLABORATION AND COMMUNICATION</Text>
+            {collaborationPreferences && collaborationPreferences.length > 0 && (
+              <Text style={styles.infoText}>
+                <strong>Collaboration Preferences:</strong> {collaborationPreferences.join(", ")}
+              </Text>
+            )}
+            <Text style={styles.infoText}>
+              <strong>Additional Comments:</strong> {additionalComments}
+            </Text>
+            {fileAttachments && fileAttachments.length > 0 && (
+              <>
+                <Hr style={styles.divider} />
+                <Section style={styles.detailSection}>
+                  <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
+                  {fileAttachments.map((file, index) => {
+                    const [fileUrl, fileName] = file.split(",");
+                    return (
+                      <Text key={index} style={styles.infoText}>
+                        <Link href={fileUrl} style={styles.fileLink}>
+                          📎 {fileName || `Attachment ${index + 1}`}
+                        </Link>
+                      </Text>
+                    );
+                  })}
+                </Section>
+              </>
+
+            )}
+
+          </Section>
         </Section>
 
         <Section style={styles.footer}>
@@ -231,7 +328,7 @@ export const ProductRequestEmail = ({
   </Html>
 );
 
-export default ProductRequestEmail;
+export default ProductFormEmail;
 
 const styles = {
   main: {
@@ -243,11 +340,14 @@ const styles = {
     maxWidth: "600px",
     margin: "0 auto",
     border: "1px solid #E0E0E0",
+    borderRadius: "12px",
   },
   header: {
     backgroundColor: "#F5F5F5",
     padding: "20px",
     textAlign: "center" as const,
+    borderTopLeftRadius: "12px",
+    borderTopRightRadius: "12px",
   },
   content: {
     padding: "30px",
@@ -281,18 +381,25 @@ const styles = {
     lineHeight: "1.6",
     marginBottom: "5px",
   },
+  divider: {
+    borderTop: "1px solid #E0E0E0",
+    margin: "20px 0",
+  },
+  fileLink: {  // Added missing fileLink style
+    color: "#2563eb",
+    textDecoration: "underline",
+    fontWeight: "500",
+  },
   footer: {
     backgroundColor: "#F5F5F5",
     padding: "15px",
     textAlign: "center" as const,
+    borderBottomLeftRadius: "12px",
+    borderBottomRightRadius: "12px",
   },
   footerText: {
     color: "#666666",
     fontSize: "12px",
     marginBottom: "5px",
-  },
-  footerDisclaimer: {
-    color: "#999999",
-    fontSize: "11px",
   },
 };

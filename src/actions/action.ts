@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { CadRequestEmail } from "../components/emails/cad/cad-template";
 import { Resend } from "resend";
-import ProductRequestEmail from "../components/emails/product/product-template";
+import ProductRequestEmail, { ProductFormEmail } from "../components/emails/product/product-template";
 import SupportRequestEmail, { SupportFormEmail } from "../components/emails/support/engieering-support-template";
 import ProcessRequestEmail from "../components/emails/process/process-template";
 import { ContactFormEmail } from "../components/emails/contact/contact-template";
@@ -132,7 +132,7 @@ export const SupportFormAction = async (formData: FormData) => {
     const participantRoles = formData.get("participantRoles") as string;
     const participantSkillLevel = formData.get("participantSkillLevel") as string;
     const trainingDeliveryMode = formData.get("trainingDeliveryMode") as string;
-   const trainingTimeline = {
+    const trainingTimeline = {
       startDate: new Date(formData.get("trainingTimeline.startDate") as string),
       endDate: new Date(formData.get("trainingTimeline.endDate") as string)
     };
@@ -269,74 +269,94 @@ export const ProcessFormAction = async (
     return { error: error.message || "An unexpected error occurred" };
   }
 
- 
+
 };
 
-export const ProductFormAction = async (
-  initialState: unknown,
-  formData: FormData,
-) => {
+
+
+export const ProductFormAction = async (formData: FormData) => {
   try {
+    // Client Information
     const organizationName = formData.get("organizationName") as string;
     const contactPerson = formData.get("contactPerson") as string;
     const email = formData.get("email") as string;
     const phoneNumber = formData.get("phoneNumber") as string;
     const address = formData.get("address") as string;
-    const businessOperations = formData.get("businessOperations") as string;
-    const productPurpose = formData.get("productPurpose") as string;
-    const productVision = formData.get("productVision") as string;
-    const productObjectives = formData.get("productObjectives") as string;
-    const targetAudience = formData.get("targetAudience") as string;
-    const coreFunctions = formData.get("coreFunctions") as string;
-    const performanceMetrics = formData.get("performanceMetrics") as string;
-    const preferredMaterials = formData.get("preferredMaterials") as string;
-    const complianceStandards = formData.get("complianceStandards") as string;
-    const environmentalConditions = formData.get("environmentalConditions") as string;
-    const visualStyle = formData.get("visualStyle") as string;
-    const ergonomicFeatures = formData.get("ergonomicFeatures") as string;
-    const brandingRequirements = formData.get("brandingRequirements") as string;
-    const budgetRange = formData.get("budgetRange") as string;
-    const preferredTimeline = formData.get("preferredTimeline") as string;
-    const requirePrototypes = formData.get("requirePrototypes") === "on";
-    const numberOfPrototypes = Number(formData.get("numberOfPrototypes"));
-    const requiredTests = formData.get("requiredTests") as string;
-    const comparableProducts = formData.get("comparableProducts") as string;
-    const collaborationPreferences = formData.getAll("collaborationPreferences") as string[];
+    const businessOverview = formData.get("businessOverview") as string;
+
+    // Input Requirements
+    const materialInputs = formData.get("materialInputs") as string;
+    const energyInputs = formData.get("energyInputs") as string;
+    const dataInputs = formData.get("dataInputs") as string;
+    const livingSystemInputs = formData.get("livingSystemInputs") as string;
+    const biologicalComponent = formData.get("biologicalComponent") === "true";
+    const biologicalInputDescription = formData.get("biologicalInputDescription") as string;
+
+    // Transformation Requirements
+    const transformationDescription = formData.get("transformationDescription") as string;
+    const performanceTargets = formData.get("performanceTargets") as string;
+
+    // Output Requirements
+    const systemOutputs = formData.get("systemOutputs") as string;
+    const dataOutputs = formData.get("dataOutputs") as string;
+    const energyOutputs = formData.get("energyOutputs") as string;
+    const livingThingsOutputs = formData.get("livingThingsOutputs") as string;
+
+    // Operational Agents
+    const humanSystems = formData.get("humanSystems") as string;
+    const technicalSystems = formData.get("technicalSystems") as string;
+    const environmentalSystems = formData.get("environmentalSystems") as string;
+    const informationSystems = formData.get("informationSystems") as string;
+    const managementSystems = formData.get("managementSystems") as string;
+
+    // Safety, Maintenance and Scalability
+    const safetyRequirements = formData.get("safetyRequirements") as string;
+    const maintenanceNeeds = JSON.parse(formData.get("maintenanceNeeds") as string || "[]");
+    const futureScalability = formData.get("futureScalability") as string;
+
+    // Collaboration and Communication
+    const collaborationPreferences = JSON.parse(formData.get("collaborationPreferences") as string || "[]");
     const additionalComments = formData.get("additionalComments") as string;
-    const requestNumber = `PRODUCT-${Date.now()}`;
+    const fileAttachments = JSON.parse(formData.get("fileAttachments") as string || "[]");
+    const createdAt = new Date();
+    const updatedAt = new Date();
 
     const { data, error } = await resend.emails.send({
-      from: "Product Request <onboarding@resend.dev>",
+      from: `Product Request <onboarding@resend.dev>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Product Request from ${organizationName}`,
-      react: ProductRequestEmail({
+      react: ProductFormEmail({
         organizationName,
         contactPerson,
         email,
         phoneNumber,
         address,
-        businessOperations,
-        productPurpose,
-        productVision,
-        productObjectives,
-        targetAudience,
-        coreFunctions,
-        performanceMetrics,
-        preferredMaterials,
-        complianceStandards,
-        environmentalConditions,
-        visualStyle,
-        ergonomicFeatures,
-        brandingRequirements,
-        budgetRange,
-        preferredTimeline,
-        requirePrototypes,
-        numberOfPrototypes,
-        requiredTests,
-        comparableProducts,
+        businessOverview,
+        materialInputs,
+        energyInputs,
+        dataInputs,
+        livingSystemInputs,
+        biologicalComponent,
+        biologicalInputDescription,
+        transformationDescription,
+        performanceTargets,
+        systemOutputs,
+        dataOutputs,
+        energyOutputs,
+        livingThingsOutputs,
+        humanSystems,
+        technicalSystems,
+        environmentalSystems,
+        informationSystems,
+        managementSystems,
+        safetyRequirements,
+        maintenanceNeeds,
+        futureScalability,
         collaborationPreferences,
         additionalComments,
-        requestNumber,
+        fileAttachments,
+        createdAt,
+        updatedAt,
       }) as React.ReactElement,
     });
 
@@ -350,6 +370,4 @@ export const ProductFormAction = async (
     console.error("Product Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
-
-  redirect("/success");
 };
