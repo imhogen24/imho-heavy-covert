@@ -1,568 +1,678 @@
 "use client";
 
-import { useRef } from "react";
-import { useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod";
-import { ProcessSchema } from "@/lib/z-schema";
+import * as React from "react"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { useActionState } from "react";
-import { ProcessFormAction } from "@/actions/action";
+import { toast } from "sonner";
+import { UploadDropzone } from "@/lib/uploadthing";
+import { useState } from "react";
+import { ProcessSchema, type ProcessFormData } from "@/lib/z-schema";
+import { Button } from "@/components/ui/button";
+import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
+
+import { processFormAction } from "@/actions/action";
+import { FormSection, SectionChild } from "../../wrapper";
+import Link from "next/link";
+
+const collaborationPreferences = [
+  "Regular Meetings",
+  "Weekly Updates via Email",
+  "On-demand Reporting"
+] as const;
+
+const painPoints = [
+  "Low efficiency",
+  "High operating costs",
+  "Safety concerns",
+  "Low output",
+  "Quality issues",
+  "Other"
+] as const;
+
+
 
 export const ProcessForm = () => {
-  const ref = useRef<HTMLFormElement>(null);
-  const [lastResult, action] = useActionState(ProcessFormAction, undefined);
-  const [form, fields] = useForm({
-    onValidate({ formData }) {
-      return parseWithZod(formData, { schema: ProcessSchema });
+  const form = useForm<ProcessFormData>({
+    resolver: zodResolver(ProcessSchema),
+    defaultValues: {
+      // Client Information
+      organizationName: "",
+      contactPerson: "",
+      email: "",
+      phoneNumber: "",
+      address: "",
+      businessOverview: "",
+
+      // Input Requirements
+      materialInputs: "",
+      EnergyInputs: "",
+      informationInputs: "",
+      livingInputs: "",
+
+      // Operational Agents
+      humanSytems: "",
+      managementSystems: "",
+      technicalSytems: "",
+      informationSystems: "",
+      environmentalSytems: "",
+
+      // Process Requirements
+      existingSytems: "",
+      newSystemRequiements: "",
+      KeyMetrics: "",
+
+      // Output Requirements
+      materialOutputs: "",
+      EnergyOutputs: "",
+      informationOutputs: "",
+      livingOutputs: "",
+
+      // Challenges Or Inefficiencies
+      painPoints: [],
+      specificIssues: "",
+
+      // Scalability And Future Goals
+      futureGrowth: false,
+      comparableSystems: "",
+
+      // Collaboration and Communication
+      collaborationPreferences: [],
+      additionalComments: "",
     },
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
   });
+
+  const [pending, setPending] = useState(false);
+  const [showOtherIssues, setShowOtherIssues] = useState(false);
+
+  // Check for "Other" option in painPoints and show additional field if needed
+  React.useEffect(() => {
+    const selectedPainPoints = form.watch("painPoints");
+    setShowOtherIssues(selectedPainPoints?.includes("Other") || false);
+  }, [form.watch("painPoints")]);
+
+  async function onSubmit(values: ProcessFormData) {
+    setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else {
+        formData.append(key, String(value));
+      }
+    });
+
+    try {
+      const result = await processFormAction(formData);
+
+      toast.success("Process request submitted successfully!");
+      form.reset();
+      console.log(result)
+      console.log(values)
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-8">
-        Process Design and Development Request Form
+        Process Development Request Form
       </h1>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:space-y-20">
 
-      <form
-        ref={ref}
-        id={form.id}
-        onSubmit={form.onSubmit}
-        action={action}
-        className="space-y-6"
-      >
-        {/* Section A: Client Information */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Client Information</h2>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <Label htmlFor="organization-name">Organization Name</Label>
-              <Input
-                key={fields.organizationName.key}
-                name={fields.organizationName.name}
-                defaultValue={fields.organizationName.initialValue}
-                placeholder="EcoSoap Industries Ltd"
-                id="organization-name"
+          {/* Client Information Section */}
+          <FormSection label="Client Information">
+            <SectionChild label="ORGANIZATION DETAILS">
+              <FormField
+                control={form.control}
+                name="organizationName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Organization Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter organization name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {fields.organizationName.errors && (
-                <p className="text-red-500 text-sm">
-                  {fields.organizationName.errors}
-                </p>
-              )}
-            </div>
 
-            <div className="space-y-4">
-              <Label htmlFor="contact-person">Contact Person</Label>
-              <Input
-                key={fields.contactPerson.key}
-                name={fields.contactPerson.name}
-                defaultValue={fields.contactPerson.initialValue}
-                placeholder="Mr. Emmanuel Asare"
-                id="contact-person"
+              <FormField
+                control={form.control}
+                name="contactPerson"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Contact Person</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter contact person name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {fields.contactPerson.errors && (
-                <p className="text-red-500 text-sm">
-                  {fields.contactPerson.errors}
-                </p>
-              )}
-            </div>
-          </div>
+            </SectionChild>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                key={fields.email.key}
-                name={fields.email.name}
-                defaultValue={fields.email.initialValue}
-                type="email"
-                id="email"
-                placeholder="emmanuel.asare@ecosoap.com"
+            <SectionChild label="CONTACT DETAILS">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="Enter email address" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {fields.email.errors && (
-                <p className="text-red-500 text-sm">{fields.email.errors}</p>
-              )}
-            </div>
 
-            <div className="space-y-4">
-              <Label htmlFor="phone-number">Phone Number</Label>
-              <Input
-                key={fields.phoneNumber.key}
-                name={fields.phoneNumber.name}
-                defaultValue={fields.phoneNumber.initialValue}
-                type="tel"
-                placeholder="0241234567"
-                id="phone-number"
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter phone number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {fields.phoneNumber.errors && (
-                <p className="text-red-500 text-sm">
-                  {fields.phoneNumber.errors}
-                </p>
+            </SectionChild>
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Enter address" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="address">Address</Label>
-            <Input
-              key={fields.address.key}
-              name={fields.address.name}
-              defaultValue={fields.address.initialValue}
-              placeholder="Plot 45, Industrial Area, Accra, Ghana"
-              id="address"
             />
-            {fields.address.errors && (
-              <p className="text-red-500 text-sm">{fields.address.errors}</p>
-            )}
-          </div>
-        </div>
 
-        {/* Section B: Business Overview */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Business Overview</h2>
+            <SectionChild label="BUSINESS OVERVIEW" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="businessOverview"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Business Overview</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe your business" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
 
-          <div className="space-y-4">
-            <Label htmlFor="business-operations">Business Operations</Label>
-            <Textarea
-              key={fields.businessOperations.key}
-              name={fields.businessOperations.name}
-              defaultValue={fields.businessOperations.initialValue}
-              placeholder="EcoSoap Industries Ltd. specializes in the production of eco-friendly soaps using sustainable materials sourced from local farmers."
-              id="business-operations"
+          {/* Input Requirements Section */}
+          <FormSection label="Input Requirements">
+            <SectionChild label="SYSTEM INPUTS" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="materialInputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Material Inputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe material inputs required" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="EnergyInputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Energy Inputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe energy inputs required" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="informationInputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Information Inputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe information inputs required" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="livingInputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Living Inputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe living inputs if applicable" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
+
+          {/* Operational Agents Section */}
+          <FormSection label="Operational Agents">
+            <SectionChild label="SYSTEM AGENTS" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="humanSytems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Human Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe human systems involved" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="managementSystems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Management Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe management systems involved" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="technicalSytems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Technical Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe technical systems involved" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="informationSystems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Information Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe information systems involved" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="environmentalSytems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Environmental Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe environmental systems involved" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
+
+          {/* Process Requirements Section */}
+          <FormSection label="Process Requirements">
+            <SectionChild label="SYSTEM PROCESS" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="existingSytems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Existing Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe existing systems" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="newSystemRequiements"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New System Requirements</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe new system requirements" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="KeyMetrics"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Key Metrics</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe key performance metrics" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
+
+          {/* Output Requirements Section */}
+          <FormSection label="Output Requirements">
+            <SectionChild label="SYSTEM OUTPUTS" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="materialOutputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Material Outputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe material outputs" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="EnergyOutputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Energy Outputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe energy outputs" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="informationOutputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Information Outputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe information outputs" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="livingOutputs"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Living Outputs</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe living outputs if applicable" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
+
+          {/* Challenges Or Inefficiencies Section */}
+          <FormSection label="Challenges Or Inefficiencies">
+            <FormField
+              control={form.control}
+              name="painPoints"
+              render={() => (
+                <FormItem className="space-y-4">
+                  <FormLabel className="text-base">Pain Points</FormLabel>
+                  <SectionChild label="CURRENT CHALLENGES" className="md:grid-cols-3">
+                    {painPoints.map((option) => (
+                      <FormField
+                        key={option}
+                        control={form.control}
+                        name="painPoints"
+                        render={({ field }) => {
+                          return (
+                            <FormItem
+                              key={option}
+                              className="flex flex-row items-start my-auto space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <Checkbox
+                                  className="my-auto"
+                                  checked={field.value?.includes(option)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([...(field.value || []), option])
+                                      : field.onChange(
+                                        field.value?.filter((value) => value !== option)
+                                      );
+                                  }}
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel className="text-sm font-normal">
+                                  {option}
+                                </FormLabel>
+                              </div>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    ))}
+                  </SectionChild>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-            {fields.businessOperations.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.businessOperations.errors}
-              </p>
-            )}
-          </div>
 
-          <div className="space-y-4">
-            <Label htmlFor="process-purpose">Process Purpose</Label>
-            <Textarea
-              key={fields.processPurpose.key}
-              name={fields.processPurpose.name}
-              defaultValue={fields.processPurpose.initialValue}
-              placeholder="To streamline the mixing and curing stages of soap production to reduce lead times and improve product consistency."
-              id="process-purpose"
-            />
-            {fields.processPurpose.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.processPurpose.errors}
-              </p>
-            )}
-          </div>
-        </div>
+            <SectionChild label="SPECIFIC ISSUES" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="specificIssues"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Specific Issues Description</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe specific issues or challenges in detail" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
 
-        {/* Section C: Current Process & Challenges */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">
-            Current Process & Challenges
-          </h2>
-
-          <div className="space-y-4">
-            <Label htmlFor="current-process">Current Process</Label>
-            <Textarea
-              key={fields.currentProcess.key}
-              name={fields.currentProcess.name}
-              defaultValue={fields.currentProcess.initialValue}
-              placeholder="Currently, soap production involves manual mixing, hand pouring into molds, and air curing in a temperature-controlled room."
-              id="current-process"
-            />
-            {fields.currentProcess.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.currentProcess.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="current-process-purpose">
-              Current Process Purpose
-            </Label>
-            <Textarea
-              key={fields.currentProcessPurpose.key}
-              name={fields.currentProcessPurpose.name}
-              defaultValue={fields.currentProcessPurpose.initialValue}
-              placeholder="Manufacturing of soap bars in small batches."
-              id="current-process-purpose"
-            />
-            {fields.currentProcessPurpose.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.currentProcessPurpose.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="current-performance-metrics">
-              Current Performance Metrics
-            </Label>
-            <Textarea
-              key={fields.currentPerformanceMetrics.key}
-              name={fields.currentPerformanceMetrics.name}
-              defaultValue={fields.currentPerformanceMetrics.initialValue}
-              placeholder="Throughput: 300 bars/day,
-              Efficiency: ~70%,
-              Error rate: 5% (due to uneven mixing and curing inconsistencies)"
-              id="current-performance-metrics"
-            />
-            {fields.currentPerformanceMetrics.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.currentPerformanceMetrics.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="pain-points">
-              What challenges or inefficiencies are you currently experiencing
-              in your process?
-            </Label>
-            <div className="grid md:grid-cols-2 gap-4">
-              {[
-                "Low efficiency",
-                "High operating costs",
-                "Safety concerns",
-                "Low output",
-                "Quality issues",
-                "Other",
-              ].map((point) => (
-                <div key={point} className="flex items-center space-x-2">
-                  <Checkbox
-                    name="painPoints"
-                    value={point}
-                    id={`pain-point-${point.toLowerCase().replace(/\s+/g, "-")}`}
-                  />
-                  <Label
-                    htmlFor={`pain-point-${point.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {point}
-                  </Label>
-                </div>
-              ))}
-            </div>
-            {fields.painPoints?.errors && (
-              <p className="text-red-500 text-sm">{fields.painPoints.errors}</p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="specific-challenges">Specific Challenges</Label>
-            <Textarea
-              key={fields.specificChallenges.key}
-              name={fields.specificChallenges.name}
-              defaultValue={fields.specificChallenges.initialValue}
-              placeholder="Manual mixing leads to inconsistent soap texture,
-              High labor costs due to reliance on manual work,
-              Limited production capacity due to small batch sizes."
-              id="specific-challenges"
-            />
-            {fields.specificChallenges.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.specificChallenges.errors}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Section D: Desired Improvements */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Desired Improvements</h2>
-
-          <div className="space-y-4">
-            <Label htmlFor="improvement-goals">
-              What improvements are you seeking?
-            </Label>
-            <div className="grid md:grid-cols-2 gap-4">
-              {[
-                "Increased efficiency",
-                "Reduced costs",
-                "Improved safety",
-                "Enhanced quality",
-                "Higher output",
-                "Other",
-              ].map((goal) => (
-                <div key={goal} className="flex items-center space-x-2">
-                  <Checkbox
-                    name="improvementGoals"
-                    value={goal}
-                    id={`goal-${goal.toLowerCase().replace(/\s+/g, "-")}`}
-                  />
-                  <Label
-                    htmlFor={`goal-${goal.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {goal}
-                  </Label>
-                </div>
-              ))}
-            </div>
-            {fields.improvementGoals?.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.improvementGoals.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="performance-targets">Performance Targets</Label>
-            <Textarea
-              key={fields.performanceTargets.key}
-              name={fields.performanceTargets.name}
-              defaultValue={fields.performanceTargets.initialValue}
-              placeholder="Increase throughput to 600 bars/day,
-              Reduce defect rate to below 2%."
-              id="performance-targets"
-            />
-            {fields.performanceTargets.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.performanceTargets.errors}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Section E: Functional Requirements */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Functional Requirements</h2>
-
-          <div className="space-y-4">
-            <Label htmlFor="primary-functions">Primary Functions</Label>
-            <Textarea
-              key={fields.primaryFunctions.key}
-              name={fields.primaryFunctions.name}
-              defaultValue={fields.primaryFunctions.initialValue}
-              placeholder="Automated mixing and pouring of soap,
-              Temperature-controlled curing."
-              id="primary-functions"
-            />
-            {fields.primaryFunctions.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.primaryFunctions.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="operational-needs">
-              How will materials or inputs be introduced into the process?
-            </Label>
-            <div className="grid md:grid-cols-2 gap-4">
-              {["Manually", "Conveyor or automated systems", "Other"].map(
-                (need) => (
-                  <div key={need} className="flex items-center space-x-2">
-                    <Checkbox
-                      name="operationalNeeds"
-                      value={need}
-                      id={`need-${need.toLowerCase().replace(/\s+/g, "-")}`}
+          {/* Scalability And Future Goals Section */}
+          <FormSection label="Scalability And Future Goals">
+            <FormField
+              control={form.control}
+              name="futureGrowth"
+              render={() => (
+                <FormItem className="space-y-4">
+                  <FormLabel className="text-base">Future Growth</FormLabel>
+                  <SectionChild label="FUTURE GROWTH PLANS" className="md:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="futureGrowth"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel>
+                              Contains Biological Components
+                            </FormLabel>
+                          </div>
+                        </FormItem>
+                      )}
                     />
-                    <Label
-                      htmlFor={`need-${need.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      {need}
-                    </Label>
-                  </div>
-                ),
+                  </SectionChild>
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
-            {fields.operationalNeeds?.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.operationalNeeds.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="special-requirements">Special Requirements</Label>
-            <Textarea
-              key={fields.specialRequirements.key}
-              name={fields.specialRequirements.name}
-              defaultValue={fields.specialRequirements.initialValue}
-              placeholder="Noise reduction for indoor operations,
-              Safety guards around moving parts."
-              id="special-requirements"
             />
-            {fields.specialRequirements.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.specialRequirements.errors}
-              </p>
-            )}
-          </div>
-        </div>
 
-        {/* Section F: Space and Power Constraints */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Space and Power Constraints</h2>
+            <SectionChild label="COMPARABLE SYSTEMS" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="comparableSystems"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Comparable Systems</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describe comparable systems you're familiar with or would like to emulate" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
 
-          <div className="space-y-4">
-            <Label htmlFor="space-availability">Space Availability</Label>
-            <Textarea
-              key={fields.spaceAvailability.key}
-              name={fields.spaceAvailability.name}
-              defaultValue={fields.spaceAvailability.initialValue}
-              placeholder="10m x 8m"
-              id="space-availability"
+          {/* Collaboration and Communication Section */}
+          <FormSection label="Collaboration and Communication">
+            <FormField
+              control={form.control}
+              name="collaborationPreferences"
+              render={() => (
+                <FormItem className="space-y-4">
+                  <FormLabel className="text-base">Collaboration Preferences</FormLabel>
+                  <SectionChild label="COLLABORATION PREFERENCES" className="md:grid-cols-3">
+                    {collaborationPreferences.map((pref) => (
+                      <FormField
+                        key={pref}
+                        control={form.control}
+                        name="collaborationPreferences"
+                        render={({ field }) => (
+                          <FormItem
+                            key={pref}
+                            className="flex flex-row items-start space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(pref)}
+                                onCheckedChange={(checked) => {
+                                  return checked
+                                    ? field.onChange([...(field.value || []), pref])
+                                    : field.onChange(
+                                      field.value?.filter((value) => value !== pref)
+                                    );
+                                }}
+                              />
+                            </FormControl>
+                            <FormLabel className="text-sm font-normal">
+                              {pref}
+                            </FormLabel>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ))}
+                  </SectionChild>
+                </FormItem>
+              )}
             />
-            {fields.spaceAvailability.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.spaceAvailability.errors}
-              </p>
-            )}
+
+            <SectionChild label="ADDITIONAL COMMENTS" className="md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="additionalComments"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Additional Comments</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Any additional comments or requirements"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </SectionChild>
+          </FormSection>
+
+          <div className="mt-8 inline-flex gap-4">
+            <Button
+              className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+              disabled={pending}
+              type="submit"
+            >
+              {pending ? (
+                <>
+                  <LoaderCircle className="animate-spin" />
+                </>
+              ) : (
+                <>Submit Request</>
+              )}
+            </Button>
           </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="power-supply">Power Supply</Label>
-            <Textarea
-              key={fields.powerSupply.key}
-              name={fields.powerSupply.name}
-              defaultValue={fields.powerSupply.initialValue}
-              placeholder="240V, single-phase, 10HP available."
-              id="power-supply"
-            />
-            {fields.powerSupply.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.powerSupply.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="environmentalFactors">Environmental Factors</Label>
-            <Textarea
-              key={fields.environmentalFactors.key}
-              name={fields.environmentalFactors.name}
-              defaultValue={fields.environmentalFactors.initialValue}
-              placeholder="Indoor use in a temperature-controlled environment (~22°C)."
-              id="environmental-factors"
-            />
-            {fields.environmentalFactors.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.environmentalFactors.errors}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Section G: Scalability */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Scalability</h2>
-
-          <div className="space-x-4">
-            <Checkbox
-              id="growth-yes"
-              key={fields.anticipateFutureGrowth.name}
-              name={fields.anticipateFutureGrowth.name}
-              defaultValue={fields.anticipateFutureGrowth.initialValue}
-            />
-            <Label>
-              Do you anticipate scaling up the process in the future?
-            </Label>
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="growthAccommodation">Growth Accommodation</Label>
-            <Textarea
-              key={fields.growthAccommodation.key}
-              id="growth-accomodation"
-              name={fields.growthAccommodation.name}
-              defaultValue={fields.growthAccommodation.initialValue}
-              placeholder="Modular design for easy capacity expansion."
-            />
-            {fields.growthAccommodation.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.growthAccommodation.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="comparableSystems">Comparable Systems</Label>
-            <Textarea
-              key={fields.comparableSystems.key}
-              id="comparable-system"
-              name={fields.comparableSystems.name}
-              defaultValue={fields.comparableSystems.initialValue}
-              placeholder="Observed an automated soap production system at GreenGlow Enterprises during a site visit in May 2024."
-            />
-            {fields.comparableSystems.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.comparableSystems.errors}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Section H: Additional Information */}
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Additional Information</h2>
-
-          <div className="space-y-4">
-            <Label>
-              How would you like us to engage with you during the project?
-            </Label>
-            <div className="grid md:grid-cols-2 gap-4">
-              {[
-                "Regular Meetings",
-                "Weekly Updates via Email",
-                "On-demand Reporting",
-              ].map((pref) => (
-                <div key={pref} className="flex items-center space-x-2">
-                  <Checkbox
-                    name="collaborationPreferences"
-                    value={pref}
-                    id={`pref-${pref.toLowerCase().replace(/\s+/g, "-")}`}
-                  />
-                  <Label
-                    htmlFor={`pref-${pref.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {pref}
-                  </Label>
-                </div>
-              ))}
-            </div>
-            {fields.collaborationPreferences?.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.collaborationPreferences.errors}
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            <Label htmlFor="additionalComments">Additional Comments</Label>
-            <Textarea
-              key={fields.additionalComments.key}
-              name={fields.additionalComments.name}
-              id="additional-comments"
-              defaultValue={fields.additionalComments.initialValue}
-              placeholder="The system should be designed to integrate with a future packaging automation process."
-            />
-            {fields.additionalComments.errors && (
-              <p className="text-red-500 text-sm">
-                {fields.additionalComments.errors}
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <div className="mt-8">
-         
-        </div>
-      </form>
+        </form>
+      </Form>
     </div>
   );
 };
+
+export default ProcessForm;

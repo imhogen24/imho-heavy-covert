@@ -7,76 +7,114 @@ import {
   Hr,
   Img,
   Html,
-  Link,
   Preview,
   Row,
   Section,
   Text,
+  Link,
 } from "@react-email/components";
 import * as React from "react";
 
-export interface ProcessRequestEmailProps {
+export interface ProcessFormEmailProps {
+  // Client Information
   organizationName: string;
   contactPerson: string;
   email: string;
   phoneNumber: string;
   address: string;
-  businessOperations: string;
-  processPurpose: string;
-  currentProcess: string;
-  currentProcessPurpose: string;
-  currentPerformanceMetrics: string;
-  painPoints: string[];
-  specificChallenges: string;
-  improvementGoals: string[];
-  performanceTargets: string;
-  primaryFunctions: string;
-  operationalNeeds: string[];
-  specialRequirements: string;
-  spaceAvailability: string;
-  powerSupply: string;
-  environmentalFactors: string;
-  anticipateFutureGrowth: boolean;
-  growthAccommodation: string;
-  comparableSystems: string;
-  collaborationPreferences: string[];
-  additionalComments: string;
-  requestNumber: string;
+  businessOverview: string;
+
+  // Input Requirements
+  materialInputs?: string;
+  EnergyInputs?: string;
+  informationInputs?: string;
+  livingInputs?: string;
+
+  // Operational Agents
+  humanSytems?: string;
+  managementSystems?: string;
+  technicalSytems?: string;
+  informationSystems?: string;
+  environmentalSytems?: string;
+
+  // Process Requirements
+  existingSytems?: string;
+  newSystemRequiements?: string;
+  KeyMetrics?: string;
+
+  // Output Requirements
+  materialOutputs?: string;
+  EnergyOutputs?: string;
+  informationOutputs?: string;
+  livingOutputs?: string;
+
+  // Challenges Or Inefficiencies
+  painPoints?: string[];
+  specificIssues?: string;
+
+  // Scalability And Future Goals
+  futureGrowth: boolean;
+  comparableSystems?: string;
+
+  // Collaboration and Communication
+  collaborationPreferences?: string[];
+  additionalComments?: string;
+  fileAttachments?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export const ProcessRequestEmail = ({
+export const ProcessFormEmail = ({
+  // Client Information
   organizationName,
   contactPerson,
   email,
   phoneNumber,
   address,
-  businessOperations,
-  processPurpose,
-  currentProcess,
-  currentProcessPurpose,
-  currentPerformanceMetrics,
+  businessOverview,
+
+  // Input Requirements
+  materialInputs,
+  EnergyInputs,
+  informationInputs,
+  livingInputs,
+
+  // Operational Agents
+  humanSytems,
+  managementSystems,
+  technicalSytems,
+  informationSystems,
+  environmentalSytems,
+
+  // Process Requirements
+  existingSytems,
+  newSystemRequiements,
+  KeyMetrics,
+
+  // Output Requirements
+  materialOutputs,
+  EnergyOutputs,
+  informationOutputs,
+  livingOutputs,
+
+  // Challenges Or Inefficiencies
   painPoints,
-  specificChallenges,
-  improvementGoals,
-  performanceTargets,
-  primaryFunctions,
-  operationalNeeds,
-  specialRequirements,
-  spaceAvailability,
-  powerSupply,
-  environmentalFactors,
-  anticipateFutureGrowth,
-  growthAccommodation,
+  specificIssues,
+
+  // Scalability And Future Goals
+  futureGrowth,
   comparableSystems,
+
+  // Collaboration and Communication
   collaborationPreferences,
   additionalComments,
-  requestNumber,
-}: ProcessRequestEmailProps) => (
+  fileAttachments,
+  createdAt,
+  updatedAt,
+}: ProcessFormEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      New Process Improvement Request - Immediate Review Required
-    </Preview>
+    <Preview>New Process Request from {organizationName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.header}>
@@ -94,17 +132,10 @@ export const ProcessRequestEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>Process Improvement Request</Heading>
+          <Heading style={styles.heading}>Process Request Form</Heading>
           <Text style={styles.subHeading}>
-            A new process improvement request requires your immediate attention.
+            A new process request has been submitted.
           </Text>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
-            <Text style={styles.infoText}>
-              <strong>Request Number:</strong> {requestNumber}
-            </Text>
-          </Section>
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
@@ -123,102 +154,176 @@ export const ProcessRequestEmail = ({
             <Text style={styles.infoText}>
               <strong>Address:</strong> {address}
             </Text>
-          </Section>
-
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>BUSINESS OVERVIEW</Text>
             <Text style={styles.infoText}>
-              <strong>Business Operations:</strong> {businessOperations}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Process Purpose:</strong> {processPurpose}
+              <strong>Business Overview:</strong> {businessOverview}
             </Text>
           </Section>
 
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>
-              CURRENT PROCESS & CHALLENGES
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Current Process:</strong> {currentProcess}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Current Process Purpose:</strong> {currentProcessPurpose}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Current Performance Metrics:</strong>{" "}
-              {currentPerformanceMetrics}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Pain Points:</strong> {painPoints.join(", ") || "None"}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Specific Challenges:</strong> {specificChallenges}
-            </Text>
-          </Section>
+          <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>DESIRED IMPROVEMENTS</Text>
-            <Text style={styles.infoText}>
-              <strong>Improvement Goals:</strong>{" "}
-              {improvementGoals.join(", ") || "None"}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Performance Targets:</strong> {performanceTargets}
-            </Text>
+            <Text style={styles.sectionTitle}>INPUT REQUIREMENTS</Text>
+            {materialInputs && (
+              <Text style={styles.infoText}>
+                <strong>Material Inputs:</strong> {materialInputs}
+              </Text>
+            )}
+            {EnergyInputs && (
+              <Text style={styles.infoText}>
+                <strong>Energy Inputs:</strong> {EnergyInputs}
+              </Text>
+            )}
+            {informationInputs && (
+              <Text style={styles.infoText}>
+                <strong>Information Inputs:</strong> {informationInputs}
+              </Text>
+            )}
+            {livingInputs && (
+              <Text style={styles.infoText}>
+                <strong>Living Inputs:</strong> {livingInputs}
+              </Text>
+            )}
           </Section>
 
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>FUNCTIONAL REQUIREMENTS</Text>
-            <Text style={styles.infoText}>
-              <strong>Primary Functions:</strong> {primaryFunctions}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Operational Needs:</strong>{" "}
-              {operationalNeeds.join(", ") || "None"}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Special Requirements:</strong> {specialRequirements}
-            </Text>
-          </Section>
+          <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>SPACE AND POWER CONSTRAINTS</Text>
-            <Text style={styles.infoText}>
-              <strong>Space Availability:</strong> {spaceAvailability}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Power Supply:</strong> {powerSupply}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Environmental Factors:</strong> {environmentalFactors}
-            </Text>
+            <Text style={styles.sectionTitle}>OPERATIONAL AGENTS</Text>
+            {humanSytems && (
+              <Text style={styles.infoText}>
+                <strong>Human Systems:</strong> {humanSytems}
+              </Text>
+            )}
+            {managementSystems && (
+              <Text style={styles.infoText}>
+                <strong>Management Systems:</strong> {managementSystems}
+              </Text>
+            )}
+            {technicalSytems && (
+              <Text style={styles.infoText}>
+                <strong>Technical Systems:</strong> {technicalSytems}
+              </Text>
+            )}
+            {informationSystems && (
+              <Text style={styles.infoText}>
+                <strong>Information Systems:</strong> {informationSystems}
+              </Text>
+            )}
+            {environmentalSytems && (
+              <Text style={styles.infoText}>
+                <strong>Environmental Systems:</strong> {environmentalSytems}
+              </Text>
+            )}
           </Section>
 
-          <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>SCALABILITY</Text>
-            <Text style={styles.infoText}>
-              <strong>Anticipate Future Growth:</strong>{" "}
-              {anticipateFutureGrowth ? "Yes" : "No"}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Growth Accommodation:</strong> {growthAccommodation}
-            </Text>
-            <Text style={styles.infoText}>
-              <strong>Comparable Systems:</strong> {comparableSystems}
-            </Text>
-          </Section>
+          <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>ADDITIONAL INFORMATION</Text>
+            <Text style={styles.sectionTitle}>PROCESS REQUIREMENTS</Text>
+            {existingSytems && (
+              <Text style={styles.infoText}>
+                <strong>Existing Systems:</strong> {existingSytems}
+              </Text>
+            )}
+            {newSystemRequiements && (
+              <Text style={styles.infoText}>
+                <strong>New System Requirements:</strong> {newSystemRequiements}
+              </Text>
+            )}
+            {KeyMetrics && (
+              <Text style={styles.infoText}>
+                <strong>Key Metrics:</strong> {KeyMetrics}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>OUTPUT REQUIREMENTS</Text>
+            {materialOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Material Outputs:</strong> {materialOutputs}
+              </Text>
+            )}
+            {EnergyOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Energy Outputs:</strong> {EnergyOutputs}
+              </Text>
+            )}
+            {informationOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Information Outputs:</strong> {informationOutputs}
+              </Text>
+            )}
+            {livingOutputs && (
+              <Text style={styles.infoText}>
+                <strong>Living Outputs:</strong> {livingOutputs}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>CHALLENGES OR INEFFICIENCIES</Text>
+            {painPoints && painPoints.length > 0 && (
+              <Text style={styles.infoText}>
+                <strong>Pain Points:</strong> {painPoints.join(", ")}
+              </Text>
+            )}
+            {specificIssues && (
+              <Text style={styles.infoText}>
+                <strong>Specific Issues:</strong> {specificIssues}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>SCALABILITY AND FUTURE GOALS</Text>
             <Text style={styles.infoText}>
-              <strong>Collaboration Preferences:</strong>{" "}
-              {collaborationPreferences.join(", ") || "None"}
+              <strong>Biological Components:</strong> {futureGrowth ? "Yes" : "No"}
             </Text>
+            {comparableSystems && (
+              <Text style={styles.infoText}>
+                <strong>Comparable Systems:</strong> {comparableSystems}
+              </Text>
+            )}
+          </Section>
+
+          <Hr style={styles.divider} />
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>COLLABORATION AND COMMUNICATION</Text>
+            {collaborationPreferences && collaborationPreferences.length > 0 && (
+              <Text style={styles.infoText}>
+                <strong>Collaboration Preferences:</strong> {collaborationPreferences.join(", ")}
+              </Text>
+            )}
             {additionalComments && (
               <Text style={styles.infoText}>
                 <strong>Additional Comments:</strong> {additionalComments}
               </Text>
+            )}
+            {fileAttachments && fileAttachments.length > 0 && (
+              <>
+                <Hr style={styles.divider} />
+                <Section style={styles.detailSection}>
+                  <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
+                  {fileAttachments.map((file, index) => {
+                    const [fileUrl, fileName] = file.split(",");
+                    return (
+                      <Text key={index} style={styles.infoText}>
+                        <Link href={fileUrl} style={styles.fileLink}>
+                          📎 {fileName || `Attachment ${index + 1}`}
+                        </Link>
+                      </Text>
+                    );
+                  })}
+                </Section>
+              </>
             )}
           </Section>
         </Section>
@@ -233,7 +338,7 @@ export const ProcessRequestEmail = ({
   </Html>
 );
 
-export default ProcessRequestEmail;
+export default ProcessFormEmail;
 
 const styles = {
   main: {
@@ -245,11 +350,14 @@ const styles = {
     maxWidth: "600px",
     margin: "0 auto",
     border: "1px solid #E0E0E0",
+    borderRadius: "12px",
   },
   header: {
     backgroundColor: "#F5F5F5",
     padding: "20px",
     textAlign: "center" as const,
+    borderTopLeftRadius: "12px",
+    borderTopRightRadius: "12px",
   },
   content: {
     padding: "30px",
@@ -283,18 +391,25 @@ const styles = {
     lineHeight: "1.6",
     marginBottom: "5px",
   },
+  divider: {
+    borderTop: "1px solid #E0E0E0",
+    margin: "20px 0",
+  },
+  fileLink: {
+    color: "#2563eb",
+    textDecoration: "underline",
+    fontWeight: "500",
+  },
   footer: {
     backgroundColor: "#F5F5F5",
     padding: "15px",
     textAlign: "center" as const,
+    borderBottomLeftRadius: "12px",
+    borderBottomRightRadius: "12px",
   },
   footerText: {
     color: "#666666",
     fontSize: "12px",
     marginBottom: "5px",
-  },
-  footerDisclaimer: {
-    color: "#999999",
-    fontSize: "11px",
   },
 };

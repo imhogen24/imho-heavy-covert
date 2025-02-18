@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { CadRequestEmail } from "../components/emails/cad/cad-template";
 import { Resend } from "resend";
 import ProductRequestEmail, { ProductFormEmail } from "../components/emails/product/product-template";
@@ -9,7 +8,6 @@ import ProcessRequestEmail from "../components/emails/process/process-template";
 import { ContactFormEmail } from "../components/emails/contact/contact-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
 
 //CONTACT FORM ACTION
 export const contactFormAction = async (formData: FormData) => {
@@ -114,7 +112,6 @@ export const cadFormAction = async (formData: FormData) => {
 };
 
 
-
 export const SupportFormAction = async (formData: FormData) => {
   try {
     // Client Information
@@ -192,34 +189,48 @@ export const SupportFormAction = async (formData: FormData) => {
 };
 
 //PROCESS FORM ACTION
-export const ProcessFormAction = async (
-  initialState: unknown,
-  formData: FormData,
-) => {
+export const processFormAction = async (formData: FormData) => {
   try {
     const organizationName = formData.get("organizationName") as string;
     const contactPerson = formData.get("contactPerson") as string;
     const email = formData.get("email") as string;
     const phoneNumber = formData.get("phoneNumber") as string;
     const address = formData.get("address") as string;
-    const businessOperations = formData.get("businessOperations") as string;
-    const processPurpose = formData.get("processPurpose") as string;
-    const currentProcess = formData.get("currentProcess") as string;
-    const currentProcessPurpose = formData.get("currentProcessPurpose") as string;
-    const currentPerformanceMetrics = formData.get("currentPerformanceMetrics") as string;
+    const businessOverview = formData.get("businessOverview") as string;
+
+    // Input Requirements
+    const materialInputs = formData.get("materialInputs") as string;
+    const EnergyInputs = formData.get("EnergyInputs") as string;
+    const informationInputs = formData.get("informationInputs") as string;
+    const livingInputs = formData.get("livingInputs") as string;
+
+    // Operational Agents
+    const humanSytems = formData.get("humanSytems") as string;
+    const managementSystems = formData.get("managementSystems") as string;
+    const technicalSytems = formData.get("technicalSytems") as string;
+    const informationSystems = formData.get("informationSystems") as string;
+    const environmentalSytems = formData.get("environmentalSytems") as string;
+
+    // Process Requirements
+    const existingSytems = formData.get("existingSytems") as string;
+    const newSystemRequiements = formData.get("newSystemRequiements") as string;
+    const KeyMetrics = formData.get("KeyMetrics") as string;
+
+    // Output Requirements
+    const materialOutputs = formData.get("materialOutputs") as string;
+    const EnergyOutputs = formData.get("EnergyOutputs") as string;
+    const informationOutputs = formData.get("informationOutputs") as string;
+    const livingOutputs = formData.get("livingOutputs") as string;
+
+    // Challenges or Inefficiencies
     const painPoints = formData.getAll("painPoints") as string[];
-    const specificChallenges = formData.get("specificChallenges") as string;
-    const improvementGoals = formData.getAll("improvementGoals") as string[];
-    const performanceTargets = formData.get("performanceTargets") as string;
-    const primaryFunctions = formData.get("primaryFunctions") as string;
-    const operationalNeeds = formData.getAll("operationalNeeds") as string[];
-    const specialRequirements = formData.get("specialRequirements") as string;
-    const spaceAvailability = formData.get("spaceAvailability") as string;
-    const powerSupply = formData.get("powerSupply") as string;
-    const environmentalFactors = formData.get("environmentalFactors") as string;
-    const anticipateFutureGrowth = formData.get("anticipateFutureGrowth") === "on";
-    const growthAccommodation = formData.get("growthAccommodation") as string;
+    const specificIssues = formData.get("specificIssues") as string;
+
+    // Scalability and Future Goals
+    const futureGrowth = formData.get("futureGrowth") === "on";
     const comparableSystems = formData.get("comparableSystems") as string;
+
+    // Collaboration and Communication
     const collaborationPreferences = formData.getAll("collaborationPreferences") as string[];
     const additionalComments = formData.get("additionalComments") as string;
     const requestNumber = `PROC-${Date.now()}`;
@@ -234,27 +245,29 @@ export const ProcessFormAction = async (
         email,
         phoneNumber,
         address,
-        businessOperations,
-        processPurpose,
-        currentProcess,
-        currentProcessPurpose,
-        currentPerformanceMetrics,
+        businessOverview,
+        materialInputs,
+        EnergyInputs,
+        informationInputs,
+        livingInputs,
+        humanSytems,
+        managementSystems,
+        technicalSytems,
+        informationSystems,
+        environmentalSytems,
+        existingSytems,
+        newSystemRequiements,
+        KeyMetrics,
+        materialOutputs,
+        EnergyOutputs,
+        informationOutputs,
+        livingOutputs,
         painPoints,
-        specificChallenges,
-        improvementGoals,
-        performanceTargets,
-        primaryFunctions,
-        operationalNeeds,
-        specialRequirements,
-        spaceAvailability,
-        powerSupply,
-        environmentalFactors,
-        anticipateFutureGrowth,
-        growthAccommodation,
+        specificIssues,
+        futureGrowth,
         comparableSystems,
         collaborationPreferences,
         additionalComments,
-        requestNumber,
       }),
     });
 
@@ -268,10 +281,101 @@ export const ProcessFormAction = async (
     console.error("Process Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
-
-
 };
+// export const processFormAction = async (formData: FormData) => {
+//   try {
+//     const organizationName = formData.get("organizationName") as string;
+//     const contactPerson = formData.get("contactPerson") as string;
+//     const email = formData.get("email") as string;
+//     const phoneNumber = formData.get("phoneNumber") as string;
+//     const address = formData.get("address") as string;
+//     const businessOverview = formData.get("businessOverview") as string;
 
+//     // Input Requirements
+//     const materialInputs = formData.get("materialInputs") as string;
+//     const EnergyInputs = formData.get("EnergyInputs") as string;
+//     const informationInputs = formData.get("informationInputs") as string;
+//     const livingInputs = formData.get("livingInputs") as string;
+
+//     // Operational Agents
+//     const humanSytems = formData.get("humanSytems") as string;
+//     const managementSystems = formData.get("managementSystems") as string;
+//     const technicalSytems = formData.get("technicalSytems") as string;
+//     const informationSystems = formData.get("informationSystems") as string;
+//     const environmentalSytems = formData.get("environmentalSytems") as string;
+
+//     // Process Requirements
+//     const existingSytems = formData.get("existingSytems") as string;
+//     const newSystemRequiements = formData.get("newSystemRequiements") as string;
+//     const KeyMetrics = formData.get("KeyMetrics") as string;
+
+//     // Output Requirements
+//     const materialOutputs = formData.get("materialOutputs") as string;
+//     const EnergyOutputs = formData.get("EnergyOutputs") as string;
+//     const informationOutputs = formData.get("informationOutputs") as string;
+//     const livingOutputs = formData.get("livingOutputs") as string;
+
+//     // Challenges or Inefficiencies
+//     const painPoints = formData.getAll("painPoints") as string[];
+//     const specificIssues = formData.get("specificIssues") as string;
+
+//     // Scalability and Future Goals
+//     const futureGrowth = formData.get("futureGrowth") === "on";
+//     const comparableSystems = formData.get("comparableSystems") as string;
+
+//     // Collaboration and Communication
+//     const collaborationPreferences = formData.getAll("collaborationPreferences") as string[];
+//     const additionalComments = formData.get("additionalComments") as string;
+//     const requestNumber = `PROC-${Date.now()}`;
+
+//     const { data, error } = await resend.emails.send({
+//       from: "Process Improvement Request <onboarding@resend.dev>",
+//       to: ["imhogen22@gmail.com"],
+//       subject: `New Process Improvement Request from ${organizationName}`,
+//       react: ProcessRequestEmail({
+//         organizationName,
+//         contactPerson,
+//         email,
+//         phoneNumber,
+//         address,
+//         businessOverview,
+//         materialInputs,
+//         EnergyInputs,
+//         informationInputs,
+//         livingInputs,
+//         humanSytems,
+//         managementSystems,
+//         technicalSytems,
+//         informationSystems,
+//         environmentalSytems,
+//         existingSytems,
+//         newSystemRequiements,
+//         KeyMetrics,
+//         materialOutputs,
+//         EnergyOutputs,
+//         informationOutputs,
+//         livingOutputs,
+//         painPoints,
+//         specificIssues,
+//         futureGrowth,
+//         comparableSystems,
+//         collaborationPreferences,
+//         additionalComments,
+//         requestNumber,
+//       }),
+//     });
+
+//     if (error) {
+//       console.error("Resend Email Error:", error);
+//       return { error: "Failed to send email" };
+//     }
+
+//     return { success: true };
+//   } catch (error: any) {
+//     console.error("Process Form Action Error:", error);
+//     return { error: error.message || "An unexpected error occurred" };
+//   }
+// };
 
 
 export const ProductFormAction = async (formData: FormData) => {

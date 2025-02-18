@@ -180,39 +180,59 @@ export type ProductFormData = z.infer<typeof ProductSchema>;
 
 /*PROCESS SCHEMA */
 export const ProcessSchema = z.object({
+
+  // CLIENT INFORMATION
   organizationName: z.string().min(2).max(200),
   contactPerson: z.string().min(2).max(100),
   email: z.string().email(),
   phoneNumber: z.string().min(10).max(20),
   address: z.string().min(5).max(200),
-  businessOperations: z.string().min(10).max(1000),
-  processPurpose: z.string().min(10).max(500),
-  currentProcess: z.string().min(10).max(1000),
-  currentProcessPurpose: z.string().min(10).max(500),
-  currentPerformanceMetrics: z.string().min(10).max(500),
+  businessOverview: z.string().min(10).max(1000),
+
+  //INPUT REQUIREMENTS
+  materialInputs: z.string().min(10).max(500).optional().or(z.literal('')),
+  EnergyInputs: z.string().min(10).max(500).optional().or(z.literal('')),
+  informationInputs: z.string().min(10).max(500),
+  livingInputs: z.string().min(10).max(500).optional().or(z.literal('')),
+
+  //OPERATIONAL AGENTS
+  humanSytems: z.string().min(10).max(500),
+  managementSystems: z.string().min(10).max(500),
+  technicalSytems: z.string().min(10).max(500),
+  informationSystems: z.string().min(10).max(500),
+  environmentalSytems: z.string().min(10).max(500),
+
+  //PROCESS REQUIREMENTS
+  existingSytems: z.string().min(10).max(500).optional().or(z.literal('')),
+  newSystemRequiements: z.string().min(10).max(500).optional().or(z.literal('')),
+  KeyMetrics: z.string().min(10).max(500).optional().or(z.literal('')),
+
+
+  //OUTPUT REQUIREMENTS
+  materialOutputs: z.string().min(10).max(500).optional().or(z.literal('')),
+  EnergyOutputs: z.string().min(10).max(500).optional().or(z.literal('')),
+  informationOutputs: z.string().min(10).max(500),
+  livingOutputs: z.string().min(10).max(500).optional().or(z.literal('')),
+
+  //CHALLENGES OR INEFFICIENCIES
   painPoints: z
     .array(z.enum(["Low efficiency", "High operating costs", "Safety concerns", "Low output", "Quality issues", "Other"]))
-    .min(1),
-  specificChallenges: z.string().min(10).max(500),
-  improvementGoals: z
-    .array(z.enum(["Increased efficiency", "Reduced costs", "Improved safety", "Enhanced quality", "Higher output", "Other"]))
-    .min(1),
-  performanceTargets: z.string().min(10).max(500),
-  primaryFunctions: z.string().min(10).max(1000),
-  operationalNeeds: z
-    .array(z.enum(["Manually", "Conveyor or automated systems", "Other"]))
-    .min(1),
-  specialRequirements: z.string().min(10).max(500),
-  spaceAvailability: z.string().min(10).max(500),
-  powerSupply: z.string().min(10).max(500),
-  environmentalFactors: z.string().min(10).max(500),
-  anticipateFutureGrowth: z.boolean(),
-  growthAccommodation: z.string().min(10).max(500),
+    .min(1).optional(),
+  specificIssues: z.string().min(10).max(500),
+
+  //SCALABIITY AND FUTURE GOALS
+  futureGrowth: z.boolean().default(false),
   comparableSystems: z.string().min(10).max(500),
+
+  //COLLABORATION AND COMMUNICATION
   collaborationPreferences: z
     .array(z.enum(["Regular Meetings", "Weekly Updates via Email", "On-demand Reporting"]))
     .optional(),
   additionalComments: z.string().min(10).max(1000).optional(),
+
+  //METADATA
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });
+
+export type ProcessFormData = z.infer<typeof ProcessSchema>;
