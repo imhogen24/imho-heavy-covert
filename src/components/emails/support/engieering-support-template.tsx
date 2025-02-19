@@ -48,6 +48,7 @@ export interface SupportFormEmailProps {
   longTermCollaboration: boolean;
   additionalInformation: string;
   fileAttachments: string[];
+  requestId: string;
 }
 
 export const SupportFormEmail = ({
@@ -79,6 +80,7 @@ export const SupportFormEmail = ({
   longTermCollaboration,
   additionalInformation,
   fileAttachments,
+  requestId,
 }: SupportFormEmailProps) => (
   <Html>
     <Head />
@@ -104,6 +106,13 @@ export const SupportFormEmail = ({
           <Text style={styles.subHeading}>
             A new support and training request has been submitted.
           </Text>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
+            <Text style={styles.infoText}>
+              <strong>Request ID:</strong> {requestId}
+            </Text>
+          </Section>
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
