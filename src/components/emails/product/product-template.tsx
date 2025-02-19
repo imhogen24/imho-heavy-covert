@@ -58,8 +58,8 @@ export interface ProductFormEmailProps {
   collaborationPreferences?: string[];
   additionalComments: string;
   fileAttachments: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
+
+  requestId: string;
 }
 
 export const ProductFormEmail = ({
@@ -105,8 +105,7 @@ export const ProductFormEmail = ({
   collaborationPreferences,
   additionalComments,
   fileAttachments,
-  createdAt,
-  updatedAt,
+  requestId,
 }: ProductFormEmailProps) => (
   <Html>
     <Head />
@@ -132,6 +131,12 @@ export const ProductFormEmail = ({
           <Text style={styles.subHeading}>
             A new product request has been submitted.
           </Text>
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
+            <Text style={styles.infoText}>
+              <strong>Request ID:</strong> {requestId}
+            </Text>
+          </Section>
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
