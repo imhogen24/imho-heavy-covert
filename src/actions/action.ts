@@ -148,6 +148,7 @@ export const SupportFormAction = async (formData: FormData) => {
     const longTermCollaboration = formData.get("longTermCollaboration") === "true";
     const additionalInformation = formData.get("additionalInformation") as string;
     const fileAttachments = JSON.parse(formData.get("fileAttachments") as string || "[]");
+    const requestId = `ES-${Date.now()}`;
 
 
     const { data, error } = await resend.emails.send({
@@ -176,6 +177,7 @@ export const SupportFormAction = async (formData: FormData) => {
         longTermCollaboration,
         additionalInformation,
         fileAttachments,
+        requestId,
 
       }) as React.ReactElement,
     });
@@ -237,7 +239,7 @@ export const processFormAction = async (formData: FormData) => {
     // Collaboration and Communication
     const collaborationPreferences = formData.getAll("collaborationPreferences") as string[];
     const additionalComments = formData.get("additionalComments") as string;
-    const requestNumber = `PROC-${Date.now()}`;
+    const requestId = `P-${Date.now()}`;
 
     const { data, error } = await resend.emails.send({
       from: "Process Improvement Request <onboarding@resend.dev>",
@@ -272,6 +274,7 @@ export const processFormAction = async (formData: FormData) => {
         comparableSystems,
         collaborationPreferences,
         additionalComments,
+        requestId,
       }),
     });
 
@@ -426,7 +429,7 @@ export const ProductFormAction = async (formData: FormData) => {
     const collaborationPreferences = JSON.parse(formData.get("collaborationPreferences") as string || "[]");
     const additionalComments = formData.get("additionalComments") as string;
     const fileAttachments = JSON.parse(formData.get("fileAttachments") as string || "[]");
-    const requestId = `CAD-${Date.now()}`;
+    const requestId = `PD-${Date.now()}`;
 
     const { data, error } = await resend.emails.send({
       from: `Product Request <onboarding@resend.dev>`,

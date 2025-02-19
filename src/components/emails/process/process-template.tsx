@@ -60,8 +60,7 @@ export interface ProcessFormEmailProps {
   collaborationPreferences?: string[];
   additionalComments?: string;
   fileAttachments?: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  requestId: string;
 }
 
 export const ProcessFormEmail = ({
@@ -109,8 +108,7 @@ export const ProcessFormEmail = ({
   collaborationPreferences,
   additionalComments,
   fileAttachments,
-  createdAt,
-  updatedAt,
+  requestId,
 }: ProcessFormEmailProps) => (
   <Html>
     <Head />
@@ -136,7 +134,12 @@ export const ProcessFormEmail = ({
           <Text style={styles.subHeading}>
             A new process request has been submitted.
           </Text>
-
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
+            <Text style={styles.infoText}>
+              <strong>Request ID:</strong> {requestId}
+            </Text>
+          </Section>
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>
             <Text style={styles.infoText}>
