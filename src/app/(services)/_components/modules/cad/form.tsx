@@ -695,7 +695,7 @@ export const CadForm = () => {
                 <>Submit Response</>
               )}
             </Button>
-            <FormPreview formData={form.getValues()} />
+            {/* <FormPreview formData={form.getValues()} /> */}
           </div>
         </form>
       </Form>

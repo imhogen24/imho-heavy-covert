@@ -37,6 +37,7 @@ export interface CadRequestEmailProps {
   additionalServices: string[];
   additionalComments: string;
   fileAttachments: string[];
+  requestId: string;
 }
 
 export const CadRequestEmail = ({
@@ -61,6 +62,7 @@ export const CadRequestEmail = ({
   additionalServices,
   additionalComments,
   fileAttachments,
+  requestId,
 }: CadRequestEmailProps) => (
   <Html>
     <Head />
@@ -86,6 +88,14 @@ export const CadRequestEmail = ({
           <Text style={styles.subHeading}>
             A new CAD request requires your attention.
           </Text>
+
+          <Section style={styles.detailSection}>
+            <Text style={styles.sectionTitle}>REQUEST DETAILS</Text>
+            <Text style={styles.infoText}>
+              <strong>Request ID:</strong> {requestId}
+            </Text>
+          </Section>
+
 
           <Section style={styles.detailSection}>
             <Text style={styles.sectionTitle}>CLIENT INFORMATION</Text>

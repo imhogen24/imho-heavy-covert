@@ -69,6 +69,7 @@ export const cadFormAction = async (formData: FormData) => {
     const additionalServices = JSON.parse(formData.get("additionalServices") as string || "[]");
     const additionalComments = formData.get("additionalComments") as string;
     const fileAttachments = JSON.parse(formData.get("fileAttachments") as string || "[]");
+    const requestId = `CAD-${Date.now()}`;
 
     const { data, error } = await resend.emails.send({
       from: `CAD Request <onboarding@resend.dev>`,
@@ -96,6 +97,7 @@ export const cadFormAction = async (formData: FormData) => {
         additionalServices,
         additionalComments,
         fileAttachments,
+        requestId,
       }) as React.ReactElement,
     });
 
