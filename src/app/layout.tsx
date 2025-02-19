@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Navbar } from "@/components/nav/navbar";
+import { Navbar } from "@/components/layout/header/navbar";
 import { Toaster } from "@/components/ui/sonner";
-import { siteConfig } from "./siteConfig";
+import { siteConfig } from "./site-config";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -79,7 +79,7 @@ export default function RootLayout({
           >
             <Navbar />
             {children}
-            <Toaster />
+            <Toaster position="bottom-center" />
           </ThemeProvider>
         </body>
       </html>

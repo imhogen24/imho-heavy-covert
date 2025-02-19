@@ -1,4 +1,4 @@
-import Footer from "@/components/nav/footer";
+import Footer from "@/components/layout/footer/footer";
 
 const BlogLayout = ({ children }: { children: React.ReactNode }) => {
   return (
