@@ -89,6 +89,7 @@ export const ProcessForm = () => {
       // Collaboration and Communication
       collaborationPreferences: [],
       additionalComments: "",
+      fileAttachments: [],
     },
   });
 
@@ -540,7 +541,7 @@ export const ProcessForm = () => {
           </FormSection>
 
           {/* Scalability And Future Goals Section */}
-          <FormSection label="Scalability And Future Goals">
+          <FormSection label="Scalability & Future Goals">
             <FormField
               control={form.control}
               name="futureGrowth"
@@ -653,6 +654,76 @@ export const ProcessForm = () => {
               />
             </SectionChild>
           </FormSection>
+
+          {/* File Upload Section */}
+
+          <FormSection label="File Attachments">
+            <FormField
+              control={form.control}
+              name="fileAttachments"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Upload supporting files here</FormLabel>
+                  <FormControl>
+                    <div>
+                      <div className="relative border border-dashed muted-border rounded-[0.5rem]">
+                        <UploadDropzone
+                          className="ut-button:bg-accent ut-button:text-accent-foreground border-none"
+                          endpoint="fileAttachment"
+                          onClientUploadComplete={(res: any) => {
+                            const newFile = `${res[0].serverData.fileUrl},${res[0].name}`;
+                            field.onChange([...field.value, newFile]); // Update form value
+                            toast.success("Upload Completed");
+                          }}
+                          onUploadError={(error: any) => {
+                            toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                          }}
+                        />
+                      </div>
+
+                      {field.value.length > 0 && (
+                        <div className="flex flex-col mt-4 gap-2">
+                          {field.value.map((file: string, index: number) => (
+                            <div
+                              key={index}
+                              className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
+                            >
+                              {/* Left: File Icon & Name */}
+                              <div className="flex items-center gap-2 min-w-0">
+                                <FileIcon className="w-4 h-4 flex-shrink-0" />
+                                <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] overflow-hidden whitespace-nowrap">
+                                  {file.split(",")[1]}
+                                </span>
+                              </div>
+
+                              {/* Right: Action Buttons */}
+                              <div className="flex gap-2 items-center">
+                                <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
+                                  <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
+                                </Link>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const newFiles = field.value.filter((_, i) => i !== index);
+                                    field.onChange(newFiles);
+                                  }}
+                                >
+                                  <span className="sr-only">remove item {index}</span>
+                                  <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
+                                </button>
+                              </div>
+                            </div>
+
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </FormSection>
+
 
           <div className="mt-8 inline-flex gap-4">
             <Button

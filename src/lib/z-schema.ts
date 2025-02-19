@@ -229,6 +229,7 @@ export const ProcessSchema = z.object({
     .array(z.enum(["Regular Meetings", "Weekly Updates via Email", "On-demand Reporting"]))
     .optional(),
   additionalComments: z.string().min(10).max(1000).optional(),
+  fileAttachments: z.array(z.string()).default([]),
 
   //METADATA
   createdAt: z.date().optional(),
