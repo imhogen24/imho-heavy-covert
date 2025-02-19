@@ -21,7 +21,7 @@ export const contactFormAction = async (formData: FormData) => {
     const files = filesString ? JSON.parse(filesString) : [];
 
     const { data, error } = await resend.emails.send({
-      from: `Contact Form <onboarding@resend.dev>`,
+      from: `Contact Form <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Contact Form Submission from ${name}`,
       react: ContactFormEmail({
@@ -72,7 +72,7 @@ export const cadFormAction = async (formData: FormData) => {
     const requestId = `CAD-${Date.now()}`;
 
     const { data, error } = await resend.emails.send({
-      from: `CAD Request <onboarding@resend.dev>`,
+      from: `CAD Request <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New CAD Request from ${organizationName}`,
       react: CadRequestEmail({
@@ -152,7 +152,7 @@ export const SupportFormAction = async (formData: FormData) => {
 
 
     const { data, error } = await resend.emails.send({
-      from: `Support Request <onboarding@resend.dev>`,
+      from: `Support Request <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Support & Training Request from ${organizationName}`,
       react: SupportFormEmail({
@@ -242,7 +242,7 @@ export const processFormAction = async (formData: FormData) => {
     const requestId = `P-${Date.now()}`;
 
     const { data, error } = await resend.emails.send({
-      from: "Process Improvement Request <onboarding@resend.dev>",
+      from: "Process Improvement Request <imhogen@admin.imhogen.com>",
       to: ["imhogen22@gmail.com"],
       subject: `New Process Improvement Request from ${organizationName}`,
       react: ProcessRequestEmail({
@@ -432,7 +432,7 @@ export const ProductFormAction = async (formData: FormData) => {
     const requestId = `PD-${Date.now()}`;
 
     const { data, error } = await resend.emails.send({
-      from: `Product Request <onboarding@resend.dev>`,
+      from: `Product Request <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Product Request from ${organizationName}`,
       react: ProductFormEmail({
