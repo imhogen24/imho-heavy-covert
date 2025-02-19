@@ -1,11 +1,20 @@
 import { cn } from "@/lib/utils";
+import { LightningBoltIcon } from "@radix-ui/react-icons";
 import {
     User, FileText, BookUser, Paintbrush,
     FolderOpen, GraduationCap, Calendar, Info, BookOpen,
     Lightbulb, Settings, Package, Users, ShieldCheck,
     MessageSquare,
     LucideIcon,
-    Nut
+    LightbulbIcon,
+    FileQuestionIcon,
+    Sliders,
+    TriangleAlert,
+    TrendingUp,
+    BriefcaseBusiness,
+    LifeBuoy,
+    Keyboard,
+    RefreshCcw,
 } from "lucide-react";
 interface FORM_SECTION_PROPS extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
@@ -17,20 +26,25 @@ const iconMap: Record<string, LucideIcon> = {
     "client information": User,
     "documentation requirements": FileText,
     "technical details": Settings,
-    "project specifics": BookUser,
+    "project specifics": BriefcaseBusiness,
     "aesthetic preferences": Paintbrush,
     "file attachments": FolderOpen,
     "training requirements": GraduationCap,
     "project details": Calendar,
     "additional information": Info,
-    "project support requirements": BookOpen,
+    "project support requirements": LifeBuoy,
     "additional considerations": Lightbulb,
-    "input requirements": Settings, 
-    "transformation requirements": Settings,
+    "input requirements": Keyboard,
+    "transformation requirements": RefreshCcw,
     "output requirements": Package,
     "operational agents": Users,
     "safety, maintenance and scalability": ShieldCheck,
     "collaboration and communication": MessageSquare,
+    "process requirements": Sliders,
+    "challenges or inefficiencies": TriangleAlert,
+    "scalability & future goals": TrendingUp
+
+
 };
 
 
