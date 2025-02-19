@@ -16,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useState } from "react";
-import { CadSchema, type CadFormData } from "@/lib/z-schema";
+import { CadSchema, type CadFormData } from "@/lib/z";
 import { cadFormAction } from "@/actions/action";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
@@ -695,7 +695,7 @@ export const CadForm = () => {
                 <>Submit Response</>
               )}
             </Button>
-            {/* <FormPreview formData={form.getValues()} /> */}
+            <FormPreview formData={form.getValues()} />
           </div>
         </form>
       </Form>
