@@ -59,8 +59,7 @@ export const CadSchema = z.object({
     .optional(),
   additionalComments: z.string().trim().optional(),
 
-  fileAttachments: z.array(z.string()).default([])
-  ,
+  fileAttachments: z.array(z.string()).default([]),
 
   // Metadata (optional as these are typically auto-generated)
   createdAt: z.date().optional(),

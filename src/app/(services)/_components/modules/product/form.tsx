@@ -24,6 +24,7 @@ import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import { ProductFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
 import Link from "next/link";
+import { FormPreview } from "./preview";
 
 const collaborationPreferences = [
   "Regular Meetings",
@@ -716,6 +717,7 @@ export const ProductForm = () => {
                 <>Submit Request</>
               )}
             </Button>
+            <FormPreview formData={form.getValues()} />
           </div>
         </form>
       </Form>

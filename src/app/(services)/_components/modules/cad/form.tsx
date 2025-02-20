@@ -125,7 +125,7 @@ export const CadForm = () => {
     }
 
     try {
-      // console.log(values)
+      console.log(values.fileAttachments)
       const result = await cadFormAction(formData);
       if (result.error) {
         toast.error(result.error);
