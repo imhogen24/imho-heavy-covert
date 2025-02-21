@@ -254,7 +254,7 @@ export const processFormAction = async (formData: FormData) => {
     const managementSystems = formData.get("managementSystems") as string;
     const technicalSytems = formData.get("technicalSytems") as string;
     const informationSystems = formData.get("informationSystems") as string;
-    const environmentalSytems = formData.get("environmentalSytems") as string;
+    const environment = formData.get("environmentalSytems") as string;
 
     // Process Requirements
     const existingSytems = formData.get("existingSytems") as string;
@@ -299,7 +299,7 @@ export const processFormAction = async (formData: FormData) => {
         managementSystems,
         technicalSytems,
         informationSystems,
-        environmentalSytems,
+        environment,
         existingSytems,
         newSystemRequiements,
         KeyMetrics,
@@ -354,7 +354,7 @@ export const ProductFormAction = async (formData: FormData) => {
     // Input Requirements
     const materialInputs = formData.get("materialInputs") as string;
     const energyInputs = formData.get("energyInputs") as string;
-    const dataInputs = formData.get("dataInputs") as string;
+    const informationInputs = formData.get("dataInputs") as string;
     const livingSystemInputs = formData.get("livingSystemInputs") as string;
     const biologicalComponent = formData.get("biologicalComponent") === "true";
     const biologicalInputDescription = formData.get("biologicalInputDescription") as string;
@@ -365,14 +365,14 @@ export const ProductFormAction = async (formData: FormData) => {
 
     // Output Requirements
     const systemOutputs = formData.get("systemOutputs") as string;
-    const dataOutputs = formData.get("dataOutputs") as string;
+    const informationOutputs = formData.get("dataOutputs") as string;
     const energyOutputs = formData.get("energyOutputs") as string;
     const livingThingsOutputs = formData.get("livingThingsOutputs") as string;
 
     // Operational Agents
     const humanSystems = formData.get("humanSystems") as string;
     const technicalSystems = formData.get("technicalSystems") as string;
-    const environmentalSystems = formData.get("environmentalSystems") as string;
+    const environment = formData.get("environmentalSystems") as string;
     const informationSystems = formData.get("informationSystems") as string;
     const managementSystems = formData.get("managementSystems") as string;
 
@@ -400,19 +400,19 @@ export const ProductFormAction = async (formData: FormData) => {
         businessOverview,
         materialInputs,
         energyInputs,
-        dataInputs,
+        informationInputs,
         livingSystemInputs,
         biologicalComponent,
         biologicalInputDescription,
         transformationDescription,
         performanceTargets,
         systemOutputs,
-        dataOutputs,
+        informationOutputs,
         energyOutputs,
         livingThingsOutputs,
         humanSystems,
         technicalSystems,
-        environmentalSystems,
+        environment,
         informationSystems,
         managementSystems,
         safetyRequirements,
