@@ -59,8 +59,7 @@ export const CadSchema = z.object({
     .optional(),
   additionalComments: z.string().trim().optional(),
 
-  fileAttachments: z.array(z.string()).default([])
-  ,
+  fileAttachments: z.array(z.string()).default([]),
 
   // Metadata (optional as these are typically auto-generated)
   createdAt: z.date().optional(),
@@ -134,7 +133,7 @@ export const ProductSchema = z.object({
   //INPUT REQUIREMENTS
   materialInputs: z.string().min(5).max(200).optional().or(z.literal('')),
   energyInputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  dataInputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  informationInputs: z.string().min(5).max(200).optional().or(z.literal('')),
   livingSystemInputs: z.string().min(5).max(200).optional().or(z.literal('')),
   biologicalComponent: z.boolean().default(false),
   biologicalInputDescription: z.string().min(5).max(200).optional().or(z.literal('')),
@@ -147,7 +146,7 @@ export const ProductSchema = z.object({
 
   //OUTPUT REQUIREMENTS
   systemOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  dataOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  informationOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
   energyOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
   livingThingsOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
 
@@ -155,7 +154,7 @@ export const ProductSchema = z.object({
   // OPERATIONAL AGENTS
   humanSystems: z.string().min(5).max(200).optional().or(z.literal('')),
   technicalSystems: z.string().min(5).max(200).optional().or(z.literal('')),
-  environmentalSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+  environment: z.string().min(5).max(200).optional().or(z.literal('')),
   informationSystems: z.string().min(5).max(200).optional().or(z.literal('')),
   managementSystems: z.string().min(5).max(200).optional().or(z.literal('')),
 
@@ -200,7 +199,7 @@ export const ProcessSchema = z.object({
   managementSystems: z.string().min(10).max(500),
   technicalSytems: z.string().min(10).max(500),
   informationSystems: z.string().min(10).max(500),
-  environmentalSytems: z.string().min(10).max(500),
+  environment: z.string().min(10).max(500),
 
   //PROCESS REQUIREMENTS
   existingSytems: z.string().min(10).max(500).optional().or(z.literal('')),

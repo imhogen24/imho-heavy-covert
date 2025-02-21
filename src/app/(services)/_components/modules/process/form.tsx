@@ -24,6 +24,7 @@ import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import { processFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
 import Link from "next/link";
+import { FormPreview } from "./preview";
 
 const collaborationPreferences = [
   "Regular Meetings",
@@ -65,7 +66,7 @@ export const ProcessForm = () => {
       managementSystems: "",
       technicalSytems: "",
       informationSystems: "",
-      environmentalSytems: "",
+      environment: "",
 
       // Process Requirements
       existingSytems: "",
@@ -352,12 +353,12 @@ export const ProcessForm = () => {
 
               <FormField
                 control={form.control}
-                name="environmentalSytems"
+                name="environment"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Environmental Systems</FormLabel>
+                    <FormLabel>Environment</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe environmental systems involved" {...field} />
+                      <Textarea placeholder="Describe environment involved" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -739,6 +740,7 @@ export const ProcessForm = () => {
                 <>Submit Request</>
               )}
             </Button>
+            <FormPreview formData={form.getValues()} />
           </div>
         </form>
       </Form>

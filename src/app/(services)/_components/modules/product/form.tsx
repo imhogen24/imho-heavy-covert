@@ -24,6 +24,7 @@ import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import { ProductFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
 import Link from "next/link";
+import { FormPreview } from "./preview";
 
 const collaborationPreferences = [
   "Regular Meetings",
@@ -51,7 +52,7 @@ export const ProductForm = () => {
       // Input Requirements
       materialInputs: "",
       energyInputs: "",
-      dataInputs: "",
+      informationInputs: "",
       livingSystemInputs: "",
       biologicalComponent: false,
       biologicalInputDescription: "",
@@ -62,14 +63,14 @@ export const ProductForm = () => {
 
       // Output Requirements
       systemOutputs: "",
-      dataOutputs: "",
+      informationOutputs: "",
       energyOutputs: "",
       livingThingsOutputs: "",
 
       // Operational Agents
       humanSystems: "",
       technicalSystems: "",
-      environmentalSystems: "",
+      environment: "",
       informationSystems: "",
       managementSystems: "",
 
@@ -247,7 +248,7 @@ export const ProductForm = () => {
 
               <FormField
                 control={form.control}
-                name="dataInputs"
+                name="informationInputs"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Data Inputs</FormLabel>
@@ -365,7 +366,7 @@ export const ProductForm = () => {
 
               <FormField
                 control={form.control}
-                name="dataOutputs"
+                name="informationOutputs"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Data Outputs</FormLabel>
@@ -440,7 +441,7 @@ export const ProductForm = () => {
 
               <FormField
                 control={form.control}
-                name="environmentalSystems"
+                name="environment"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Environmental Systems</FormLabel>
@@ -716,6 +717,7 @@ export const ProductForm = () => {
                 <>Submit Request</>
               )}
             </Button>
+            <FormPreview formData={form.getValues()} />
           </div>
         </form>
       </Form>

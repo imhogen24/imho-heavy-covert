@@ -7,6 +7,9 @@ import {
   LoaderCircle,
   User,
   FileText,
+  RefreshCcw,
+  Calendar,
+  Package,
   X
 } from "lucide-react"
 import { Button } from "@/components/ui/button";
@@ -20,23 +23,29 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type CadFormData } from "@/lib/z";
+import { SupportFormData } from "@/lib/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { CadPDF } from "../../pdf/docs";
+import { SupportPDF } from "../../pdf/docs";
 
 interface FormPreviewProps {
-  formData: CadFormData;
+  formData: SupportFormData;
 }
 
 interface FieldConfig {
   label: string;
-  value: string | boolean | string[] | undefined;
+  value: string | boolean | string[] | Date | number | undefined;
   fullWidth?: boolean;
   isMedium?: boolean;
   isBoolean?: boolean;
   isArray?: boolean;
+  isDate?: boolean;
+}
+
+interface DateRangeField {
+  startDate: Date;
+  endDate: Date;
 }
 
 interface SectionConfig {
@@ -44,10 +53,14 @@ interface SectionConfig {
   icon: React.FC<{ className?: string }>;
   fields?: FieldConfig[];
   fileAttachments?: string[];
+  dateRange?: {
+    label: string;
+    value?: DateRangeField;
+  };
 }
 
 // Helper function to check if a section has any filled fields
-const hasSectionContent = (fields: (string | boolean | string[] | undefined)[]) => {
+const hasSectionContent = (fields: (string | boolean | string[] | Date | number | undefined)[]) => {
   return fields.some(field => {
     if (Array.isArray(field)) return field.length > 0;
     return field !== undefined && field !== "" && field !== false;
@@ -73,64 +86,65 @@ const parseFileAttachment = (fileString: string) => {
   }
 };
 
+// Helper function to format dates
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+
 export const FormPreview = ({ formData }: FormPreviewProps) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPdfPrepared, setIsPdfPrepared] = useState(false);
 
   const sections: SectionConfig[] = [
     {
-      title: "Organization Details",
+      title: "Client Information",
       icon: User,
       fields: [
         { label: "Organization Name", value: formData.organizationName },
         { label: "Contact Person", value: formData.contactPerson },
         { label: "Email", value: formData.email },
         { label: "Phone Number", value: formData.phoneNumber },
-        { label: "Address", value: formData.address, fullWidth: true },
-        { label: "Organization Operations", value: formData.organizationOperations, fullWidth: true, isMedium: true },
+        { label: "Physical/Postal Address", value: formData.physicalPostalAddress, fullWidth: true },
+        { label: "Business Overview", value: formData.businessOverview, fullWidth: true, isMedium: true },
       ]
     },
     {
-      title: "Documentation Details",
-      icon: FileText,
+      title: "Training Requirements",
+      icon: RefreshCcw,
       fields: [
-        { label: "Documentation Purpose", value: formData.documentationPurpose, fullWidth: true },
-        { label: "Documentation Types", value: formData.documentationTypes, isArray: true },
-        { label: "Other Documentation Types", value: formData.otherDocumentationTypes },
-        { label: "File Formats", value: formData.fileFormats, isArray: true, isMedium: true },
-        { label: "Other File Formats", value: formData.otherFileFormats },
+        { label: "Training Needs", value: formData.trainingNeeds, fullWidth: true },
+        { label: "Training Objectives", value: formData.trainingObjectives, fullWidth: true },
+        { label: "Number of Participants", value: formData.numberOfParticipants },
+        { label: "Participant Roles", value: formData.participantRoles },
+        { label: "Participant Skill Level", value: formData.participantSkillLevel },
+        { label: "Training Delivery Mode", value: formData.trainingDeliveryMode },
+      ],
+      dateRange: {
+        label: "Training Timeline",
+        value: formData.trainingTimeline
+      }
+    },
+    {
+      title: "Project Support Requirements",
+      icon: Package,
+      fields: [
+        { label: "Project Overview", value: formData.projectOverview, fullWidth: true },
+        { label: "Project Scope & Deliverables", value: formData.projectScopeDeliverables, fullWidth: true },
+        { label: "Collaboration Preferences", value: formData.collaborationPreferences, isArray: true },
+        { label: "Project Deadline", value: formData.projectDeadline, isDate: true },
       ]
     },
     {
-      title: "Technical Details",
+      title: "Additional Considerations",
       icon: FileText,
       fields: [
-        { label: "Technical Specifications", value: formData.technicalSpecifications, fullWidth: true },
-        { label: "Technical Standards", value: formData.technicalStandards, fullWidth: true },
-      ]
-    },
-    {
-      title: "Preferences",
-      icon: FileText,
-      fields: [
-        { label: "Visual Style Preferences", value: formData.visualStylePreferences, fullWidth: true },
-        { label: "Layout Preferences", value: formData.layoutPreferences, fullWidth: true, isMedium: true },
-      ]
-    },
-    {
-      title: "Timeline and Additional Services",
-      icon: FileText,
-      fields: [
-        { label: "Preferred Timeline", value: formData.preferredTimeline },
-        { label: "Require Periodic Drafts", value: formData.requirePeriodicDrafts, isBoolean: true },
-        { label: "Additional Services", value: formData.additionalServices, isArray: true },
-      ]
-    },
-    {
-      title: "Additional Comments",
-      icon: FileText,
-      fields: [
-        { label: "Additional Comments", value: formData.additionalComments, fullWidth: true },
+        { label: "Tools & Resources", value: formData.toolsAndResources, fullWidth: true },
+        { label: "Interest in Long Term Collaboration", value: formData.longTermCollaboration, isBoolean: true },
+        { label: "Additional Information", value: formData.additionalInformation, fullWidth: true },
       ]
     },
     {
@@ -139,6 +153,14 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
       fileAttachments: Array.isArray(formData.fileAttachments)
         ? formData.fileAttachments
         : formData.fileAttachments ? [formData.fileAttachments] : []
+    },
+    {
+      title: "Submission Info",
+      icon: Calendar,
+      fields: [
+        { label: "Created", value: formData.createdAt, isDate: true },
+        { label: "Last Updated", value: formData.updatedAt, isDate: true },
+      ]
     }
   ];
 
@@ -161,7 +183,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           <div>
             <DialogTitle>Preview Your Submission</DialogTitle>
             <DialogDescription>
-              Review your CAD request details before submitting
+              Review your support request details before submitting
             </DialogDescription>
           </div>
           <DialogClose asChild>
@@ -210,6 +232,68 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               );
             }
 
+            // Handle sections with date ranges
+            if (section.dateRange && section.dateRange.value) {
+              return (
+                <section key={idx} className={idx > 0 ? "border-t muted-border pt-4" : ""}>
+                  <h3 className="inline-flex gap-2 text-xl font-medium leading-none tracking-tight mb-4">
+                    <span><Icon className="my-auto size-5" /></span> {section.title}
+                  </h3>
+                  <div className="space-y-5">
+                    {section.fields?.map((field, fieldIdx) => {
+                      // Skip empty fields
+                      if (field.value === undefined || field.value === "" ||
+                        (Array.isArray(field.value) && field.value.length === 0)) {
+                        return null;
+                      }
+
+                      // Format the value based on its type
+                      let displayValue: React.ReactNode;
+                      if (field.isBoolean) {
+                        displayValue = field.value ? "Yes" : "No";
+                      } else if (field.isArray && Array.isArray(field.value)) {
+                        displayValue = field.value.join(", ");
+                      } else if (field.isDate && field.value instanceof Date) {
+                        displayValue = formatDate(field.value);
+                      } else {
+                        displayValue = String(field.value);
+                      }
+
+                      return (
+                        <div key={fieldIdx} className={`${field.fullWidth ? "md:col-span-2" : ""} `}>
+                          <h4 className={`${field.isMedium ? "font-medium" : "font-semibold"} text-sm mb-1`}>
+                            {field.label}
+                          </h4>
+                          <p className="text-muted-foreground font-light text-sm whitespace-pre-wrap">
+                            {displayValue}
+                          </p>
+                        </div>
+                      );
+                    })}
+
+                    {/* Render the date range */}
+                    <div>
+                      <h4 className="font-semibold text-sm mb-1">{section.dateRange.label}</h4>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <h5 className="font-light text-sm">Start Date</h5>
+                          <p className="text-muted-foreground font-light text-sm">
+                            {formatDate(section.dateRange.value.startDate)}
+                          </p>
+                        </div>
+                        <div>
+                          <h5 className="font-light text-sm">End Date</h5>
+                          <p className="text-muted-foreground font-light text-sm">
+                            {formatDate(section.dateRange.value.endDate)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              );
+            }
+
             // Skip rendering other sections if all fields are empty
             if (!section.fields || !hasSectionContent(section.fields.map(f => f.value))) {
               return null;
@@ -234,6 +318,8 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
                       displayValue = field.value ? "Yes" : "No";
                     } else if (field.isArray && Array.isArray(field.value)) {
                       displayValue = field.value.join(", ");
+                    } else if (field.isDate && field.value instanceof Date) {
+                      displayValue = formatDate(field.value);
                     } else {
                       displayValue = String(field.value);
                     }
@@ -266,8 +352,8 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
             </Button>
           ) : (
             <PDFDownloadLink
-              document={<CadPDF data={formData} />}
-              fileName={`cad-request-${new Date().toISOString().split('T')[0]}.pdf`}
+              document={<SupportPDF data={formData} />}
+              fileName={`support-request-${new Date().toISOString().split('T')[0]}.pdf`}
             >
               {({ loading, url }) => (
                 <Button

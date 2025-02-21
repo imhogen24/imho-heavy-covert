@@ -7,6 +7,15 @@ import {
   LoaderCircle,
   User,
   FileText,
+  RefreshCcw,
+  Package,
+  Users,
+  ShieldCheck,
+  MessageSquare,
+  FolderOpen,
+  Settings,
+  TrendingUp,
+  TriangleAlert,
   X
 } from "lucide-react"
 import { Button } from "@/components/ui/button";
@@ -20,14 +29,14 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type CadFormData } from "@/lib/z";
+import { type ProcessFormData } from "@/lib/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { CadPDF } from "../../pdf/docs";
+import { ProcessPDF } from "../../pdf/docs";
 
 interface FormPreviewProps {
-  formData: CadFormData;
+  formData: ProcessFormData;
 }
 
 interface FieldConfig {
@@ -54,7 +63,7 @@ const hasSectionContent = (fields: (string | boolean | string[] | undefined)[]) 
   });
 };
 
-// Helper function to better handle file attachment parsing
+// Update this helper function to better handle file attachment parsing
 const parseFileAttachment = (fileString: string) => {
   try {
     const parts = fileString.split(",");
@@ -79,7 +88,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
 
   const sections: SectionConfig[] = [
     {
-      title: "Organization Details",
+      title: "Client Information",
       icon: User,
       fields: [
         { label: "Organization Name", value: formData.organizationName },
@@ -87,55 +96,76 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
         { label: "Email", value: formData.email },
         { label: "Phone Number", value: formData.phoneNumber },
         { label: "Address", value: formData.address, fullWidth: true },
-        { label: "Organization Operations", value: formData.organizationOperations, fullWidth: true, isMedium: true },
+        { label: "Business Overview", value: formData.businessOverview, fullWidth: true, isMedium: true },
       ]
     },
     {
-      title: "Documentation Details",
-      icon: FileText,
+      title: "Input Requirements",
+      icon: RefreshCcw,
       fields: [
-        { label: "Documentation Purpose", value: formData.documentationPurpose, fullWidth: true },
-        { label: "Documentation Types", value: formData.documentationTypes, isArray: true },
-        { label: "Other Documentation Types", value: formData.otherDocumentationTypes },
-        { label: "File Formats", value: formData.fileFormats, isArray: true, isMedium: true },
-        { label: "Other File Formats", value: formData.otherFileFormats },
+        { label: "Material Inputs", value: formData.materialInputs },
+        { label: "Energy Inputs", value: formData.EnergyInputs },
+        { label: "Information Inputs", value: formData.informationInputs },
+        { label: "Living Inputs", value: formData.livingInputs },
       ]
     },
     {
-      title: "Technical Details",
-      icon: FileText,
+      title: "Operational Agents",
+      icon: Users,
       fields: [
-        { label: "Technical Specifications", value: formData.technicalSpecifications, fullWidth: true },
-        { label: "Technical Standards", value: formData.technicalStandards, fullWidth: true },
+        { label: "Human Systems", value: formData.humanSytems },
+        { label: "Management Systems", value: formData.managementSystems },
+        { label: "Technical Systems", value: formData.technicalSytems },
+        { label: "Information Systems", value: formData.informationSystems },
+        { label: "Environmental Systems", value: formData.environment },
       ]
     },
     {
-      title: "Preferences",
-      icon: FileText,
+      title: "Process Requirements",
+      icon: Settings,
       fields: [
-        { label: "Visual Style Preferences", value: formData.visualStylePreferences, fullWidth: true },
-        { label: "Layout Preferences", value: formData.layoutPreferences, fullWidth: true, isMedium: true },
+        { label: "Existing Systems", value: formData.existingSytems },
+        { label: "New System Requirements", value: formData.newSystemRequiements },
+        { label: "Key Metrics", value: formData.KeyMetrics },
       ]
     },
     {
-      title: "Timeline and Additional Services",
-      icon: FileText,
+      title: "Output Requirements",
+      icon: Package,
       fields: [
-        { label: "Preferred Timeline", value: formData.preferredTimeline },
-        { label: "Require Periodic Drafts", value: formData.requirePeriodicDrafts, isBoolean: true },
-        { label: "Additional Services", value: formData.additionalServices, isArray: true },
+        { label: "Material Outputs", value: formData.materialOutputs },
+        { label: "Energy Outputs", value: formData.EnergyOutputs },
+        { label: "Information Outputs", value: formData.informationOutputs },
+        { label: "Living Outputs", value: formData.livingOutputs },
       ]
     },
     {
-      title: "Additional Comments",
-      icon: FileText,
+      title: "Challenges or Inefficiencies",
+      icon: TriangleAlert,
       fields: [
-        { label: "Additional Comments", value: formData.additionalComments, fullWidth: true },
+        { label: "Pain Points", value: formData.painPoints, isArray: true },
+        { label: "Specific Issues", value: formData.specificIssues },
+      ]
+    },
+    {
+      title: "Scalability and Future Goals",
+      icon: TrendingUp,
+      fields: [
+        { label: "Future Growth Plans", value: formData.futureGrowth, isBoolean: true },
+        { label: "Comparable Systems", value: formData.comparableSystems },
+      ]
+    },
+    {
+      title: "Collaboration and Communication",
+      icon: MessageSquare,
+      fields: [
+        { label: "Collaboration Preferences", value: formData.collaborationPreferences, isArray: true },
+        { label: "Additional Comments", value: formData.additionalComments },
       ]
     },
     {
       title: "File Attachments",
-      icon: FileText,
+      icon: FolderOpen,
       fileAttachments: Array.isArray(formData.fileAttachments)
         ? formData.fileAttachments
         : formData.fileAttachments ? [formData.fileAttachments] : []
@@ -161,7 +191,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           <div>
             <DialogTitle>Preview Your Submission</DialogTitle>
             <DialogDescription>
-              Review your CAD request details before submitting
+              Review your Process request details before submitting
             </DialogDescription>
           </div>
           <DialogClose asChild>
@@ -266,8 +296,8 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
             </Button>
           ) : (
             <PDFDownloadLink
-              document={<CadPDF data={formData} />}
-              fileName={`cad-request-${new Date().toISOString().split('T')[0]}.pdf`}
+              document={<ProcessPDF data={formData} />}
+              fileName={`process-request-${new Date().toISOString().split('T')[0]}.pdf`}
             >
               {({ loading, url }) => (
                 <Button

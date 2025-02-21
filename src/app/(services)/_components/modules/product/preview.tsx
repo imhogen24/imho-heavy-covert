@@ -7,6 +7,24 @@ import {
   LoaderCircle,
   User,
   FileText,
+  Settings,
+  BriefcaseBusiness,
+  Paintbrush,
+  FolderOpen,
+  GraduationCap,
+  Calendar,
+  Info,
+  LifeBuoy,
+  Lightbulb,
+  Keyboard,
+  RefreshCcw,
+  Package,
+  Users,
+  ShieldCheck,
+  MessageSquare,
+  Sliders,
+  TriangleAlert,
+  TrendingUp,
   X
 } from "lucide-react"
 import { Button } from "@/components/ui/button";
@@ -20,14 +38,14 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type CadFormData } from "@/lib/z";
+import { type ProductFormData } from "@/lib/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { CadPDF } from "../../pdf/docs";
+import { ProductPDF } from "../../pdf/docs";
 
 interface FormPreviewProps {
-  formData: CadFormData;
+  formData: ProductFormData;
 }
 
 interface FieldConfig {
@@ -54,7 +72,7 @@ const hasSectionContent = (fields: (string | boolean | string[] | undefined)[]) 
   });
 };
 
-// Helper function to better handle file attachment parsing
+// Update this helper function to better handle file attachment parsing
 const parseFileAttachment = (fileString: string) => {
   try {
     const parts = fileString.split(",");
@@ -73,13 +91,16 @@ const parseFileAttachment = (fileString: string) => {
   }
 };
 
+
 export const FormPreview = ({ formData }: FormPreviewProps) => {
+  console.log(formData.fileAttachments);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPdfPrepared, setIsPdfPrepared] = useState(false);
 
+
   const sections: SectionConfig[] = [
     {
-      title: "Organization Details",
+      title: "Client Information",
       icon: User,
       fields: [
         { label: "Organization Name", value: formData.organizationName },
@@ -87,55 +108,73 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
         { label: "Email", value: formData.email },
         { label: "Phone Number", value: formData.phoneNumber },
         { label: "Address", value: formData.address, fullWidth: true },
-        { label: "Organization Operations", value: formData.organizationOperations, fullWidth: true, isMedium: true },
+        { label: "Business Overview", value: formData.businessOverview, fullWidth: true, isMedium: true },
       ]
     },
     {
-      title: "Documentation Details",
-      icon: FileText,
+      title: "Input Requirements",
+      icon: Keyboard,
       fields: [
-        { label: "Documentation Purpose", value: formData.documentationPurpose, fullWidth: true },
-        { label: "Documentation Types", value: formData.documentationTypes, isArray: true },
-        { label: "Other Documentation Types", value: formData.otherDocumentationTypes },
-        { label: "File Formats", value: formData.fileFormats, isArray: true, isMedium: true },
-        { label: "Other File Formats", value: formData.otherFileFormats },
+        { label: "Material Inputs", value: formData.materialInputs },
+        { label: "Energy Inputs", value: formData.energyInputs },
+        { label: "Information Inputs", value: formData.informationInputs },
+        { label: "Living System Inputs", value: formData.livingSystemInputs },
+        { label: "Biological Component", value: formData.biologicalComponent, isBoolean: true },
+        {
+          label: "Biological Input Description",
+          value: formData.biologicalComponent ? formData.biologicalInputDescription : undefined
+        },
       ]
     },
     {
-      title: "Technical Details",
-      icon: FileText,
+      title: "Transformation Requirements (System Process)",
+      icon: RefreshCcw,
       fields: [
-        { label: "Technical Specifications", value: formData.technicalSpecifications, fullWidth: true },
-        { label: "Technical Standards", value: formData.technicalStandards, fullWidth: true },
+        { label: "Transformation Description", value: formData.transformationDescription },
+        { label: "Performance Targets", value: formData.performanceTargets },
       ]
     },
     {
-      title: "Preferences",
-      icon: FileText,
+      title: "Output Requirements",
+      icon: Package,
       fields: [
-        { label: "Visual Style Preferences", value: formData.visualStylePreferences, fullWidth: true },
-        { label: "Layout Preferences", value: formData.layoutPreferences, fullWidth: true, isMedium: true },
+        { label: "System Outputs", value: formData.systemOutputs },
+        { label: "Information Outputs", value: formData.informationOutputs },
+        { label: "Energy Outputs", value: formData.energyOutputs },
+        { label: "Living Things Outputs", value: formData.livingThingsOutputs },
       ]
     },
     {
-      title: "Timeline and Additional Services",
-      icon: FileText,
+      title: "Operational Agents",
+      icon: Users,
       fields: [
-        { label: "Preferred Timeline", value: formData.preferredTimeline },
-        { label: "Require Periodic Drafts", value: formData.requirePeriodicDrafts, isBoolean: true },
-        { label: "Additional Services", value: formData.additionalServices, isArray: true },
+        { label: "Human Systems", value: formData.humanSystems },
+        { label: "Technical Systems", value: formData.technicalSystems },
+        { label: "Environment", value: formData.environment },
+        { label: "Information Systems", value: formData.informationSystems },
+        { label: "Management Systems", value: formData.managementSystems },
       ]
     },
     {
-      title: "Additional Comments",
-      icon: FileText,
+      title: "Safety, Maintenance and Scalability",
+      icon: ShieldCheck,
       fields: [
-        { label: "Additional Comments", value: formData.additionalComments, fullWidth: true },
+        { label: "Safety Requirements", value: formData.safetyRequirements },
+        { label: "Maintenance Needs", value: formData.maintenanceNeeds, isArray: true },
+        { label: "Future Scalability", value: formData.futureScalability },
+      ]
+    },
+    {
+      title: "Collaboration and Communication",
+      icon: MessageSquare,
+      fields: [
+        { label: "Collaboration Preferences", value: formData.collaborationPreferences, isArray: true },
+        { label: "Additional Comments", value: formData.additionalComments },
       ]
     },
     {
       title: "File Attachments",
-      icon: FileText,
+      icon: FolderOpen,
       fileAttachments: Array.isArray(formData.fileAttachments)
         ? formData.fileAttachments
         : formData.fileAttachments ? [formData.fileAttachments] : []
@@ -161,7 +200,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           <div>
             <DialogTitle>Preview Your Submission</DialogTitle>
             <DialogDescription>
-              Review your CAD request details before submitting
+              Review your Product request details before submitting
             </DialogDescription>
           </div>
           <DialogClose asChild>
@@ -169,6 +208,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               <X />
             </Button>
           </DialogClose>
+
         </DialogHeader>
         <div className="space-y-6 py-4">
           {sections.map((section, idx) => {
@@ -266,8 +306,8 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
             </Button>
           ) : (
             <PDFDownloadLink
-              document={<CadPDF data={formData} />}
-              fileName={`cad-request-${new Date().toISOString().split('T')[0]}.pdf`}
+              document={<ProductPDF data={formData} />}
+              fileName={`product-request-${new Date().toISOString().split('T')[0]}.pdf`}
             >
               {({ loading, url }) => (
                 <Button
