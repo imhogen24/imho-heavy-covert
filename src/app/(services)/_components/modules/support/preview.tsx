@@ -28,7 +28,6 @@ import { SupportFormData } from "@/lib/z";
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { SupportPDF } from "../../pdf/docs";
-import { PreviewButton } from "../shared/preview-button";
 
 interface FormPreviewProps {
   formData: SupportFormData;
@@ -173,7 +172,12 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
       }
     }}>
       <DialogTrigger asChild>
-        <PreviewButton />
+        <Button
+          className="w-full md:w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]"
+          variant="outline"
+        >
+          Preview Response <EyeIcon className="h-4 w-4" />
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
         <DialogHeader className="flex flex-row justify-between">
