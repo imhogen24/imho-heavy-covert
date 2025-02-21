@@ -726,9 +726,9 @@ export const ProcessForm = () => {
           </FormSection>
 
 
-          <div className="mt-8 inline-flex gap-4">
+          <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
             <Button
-              className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+              className="w-full md:max-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto md:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
               disabled={pending}
               type="submit"
             >
