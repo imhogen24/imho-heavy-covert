@@ -151,9 +151,9 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
     }}>
       <DialogTrigger asChild>
         <Button
-          className="w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]"
+          className="w-full md:w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]"
           variant="outline">
-          Preview Response <EyeIcon className="h-4 w-4 ml-2" />
+          Preview Response <EyeIcon className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
