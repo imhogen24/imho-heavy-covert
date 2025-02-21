@@ -6,6 +6,9 @@ import ProductRequestEmail, { ProductFormEmail } from "../components/emails/prod
 import SupportRequestEmail, { SupportFormEmail } from "../components/emails/support/engieering-support-template";
 import ProcessRequestEmail from "../components/emails/process/process-template";
 import { ContactFormEmail } from "../components/emails/contact/contact-template";
+import ContactConfirmationEmail from "@/components/emails/contact/confirmation";
+import RequestConfirmationEmail from "@/components/emails/confirmation";
+
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -20,6 +23,7 @@ export const contactFormAction = async (formData: FormData) => {
     // Parse the JSON string back to an array
     const files = filesString ? JSON.parse(filesString) : [];
 
+    // Send notification to admin
     const { data, error } = await resend.emails.send({
       from: `Contact Form <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
@@ -35,6 +39,19 @@ export const contactFormAction = async (formData: FormData) => {
     if (error) {
       console.error("Resend Email Error:", error);
       return { error: "Failed to send email" };
+    }
+
+    // Send confirmation to submitter
+    const { error: confirmationError } = await resend.emails.send({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Thank you for contacting us, ${name}`,
+      react: ContactConfirmationEmail({ name }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
     }
 
     return { success: true };
@@ -106,6 +123,17 @@ export const cadFormAction = async (formData: FormData) => {
       return { error: "Failed to send email" };
     }
 
+    const { error: confirmationError } = await resend.emails.send({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Request received`,
+      react: RequestConfirmationEmail({ organizationName }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
     return { success: true };
   } catch (error: any) {
     console.error("CAD Form Action Error:", error);
@@ -187,6 +215,17 @@ export const SupportFormAction = async (formData: FormData) => {
       return { error: "Failed to send email" };
     }
 
+    const { error: confirmationError } = await resend.emails.send({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Request received`,
+      react: RequestConfirmationEmail({ organizationName }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
     return { success: true };
   } catch (error: any) {
     console.error("Support Form Action Error:", error);
@@ -283,106 +322,23 @@ export const processFormAction = async (formData: FormData) => {
       return { error: "Failed to send email" };
     }
 
+    const { error: confirmationError } = await resend.emails.send({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Request received`,
+      react: RequestConfirmationEmail({ organizationName }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
     return { success: true };
   } catch (error: any) {
     console.error("Process Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
 };
-// export const processFormAction = async (formData: FormData) => {
-//   try {
-//     const organizationName = formData.get("organizationName") as string;
-//     const contactPerson = formData.get("contactPerson") as string;
-//     const email = formData.get("email") as string;
-//     const phoneNumber = formData.get("phoneNumber") as string;
-//     const address = formData.get("address") as string;
-//     const businessOverview = formData.get("businessOverview") as string;
-
-//     // Input Requirements
-//     const materialInputs = formData.get("materialInputs") as string;
-//     const EnergyInputs = formData.get("EnergyInputs") as string;
-//     const informationInputs = formData.get("informationInputs") as string;
-//     const livingInputs = formData.get("livingInputs") as string;
-
-//     // Operational Agents
-//     const humanSytems = formData.get("humanSytems") as string;
-//     const managementSystems = formData.get("managementSystems") as string;
-//     const technicalSytems = formData.get("technicalSytems") as string;
-//     const informationSystems = formData.get("informationSystems") as string;
-//     const environmentalSytems = formData.get("environmentalSytems") as string;
-
-//     // Process Requirements
-//     const existingSytems = formData.get("existingSytems") as string;
-//     const newSystemRequiements = formData.get("newSystemRequiements") as string;
-//     const KeyMetrics = formData.get("KeyMetrics") as string;
-
-//     // Output Requirements
-//     const materialOutputs = formData.get("materialOutputs") as string;
-//     const EnergyOutputs = formData.get("EnergyOutputs") as string;
-//     const informationOutputs = formData.get("informationOutputs") as string;
-//     const livingOutputs = formData.get("livingOutputs") as string;
-
-//     // Challenges or Inefficiencies
-//     const painPoints = formData.getAll("painPoints") as string[];
-//     const specificIssues = formData.get("specificIssues") as string;
-
-//     // Scalability and Future Goals
-//     const futureGrowth = formData.get("futureGrowth") === "on";
-//     const comparableSystems = formData.get("comparableSystems") as string;
-
-//     // Collaboration and Communication
-//     const collaborationPreferences = formData.getAll("collaborationPreferences") as string[];
-//     const additionalComments = formData.get("additionalComments") as string;
-//     const requestNumber = `PROC-${Date.now()}`;
-
-//     const { data, error } = await resend.emails.send({
-//       from: "Process Improvement Request <onboarding@resend.dev>",
-//       to: ["imhogen22@gmail.com"],
-//       subject: `New Process Improvement Request from ${organizationName}`,
-//       react: ProcessRequestEmail({
-//         organizationName,
-//         contactPerson,
-//         email,
-//         phoneNumber,
-//         address,
-//         businessOverview,
-//         materialInputs,
-//         EnergyInputs,
-//         informationInputs,
-//         livingInputs,
-//         humanSytems,
-//         managementSystems,
-//         technicalSytems,
-//         informationSystems,
-//         environmentalSytems,
-//         existingSytems,
-//         newSystemRequiements,
-//         KeyMetrics,
-//         materialOutputs,
-//         EnergyOutputs,
-//         informationOutputs,
-//         livingOutputs,
-//         painPoints,
-//         specificIssues,
-//         futureGrowth,
-//         comparableSystems,
-//         collaborationPreferences,
-//         additionalComments,
-//         requestNumber,
-//       }),
-//     });
-
-//     if (error) {
-//       console.error("Resend Email Error:", error);
-//       return { error: "Failed to send email" };
-//     }
-
-//     return { success: true };
-//   } catch (error: any) {
-//     console.error("Process Form Action Error:", error);
-//     return { error: error.message || "An unexpected error occurred" };
-//   }
-// };
 
 
 export const ProductFormAction = async (formData: FormData) => {
@@ -474,9 +430,21 @@ export const ProductFormAction = async (formData: FormData) => {
       return { error: "Failed to send email" };
     }
 
+    const { error: confirmationError } = await resend.emails.send({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Request received`,
+      react: RequestConfirmationEmail({ organizationName }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
     return { success: true };
   } catch (error: any) {
     console.error("Product Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
 };
+

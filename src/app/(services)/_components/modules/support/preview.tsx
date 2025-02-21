@@ -13,27 +13,30 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type CadFormData } from "@/lib/z";
+import { SupportFormData } from "@/lib/z";
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { CadPDF } from "../../pdf/docs";
-
-
+import { SupportPDF } from "../../pdf/docs";
 
 interface FormPreviewProps {
-  formData: CadFormData;
+  formData: SupportFormData;
 }
 
-
-
 export const FormPreview = ({ formData }: FormPreviewProps) => {
-
   const [isDownloading, setIsDownloading] = useState(false)
 
   const handleDownloadClick = () => {
     setIsDownloading(true)
   }
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   return (
     <Dialog>
@@ -49,27 +52,25 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           <div>
             <DialogTitle>Preview Your Submission</DialogTitle>
             <DialogDescription>
-              Review your CAD request details before submitting
+              Review your support request details before submitting
             </DialogDescription>
           </div>
           <PDFDownloadLink
-            document={<CadPDF data={formData} />}
-            fileName={`cad-request-${new Date().toISOString().split('T')[0]}.pdf`}
+            document={<SupportPDF data={formData} />}
+            fileName={`support-request-${new Date().toISOString().split('T')[0]}.pdf`}
           >
             {({ loading }) => (
               <Button
                 disabled={loading}
                 variant="download"
-                className="md:min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0  h-[42px] md:h-[48px] dark:hover:bg-white/85"
+                className="md:min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
               >
                 {loading ? (
                   <>
                     <LoaderCircle className="h-4 w-4 animate-spin" />
-
                   </>
                 ) : (
                   <>
-
                     <span className="hidden md:block">Download PDF</span>
                     <DownloadIcon className="h-4 w-4" />
                   </>
@@ -79,9 +80,9 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           </PDFDownloadLink>
         </DialogHeader>
         <div className="space-y-6 py-4">
-          {/* Organization Details */}
+          {/* Client Information */}
           <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Organization Details</h3>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Client Information</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <h4 className="font-light leading-none tracking-tight">Organization Name</h4>
@@ -107,120 +108,138 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               </div>
             </div>
             <div className="mt-4">
-              <h4 className="font-light leading-none tracking-tight">Address</h4>
-              <p className="text-gray-600">{formData.address || "Not provided"}</p>
+              <h4 className="font-light leading-none tracking-tight">Physical/Postal Address</h4>
+              <p className="text-gray-600">{formData.physicalPostalAddress || "Not provided"}</p>
             </div>
             <div className="mt-4">
-              <h4 className="font-medium">Organization Operations</h4>
+              <h4 className="font-medium">Business Overview</h4>
               <p className="text-gray-600">
-                {formData.organizationOperations || "Not provided"}
+                {formData.businessOverview || "Not provided"}
               </p>
             </div>
           </section>
 
-          {/* Documentation Details */}
+          {/* Training Requirements */}
           <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Documentation Details</h3>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Training Requirements</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-light leading-none tracking-tight">Documentation Purpose</h4>
+                <h4 className="font-light leading-none tracking-tight">Training Needs</h4>
                 <p className="text-gray-600">
-                  {formData.documentationPurpose || "Not provided"}
+                  {formData.trainingNeeds || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-light leading-none tracking-tight">Documentation Types</h4>
+                <h4 className="font-light leading-none tracking-tight">Training Objectives</h4>
                 <p className="text-gray-600">
-                  {formData.documentationTypes && formData.documentationTypes.length > 0
-                    ? formData.documentationTypes.map(type => String(type)).join(", ")
-                    : "Not provided"}
+                  {formData.trainingObjectives || "Not provided"}
                 </p>
-                {formData.otherDocumentationTypes && (
-                  <p className="text-gray-600 mt-1">
-                    Other: {formData.otherDocumentationTypes}
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-light leading-none tracking-tight">Number of Participants</h4>
+                  <p className="text-gray-600">
+                    {formData.numberOfParticipants || "Not provided"}
                   </p>
+                </div>
+                <div>
+                  <h4 className="font-light leading-none tracking-tight">Participant Roles</h4>
+                  <p className="text-gray-600">
+                    {formData.participantRoles || "Not provided"}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-light leading-none tracking-tight">Participant Skill Level</h4>
+                  <p className="text-gray-600">
+                    {formData.participantSkillLevel || "Not provided"}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-light leading-none tracking-tight">Training Delivery Mode</h4>
+                  <p className="text-gray-600">
+                    {formData.trainingDeliveryMode || "Not provided"}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-medium">Training Timeline</h4>
+                {formData.trainingTimeline ? (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h5 className="font-light text-sm">Start Date</h5>
+                      <p className="text-gray-600">
+                        {formatDate(formData.trainingTimeline.startDate)}
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-light text-sm">End Date</h5>
+                      <p className="text-gray-600">
+                        {formatDate(formData.trainingTimeline.endDate)}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-gray-600">Not provided</p>
                 )}
               </div>
-              <div>
-                <h4 className="font-medium">File Formats</h4>
-                <p className="text-gray-600">
-                  {formData.fileFormats && formData.fileFormats.length > 0
-                    ? formData.fileFormats.map(format => String(format)).join(", ")
-                    : "Not provided"}
-                </p>
-                {formData.otherFileFormats && (
-                  <p className="text-gray-600 mt-1">
-                    Other: {formData.otherFileFormats}
-                  </p>
-                )}
-              </div>
             </div>
           </section>
 
-          {/* Technical Details */}
+          {/* Project Support Requirements */}
           <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Technical Details</h3>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Project Support Requirements</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-light leading-none tracking-tight">Technical Specifications</h4>
+                <h4 className="font-light leading-none tracking-tight">Project Overview</h4>
                 <p className="text-gray-600">
-                  {formData.technicalSpecifications || "Not provided"}
+                  {formData.projectOverview || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-light leading-none tracking-tight">Technical Standards</h4>
+                <h4 className="font-light leading-none tracking-tight">Project Scope & Deliverables</h4>
                 <p className="text-gray-600">
-                  {formData.technicalStandards || "Not provided"}
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Preferences */}
-          <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Preferences</h3>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-light leading-none tracking-tight">Visual Style Preferences</h4>
-                <p className="text-gray-600">
-                  {formData.visualStylePreferences || "Not provided"}
+                  {formData.projectScopeDeliverables || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-medium">Layout Preferences</h4>
+                <h4 className="font-medium">Collaboration Preferences</h4>
                 <p className="text-gray-600">
-                  {formData.layoutPreferences || "Not provided"}
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Timeline and Additional Services */}
-          <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">
-              Timeline and Additional Services
-            </h3>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-light leading-none tracking-tight">Preferred Timeline</h4>
-                <p className="text-gray-600">
-                  {formData.preferredTimeline || "Not provided"}
-                </p>
-              </div>
-              <div>
-                <h4 className="font-light leading-none tracking-tight">Require Periodic Drafts</h4>
-                <p className="text-gray-600">
-                  {formData.requirePeriodicDrafts ? "Yes" : "No"}
-                </p>
-              </div>
-              <div>
-                <h4 className="font-light leading-none tracking-tight">Additional Services</h4>
-                <p className="text-gray-600">
-                  {formData.additionalServices && formData.additionalServices.length > 0
-                    ? formData.additionalServices.map(service => String(service)).join(", ")
+                  {formData.collaborationPreferences && formData.collaborationPreferences.length > 0
+                    ? formData.collaborationPreferences.join(", ")
                     : "Not provided"}
                 </p>
               </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Project Deadline</h4>
+                <p className="text-gray-600">
+                  {formData.projectDeadline ? formatDate(formData.projectDeadline) : "Not provided"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Additional Considerations */}
+          <section>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Additional Considerations</h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Tools & Resources</h4>
+                <p className="text-gray-600">
+                  {formData.toolsAndResources || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Interest in Long Term Collaboration</h4>
+                <p className="text-gray-600">
+                  {formData.longTermCollaboration ? "Yes" : "No"}
+                </p>
+              </div>
+              {formData.additionalInformation && (
+                <div>
+                  <h4 className="font-light leading-none tracking-tight">Additional Information</h4>
+                  <p className="text-gray-600">{formData.additionalInformation}</p>
+                </div>
+              )}
             </div>
           </section>
 
@@ -249,27 +268,33 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
             </section>
           )}
 
-          {/* Additional Comments */}
-          {formData.additionalComments && (
+          {/* Submission Metadata */}
+          {(formData.createdAt || formData.updatedAt) && (
             <section>
-              <h3 className="text-lg font-light leading-none tracking-tight mb-4">Additional Comments</h3>
-              <p className="text-gray-600">{formData.additionalComments}</p>
+              <h3 className="text-lg font-light leading-none tracking-tight mb-4">Submission Info</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {formData.createdAt && (
+                  <div>
+                    <h4 className="font-light text-sm leading-none tracking-tight">Created</h4>
+                    <p className="text-gray-600">{formatDate(formData.createdAt)}</p>
+                  </div>
+                )}
+                {formData.updatedAt && (
+                  <div>
+                    <h4 className="font-light text-sm leading-none tracking-tight">Last Updated</h4>
+                    <p className="text-gray-600">{formatDate(formData.updatedAt)}</p>
+                  </div>
+                )}
+              </div>
             </section>
           )}
         </div>
         <DialogFooter className="items-end">
-
-
           <DialogClose asChild>
-            <Button variant="close" className=" w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]">Close Preview</Button>
+            <Button variant="close" className="w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]">Close Preview</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 };
-
-
-
-
-

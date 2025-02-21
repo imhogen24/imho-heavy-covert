@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { EyeIcon, DownloadIcon, LoaderCircle } from "lucide-react"
+import { EyeIcon, DownloadIcon, LoaderCircle, User } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,22 +13,17 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type CadFormData } from "@/lib/z";
+import { type ProcessFormData } from "@/lib/z";
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { CadPDF } from "../../pdf/docs";
-
-
+import { ProcessPDF } from "../../pdf/docs";
 
 interface FormPreviewProps {
-  formData: CadFormData;
+  formData: ProcessFormData;
 }
 
-
-
 export const FormPreview = ({ formData }: FormPreviewProps) => {
-
   const [isDownloading, setIsDownloading] = useState(false)
 
   const handleDownloadClick = () => {
@@ -49,27 +44,25 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           <div>
             <DialogTitle>Preview Your Submission</DialogTitle>
             <DialogDescription>
-              Review your CAD request details before submitting
+              Review your Process request details before submitting
             </DialogDescription>
           </div>
           <PDFDownloadLink
-            document={<CadPDF data={formData} />}
-            fileName={`cad-request-${new Date().toISOString().split('T')[0]}.pdf`}
+            document={<ProcessPDF data={formData} />}
+            fileName={`process-request-${new Date().toISOString().split('T')[0]}.pdf`}
           >
             {({ loading }) => (
               <Button
                 disabled={loading}
                 variant="download"
-                className="md:min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0  h-[42px] md:h-[48px] dark:hover:bg-white/85"
+                className="md:min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
               >
                 {loading ? (
                   <>
                     <LoaderCircle className="h-4 w-4 animate-spin" />
-
                   </>
                 ) : (
                   <>
-
                     <span className="hidden md:block">Download PDF</span>
                     <DownloadIcon className="h-4 w-4" />
                   </>
@@ -79,9 +72,9 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           </PDFDownloadLink>
         </DialogHeader>
         <div className="space-y-6 py-4">
-          {/* Organization Details */}
+          {/* Client Information */}
           <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Organization Details</h3>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Client Information</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <h4 className="font-light leading-none tracking-tight">Organization Name</h4>
@@ -111,114 +104,195 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               <p className="text-gray-600">{formData.address || "Not provided"}</p>
             </div>
             <div className="mt-4">
-              <h4 className="font-medium">Organization Operations</h4>
+              <h4 className="font-medium">Business Overview</h4>
               <p className="text-gray-600">
-                {formData.organizationOperations || "Not provided"}
+                {formData.businessOverview || "Not provided"}
               </p>
             </div>
           </section>
 
-          {/* Documentation Details */}
+          {/* Input Requirements */}
           <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Documentation Details</h3>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Input Requirements</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-light leading-none tracking-tight">Documentation Purpose</h4>
+                <h4 className="font-light leading-none tracking-tight">Material Inputs</h4>
                 <p className="text-gray-600">
-                  {formData.documentationPurpose || "Not provided"}
+                  {formData.materialInputs || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-light leading-none tracking-tight">Documentation Types</h4>
+                <h4 className="font-light leading-none tracking-tight">Energy Inputs</h4>
                 <p className="text-gray-600">
-                  {formData.documentationTypes && formData.documentationTypes.length > 0
-                    ? formData.documentationTypes.map(type => String(type)).join(", ")
-                    : "Not provided"}
-                </p>
-                {formData.otherDocumentationTypes && (
-                  <p className="text-gray-600 mt-1">
-                    Other: {formData.otherDocumentationTypes}
-                  </p>
-                )}
-              </div>
-              <div>
-                <h4 className="font-medium">File Formats</h4>
-                <p className="text-gray-600">
-                  {formData.fileFormats && formData.fileFormats.length > 0
-                    ? formData.fileFormats.map(format => String(format)).join(", ")
-                    : "Not provided"}
-                </p>
-                {formData.otherFileFormats && (
-                  <p className="text-gray-600 mt-1">
-                    Other: {formData.otherFileFormats}
-                  </p>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* Technical Details */}
-          <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Technical Details</h3>
-            <div className="space-y-4">
-              <div>
-                <h4 className="font-light leading-none tracking-tight">Technical Specifications</h4>
-                <p className="text-gray-600">
-                  {formData.technicalSpecifications || "Not provided"}
+                  {formData.EnergyInputs || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-light leading-none tracking-tight">Technical Standards</h4>
+                <h4 className="font-light leading-none tracking-tight">Information Inputs</h4>
                 <p className="text-gray-600">
-                  {formData.technicalStandards || "Not provided"}
+                  {formData.informationInputs || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Living Inputs</h4>
+                <p className="text-gray-600">
+                  {formData.livingInputs || "Not provided"}
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Preferences */}
+          {/* Operational Agents */}
           <section>
-            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Preferences</h3>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Operational Agents</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-light leading-none tracking-tight">Visual Style Preferences</h4>
+                <h4 className="font-light leading-none tracking-tight">Human Systems</h4>
                 <p className="text-gray-600">
-                  {formData.visualStylePreferences || "Not provided"}
+                  {formData.humanSytems || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-medium">Layout Preferences</h4>
+                <h4 className="font-light leading-none tracking-tight">Management Systems</h4>
                 <p className="text-gray-600">
-                  {formData.layoutPreferences || "Not provided"}
+                  {formData.managementSystems || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Technical Systems</h4>
+                <p className="text-gray-600">
+                  {formData.technicalSytems || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Information Systems</h4>
+                <p className="text-gray-600">
+                  {formData.informationSystems || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Environmental Systems</h4>
+                <p className="text-gray-600">
+                  {formData.environment || "Not provided"}
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Timeline and Additional Services */}
+          {/* Process Requirements */}
+          <section>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Process Requirements</h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Existing Systems</h4>
+                <p className="text-gray-600">
+                  {formData.existingSytems || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">New System Requirements</h4>
+                <p className="text-gray-600">
+                  {formData.newSystemRequiements || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Key Metrics</h4>
+                <p className="text-gray-600">
+                  {formData.KeyMetrics || "Not provided"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Output Requirements */}
           <section>
             <h3 className="text-lg font-medium leading-none tracking-tight mb-4">
-              Timeline and Additional Services
+              Output Requirements
             </h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-light leading-none tracking-tight">Preferred Timeline</h4>
+                <h4 className="font-light leading-none tracking-tight">Material Outputs</h4>
                 <p className="text-gray-600">
-                  {formData.preferredTimeline || "Not provided"}
+                  {formData.materialOutputs || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-light leading-none tracking-tight">Require Periodic Drafts</h4>
+                <h4 className="font-light leading-none tracking-tight">Energy Outputs</h4>
                 <p className="text-gray-600">
-                  {formData.requirePeriodicDrafts ? "Yes" : "No"}
+                  {formData.EnergyOutputs || "Not provided"}
                 </p>
               </div>
               <div>
-                <h4 className="font-light leading-none tracking-tight">Additional Services</h4>
+                <h4 className="font-light leading-none tracking-tight">Information Outputs</h4>
                 <p className="text-gray-600">
-                  {formData.additionalServices && formData.additionalServices.length > 0
-                    ? formData.additionalServices.map(service => String(service)).join(", ")
+                  {formData.informationOutputs || "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Living Outputs</h4>
+                <p className="text-gray-600">
+                  {formData.livingOutputs || "Not provided"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Challenges or Inefficiencies */}
+          <section>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Challenges or Inefficiencies</h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Pain Points</h4>
+                <p className="text-gray-600">
+                  {formData.painPoints && formData.painPoints.length > 0
+                    ? formData.painPoints.join(", ")
                     : "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Specific Issues</h4>
+                <p className="text-gray-600">
+                  {formData.specificIssues || "Not provided"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Scalability and Future Goals */}
+          <section>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Scalability and Future Goals</h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Future Growth Plans</h4>
+                <p className="text-gray-600">
+                  {formData.futureGrowth ? "Yes" : "No"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Comparable Systems</h4>
+                <p className="text-gray-600">
+                  {formData.comparableSystems || "Not provided"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Collaboration and Communication */}
+          <section>
+            <h3 className="text-lg font-medium leading-none tracking-tight mb-4">Collaboration and Communication</h3>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Collaboration Preferences</h4>
+                <p className="text-gray-600">
+                  {formData.collaborationPreferences && formData.collaborationPreferences.length > 0
+                    ? formData.collaborationPreferences.join(", ")
+                    : "Not provided"}
+                </p>
+              </div>
+              <div>
+                <h4 className="font-light leading-none tracking-tight">Additional Comments</h4>
+                <p className="text-gray-600">
+                  {formData.additionalComments || "Not provided"}
                 </p>
               </div>
             </div>
@@ -248,28 +322,13 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               </div>
             </section>
           )}
-
-          {/* Additional Comments */}
-          {formData.additionalComments && (
-            <section>
-              <h3 className="text-lg font-light leading-none tracking-tight mb-4">Additional Comments</h3>
-              <p className="text-gray-600">{formData.additionalComments}</p>
-            </section>
-          )}
         </div>
         <DialogFooter className="items-end">
-
-
           <DialogClose asChild>
-            <Button variant="close" className=" w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]">Close Preview</Button>
+            <Button variant="close" className="w-fit mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px]">Close Preview</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 };
-
-
-
-
-

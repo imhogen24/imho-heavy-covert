@@ -34,6 +34,7 @@ import { cn } from "@/lib/utils";
 import { BookOpen, FileText, Lightbulb, User, GraduationCap, Calendar as CalendarIcon2, Info } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { SupportFormAction } from "@/actions/action";
+import { FormPreview } from "./preview";
 
 
 
@@ -659,7 +660,7 @@ export const SupportForm = () => {
                 <>Submit Response</>
               )}
             </Button>
-            {/* <FormPreview formData={form.getValues()} /> */}
+            <FormPreview formData={form.getValues()} />
           </div>
         </form>
       </Form>

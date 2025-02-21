@@ -27,7 +27,7 @@ export interface ProductFormEmailProps {
   // Input Requirements
   materialInputs?: string;
   energyInputs?: string;
-  dataInputs?: string;
+  informationInputs?: string;
   livingSystemInputs?: string;
   biologicalComponent: boolean;
   biologicalInputDescription?: string;
@@ -38,14 +38,14 @@ export interface ProductFormEmailProps {
 
   // Output Requirements
   systemOutputs?: string;
-  dataOutputs?: string;
+  informationOutputs?: string;
   energyOutputs?: string;
   livingThingsOutputs?: string;
 
   // Operational Agents
   humanSystems?: string;
   technicalSystems?: string;
-  environmentalSystems?: string;
+  environment?: string;
   informationSystems?: string;
   managementSystems?: string;
 
@@ -74,7 +74,7 @@ export const ProductFormEmail = ({
   // Input Requirements
   materialInputs,
   energyInputs,
-  dataInputs,
+  informationInputs,
   livingSystemInputs,
   biologicalComponent,
   biologicalInputDescription,
@@ -85,14 +85,14 @@ export const ProductFormEmail = ({
 
   // Output Requirements
   systemOutputs,
-  dataOutputs,
+  informationOutputs,
   energyOutputs,
   livingThingsOutputs,
 
   // Operational Agents
   humanSystems,
   technicalSystems,
-  environmentalSystems,
+  environment,
   informationSystems,
   managementSystems,
 
@@ -174,9 +174,9 @@ export const ProductFormEmail = ({
                 <strong>Energy Inputs:</strong> {energyInputs}
               </Text>
             )}
-            {dataInputs && (
+            {informationInputs && (
               <Text style={styles.infoText}>
-                <strong>Data Inputs:</strong> {dataInputs}
+                <strong>Information Inputs:</strong> {informationInputs}
               </Text>
             )}
             {livingSystemInputs && (
@@ -219,9 +219,9 @@ export const ProductFormEmail = ({
                 <strong>System Outputs:</strong> {systemOutputs}
               </Text>
             )}
-            {dataOutputs && (
+            {informationOutputs && (
               <Text style={styles.infoText}>
-                <strong>Data Outputs:</strong> {dataOutputs}
+                <strong>Information Outputs:</strong> {informationOutputs}
               </Text>
             )}
             {energyOutputs && (
@@ -250,9 +250,9 @@ export const ProductFormEmail = ({
                 <strong>Technical Systems:</strong> {technicalSystems}
               </Text>
             )}
-            {environmentalSystems && (
+            {environment && (
               <Text style={styles.infoText}>
-                <strong>Environmental Systems:</strong> {environmentalSystems}
+                <strong>Environment:</strong> {environment}
               </Text>
             )}
             {informationSystems && (
