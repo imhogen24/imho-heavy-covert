@@ -33,8 +33,8 @@ export const productPdfConfig: PDFConfig = {
         },
         {
           label: "Data Inputs",
-          value: data.dataInputs,
-          condition: !!data.dataInputs
+          value: data.informationInputs,
+          condition: !!data.informationInputs
         },
         {
           label: "Living System Inputs",
@@ -77,8 +77,8 @@ export const productPdfConfig: PDFConfig = {
         },
         {
           label: "Data Outputs",
-          value: data.dataOutputs,
-          condition: !!data.dataOutputs
+          value: data.informationOutputs,
+          condition: !!data.informationOutputs
         },
         {
           label: "Energy Outputs",
@@ -107,8 +107,8 @@ export const productPdfConfig: PDFConfig = {
         },
         {
           label: "Environmental Systems",
-          value: data.environmentalSystems,
-          condition: !!data.environmentalSystems
+          value: data.environment,
+          condition: !!data.environment
         },
         {
           label: "Information Systems",
