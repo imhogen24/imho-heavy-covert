@@ -18,9 +18,9 @@ export const CadSchema = z.object({
   contactPerson: z.string().min(3).max(20),
   email: z.string().email(),
   phoneNumber: z.string(),
-  address: z.string().min(2).max(200),
-  organizationOperations: z.string().min(10).max(200),
-  documentationPurpose: z.string().min(2).max(200),
+  address: z.string().min(2).max(500),
+  organizationOperations: z.string().min(10).max(500),
+  documentationPurpose: z.string().min(2).max(500),
 
   /*Section B: Documentation Requirements */
   documentationTypes: z.array(
@@ -73,18 +73,18 @@ export type CadFormData = z.infer<typeof CadSchema>;
 export const SupportSchema = z.object({
 
   //CLIENT INFORMATION
-  organizationName: z.string().min(2).max(200),
+  organizationName: z.string().min(2).max(500),
   contactPerson: z.string().min(2).max(100),
   email: z.string().email(),
   phoneNumber: z.string().min(10).max(20),
-  physicalPostalAddress: z.string().min(5).max(200),
+  physicalPostalAddress: z.string().min(5).max(500),
   businessOverview: z.string().min(10).max(500),
 
   //TRAINING REQUIREMENTS
   trainingNeeds: z.string().min(10).max(500),
   trainingObjectives: z.string().min(10).max(500),
   numberOfParticipants: z.number().min(1).max(1000),
-  participantRoles: z.string().min(5).max(200),
+  participantRoles: z.string().min(5).max(500),
   participantSkillLevel: z.enum(["Beginner", "Intermediate", "Advanced"]),
   trainingDeliveryMode: z.enum(["On-site", "Virtual", "Blended"]),
   trainingTimeline: z.object({
@@ -123,47 +123,47 @@ export type SupportFormData = z.infer<typeof SupportSchema>;
 export const ProductSchema = z.object({
 
   //CLIENT INFORMATION
-  organizationName: z.string().min(2).max(200),
+  organizationName: z.string().min(2).max(500),
   contactPerson: z.string().min(2).max(100),
   email: z.string().email(),
   phoneNumber: z.string().min(10).max(20),
-  address: z.string().min(2).max(200),
+  address: z.string().min(2).max(500),
   businessOverview: z.string().min(10).max(500),
 
   //INPUT REQUIREMENTS
-  materialInputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  energyInputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  informationInputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  livingSystemInputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  materialInputs: z.string().min(5).max(500).optional().or(z.literal('')),
+  energyInputs: z.string().min(5).max(500).optional().or(z.literal('')),
+  informationInputs: z.string().min(5).max(500).optional().or(z.literal('')),
+  livingSystemInputs: z.string().min(5).max(500).optional().or(z.literal('')),
   biologicalComponent: z.boolean().default(false),
-  biologicalInputDescription: z.string().min(5).max(200).optional().or(z.literal('')),
+  biologicalInputDescription: z.string().min(5).max(500).optional().or(z.literal('')),
 
 
   //TRANSFORMATION REQUIREMENTS(SYSTEM PROCESS)
-  transformationDescription: z.string().min(5).max(200).optional().or(z.literal('')),
-  performanceTargets: z.string().min(5).max(200).optional().or(z.literal('')),
+  transformationDescription: z.string().min(5).max(500).optional().or(z.literal('')),
+  performanceTargets: z.string().min(5).max(500).optional().or(z.literal('')),
 
 
   //OUTPUT REQUIREMENTS
-  systemOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  informationOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  energyOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
-  livingThingsOutputs: z.string().min(5).max(200).optional().or(z.literal('')),
+  systemOutputs: z.string().min(5).max(500).optional().or(z.literal('')),
+  informationOutputs: z.string().min(5).max(500).optional().or(z.literal('')),
+  energyOutputs: z.string().min(5).max(500).optional().or(z.literal('')),
+  livingThingsOutputs: z.string().min(5).max(500).optional().or(z.literal('')),
 
 
   // OPERATIONAL AGENTS
-  humanSystems: z.string().min(5).max(200).optional().or(z.literal('')),
-  technicalSystems: z.string().min(5).max(200).optional().or(z.literal('')),
-  environment: z.string().min(5).max(200).optional().or(z.literal('')),
-  informationSystems: z.string().min(5).max(200).optional().or(z.literal('')),
-  managementSystems: z.string().min(5).max(200).optional().or(z.literal('')),
+  humanSystems: z.string().min(5).max(500).optional().or(z.literal('')),
+  technicalSystems: z.string().min(5).max(500).optional().or(z.literal('')),
+  environment: z.string().min(5).max(500).optional().or(z.literal('')),
+  informationSystems: z.string().min(5).max(500).optional().or(z.literal('')),
+  managementSystems: z.string().min(5).max(500).optional().or(z.literal('')),
 
   //  SAFETY, MAINTENANCE AND SCALABILITY
-  safetyRequirements: z.string().min(5).max(200).optional().or(z.literal('')),
+  safetyRequirements: z.string().min(5).max(500).optional().or(z.literal('')),
   maintenanceNeeds: z.array(z.enum(
     ["In-house Maintenance", "Ongoing maintenance service form IMHO"]))
     .optional(),
-  futureScalability: z.string().min(5).max(200).optional().or(z.literal('')),
+  futureScalability: z.string().min(5).max(500).optional().or(z.literal('')),
 
 
   //COLLABORATION AND COMMUNICATION
@@ -181,11 +181,11 @@ export type ProductFormData = z.infer<typeof ProductSchema>;
 export const ProcessSchema = z.object({
 
   // CLIENT INFORMATION
-  organizationName: z.string().min(2).max(200),
+  organizationName: z.string().min(2).max(500),
   contactPerson: z.string().min(2).max(100),
   email: z.string().email(),
   phoneNumber: z.string().min(10).max(20),
-  address: z.string().min(5).max(200),
+  address: z.string().min(5).max(500),
   businessOverview: z.string().min(10).max(1000),
 
   //INPUT REQUIREMENTS

@@ -200,12 +200,9 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
         <DialogHeader className="flex flex-row justify-between">
           <div>
-            <DialogTitle>Preview Your Submission</DialogTitle>
-            <DialogDescription>
-              Review your Product request details before submitting
-            </DialogDescription>
+            <DialogTitle>Form Preview </DialogTitle>
           </div>
-          <DialogClose asChild>
+          <DialogClose asChild className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
             <Button variant="close" className="w-fit p-[14px] h-[42px] md:h-[48px]">
               <X />
             </Button>
@@ -300,7 +297,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           {!isPdfPrepared ? (
             <Button
               variant="download"
-              className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
+              className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
               onClick={() => setIsPdfPrepared(true)}
             >
               Get PDF
@@ -315,7 +312,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
                 <Button
                   disabled={loading}
                   variant="download"
-                  className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
+                  className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
                 >
                   {loading || isDownloading ? (
                     <LoaderCircle className="h-4 w-4 animate-spin" />

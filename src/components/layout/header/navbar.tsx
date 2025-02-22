@@ -33,7 +33,7 @@ export const Navbar = () => {
     <nav
       className={cn(
         "fixed top-0 left-0 w-full h-[72px] py-[16px] px-[32px] lg:py-[20px]",
-        "lg:px-[130px] bg-background backdrop-blur-2xl supports-[backdrop-filter]:bg-background",
+        "lg:px-[130px] backdrop-blur-3xl supports-[backdrop-filter]:bg-background",
         "z-50 transition-[border-opacity] duration-200",
         isScrolled && "border-b muted-border",
       )}
