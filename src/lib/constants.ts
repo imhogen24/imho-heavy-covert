@@ -104,9 +104,9 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
     image: "/pyramid.svg",
     title: "Engineering Support",
     description:
-      "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. ",
+      "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting.",
     footer:
-      "Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting.",
+      "",
     cta: "Launch Support",
     route: "/services/engineering-support",
   },
@@ -118,7 +118,7 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
       "Our engineering team well vested in systems design can help optimize your processes be it manufacturing, materials, and various forms of production systems.",
     footer:
       "Improve efficiency, safety, reduce cost, overall output and quality",
-    cta: "Develop a process",
+    cta: "Develop a Process",
     route: "/services/process",
   },
   {

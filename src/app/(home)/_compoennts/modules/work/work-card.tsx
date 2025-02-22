@@ -12,9 +12,10 @@ const WorkCard = (props: WorkWithUsProps) => {
         "flex flex-col flex-1 gap-5 muted-border p-10 justify-between",
         props.idx % 2 === 0 && "border-r",
         props.idx < 2 && "border-b",
+        props.idx === 2 && "border-b",
       )}
     >
-      <div className="flex flex-row gap-5">
+      <div className="flex flex-col md:flex-row gap-5">
         <div className="flex items-center justify-center border muted-border w-fit h-fit p-2 rounded-[10px]">
           <div className="relative w-6 h-6">
             <Image
@@ -35,18 +36,22 @@ const WorkCard = (props: WorkWithUsProps) => {
           {props.title}
         </h4>
       </div>
-      <div className="flex flex-col gap-5 text-muted-foreground leading-relaxed">
+      <div className="flex justify-between flex-col h-full w-full gap-5 text-muted-foreground leading-relaxed">
         <p className={cn("leading-7 [&:not(:first-child)] justify-between")}>
           {props.description}
         </p>
         <p className="leading-7 [&:not(:first-child)]">{props.footer}</p>
-        <Button
-          asChild
-          className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 p-5"
-          variant={"secondary"}
-        >
-          <Link href={props.route}>{props.cta}</Link>
-        </Button>
+
+        <div>
+          <Button
+            asChild
+            className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 p-5"
+            variant={"secondary"}
+          >
+            <Link href={props.route}>{props.cta}</Link>
+          </Button>
+        </div>
+
       </div>
     </div>
   );
