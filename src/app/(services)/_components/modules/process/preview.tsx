@@ -289,7 +289,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
           {!isPdfPrepared ? (
             <Button
               variant="download"
-              className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
+              className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
               onClick={() => setIsPdfPrepared(true)}
             >
               Get PDF
@@ -304,7 +304,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
                 <Button
                   disabled={loading}
                   variant="download"
-                  className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
+                  className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-0 h-[42px] md:h-[48px] dark:hover:bg-white/85"
                 >
                   {loading || isDownloading ? (
                     <LoaderCircle className="h-4 w-4 animate-spin" />
