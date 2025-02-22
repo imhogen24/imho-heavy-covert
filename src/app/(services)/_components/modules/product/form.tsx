@@ -251,7 +251,7 @@ export const ProductForm = () => {
                 name="informationInputs"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Data Inputs</FormLabel>
+                    <FormLabel>Infomation Inputs</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Describe data inputs required" {...field} />
                     </FormControl>
@@ -369,7 +369,7 @@ export const ProductForm = () => {
                 name="informationOutputs"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Data Outputs</FormLabel>
+                    <FormLabel>Information Outputs</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Describe data outputs" {...field} />
                     </FormControl>
@@ -444,7 +444,7 @@ export const ProductForm = () => {
                 name="environment"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Environmental Systems</FormLabel>
+                    <FormLabel>Environment</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Describe environmental systems involved" {...field} />
                     </FormControl>
