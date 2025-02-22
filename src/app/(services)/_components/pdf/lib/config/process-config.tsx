@@ -44,7 +44,7 @@ export const processPdfConfig: PDFConfig = {
         { label: "Management Systems", value: data.managementSystems },
         { label: "Technical Systems", value: data.technicalSytems },
         { label: "Information Systems", value: data.informationSystems },
-        { label: "Environmental Systems", value: data.environment },
+        { label: "Environment", value: data.environment },
       ]
     },
     {

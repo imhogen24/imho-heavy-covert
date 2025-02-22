@@ -32,7 +32,7 @@ export const productPdfConfig: PDFConfig = {
           condition: !!data.energyInputs
         },
         {
-          label: "Data Inputs",
+          label: "Information Inputs",
           value: data.informationInputs,
           condition: !!data.informationInputs
         },
@@ -76,7 +76,7 @@ export const productPdfConfig: PDFConfig = {
           condition: !!data.systemOutputs
         },
         {
-          label: "Data Outputs",
+          label: "Information Outputs",
           value: data.informationOutputs,
           condition: !!data.informationOutputs
         },
@@ -106,7 +106,7 @@ export const productPdfConfig: PDFConfig = {
           condition: !!data.technicalSystems
         },
         {
-          label: "Environmental Systems",
+          label: "Environment",
           value: data.environment,
           condition: !!data.environment
         },

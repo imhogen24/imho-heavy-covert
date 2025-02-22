@@ -182,16 +182,14 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
         <DialogHeader className="flex flex-row justify-between">
           <div>
-            <DialogTitle>Preview Your Submission</DialogTitle>
-            <DialogDescription>
-              Review your support request details before submitting
-            </DialogDescription>
+            <DialogTitle>Form Preview </DialogTitle>
           </div>
-          <DialogClose asChild>
+          <DialogClose asChild className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
             <Button variant="close" className="w-fit p-[14px] h-[42px] md:h-[48px]">
               <X />
             </Button>
           </DialogClose>
+
         </DialogHeader>
         <div className="space-y-6 py-4">
           {sections.map((section, idx) => {

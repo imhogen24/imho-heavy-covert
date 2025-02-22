@@ -56,8 +56,8 @@ export function FormSection({ children, label, className, ...props }: FORM_SECTI
         <div className={cn("space-y-8", className)} {...props}>
             {label && (
                 <div className="inline-flex gap-2">
-                    {IconComponent && <IconComponent className="my-auto size-4 stroke-muted-foreground" />}
-                    <h2 className="text-lg capitalize font-semibold">{label}</h2>
+                    {IconComponent && <IconComponent className="my-auto size-5 stroke-muted-foreground" />}
+                    <h2 className="text-base md:text-lg capitalize font-semibold">{label}</h2>
                 </div>
             )}
             {children}
