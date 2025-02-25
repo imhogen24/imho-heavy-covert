@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layout/header/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "./site-config";
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
       url: "",
     },
   ],
-  creator: "imhogen",
+  creator: "Imhogen",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: "imhogen",
+    creator: "Imhogen",
   },
   icons: {
     icon: "/favicon.ico",
@@ -68,7 +69,7 @@ export default function RootLayout({
         <body
           className={cn(
             `${geistSans.variable} ${machina.variable} ${calligraffitti.variable}`,
-            "antialiased font-[family-name:var(--font-geist-sans)] max-w-screen",
+            "flex flex-col antialiased font-[family-name:var(--font-geist-sans)] max-w-screen",
           )}
         >
           <ThemeProvider
