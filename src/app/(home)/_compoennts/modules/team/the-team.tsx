@@ -16,7 +16,7 @@ const TheTeam = () => {
             gradientText,
           )}
         >
-          Work With Us
+          Our Team
         </h2>
       </div>
 
