@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "IMHO LTD",
+  name: "IMHO",
   url: "https://imhogen.com",
   description: "Research and Development Company",
   baseLinks: {
