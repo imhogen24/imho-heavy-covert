@@ -20,7 +20,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type CadFormData } from "@/lib/z";
+import { type CadFormData } from "@/lib/schemas/cad/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";

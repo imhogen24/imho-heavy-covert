@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { FileUploadSchema } from "@/lib/z";
+import { ContactFormSchema } from "@/lib/schemas/z";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
@@ -26,8 +26,8 @@ import { toast } from "sonner";
 
 
 export const FileForm = () => {
-  const form = useForm<z.infer<typeof FileUploadSchema>>({
-    resolver: zodResolver(FileUploadSchema),
+  const form = useForm<z.infer<typeof ContactFormSchema>>({
+    resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -38,7 +38,7 @@ export const FileForm = () => {
   const [pending, setPending] = useState(false);
 
 
-  async function onSubmit(values: z.infer<typeof FileUploadSchema>) {
+  async function onSubmit(values: z.infer<typeof ContactFormSchema>) {
     setPending(true);
     console.log(values);
     const formData = new FormData();

@@ -29,7 +29,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type ProcessFormData } from "@/lib/z";
+import { type ProcessFormData } from "@/lib/schemas/process/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";

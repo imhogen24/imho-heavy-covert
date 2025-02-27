@@ -28,9 +28,8 @@ export interface ProductFormEmailProps {
   materialInputs?: string;
   energyInputs?: string;
   informationInputs?: string;
-  livingSystemInputs?: string;
-  biologicalComponent: boolean;
-  biologicalInputDescription?: string;
+  livingSystemInputs?: boolean;
+  livingSystemInputDescription?: string;
 
   // Transformation Requirements
   transformationDescription?: string;
@@ -76,8 +75,7 @@ export const ProductFormEmail = ({
   energyInputs,
   informationInputs,
   livingSystemInputs,
-  biologicalComponent,
-  biologicalInputDescription,
+  livingSystemInputDescription,
 
   // Transformation Requirements
   transformationDescription,
@@ -174,22 +172,17 @@ export const ProductFormEmail = ({
                 <strong>Energy Inputs:</strong> {energyInputs}
               </Text>
             )}
-            {informationInputs && (
-              <Text style={styles.infoText}>
-                <strong>Information Inputs:</strong> {informationInputs}
-              </Text>
-            )}
             {livingSystemInputs && (
               <Text style={styles.infoText}>
                 <strong>Living System Inputs:</strong> {livingSystemInputs}
               </Text>
             )}
             <Text style={styles.infoText}>
-              <strong>Biological Component:</strong> {biologicalComponent ? "Yes" : "No"}
+              <strong>Living Systems Input:</strong> {livingSystemInputs ? "Yes" : "No"}
             </Text>
-            {biologicalInputDescription && (
+            {livingSystemInputDescription && (
               <Text style={styles.infoText}>
-                <strong>Biological Input Description:</strong> {biologicalInputDescription}
+                <strong>Biological Input Description:</strong> {livingSystemInputDescription}
               </Text>
             )}
           </Section>

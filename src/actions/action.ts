@@ -355,9 +355,8 @@ export const ProductFormAction = async (formData: FormData) => {
     const materialInputs = formData.get("materialInputs") as string;
     const energyInputs = formData.get("energyInputs") as string;
     const informationInputs = formData.get("dataInputs") as string;
-    const livingSystemInputs = formData.get("livingSystemInputs") as string;
-    const biologicalComponent = formData.get("biologicalComponent") === "true";
-    const biologicalInputDescription = formData.get("biologicalInputDescription") as string;
+    const livingSystemInputs = formData.get("livingSystemInputs") === "on";
+    const livingSystemInputDescription = formData.get("livingSystemInputDescription") as string;
 
     // Transformation Requirements
     const transformationDescription = formData.get("transformationDescription") as string;
@@ -402,8 +401,7 @@ export const ProductFormAction = async (formData: FormData) => {
         energyInputs,
         informationInputs,
         livingSystemInputs,
-        biologicalComponent,
-        biologicalInputDescription,
+        livingSystemInputDescription,
         transformationDescription,
         performanceTargets,
         systemOutputs,

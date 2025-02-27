@@ -18,7 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useState } from "react";
-import { SupportSchema, type SupportFormData } from "@/lib/z";
+import { SupportSchema, type SupportFormData } from "@/lib/schemas/support/z";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2, CalendarIcon } from "lucide-react";
 import Link from "next/link";

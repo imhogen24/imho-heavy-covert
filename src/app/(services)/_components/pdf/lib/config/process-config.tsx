@@ -1,4 +1,4 @@
-import { ProcessFormData } from '@/lib/z';
+import { ProcessFormData } from '@/lib/schemas/process/z';
 import { PDFConfig, SectionConfig } from '../types';
 
 export const processPdfConfig: PDFConfig = {

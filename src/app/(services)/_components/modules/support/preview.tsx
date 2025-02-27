@@ -23,7 +23,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { SupportFormData } from "@/lib/z";
+import { SupportFormData } from "@/lib/schemas/support/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
