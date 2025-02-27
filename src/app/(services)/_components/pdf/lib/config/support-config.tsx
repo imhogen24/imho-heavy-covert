@@ -1,4 +1,4 @@
-import { SupportFormData } from '@/lib/z';
+import { SupportFormData } from '@/lib/schemas/support/z';
 import { PDFConfig, SectionConfig } from '../types';
 
 export const supportPdfConfig: PDFConfig = {

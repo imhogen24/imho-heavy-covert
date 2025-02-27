@@ -1,4 +1,4 @@
-import { ProductFormData } from "@/lib/z";
+import { ProductFormData } from "@/lib/schemas/product/z";
 import { PDFConfig, SectionConfig } from "../types";
 
 
@@ -38,22 +38,17 @@ export const productPdfConfig: PDFConfig = {
         },
         {
           label: "Living System Inputs",
-          value: data.livingSystemInputs,
-          condition: !!data.livingSystemInputs
+          value: data.livingSystemInputs ? "Yes" : "No"
         },
         {
-          label: "Biological Component",
-          value: data.biologicalComponent ? "Yes" : "No"
-        },
-        {
-          label: "Biological Input Description",
-          value: data.biologicalInputDescription,
-          condition: !!data.biologicalInputDescription && data.biologicalComponent
+          label: "Living System Input Description",
+          value: data.livingSystemInputDescription,
+          condition: !!data.livingSystemInputDescription && data.livingSystemInputs
         },
       ]
     },
     {
-      title: "Transformation Requirements (System Process)",
+      title: "Transformation Requirements",
       fields: [
         {
           label: "Transformation Description",

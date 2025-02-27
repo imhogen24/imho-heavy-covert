@@ -38,7 +38,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { type ProductFormData } from "@/lib/z";
+import { type ProductFormData } from "@/lib/schemas/product/z";
 
 import { useState } from 'react'
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -120,15 +120,15 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
         { label: "Energy Inputs", value: formData.energyInputs },
         { label: "Information Inputs", value: formData.informationInputs },
         { label: "Living System Inputs", value: formData.livingSystemInputs },
-        { label: "Biological Component", value: formData.biologicalComponent, isBoolean: true },
+        { label: "Living System Inputs", value: formData.livingSystemInputs, isBoolean: true },
         {
-          label: "Biological Input Description",
-          value: formData.biologicalComponent ? formData.biologicalInputDescription : undefined
+          label: "Living System Input Description",
+          value: formData.livingSystemInputs ? formData.livingSystemInputDescription : undefined
         },
       ]
     },
     {
-      title: "Transformation Requirements (System Process)",
+      title: "Transformation Requirements",
       icon: RefreshCcw,
       fields: [
         { label: "Transformation Description", value: formData.transformationDescription },

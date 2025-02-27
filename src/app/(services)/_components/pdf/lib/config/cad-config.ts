@@ -1,4 +1,4 @@
-import { CadFormData } from '@/lib/z';
+import { CadFormData } from '@/lib/schemas/cad/z';
 import { PDFConfig, SectionConfig } from '../types';
 
 

@@ -17,7 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useState } from "react";
-import { ProcessSchema, type ProcessFormData } from "@/lib/z";
+import { ProcessSchema, type ProcessFormData } from "@/lib/schemas/process/z";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 
