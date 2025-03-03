@@ -251,7 +251,7 @@ export const ProductForm = () => {
                 name="informationInputs"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Infomation Inputs</FormLabel>
+                    <FormLabel>Information Inputs</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Required: System...,  Prefered: Sensor-based..." {...field} />
                     </FormControl>
