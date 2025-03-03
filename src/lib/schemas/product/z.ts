@@ -118,6 +118,11 @@ export const ProductSchema = z.object({
     .optional()
     .or(z.literal('')),
   fileAttachments: z.array(z.string()).default([]),
+  disclaimer: z.boolean()
+    .default(false)
+    .refine((val) => val === true, {
+      message: "You must accept the disclaimer to continue",
+    }),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });

@@ -35,6 +35,7 @@ import { BookOpen, FileText, Lightbulb, User, GraduationCap, Calendar as Calenda
 import { DateRange } from "react-day-picker";
 import { SupportFormAction } from "@/actions/action";
 import { FormPreview } from "./preview";
+import { Agreement } from "../shared/agreement";
 
 
 
@@ -95,6 +96,7 @@ export const SupportForm = () => {
       longTermCollaboration: false,
       additionalInformation: "",
       fileAttachments: [],
+      disclaimer: false,
     },
   });
 
@@ -646,6 +648,31 @@ export const SupportForm = () => {
             />
           </FormSection>
 
+          <FormSection label="Notice, Disclaimer, and Terms of Agreement">
+            <Agreement />
+            <FormField
+              control={form.control}
+              name="disclaimer"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="my-auto"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      I agree to the terms and conditions of this agreement
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+          </FormSection>
+
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
             <Button
               className="w-full min-w-[150px]  text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto md:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
@@ -657,7 +684,7 @@ export const SupportForm = () => {
                   <LoaderCircle className="animate-spin" />
                 </>
               ) : (
-                <>Submit Response</>
+                <>Submit Request</>
               )}
             </Button>
             <FormPreview formData={form.getValues()} />

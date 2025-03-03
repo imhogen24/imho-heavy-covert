@@ -40,6 +40,11 @@ export const SupportSchema = z.object({
   longTermCollaboration: z.boolean().default(false),
   additionalInformation: z.string().optional(),
   fileAttachments: z.array(z.string()).default([]),
+  disclaimer: z.boolean()
+    .default(false)
+    .refine((val) => val === true, {
+      message: "You must accept the disclaimer to continue",
+    }),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });
