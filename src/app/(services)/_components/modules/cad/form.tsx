@@ -24,6 +24,7 @@ import Link from "next/link";
 import { FormSection, SectionChild } from "../../wrapper";
 import { FormPreview } from "./preview";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Agreement } from "../shared/agreement";
 
 const documentationTypes = [
   "2D Engineering Drawings",
@@ -70,6 +71,7 @@ export const CadForm = () => {
       additionalServices: [],
       additionalComments: "",
       fileAttachments: [],
+      disclaimer: false,
     },
   });
 
@@ -681,9 +683,33 @@ export const CadForm = () => {
             />
           </FormSection>
 
+          <FormSection label="Notice, Disclaimer, and Terms of Agreement">
+            <Agreement />
+            <FormField
+              control={form.control}
+              name="disclaimer"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="my-auto"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      I agree to the terms and conditions of this agreement
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+          </FormSection>
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
             <Button
-              className="w-full md:max-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto md:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+              className="w-full min-w-[150px]  text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto md:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
               disabled={pending}
               type="submit"
             >
@@ -692,7 +718,7 @@ export const CadForm = () => {
                   <LoaderCircle className="animate-spin" />
                 </>
               ) : (
-                <>Submit Response</>
+                <>Submit Request</>
               )}
             </Button>
             <FormPreview formData={form.getValues()} />

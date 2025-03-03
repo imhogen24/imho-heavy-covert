@@ -6,8 +6,6 @@ import {
     Lightbulb, Settings, Package, Users, ShieldCheck,
     MessageSquare,
     LucideIcon,
-    LightbulbIcon,
-    FileQuestionIcon,
     Sliders,
     TriangleAlert,
     TrendingUp,
@@ -15,6 +13,7 @@ import {
     LifeBuoy,
     Keyboard,
     RefreshCcw,
+    Handshake,
 } from "lucide-react";
 interface FORM_SECTION_PROPS extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
@@ -42,7 +41,8 @@ const iconMap: Record<string, LucideIcon> = {
     "collaboration and communication": MessageSquare,
     "process requirements": Sliders,
     "challenges or inefficiencies": TriangleAlert,
-    "scalability & future goals": TrendingUp
+    "scalability & future goals": TrendingUp,
+    "notice, disclaimer, and terms of agreement": Handshake,
 
 
 };

@@ -25,6 +25,7 @@ import { processFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
 import Link from "next/link";
 import { FormPreview } from "./preview";
+import { Agreement } from "../shared/agreement";
 
 const collaborationPreferences = [
   "Regular Meetings",
@@ -91,6 +92,7 @@ export const ProcessForm = () => {
       collaborationPreferences: [],
       additionalComments: "",
       fileAttachments: [],
+      disclaimer: false
     },
   });
 
@@ -725,6 +727,30 @@ export const ProcessForm = () => {
             />
           </FormSection>
 
+          <FormSection label="Notice, Disclaimer, and Terms of Agreement">
+            <Agreement />
+            <FormField
+              control={form.control}
+              name="disclaimer"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="my-auto"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      I agree to the terms and conditions of this agreement
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+
+          </FormSection>
 
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
             <Button

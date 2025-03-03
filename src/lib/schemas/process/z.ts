@@ -29,7 +29,9 @@ export const ProcessSchema = z.object({
     .optional()
     .or(z.literal('')),
   informationInputs: z.string()
-    .min(10, { message: "Information inputs must be at least 10 characters long" }),
+    .min(10, { message: "Information inputs must be at least 10 characters long" })
+    .optional()
+    .or(z.literal('')),
   livingInputs: z.string()
     .min(10, { message: "Living inputs must be at least 10 characters long if provided" })
     .optional()
@@ -71,7 +73,9 @@ export const ProcessSchema = z.object({
     .optional()
     .or(z.literal('')),
   informationOutputs: z.string()
-    .min(10, { message: "Information outputs must be at least 10 characters long" }),
+    .min(10, { message: "Information outputs must be at least 10 characters long" })
+    .optional()
+    .or(z.literal('')),
   livingOutputs: z.string()
     .min(10, { message: "Living outputs must be at least 10 characters long if provided" })
     .optional()
@@ -100,8 +104,14 @@ export const ProcessSchema = z.object({
   additionalComments: z.string()
     .min(10, { message: "Additional comments must be at least 10 characters long if provided" })
     .max(1000, { message: "Additional comments must not exceed 1000 characters" })
-    .optional(),
+    .optional()
+    .or(z.literal('')),
   fileAttachments: z.array(z.string()).default([]),
+  disclaimer: z.boolean()
+    .default(false)
+    .refine((val) => val === true, {
+      message: "You must accept the disclaimer to continue",
+    }),
 
   //METADATA
   createdAt: z.date().optional(),

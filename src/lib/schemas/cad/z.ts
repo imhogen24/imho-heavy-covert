@@ -48,6 +48,11 @@ export const CadSchema = z.object({
   additionalComments: z.string().trim().optional(),
 
   fileAttachments: z.array(z.string()).default([]),
+  disclaimer: z.boolean()
+    .default(false)
+    .refine((val) => val === true, {
+      message: "You must accept the disclaimer to continue",
+    }),
 
   // Metadata (optional as these are typically auto-generated)
   createdAt: z.date().optional(),
