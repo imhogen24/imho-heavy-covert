@@ -44,7 +44,7 @@ export default async function Page({
 
   const title = post.properties.Title.title[0].plain_text;
   const createdTime = post.created_time;
-
+  console.log(post)
   return (
     <div className="max-w-screen overflow-x-hidden p-5 md:p-10 flex items-center gap-5 md:gap-10 flex-col min-h-dvh">
       <div className="flex flex-col gap-5 items-center">
@@ -106,6 +106,15 @@ export async function generateMetadata({
 
   // Extract post data for metadata
   const title = post.properties.Title.title[0]?.plain_text || "Blog Post";
+  // Extract image if available
+  let image = undefined;
+  if (
+    "cover_image" in post.properties &&
+    post.properties.cover_image.type === "url" &&
+    post.properties.cover_image.url
+  ) {
+    image = post.properties.cover_image.url;
+  }
 
   // Extract description if available
   let description = "Blog post from IMHO team";
@@ -117,19 +126,7 @@ export async function generateMetadata({
     description = post.properties.Description.rich_text[0].plain_text;
   }
 
-  // Extract main image if available
-  let images = undefined;
-  if (
-    "Cover" in post.properties &&
-    post.properties.Cover.type === "url" &&
-    post.properties.Cover.url
-  ) {
-    images = [post.properties.Cover.url];
-  } else if (post.cover?.type === "external" && post.cover.external?.url) {
-    images = [post.cover.external.url];
-  } else if (post.cover?.type === "file" && post.cover.file?.url) {
-    images = [post.cover.file.url];
-  }
+
 
   // Extract tags if available
   let keywords = undefined;
@@ -151,13 +148,17 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.created_time,
       url: `/blog/${slug}`,
-      images: images,
+      images: {
+        image: image,
+      },
     },
     twitter: {
       card: "summary_large_image",
       title: title,
       description: description.substring(0, 160),
-      images: images,
+      images: {
+        image: image,
+      },
     },
 
     alternates: {
