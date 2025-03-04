@@ -149,7 +149,7 @@ export async function generateMetadata({
       publishedTime: post.created_time,
       url: `/blog/${slug}`,
       images: {
-        image: image,
+        url: image,
       },
     },
     twitter: {
@@ -157,7 +157,7 @@ export async function generateMetadata({
       title: title,
       description: description.substring(0, 160),
       images: {
-        image: image,
+        url: image,
       },
     },
 
