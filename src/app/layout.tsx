@@ -27,17 +27,30 @@ const machina = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://imhogen.com"),
-  title: siteConfig.name,
+  metadataBase: new URL("https://www.imhogen.com"),
+  title: {
+    default: siteConfig.name,
+    template: "",
+  },
   description: siteConfig.description,
-  keywords: ["Engineering", "Research and Developement", "Engineering design"],
+  keywords: [
+    "Engineering",
+    "Research and Developement",
+    "Engineering design",
+    "Product Development",
+    "Prototyping",
+    "Process Optimization",
+    "CAD Training",
+    "Sustainable Engineering",
+    "Sustainable Design",
+  ],
   authors: [
     {
-      name: "Imhogen",
-      url: "",
+      name: "IMHO",
+      url: siteConfig.url,
     },
   ],
-  creator: "Imhogen",
+  creator: "IMHO",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -50,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: "Imhogen",
+    creator: "IMHO",
   },
   icons: {
     icon: "/favicon.ico",

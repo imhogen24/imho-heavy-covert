@@ -83,7 +83,6 @@ export default async function Page({
     </div>
   );
 }
-
 export async function generateMetadata({
   params,
 }: {
@@ -92,6 +91,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await fetchBySlug(slug);
 
+  // Handle missing or invalid post
   if (
     !post ||
     !("properties" in post) ||
@@ -99,11 +99,69 @@ export async function generateMetadata({
     post.properties.Title.type !== "title"
   ) {
     return {
-      title: "Blog Post",
+      title: "Post Not Found",
+      description: "The requested blog post could not be found.",
     };
   }
 
+  // Extract post data for metadata
+  const title = post.properties.Title.title[0]?.plain_text || "Blog Post";
+
+  // Extract description if available
+  let description = "Blog post from IMHO team";
+  if (
+    "Description" in post.properties &&
+    post.properties.Description.type === "rich_text" &&
+    post.properties.Description.rich_text[0]
+  ) {
+    description = post.properties.Description.rich_text[0].plain_text;
+  }
+
+  // Extract main image if available
+  let images = undefined;
+  if (
+    "Cover" in post.properties &&
+    post.properties.Cover.type === "url" &&
+    post.properties.Cover.url
+  ) {
+    images = [post.properties.Cover.url];
+  } else if (post.cover?.type === "external" && post.cover.external?.url) {
+    images = [post.cover.external.url];
+  } else if (post.cover?.type === "file" && post.cover.file?.url) {
+    images = [post.cover.file.url];
+  }
+
+  // Extract tags if available
+  let keywords = undefined;
+  if (
+    "Tags" in post.properties &&
+    post.properties.Tags.type === "multi_select" &&
+    post.properties.Tags.multi_select.length > 0
+  ) {
+    keywords = post.properties.Tags.multi_select.map((tag: any) => tag.name);
+  }
+
   return {
-    title: post.properties.Title.title[0]?.plain_text || "Blog Post",
+    title: title,
+    description: description.substring(0, 160),
+    keywords: keywords,
+    openGraph: {
+      title: title,
+      description: description.substring(0, 160),
+      type: "article",
+      publishedTime: post.created_time,
+      url: `/blog/${slug}`,
+      images: images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description.substring(0, 160),
+      images: images,
+    },
+
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
   };
 }
