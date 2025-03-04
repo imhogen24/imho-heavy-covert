@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "IMHO LTD",
-  url: "https://imhogen.com",
-  description: "Research and Development Company",
+  name: "Innovate Make & Have Ours",
+  url: "https://www.imhogen.com",
+  description: "Engineering solutions for sustainable products and processes. We support businesses and train engineers.",
   baseLinks: {
     home: "/",
   },

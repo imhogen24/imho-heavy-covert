@@ -7,9 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 import { ImageWithSkeleton } from "../_components/skeleton";
+import { Metadata } from "next";
 
 
 export const revalidate = 60;
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Explore the latest articles, insights, and stories from our blog, covering technology, innovation, and industry trends.",
+  keywords: ["Blog", "Technology", "Innovation", "Articles", "Industry Trends"],
+}
 const BlogPage = async () => {
   const posts = await fetchPages();
 
