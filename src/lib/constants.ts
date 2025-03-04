@@ -47,22 +47,22 @@ export const SOCIAL_ICONS: SocialIconProps[] = [
   {
     idx: 1,
     icon: FacebookIcon,
-    href: "https://www.facebook.com/",
+    href: "https://www.facebook.com/theimhogen",
   },
   {
     idx: 2,
     icon: XIcon,
-    href: "https://twitter.com/",
+    href: "https://x.com/theimhogen",
   },
   {
     idx: 3,
     icon: InstagramIcon,
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/theimhogen",
   },
   {
     idx: 4,
     icon: LinkedinIcon,
-    href: "https://www.linkedin.com/",
+    href: "https://www.linkedin.com/company/imho-ltd",
   },
 ];
 
