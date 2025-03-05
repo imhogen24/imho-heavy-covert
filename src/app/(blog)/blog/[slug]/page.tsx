@@ -8,6 +8,8 @@ import { TimerIcon } from "lucide-react";
 import BackButton from "../../_components/back-button";
 import PostNotFound from "../../_components/post-not-found";
 import estimateReadingTime from "../../_components/reading-time";
+
+export const revalidate = 60;
 export default async function Page({
   params,
 }: {
@@ -41,10 +43,9 @@ export default async function Page({
   const html = await renderer.render(...blocks);
   const strippedHtml = html.replace(/<[^>]+>/g, "");
   const readingTime = estimateReadingTime(strippedHtml);
-
   const title = post.properties.Title.title[0].plain_text;
   const createdTime = post.created_time;
-  console.log(post)
+
   return (
     <div className="max-w-screen overflow-x-hidden p-5 md:p-10 flex items-center gap-5 md:gap-10 flex-col min-h-dvh">
       <div className="flex flex-col gap-5 items-center">
@@ -83,6 +84,7 @@ export default async function Page({
     </div>
   );
 }
+
 export async function generateMetadata({
   params,
 }: {
@@ -91,7 +93,6 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await fetchBySlug(slug);
 
-  // Handle missing or invalid post
   if (
     !post ||
     !("properties" in post) ||
@@ -99,70 +100,11 @@ export async function generateMetadata({
     post.properties.Title.type !== "title"
   ) {
     return {
-      title: "Post Not Found",
-      description: "The requested blog post could not be found.",
+      title: "Blog Post",
     };
   }
 
-  // Extract post data for metadata
-  const title = post.properties.Title.title[0]?.plain_text || "Blog Post";
-  // Extract image if available
-  let image = undefined;
-  if (
-    "cover_image" in post.properties &&
-    post.properties.cover_image.type === "url" &&
-    post.properties.cover_image.url
-  ) {
-    image = post.properties.cover_image.url;
-  }
-
-  // Extract description if available
-  let description = "Blog post from IMHO team";
-  if (
-    "Description" in post.properties &&
-    post.properties.Description.type === "rich_text" &&
-    post.properties.Description.rich_text[0]
-  ) {
-    description = post.properties.Description.rich_text[0].plain_text;
-  }
-
-
-
-  // Extract tags if available
-  let keywords = undefined;
-  if (
-    "Tags" in post.properties &&
-    post.properties.Tags.type === "multi_select" &&
-    post.properties.Tags.multi_select.length > 0
-  ) {
-    keywords = post.properties.Tags.multi_select.map((tag: any) => tag.name);
-  }
-
   return {
-    title: title,
-    description: description.substring(0, 160),
-    keywords: keywords,
-    openGraph: {
-      title: title,
-      description: description.substring(0, 160),
-      type: "article",
-      publishedTime: post.created_time,
-      url: `/blog/${slug}`,
-      images: {
-        url: image,
-      },
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: title,
-      description: description.substring(0, 160),
-      images: {
-        url: image,
-      },
-    },
-
-    alternates: {
-      canonical: `/blog/${slug}`,
-    },
+    title: post.properties.Title.title[0]?.plain_text || "Blog Post",
   };
 }
