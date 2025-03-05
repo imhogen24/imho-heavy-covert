@@ -43,8 +43,8 @@ const BlogPage = async () => {
         {posts.results.map((post: any, index) => {
           return (
             <Link
-              href=
-              {`/blog/${post.properties.slug.rich_text[0].plain_text.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`}
+              href={`/blog/${post.properties.slug.rich_text[0].plain_text.replace(/[\s:]+/g, '-').toLowerCase()}`}
+
               key={post.id}
               className={cn(
                 "flex flex-col gap-5 p-8 w-full h-full hover:bg-gray-50 dark:hover:bg-neutral-900",
