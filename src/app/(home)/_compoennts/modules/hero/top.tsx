@@ -62,7 +62,7 @@ const Top = () => {
                   <img
                     src="/logos/imho-outlined.png"
                     alt="Next.js Logo"
-                    className="w-full h-full object-contain dark:hidden"
+                    className="w-full h-full object-contain dark:hidden shadow-lg"
                   />
                   <img
                     src="/logos/imho-outlined.png"
