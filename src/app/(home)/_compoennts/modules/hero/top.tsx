@@ -21,12 +21,12 @@ const Top = () => {
                 <div className="w-1/2 h-1/2">
                   <img
                     src="/obelisk.svg"
-                    alt="Next.js Logo"
+                    alt="obelistk-icon"
                     className="w-full h-full opacity-40 object-contain dark:hidden"
                   />
                   <img
                     src="/obelisk.svg"
-                    alt="Next.js Logo"
+                    alt="obelisk-icon"
                     className="w-full opacity-10 h-full object-contain hidden dark:block"
                   />
                 </div>
@@ -41,12 +41,12 @@ const Top = () => {
                 <div className="w-1/2 h-1/2">
                   <img
                     src="/heaven-and-earth.svg"
-                    alt="Next.js Logo"
+                    alt="heaven-and-earth-icon"
                     className="w-full h-full opacity-40 object-contain dark:hidden"
                   />
                   <img
                     src="/heaven-and-earth.svg"
-                    alt="Next.js Logo"
+                    alt="heaven-and-earth-icon"
                     className="w-full h-full opacity-10 object-contain hidden dark:block"
                   />
                 </div>
@@ -61,13 +61,13 @@ const Top = () => {
                 <div className="w-1/2 h-1/2">
                   <img
                     src="/logos/imho-outlined.png"
-                    alt="Next.js Logo"
+                    alt="imho-outlined-logo"
                     className="w-full h-full object-contain dark:hidden shadow-lg"
                   />
                   <img
                     src="/logos/imho-outlined.png"
-                    alt="Next.js Logo"
-                    className="w-full h-full object-contain hidden dark:block"
+                    alt="imho-outlined-logo"
+                    className="w-full h-full object-contain hidden dark:block shadow-lg"
                   />
                 </div>
               </div>
@@ -81,12 +81,12 @@ const Top = () => {
                 <div className="w-1/2 h-1/2">
                   <img
                     src="/sun.svg"
-                    alt="Next.js Logo"
+                    alt="sun-icon"
                     className="w-full h-full opacity-40 object-contain dark:hidden"
                   />
                   <img
                     src="/sun.svg"
-                    alt="Next.js Logo"
+                    alt="sun-icon"
                     className="w-full h-full opacity-10 object-contain hidden dark:block"
                   />
                 </div>
@@ -101,12 +101,12 @@ const Top = () => {
                 <div className="w-1/2 h-1/2">
                   <img
                     src="/pyramid.svg"
-                    alt="Next.js Logo"
+                    alt="pyramid-icon"
                     className="w-full h-full opacity-40 object-contain dark:hidden"
                   />
                   <img
                     src="/pyramid.svg"
-                    alt="Next.js Logo"
+                    alt="pyramid-icon"
                     className="w-full h-full opacity-10 object-contain hidden dark:block"
                   />
                 </div>
