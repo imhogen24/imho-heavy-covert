@@ -20,12 +20,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/obelisk.svg"
-                      alt="imho-logo"
+                      alt="obelisk-icon"
                       className="w-full h-full opacity-40 object-contain dark:hidden"
                     />
                     <img
                       src="/obelisk.svg"
-                      alt="imho-logo"
+                      alt="obelisk-icon"
                       className="w-full opacity-10 h-full object-contain hidden dark:block"
                     />
                   </div>
@@ -39,12 +39,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/heaven-and-earth.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-40 object-contain dark:hidden"
                     />
                     <img
                       src="/heaven-and-earth.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-10 object-contain hidden dark:block"
                     />
                   </div>
@@ -59,12 +59,12 @@ const SmTop = () => {
                     <img
                       src="/logos/imho-outlined.png"
                       alt="imho-logo"
-                      className="w-full h-full object-contain dark:hidden"
+                      className="w-full h-full object-contain dark:hidden shadow-lg"
                     />
                     <img
                       src="/logos/imho-outlined.png"
                       alt="imho-logo"
-                      className="w-full h-full object-contain hidden dark:block"
+                      className="w-full h-full object-contain hidden dark:block shadow-lg"
                     />
                   </div>
                 </div>
@@ -77,12 +77,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/sun.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-40 object-contain dark:hidden"
                     />
                     <img
                       src="/sun.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-10 object-contain hidden dark:block"
                     />
                   </div>
@@ -96,12 +96,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/pyramid.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-40 object-contain dark:hidden"
                     />
                     <img
                       src="/pyramid.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-10 object-contain hidden dark:block"
                     />
                   </div>
@@ -135,12 +135,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/heaven-and-earth.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-40 object-contain dark:hidden"
                     />
                     <img
                       src="/heaven-and-earth.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-10 object-contain hidden dark:block"
                     />
                   </div>
@@ -154,12 +154,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/logos/imho-outlined.png"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full  object-contain dark:hidden"
                     />
                     <img
                       src="/logos/imho-outlined.png"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full  object-contain hidden dark:block"
                     />
                   </div>
@@ -173,12 +173,12 @@ const SmTop = () => {
                   <div className="w-1/2 h-1/2">
                     <img
                       src="/pyramid.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-40 object-contain dark:hidden"
                     />
                     <img
                       src="/pyramid.svg"
-                      alt="imho-logo"
+                      alt="icon"
                       className="w-full h-full opacity-10 object-contain hidden dark:block"
                     />
                   </div>
