@@ -6,6 +6,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/header/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "./site-config";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 const geistSans = localFont({
