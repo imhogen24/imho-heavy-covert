@@ -59,12 +59,12 @@ const SmTop = () => {
                     <img
                       src="/logos/imho-outlined.png"
                       alt="imho-logo"
-                      className="w-full h-full object-contain dark:hidden shadow-lg"
+                      className="w-full h-full object-contain dark:hidden"
                     />
                     <img
                       src="/logos/imho-outlined.png"
                       alt="imho-logo"
-                      className="w-full h-full object-contain hidden dark:block shadow-lg"
+                      className="w-full h-full object-contain hidden dark:block"
                     />
                   </div>
                 </div>
