@@ -95,6 +95,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Toaster position="bottom-center" />
+            <SpeedInsights /> //adding this line to anable speed insights from vercel
           </ThemeProvider>
         </body>
       </html>
