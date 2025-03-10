@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Play, XIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -22,6 +21,7 @@ interface HeroVideoProps {
   animationStyle?: AnimationStyle;
   videoSrc: string;
   thumbnailSrc: string;
+  mobileThumbnailSrc?: string; // Added mobile-specific thumbnail option
   thumbnailAlt?: string;
   className?: string;
 }
@@ -73,24 +73,53 @@ export function HeroVideoDialog({
   animationStyle = "from-center",
   videoSrc,
   thumbnailSrc,
+  mobileThumbnailSrc,
   thumbnailAlt = "Video thumbnail",
   className,
 }: HeroVideoProps) {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const selectedAnimation = animationVariants[animationStyle];
+
+  // Check if device is mobile on client-side
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+    
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
+
+  // Choose appropriate image source based on device
+  const imgSrc = isMobile && mobileThumbnailSrc ? mobileThumbnailSrc : thumbnailSrc;
 
   return (
     <div className={cn("relative", className)}>
+      {/* Preload the hero image to improve LCP */}
+      <head>
+        <link
+          rel="preload"
+          href={imgSrc}
+          as="image"
+        />
+      </head>
+
       <div
         className="group relative cursor-pointer"
         onClick={() => setIsVideoOpen(true)}
       >
         <Image
-          src={thumbnailSrc}
+          src={imgSrc}
           alt={thumbnailAlt}
           width={1920}
           height={1080}
-          loading="lazy"
+          priority={true} // Mark as priority for LCP improvement
+          sizes="(max-width: 768px) 100vw, 1200px" // Responsive sizing
           className="w-full transition-all duration-200 ease-out group-hover:brightness-[0.8]"
         />
         <div className="absolute inset-0 flex scale-[0.9] items-center justify-center rounded-2xl transition-all duration-200 ease-out group-hover:scale-100">
@@ -120,7 +149,11 @@ export function HeroVideoDialog({
           >
             <motion.div
               {...selectedAnimation}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              transition={{ 
+                type: "spring", 
+                damping: 30, 
+                stiffness: isMobile ? 400 : 300 // Slightly faster animation for mobile
+              }}
               className="relative mx-4 aspect-video w-full max-w-4xl md:mx-0"
             >
               <motion.button className="absolute -top-16 right-0 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black">
