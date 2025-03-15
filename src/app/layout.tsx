@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layout/header/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "./site-config";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import CookieConsent from "@/components/ui/cookie-consent";
 
 
 const geistSans = localFont({
@@ -95,6 +96,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Toaster position="bottom-center" />
+            <CookieConsent />
             <SpeedInsights /> {/* Enable speed insights form Vercel*/}
           </ThemeProvider>
         </body>
