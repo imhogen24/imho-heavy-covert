@@ -28,18 +28,24 @@ const defaultPreferences: CookiePreferences = {
 
 export default function CookieConsent() {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [bannerOpen, setBannerOpen] = useState(false);
+  const [bannerOpen, setBannerOpen] = useState(true);
   const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
 
+  // Load preferences from localStorage only once on initial mount
   useEffect(() => {
-    // Check if user has already set cookie preferences
-    const storedPreferences = localStorage.getItem('cookiePreferences');
-
-    if (!storedPreferences) {
-      // If no preferences are stored, show the banner
-      setBannerOpen(true);
-    } else {
-      setPreferences(JSON.parse(storedPreferences));
+    // Check if running in browser environment
+    if (typeof window !== 'undefined') {
+      try {
+        const storedPreferences = localStorage.getItem('cookiePreferences');
+        if (storedPreferences) {
+          setPreferences(JSON.parse(storedPreferences));
+          setBannerOpen(false);
+        } else {
+          setBannerOpen(true);
+        }
+      } catch (error) {
+        console.error('Error loading cookie preferences:', error);
+      }
     }
   }, []);
 
@@ -50,38 +56,59 @@ export default function CookieConsent() {
       marketing: true,
     };
 
-    localStorage.setItem('cookiePreferences', JSON.stringify(allAccepted));
     setPreferences(allAccepted);
     setBannerOpen(false);
     setDialogOpen(false);
+
+    // Save to localStorage after state is updated
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cookiePreferences', JSON.stringify(allAccepted));
+    }
   };
 
   const rejectAll = () => {
-    localStorage.setItem('cookiePreferences', JSON.stringify(defaultPreferences));
     setPreferences(defaultPreferences);
     setBannerOpen(false);
     setDialogOpen(false);
+
+    // Save to localStorage after state is updated
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cookiePreferences', JSON.stringify(defaultPreferences));
+    }
   };
 
   const savePreferences = () => {
-    localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
     setBannerOpen(false);
     setDialogOpen(false);
+
+    // Save to localStorage after state is updated
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+    }
   };
 
-  const handleTogglePreference = (key: keyof CookiePreferences) => {
+  // Use explicit callback function for toggle
+  const handleTogglePreference = (key: keyof CookiePreferences) => (e: React.MouseEvent) => {
     // Don't allow toggling necessary cookies
     if (key === 'necessary') return;
 
-    setPreferences(prev => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+    // Use functional update to ensure we're working with latest state
+    setPreferences(prev => {
+      const newPreferences = {
+        ...prev,
+        [key]: !prev[key],
+      };
+      console.log(`Toggled ${key} to:`, newPreferences[key]);
+      return newPreferences;
+    });
   };
 
   const openDialog = () => {
     setDialogOpen(true);
   };
+
+
+  console.log('Current preferences:', preferences);
 
   return (
     <>
@@ -90,20 +117,20 @@ export default function CookieConsent() {
         <div className="fixed bottom-0 left-0 right-0 bg-accent border-t muted-border p-4 shadow-lg flex flex-col lg:flex-row gap-5 justify-between z-50">
           <div className='lg:max-w-[70%]'>
             <h1>IMHO Cares About Your Privacy</h1>
-            <p className="text-xs mb-4 sm:mb-0 text-muted-foreground">
-              IMHO and our third-party services use cookies to store and access information to deliver, maintain and improve our services. You can select ‘Accept All’ to consent to these uses or click on ‘Manage Cookies` to review your options and exercise your right to object to Legitimate Interest where used.
+            <p className="text-sm mb-4 sm:mb-0 text-muted-foreground">
+              IMHO and our third-party services use cookies to store and access information to deliver, maintain and improve our services. You can select 'Accept All' to consent to these uses or click on 'Manage Cookies` to review your options and exercise your right to object to Legitimate Interest where used.
               <Link href={"#"} className='underline'>   Privacy Statement.</Link>
             </p>
           </div>
           <div className="flex lg:flex-col gap-2 rounded-[0.5rem]">
-            <Button
+            {/* <Button
               variant="outline"
               size="sm"
               onClick={openDialog}
               className="text-xs rounded-[0.5rem] muted-border"
             >
               Manage Cookies
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               size="sm"
@@ -153,8 +180,9 @@ export default function CookieConsent() {
                   <p className="text-sm text-muted-foreground">Help us improve our website by collecting anonymous information.</p>
                 </div>
                 <Checkbox
+                  id="analytics-checkbox"
                   checked={preferences.analytics}
-                  onChange={() => handleTogglePreference('analytics')}
+                  onCheckedChange={() => handleTogglePreference('analytics')}
                   className="h-4 w-4"
                 />
               </div>
@@ -165,8 +193,9 @@ export default function CookieConsent() {
                   <p className="text-sm text-muted-foreground">Used to track visitors across websites to display relevant advertisements.</p>
                 </div>
                 <Checkbox
+                  id="marketing-checkbox"
                   checked={preferences.marketing}
-                  onChange={() => handleTogglePreference('marketing')}
+                  onCheckedChange={() => handleTogglePreference('marketing')}
                   className="h-4 w-4"
                 />
               </div>
