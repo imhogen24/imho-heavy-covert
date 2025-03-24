@@ -11,6 +11,7 @@ import { CookieBanner } from "@/components/cookie/banner";
 import { CookieSettings } from "@/components/cookie/settings";
 import { CookieConsentProvider } from "../../context/cookies/consent";
 import { ConsentInitializer } from "@/components/cookie/initializer";
+import { Analytics } from '@vercel/analytics/next';
 
 
 
@@ -103,6 +104,7 @@ export default function RootLayout({
               <Toaster position="bottom-center" />
 
               <SpeedInsights /> {/* Enable speed insights form Vercel*/}
+              <Analytics />   {/* Enable analytics on vercel to track visits */}
               <CookieBanner />
               <CookieSettings />
             </CookieConsentProvider>
