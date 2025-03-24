@@ -30,6 +30,7 @@
     "@radix-ui/react-toast": "^1.2.4",
     "@react-email/components": "0.0.32",
     "@react-pdf/renderer": "^4.2.1",
+    "@types/js-cookie": "^3.0.6",
     "@uploadthing/react": "^7.1.5",
     "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.0",
