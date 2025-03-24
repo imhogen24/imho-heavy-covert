@@ -7,7 +7,11 @@ import { Navbar } from "@/components/layout/header/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "./site-config";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import CookieConsent from "@/components/ui/cookie-consent";
+import { CookieBanner } from "@/components/cookie/banner";
+import { CookieSettings } from "@/components/cookie/settings";
+import { CookieConsentProvider } from "../../context/cookies/consent";
+import { ConsentInitializer } from "@/components/cookie/initializer";
+
 
 
 const geistSans = localFont({
@@ -92,12 +96,16 @@ export default function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-            <Toaster position="bottom-center" />
-            <CookieConsent />
-            <SpeedInsights /> {/* Enable speed insights form Vercel*/}
+          > <CookieConsentProvider>
+              <ConsentInitializer />
+              <Navbar />
+              {children}
+              <Toaster position="bottom-center" />
+
+              <SpeedInsights /> {/* Enable speed insights form Vercel*/}
+              <CookieBanner />
+              <CookieSettings />
+            </CookieConsentProvider>
           </ThemeProvider>
         </body>
       </html>

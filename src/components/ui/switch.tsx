@@ -3,7 +3,7 @@
 import * as React from "react"
 import * as SwitchPrimitives from "@radix-ui/react-switch"
 import { cn } from "@/lib/utils"
-import { Moon, Sun } from "lucide-react"
+import { CircleCheckBig, CircleX } from "lucide-react"
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
@@ -17,8 +17,8 @@ const Switch = React.forwardRef<
     {...props}
     ref={ref}
   >
-    <Sun className=" absolute left-1.5 h-4 w-4 transition-opacity data-[state=checked]:opacity-0 data-[state=unchecked]:opacity-100" aria-hidden="true" />
-    <Moon className="absolute right-1.5 h-4 w-4 transition-opacity data-[state=checked]:opacity-100 data-[state=unchecked]:opacity-0" aria-hidden="true" />
+    <CircleCheckBig className=" absolute left-1.5 h-4 w-4 transition-opacity data-[state=checked]:opacity-0 data-[state=unchecked]:opacity-100" aria-hidden="true" />
+    <CircleX className="absolute right-1.5 h-4 w-4 transition-opacity data-[state=checked]:opacity-100 data-[state=unchecked]:opacity-0" aria-hidden="true" />
     <SwitchPrimitives.Thumb
       className={cn(
         "pointer-events-none block h-6 w-6 rounded-full bg-accent-foreground shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-7 data-[state=unchecked]:translate-x-0"
