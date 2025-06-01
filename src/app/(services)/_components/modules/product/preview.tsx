@@ -43,6 +43,7 @@ interface FieldConfig {
   isMedium?: boolean;
   isBoolean?: boolean;
   isArray?: boolean;
+  condition?: boolean;
 }
 
 interface SectionConfig {
@@ -290,11 +291,13 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
                 </h3>
                 <div className="space-y-5">
                   {section.fields.map((field, fieldIdx) => {
-                    // Skip empty fields
+                    // Skip empty fields or fields that don't meet their condition
                     if (
                       field.value === undefined ||
                       field.value === "" ||
-                      (Array.isArray(field.value) && field.value.length === 0)
+                      (Array.isArray(field.value) &&
+                        field.value.length === 0) ||
+                      field.condition === false
                     ) {
                       return null;
                     }
