@@ -326,7 +326,7 @@ export const processFormAction = async (formData: FormData) => {
         address,
         businessOverview,
         materialInputs,
-        energyInputs,
+        EnergyInputs: energyInputs,
         informationInputs,
         livingInputs,
         humanSytems,
