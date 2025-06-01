@@ -1,8 +1,6 @@
 import { ProductFormData } from "@/lib/schemas/product/z";
 import { PDFConfig, SectionConfig } from "../types";
 
-
-
 export const productPdfConfig: PDFConfig = {
   requestType: "Product",
 
@@ -16,7 +14,7 @@ export const productPdfConfig: PDFConfig = {
         { label: "Phone Number", value: data.phoneNumber },
         { label: "Address", value: data.address },
         { label: "Business Overview", value: data.businessOverview },
-      ]
+      ],
     },
     {
       title: "Input Requirements",
@@ -24,28 +22,29 @@ export const productPdfConfig: PDFConfig = {
         {
           label: "Material Inputs",
           value: data.materialInputs,
-          condition: !!data.materialInputs
+          condition: !!data.materialInputs,
         },
         {
           label: "Energy Inputs",
           value: data.energyInputs,
-          condition: !!data.energyInputs
+          condition: !!data.energyInputs,
         },
         {
           label: "Information Inputs",
           value: data.informationInputs,
-          condition: !!data.informationInputs
+          condition: !!data.informationInputs,
         },
         {
           label: "Living System Inputs",
-          value: data.livingSystemInputs ? "Yes" : "No"
+          value: data.livingSystemInputs ? "Yes" : "No",
         },
         {
           label: "Living System Input Description",
           value: data.livingSystemInputDescription,
-          condition: !!data.livingSystemInputDescription && data.livingSystemInputs
+          condition:
+            !!data.livingSystemInputDescription && data.livingSystemInputs,
         },
-      ]
+      ],
     },
     {
       title: "Transformation Requirements",
@@ -53,14 +52,14 @@ export const productPdfConfig: PDFConfig = {
         {
           label: "Transformation Description",
           value: data.transformationDescription,
-          condition: !!data.transformationDescription
+          condition: !!data.transformationDescription,
         },
         {
           label: "Performance Targets",
           value: data.performanceTargets,
-          condition: !!data.performanceTargets
+          condition: !!data.performanceTargets,
         },
-      ]
+      ],
     },
     {
       title: "Output Requirements",
@@ -68,24 +67,24 @@ export const productPdfConfig: PDFConfig = {
         {
           label: "System Outputs",
           value: data.systemOutputs,
-          condition: !!data.systemOutputs
+          condition: !!data.systemOutputs,
         },
         {
           label: "Information Outputs",
           value: data.informationOutputs,
-          condition: !!data.informationOutputs
+          condition: !!data.informationOutputs,
         },
         {
           label: "Energy Outputs",
           value: data.energyOutputs,
-          condition: !!data.energyOutputs
+          condition: !!data.energyOutputs,
         },
         {
           label: "Living Things Outputs",
           value: data.livingThingsOutputs,
-          condition: !!data.livingThingsOutputs
+          condition: !!data.livingThingsOutputs,
         },
-      ]
+      ],
     },
     {
       title: "Operational Agents",
@@ -93,29 +92,29 @@ export const productPdfConfig: PDFConfig = {
         {
           label: "Human Systems",
           value: data.humanSystems,
-          condition: !!data.humanSystems
+          condition: !!data.humanSystems,
         },
         {
           label: "Technical Systems",
           value: data.technicalSystems,
-          condition: !!data.technicalSystems
+          condition: !!data.technicalSystems,
         },
         {
           label: "Environment",
           value: data.environment,
-          condition: !!data.environment
+          condition: !!data.environment,
         },
         {
           label: "Information Systems",
           value: data.informationSystems,
-          condition: !!data.informationSystems
+          condition: !!data.informationSystems,
         },
         {
           label: "Management Systems",
           value: data.managementSystems,
-          condition: !!data.managementSystems
+          condition: !!data.managementSystems,
         },
-      ]
+      ],
     },
     {
       title: "Safety, Maintenance and Scalability",
@@ -123,20 +122,21 @@ export const productPdfConfig: PDFConfig = {
         {
           label: "Safety Requirements",
           value: data.safetyRequirements,
-          condition: !!data.safetyRequirements
+          condition: !!data.safetyRequirements,
         },
         {
           label: "Maintenance Needs",
           value: data.maintenanceNeeds,
           isArray: true,
-          condition: !!data.maintenanceNeeds && data.maintenanceNeeds.length > 0
+          condition:
+            !!data.maintenanceNeeds && data.maintenanceNeeds.length > 0,
         },
         {
           label: "Future Scalability",
           value: data.futureScalability,
-          condition: !!data.futureScalability
+          condition: !!data.futureScalability,
         },
-      ]
+      ],
     },
     {
       title: "Collaboration and Communication",
@@ -145,19 +145,23 @@ export const productPdfConfig: PDFConfig = {
           label: "Collaboration Preferences",
           value: data.collaborationPreferences,
           isArray: true,
-          condition: !!data.collaborationPreferences && data.collaborationPreferences.length > 0
+          condition:
+            !!data.collaborationPreferences &&
+            data.collaborationPreferences.length > 0,
         },
         {
           label: "Additional Comments",
           value: data.additionalComments,
-          condition: !!data.additionalComments
+          condition: !!data.additionalComments,
         },
-      ]
+      ],
     },
   ],
 
   getFooterText: (data: ProductFormData) => {
-    const date = data.createdAt ? new Date(data.createdAt).toLocaleDateString() : new Date().toLocaleDateString();
+    const date = data.createdAt
+      ? new Date(data.createdAt).toLocaleDateString()
+      : new Date().toLocaleDateString();
     return `IMHO Product Request • ${date}`;
-  }
+  },
 };

@@ -1,19 +1,18 @@
 import {
   Body,
-  Container,
   Column,
+  Container,
   Head,
   Heading,
   Hr,
-  Img,
   Html,
+  Img,
+  Link,
   Preview,
   Row,
   Section,
   Text,
-  Link,
 } from "@react-email/components";
-import * as React from "react";
 
 export interface ProductFormEmailProps {
   // Client Information
@@ -172,17 +171,14 @@ export const ProductFormEmail = ({
                 <strong>Energy Inputs:</strong> {energyInputs}
               </Text>
             )}
-            {livingSystemInputs && (
-              <Text style={styles.infoText}>
-                <strong>Living System Inputs:</strong> {livingSystemInputs}
-              </Text>
-            )}
             <Text style={styles.infoText}>
-              <strong>Living Systems Input:</strong> {livingSystemInputs ? "Yes" : "No"}
+              <strong>Living Systems Input:</strong>{" "}
+              {livingSystemInputs ? "Yes" : "No"}
             </Text>
-            {livingSystemInputDescription && (
+            {livingSystemInputs && livingSystemInputDescription && (
               <Text style={styles.infoText}>
-                <strong>Biological Input Description:</strong> {livingSystemInputDescription}
+                <strong>Living System Input Description:</strong>{" "}
+                {livingSystemInputDescription}
               </Text>
             )}
           </Section>
@@ -193,7 +189,8 @@ export const ProductFormEmail = ({
             <Text style={styles.sectionTitle}>TRANSFORMATION REQUIREMENTS</Text>
             {transformationDescription && (
               <Text style={styles.infoText}>
-                <strong>Transformation Description:</strong> {transformationDescription}
+                <strong>Transformation Description:</strong>{" "}
+                {transformationDescription}
               </Text>
             )}
             {performanceTargets && (
@@ -263,7 +260,9 @@ export const ProductFormEmail = ({
           <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>SAFETY, MAINTENANCE AND SCALABILITY</Text>
+            <Text style={styles.sectionTitle}>
+              SAFETY, MAINTENANCE AND SCALABILITY
+            </Text>
             {safetyRequirements && (
               <Text style={styles.infoText}>
                 <strong>Safety Requirements:</strong> {safetyRequirements}
@@ -271,7 +270,8 @@ export const ProductFormEmail = ({
             )}
             {maintenanceNeeds && maintenanceNeeds.length > 0 && (
               <Text style={styles.infoText}>
-                <strong>Maintenance Needs:</strong> {maintenanceNeeds.join(", ")}
+                <strong>Maintenance Needs:</strong>{" "}
+                {maintenanceNeeds.join(", ")}
               </Text>
             )}
             {futureScalability && (
@@ -284,12 +284,16 @@ export const ProductFormEmail = ({
           <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>COLLABORATION AND COMMUNICATION</Text>
-            {collaborationPreferences && collaborationPreferences.length > 0 && (
-              <Text style={styles.infoText}>
-                <strong>Collaboration Preferences:</strong> {collaborationPreferences.join(", ")}
-              </Text>
-            )}
+            <Text style={styles.sectionTitle}>
+              COLLABORATION AND COMMUNICATION
+            </Text>
+            {collaborationPreferences &&
+              collaborationPreferences.length > 0 && (
+                <Text style={styles.infoText}>
+                  <strong>Collaboration Preferences:</strong>{" "}
+                  {collaborationPreferences.join(", ")}
+                </Text>
+              )}
             <Text style={styles.infoText}>
               <strong>Additional Comments:</strong> {additionalComments}
             </Text>
@@ -310,9 +314,7 @@ export const ProductFormEmail = ({
                   })}
                 </Section>
               </>
-
             )}
-
           </Section>
         </Section>
 
@@ -383,7 +385,8 @@ const styles = {
     borderTop: "1px solid #E0E0E0",
     margin: "20px 0",
   },
-  fileLink: {  // Added missing fileLink style
+  fileLink: {
+    // Added missing fileLink style
     color: "#2563eb",
     textDecoration: "underline",
     fontWeight: "500",

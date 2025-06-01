@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from "react"
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -12,30 +10,31 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "sonner";
-import { UploadDropzone } from "@/lib/uploadthing";
-import { useState } from "react";
 import { ProductSchema, type ProductFormData } from "@/lib/schemas/product/z";
-import { Button } from "@/components/ui/button";
+import { UploadDropzone } from "@/lib/uploadthing";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { ProductFormAction } from "@/actions/action";
-import { FormSection, SectionChild } from "../../wrapper";
 import Link from "next/link";
-import { FormPreview } from "./preview";
+import { FormSection, SectionChild } from "../../wrapper";
 import { Agreement } from "../shared/agreement";
+import { FormPreview } from "./preview";
 
 const collaborationPreferences = [
   "Regular Meetings",
   "Weekly Updates via Email",
-  "On-demand Reporting"
+  "On-demand Reporting",
 ] as const;
 
 const maintenanceNeeds = [
   "In-house Maintenance",
-  "Ongoing maintenance service form IMHO"
+  "Ongoing maintenance service form IMHO",
 ] as const;
 
 export const ProductForm = () => {
@@ -54,7 +53,6 @@ export const ProductForm = () => {
       materialInputs: "",
       energyInputs: "",
       informationInputs: "",
-      livingSystemInputDescription: "",
       // biologicalComponent: false,
       // biologicalInputDescription: "",
 
@@ -108,8 +106,8 @@ export const ProductForm = () => {
       const result = await ProductFormAction(formData);
       toast.success("Product request submitted successfully!");
       form.reset();
-      console.log(result)
-      console.log(values)
+      console.log(result);
+      console.log(values);
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {
@@ -123,8 +121,10 @@ export const ProductForm = () => {
         Product Development Request Form
       </h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:space-y-20">
-
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 md:space-y-20"
+        >
           {/* Client Information Section */}
           <FormSection label="Client Information">
             <SectionChild label="ORGANIZATION DETAILS">
@@ -135,7 +135,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Organization Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="AgroTech Processing Solutions" {...field} />
+                      <Input
+                        placeholder="AgroTech Processing Solutions"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -165,7 +168,11 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="don.chris@agrotechsolutions.com" {...field} />
+                      <Input
+                        type="email"
+                        placeholder="don.chris@agrotechsolutions.com"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -193,7 +200,10 @@ export const ProductForm = () => {
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="No.15 Industrial Lane, Accra, Ghana" {...field} />
+                    <Textarea
+                      placeholder="No.15 Industrial Lane, Accra, Ghana"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -208,7 +218,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Business Overview</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="AgroTech Processing Solutions specializes in the..." {...field} />
+                      <Textarea
+                        placeholder="AgroTech Processing Solutions specializes in the..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -227,7 +240,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Material Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Cassava roots..., Properties: High moisture content..." {...field} />
+                      <Textarea
+                        placeholder="Cassava roots..., Properties: High moisture content..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -241,7 +257,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Energy Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Electrical power supply: 3-phase ..., Average consumption: 7kW,..." {...field} />
+                      <Textarea
+                        placeholder="Electrical power supply: 3-phase ..., Average consumption: 7kW,..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -255,7 +274,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Information Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Required: System...,  Prefered: Sensor-based..." {...field} />
+                      <Textarea
+                        placeholder="Required: System...,  Prefered: Sensor-based..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -276,7 +298,8 @@ export const ProductForm = () => {
                     </FormControl>
                     <div className="space-y-1 leading-none">
                       <FormLabel>
-                        Are there any biological components or living agents involved in the operation?
+                        Are there any biological components or living agents
+                        involved in the operation?
                       </FormLabel>
                     </div>
                   </FormItem>
@@ -290,7 +313,10 @@ export const ProductForm = () => {
                     <FormItem>
                       <FormLabel>Living System Input Description</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Specify living system inputs" {...field} />
+                        <Textarea
+                          placeholder="Specify living system inputs"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -310,7 +336,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Transformation Description</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="peeling of cassava roots without excessive wastage, etc" {...field} />
+                      <Textarea
+                        placeholder="peeling of cassava roots without excessive wastage, etc"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -324,7 +353,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Performance Targets</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Processing speed: Min 500kg/hr, Peeling efficiancy: >90%...etc" {...field} />
+                      <Textarea
+                        placeholder="Processing speed: Min 500kg/hr, Peeling efficiancy: >90%...etc"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -343,7 +375,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>System Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Pelled and uniformly sliced cassava, separated cassava peels, etc" {...field} />
+                      <Textarea
+                        placeholder="Pelled and uniformly sliced cassava, separated cassava peels, etc"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -357,7 +392,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Information Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Processing time per batch, Maintenance alerts for blade..., etc." {...field} />
+                      <Textarea
+                        placeholder="Processing time per batch, Maintenance alerts for blade..., etc."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -371,7 +409,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Energy Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="No excess energy output expected..." {...field} />
+                      <Textarea
+                        placeholder="No excess energy output expected..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -385,7 +426,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Living Things Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe living things outputs if applicable" {...field} />
+                      <Textarea
+                        placeholder="Describe living things outputs if applicable"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -404,7 +448,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Human Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Machine operators(2 persons per shift)" {...field} />
+                      <Textarea
+                        placeholder="Machine operators(2 persons per shift)"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -418,7 +465,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Technical Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Automated peeling and slicing machine..." {...field} />
+                      <Textarea
+                        placeholder="Automated peeling and slicing machine..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -432,7 +482,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Environment</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Indoor processing plant(temperature: 20-35 degrees)" {...field} />
+                      <Textarea
+                        placeholder="Indoor processing plant(temperature: 20-35 degrees)"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -446,7 +499,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Information Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Requires integration with existing inventory tracking system" {...field} />
+                      <Textarea
+                        placeholder="Requires integration with existing inventory tracking system"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -460,7 +516,10 @@ export const ProductForm = () => {
                   <FormItem>
                     <FormLabel>Management Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Workflow management for batch processing..." {...field} />
+                      <Textarea
+                        placeholder="Workflow management for batch processing..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -471,7 +530,10 @@ export const ProductForm = () => {
 
           {/* Safety, Maintenance and Scalability Section */}
           <FormSection label="Safety, Maintenance and Scalability">
-            <SectionChild label="SAFETY REQUIREMENTS" className="md:grid-cols-1">
+            <SectionChild
+              label="SAFETY REQUIREMENTS"
+              className="md:grid-cols-1"
+            >
               <FormField
                 control={form.control}
                 name="safetyRequirements"
@@ -495,8 +557,13 @@ export const ProductForm = () => {
               name="maintenanceNeeds"
               render={() => (
                 <FormItem className="space-y-4">
-                  <FormLabel className="text-base">Maintenance Requirements</FormLabel>
-                  <SectionChild label="MAINTENANCE NEEDS" className="md:grid-cols-2">
+                  <FormLabel className="text-base">
+                    Maintenance Requirements
+                  </FormLabel>
+                  <SectionChild
+                    label="MAINTENANCE NEEDS"
+                    className="md:grid-cols-2"
+                  >
                     {maintenanceNeeds.map((option) => (
                       <FormField
                         key={option}
@@ -514,10 +581,15 @@ export const ProductForm = () => {
                                   checked={field.value?.includes(option)}
                                   onCheckedChange={(checked) => {
                                     return checked
-                                      ? field.onChange([...(field.value || []), option])
+                                      ? field.onChange([
+                                          ...(field.value || []),
+                                          option,
+                                        ])
                                       : field.onChange(
-                                        field.value?.filter((value) => value !== option)
-                                      );
+                                          field.value?.filter(
+                                            (value) => value !== option
+                                          )
+                                        );
                                   }}
                                 />
                               </FormControl>
@@ -564,8 +636,13 @@ export const ProductForm = () => {
               name="collaborationPreferences"
               render={() => (
                 <FormItem className="space-y-4">
-                  <FormLabel className="text-base">Collaboration Preferences</FormLabel>
-                  <SectionChild label="COLLABORATION PREFERENCES" className="md:grid-cols-3">
+                  <FormLabel className="text-base">
+                    Collaboration Preferences
+                  </FormLabel>
+                  <SectionChild
+                    label="COLLABORATION PREFERENCES"
+                    className="md:grid-cols-3"
+                  >
                     {collaborationPreferences.map((pref) => (
                       <FormField
                         key={pref}
@@ -581,10 +658,15 @@ export const ProductForm = () => {
                                 checked={field.value?.includes(pref)}
                                 onCheckedChange={(checked) => {
                                   return checked
-                                    ? field.onChange([...(field.value || []), pref])
+                                    ? field.onChange([
+                                        ...(field.value || []),
+                                        pref,
+                                      ])
                                     : field.onChange(
-                                      field.value?.filter((value) => value !== pref)
-                                    );
+                                        field.value?.filter(
+                                          (value) => value !== pref
+                                        )
+                                      );
                                 }}
                               />
                             </FormControl>
@@ -601,7 +683,10 @@ export const ProductForm = () => {
               )}
             />
 
-            <SectionChild label="ADDITIONAL COMMENTS" className="md:grid-cols-1">
+            <SectionChild
+              label="ADDITIONAL COMMENTS"
+              className="md:grid-cols-1"
+            >
               <FormField
                 control={form.control}
                 name="additionalComments"
@@ -640,7 +725,9 @@ export const ProductForm = () => {
                             toast.success("Upload Completed");
                           }}
                           onUploadError={(error: any) => {
-                            toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                            toast.error(
+                              "Something went wrong, check your internet connection or consider reducing the file size"
+                            );
                           }}
                         />
                       </div>
@@ -662,22 +749,29 @@ export const ProductForm = () => {
 
                               {/* Right: Action Buttons */}
                               <div className="flex gap-2 items-center">
-                                <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
+                                <Link
+                                  href={file.split(",")[0]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
                                 </Link>
                                 <button
                                   type="button"
                                   onClick={() => {
-                                    const newFiles = field.value.filter((_, i) => i !== index);
+                                    const newFiles = field.value.filter(
+                                      (_, i) => i !== index
+                                    );
                                     field.onChange(newFiles);
                                   }}
                                 >
-                                  <span className="sr-only">remove item {index}</span>
+                                  <span className="sr-only">
+                                    remove item {index}
+                                  </span>
                                   <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
                                 </button>
                               </div>
                             </div>
-
                           ))}
                         </div>
                       )}
@@ -709,9 +803,7 @@ export const ProductForm = () => {
                 </FormItem>
               )}
             />
-
           </FormSection>
-
 
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
             <Button
