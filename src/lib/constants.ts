@@ -197,7 +197,7 @@ export const PROJECTS: ProjectCardProps[] = [
     title: "Breserve",
     client: "WellFed",
     description:
-      "Wellfed collaborated with IMHO to design a modular evaporative cooling for vegetable storage, specifically tomatoes storage",
+      "collaborated with IMHO to design a modular evaporative cooling for vegetable storage, specifically tomatoes storage",
 
     service: "Engineering Design, Prototyping, and Testing",
     type: "Product Development for Startup",
