@@ -754,9 +754,11 @@ export const ProcessForm = () => {
 
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
             <Button
-              className="w-full min-w-[150px]  text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto md:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
+              className="w-full min-w-[150px] mx-auto md:mx-0"
               disabled={pending}
               type="submit"
+              variant="primary"
+              size="standard"
             >
               {pending ? (
                 <>

@@ -105,8 +105,7 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
     title: "Engineering Support",
     description:
       "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting.",
-    footer:
-      "",
+    footer: "",
     cta: "Launch Support",
     route: "/services/engineering-support",
   },
@@ -392,5 +391,10 @@ export const NAV_ITEMS: NavItemProps[] = [
     id: 5,
     label: "Blog",
     href: "/blog",
+  },
+  {
+    id: 6,
+    label: "Trade tech",
+    href: "/trade-tech",
   },
 ];

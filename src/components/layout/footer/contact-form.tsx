@@ -175,8 +175,10 @@ export const FileForm = () => {
         />
         <div className="mt-8">
           <Button
-            className="min-w-[150px] text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
-            variant={"secondary"} type="submit"
+            className="min-w-[150px] mx-auto lg:mx-0"
+            variant="primary"
+            size="standard"
+            type="submit"
             aria-disabled={pending}
           >
             {pending ? (

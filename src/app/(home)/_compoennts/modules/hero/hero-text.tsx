@@ -33,8 +33,9 @@ const HeroText = () => {
 
         <Button
           asChild
-          className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto lg:mx-0 p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
-          variant={"secondary"}
+          className="w-fit mx-auto lg:mx-0"
+          variant="primary"
+          size="standard"
         >
           <Link href={`${process.env.SCHEDULE_LINK}`} target="_blank">
             <ScheduleMeetingIcon /> Schedule a meeting
