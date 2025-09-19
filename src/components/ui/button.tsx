@@ -21,12 +21,17 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline rounded-md",
         close: "rounded-[0.5rem] border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         download: "rounded-[0.5rem] bg-primary text-primary-foreground hover:bg-primary/90",
+        // Standardized button variants
+        primary: "text-secondary bg-black dark:bg-white hover:bg-black/95 dark:hover:bg-white/85 rounded-md p-[14px] h-[42px] md:h-[48px]",
+        "primary-outline": "border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md p-[14px] h-[42px] md:h-[48px]",
+        "primary-orange": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-md p-[14px] h-[42px] md:h-[48px]",
       },
       size: {
         nav: "h-[32px] w-[87px]",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
+        standard: "", // Empty because height is handled in variants now
       },
     },
     defaultVariants: {
