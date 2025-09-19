@@ -1,5 +1,5 @@
 
-import { gradientText } from "@/app/(home)/_compoennts/modules/hero/hero-text";
+import { gradientText } from "@/app/(home)/_components/modules/hero/hero-text";
 import { fetchPages } from "@/lib/notion";
 import { cn } from "@/lib/utils";
 import { Rss } from "lucide-react";

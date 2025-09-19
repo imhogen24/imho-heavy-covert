@@ -1,10 +1,9 @@
 "use client";
 
-import * as React from "react"
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-import { addDays, format } from "date-fns"
+import { SupportFormAction } from "@/actions";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -13,55 +12,57 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "sonner";
-import { UploadDropzone } from "@/lib/uploadthing";
-import { useState } from "react";
-import { SupportSchema, type SupportFormData } from "@/lib/schemas/support/z";
-import { Button } from "@/components/ui/button";
-import { EyeIcon, FileIcon, LoaderCircle, Trash2, CalendarIcon } from "lucide-react";
-import Link from "next/link";
-import { FormSection, SectionChild } from "../../wrapper";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { SupportSchema, type SupportFormData } from "@/lib/schemas/support/z";
+import { UploadDropzone } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
-import { BookOpen, FileText, Lightbulb, User, GraduationCap, Calendar as CalendarIcon2, Info } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { addDays, format } from "date-fns";
+import {
+  CalendarIcon,
+  EyeIcon,
+  FileIcon,
+  LoaderCircle,
+  Trash2,
+} from "lucide-react";
+import Link from "next/link";
+import * as React from "react";
+import { useState } from "react";
 import { DateRange } from "react-day-picker";
-import { SupportFormAction } from "@/actions/action";
-import { FormPreview } from "./preview";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { FormSection, SectionChild } from "../../wrapper";
 import { Agreement } from "../shared/agreement";
-
-
+import { FormPreview } from "./preview";
 
 const collaborationPreferences = [
   "Regular meetings",
   "Weekly updates via email",
-  "On-demand reporting"
+  "On-demand reporting",
 ] as const;
 
-const skillLevels = [
-  "Beginner",
-  "Intermediate",
-  "Advanced"
-] as const;
+const skillLevels = ["Beginner", "Intermediate", "Advanced"] as const;
 
-const deliveryModes = [
-  "On-site",
-  "Virtual",
-  "Blended"
-] as const;
+const deliveryModes = ["On-site", "Virtual", "Blended"] as const;
 
-export const SupportForm = () => {
+export function SupportForm() {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2022, 0, 20),
     to: addDays(new Date(2022, 0, 20), 20),
-  })
+  });
   const form = useForm<SupportFormData>({
     resolver: zodResolver(SupportSchema),
     defaultValues: {
@@ -118,9 +119,7 @@ export const SupportForm = () => {
     });
 
     try {
-      console.log(values)
       const result = await SupportFormAction(formData);
-      console.log(result)
       toast.success("Form submitted successfully!");
       form.reset();
     } catch (error) {
@@ -136,8 +135,10 @@ export const SupportForm = () => {
         Support and Training Request Form
       </h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:space-y-20">
-
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 md:space-y-20"
+        >
           <FormSection label="Client Information">
             <SectionChild label="ORGANIZATION DETAILS">
               <FormField
@@ -147,7 +148,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Organization Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="TechBuild Solutions Ltd." {...field} />
+                      <Input
+                        placeholder="TechBuild Solutions Ltd."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -177,7 +181,11 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="kwame.appiah@techbuild.com" {...field} />
+                      <Input
+                        type="email"
+                        placeholder="kwame.appiah@techbuild.com"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -207,7 +215,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Physical/Postal Address</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Physical/Postal Address: No. 15 Industrial Lane, Accra, Ghana" {...field} />
+                      <Textarea
+                        placeholder="Physical/Postal Address: No. 15 Industrial Lane, Accra, Ghana"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -221,7 +232,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Business Overview</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="TechBuild Solutions Ltd. specializes in designing and assembling custom machinery for agricultural and industrial purposes." {...field} />
+                      <Textarea
+                        placeholder="TechBuild Solutions Ltd. specializes in designing and assembling custom machinery for agricultural and industrial purposes."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -239,7 +253,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Training Needs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Advanced CAD modeling (SolidWorks and AutoCAD),Engineering design process optimization,Prototyping techniques for product developmens" {...field} />
+                      <Textarea
+                        placeholder="Advanced CAD modeling (SolidWorks and AutoCAD),Engineering design process optimization,Prototyping techniques for product developmens"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -253,7 +270,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Training Objectives</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="To enhance the team's proficiency in CAD software, To implement a structured design process for better project efficiency." {...field} />
+                      <Textarea
+                        placeholder="To enhance the team's proficiency in CAD software, To implement a structured design process for better project efficiency."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -272,7 +292,9 @@ export const SupportForm = () => {
                       <Input
                         type="number"
                         {...field}
-                        onChange={e => field.onChange(parseInt(e.target.value))}
+                        onChange={(e) =>
+                          field.onChange(parseInt(e.target.value))
+                        }
                         min={1}
                         max={1000}
                         placeholder="10"
@@ -290,7 +312,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Participant Roles</FormLabel>
                     <FormControl>
-                      <Input placeholder="Mechanical Engineers, Design Technicians, CAD Specialists..." {...field} />
+                      <Input
+                        placeholder="Mechanical Engineers, Design Technicians, CAD Specialists..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -305,7 +330,10 @@ export const SupportForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Skill Level</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select skill level" />
@@ -330,7 +358,10 @@ export const SupportForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Delivery Mode</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select delivery mode" />
@@ -427,14 +458,11 @@ export const SupportForm = () => {
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
-
                         <Calendar
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) =>
-                            date < new Date()
-                          }
+                          disabled={(date) => date < new Date()}
                           initialFocus
                         />
                       </PopoverContent>
@@ -447,7 +475,10 @@ export const SupportForm = () => {
           </FormSection>
 
           <FormSection label="Project Support Requirements">
-            <SectionChild label="PROJECT INFORMATION" className="md:grid-cols-1">
+            <SectionChild
+              label="PROJECT INFORMATION"
+              className="md:grid-cols-1"
+            >
               <FormField
                 control={form.control}
                 name="projectOverview"
@@ -455,7 +486,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Project Overview</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Development of a modular food processing machine for cassava milling and packaging." {...field} />
+                      <Textarea
+                        placeholder="Development of a modular food processing machine for cassava milling and packaging."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -469,7 +503,10 @@ export const SupportForm = () => {
                   <FormItem>
                     <FormLabel>Project Scope & Deliverables</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Provide detailed design schematics for the modular machine, Conduct feasibility analysis on proposed design concepts, Collaborate on prototype testing and iteration." {...field} />
+                      <Textarea
+                        placeholder="Provide detailed design schematics for the modular machine, Conduct feasibility analysis on proposed design concepts, Collaborate on prototype testing and iteration."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -482,8 +519,13 @@ export const SupportForm = () => {
               name="collaborationPreferences"
               render={() => (
                 <FormItem className="space-y-4">
-                  <FormLabel className="text-base">Collaboration Preferences</FormLabel>
-                  <SectionChild label="COLLABORATION PREFERENCES" className="md:grid-cols-3">
+                  <FormLabel className="text-base">
+                    Collaboration Preferences
+                  </FormLabel>
+                  <SectionChild
+                    label="COLLABORATION PREFERENCES"
+                    className="md:grid-cols-3"
+                  >
                     {collaborationPreferences.map((pref) => (
                       <FormField
                         key={pref}
@@ -499,10 +541,15 @@ export const SupportForm = () => {
                                 checked={field.value?.includes(pref)}
                                 onCheckedChange={(checked) => {
                                   return checked
-                                    ? field.onChange([...(field.value || []), pref])
+                                    ? field.onChange([
+                                        ...(field.value || []),
+                                        pref,
+                                      ])
                                     : field.onChange(
-                                      field.value?.filter((value) => value !== pref)
-                                    );
+                                        field.value?.filter(
+                                          (value) => value !== pref
+                                        )
+                                      );
                                 }}
                               />
                             </FormControl>
@@ -517,13 +564,13 @@ export const SupportForm = () => {
                 </FormItem>
               )}
             />
-
-
-
           </FormSection>
 
           <FormSection label="Additional Considerations">
-            <SectionChild label="RESOURCES AND TOOLS" className="md:grid-cols-1">
+            <SectionChild
+              label="RESOURCES AND TOOLS"
+              className="md:grid-cols-1"
+            >
               <FormField
                 control={form.control}
                 name="toolsAndResources"
@@ -562,7 +609,10 @@ export const SupportForm = () => {
               />
             </SectionChild>
 
-            <SectionChild label="ADDITIONAL INFORMATION" className="md:grid-cols-1">
+            <SectionChild
+              label="ADDITIONAL INFORMATION"
+              className="md:grid-cols-1"
+            >
               <FormField
                 control={form.control}
                 name="additionalInformation"
@@ -600,7 +650,9 @@ export const SupportForm = () => {
                             toast.success("Upload Completed");
                           }}
                           onUploadError={(error: any) => {
-                            toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                            toast.error(
+                              "Something went wrong, check your internet connection or consider reducing the file size"
+                            );
                           }}
                         />
                       </div>
@@ -622,22 +674,29 @@ export const SupportForm = () => {
 
                               {/* Right: Action Buttons */}
                               <div className="flex gap-2 items-center">
-                                <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
+                                <Link
+                                  href={file.split(",")[0]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
                                 </Link>
                                 <button
                                   type="button"
                                   onClick={() => {
-                                    const newFiles = field.value.filter((_, i) => i !== index);
+                                    const newFiles = field.value.filter(
+                                      (_, i) => i !== index
+                                    );
                                     field.onChange(newFiles);
                                   }}
                                 >
-                                  <span className="sr-only">remove item {index}</span>
+                                  <span className="sr-only">
+                                    remove item {index}
+                                  </span>
                                   <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
                                 </button>
                               </div>
                             </div>
-
                           ))}
                         </div>
                       )}
@@ -670,7 +729,6 @@ export const SupportForm = () => {
                 </FormItem>
               )}
             />
-
           </FormSection>
 
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
@@ -695,6 +753,6 @@ export const SupportForm = () => {
       </Form>
     </div>
   );
-};
+}
 
 export default SupportForm;

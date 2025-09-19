@@ -11,7 +11,7 @@ interface GenericPDFDocumentProps {
   config: PDFConfig;
 }
 
-export const GenericPDFDocument = ({ data, config }: GenericPDFDocumentProps) => {
+export function GenericPDFDocument({ data, config }: GenericPDFDocumentProps) {
   const sections = config.getSections(data);
   const footerText = config.getFooterText(data);
 
@@ -24,7 +24,7 @@ export const GenericPDFDocument = ({ data, config }: GenericPDFDocumentProps) =>
         {sections.map((section, sectionIndex) => (
           <Section key={sectionIndex}>
             <SubHeader title={section.title} />
-            {section.fields.map((field, fieldIndex) => {
+            {section.fields?.map((field, fieldIndex) => {
               // Skip conditional fields that don't meet their condition
               if (field.hasOwnProperty('condition') && !field.condition) return null;
 

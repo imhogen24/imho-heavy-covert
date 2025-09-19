@@ -1,16 +1,6 @@
 "use client";
-import { useForm } from "react-hook-form";
-import { ContactFormSchema } from "@/lib/schemas/z";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { contactFormAction } from "@/actions";
 import { Button } from "@/components/ui/button";
-import { XIcon, FileIcon, Trash2, EyeIcon } from "lucide-react";
-import Image from "next/image";
-import { contactFormAction } from "@/actions/action";
-import { LoaderCircle, CloudUpload } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -19,13 +9,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ContactFormSchema } from "@/lib/schemas/z";
 import { UploadDropzone } from "@/lib/uploadthing";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { FormPreview } from "@/app/(services)/_components/modules/cad/preview";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
 
-
-export const FileForm = () => {
+export function FileForm() {
   const form = useForm<z.infer<typeof ContactFormSchema>>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
@@ -37,10 +33,8 @@ export const FileForm = () => {
   });
   const [pending, setPending] = useState(false);
 
-
   async function onSubmit(values: z.infer<typeof ContactFormSchema>) {
     setPending(true);
-    console.log(values);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -51,20 +45,15 @@ export const FileForm = () => {
       const result = await contactFormAction(formData);
 
       if (result?.error) {
-
-
         toast.error(result.error);
       } else {
-
         toast.success("Message sent successfully!");
-        console.log(values)
         form.reset();
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setPending(false);
-
     }
   }
   return (
@@ -127,7 +116,9 @@ export const FileForm = () => {
                         toast.success("Upload Completed");
                       }}
                       onUploadError={(error: any) => {
-                        toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                        toast.error(
+                          "Something went wrong, check your internet connection or consider reducing the file size"
+                        );
                       }}
                     />
                   </div>
@@ -149,22 +140,29 @@ export const FileForm = () => {
 
                           {/* Right: Action Buttons */}
                           <div className="flex gap-2 items-center">
-                            <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
+                            <Link
+                              href={file.split(",")[0]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
                             </Link>
                             <button
                               type="button"
                               onClick={() => {
-                                const newFiles = field.value.filter((_, i) => i !== index);
+                                const newFiles = field.value.filter(
+                                  (_, i) => i !== index
+                                );
                                 field.onChange(newFiles);
                               }}
                             >
-                              <span className="sr-only">remove item {index}</span>
+                              <span className="sr-only">
+                                remove item {index}
+                              </span>
                               <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
                             </button>
                           </div>
                         </div>
-
                       ))}
                     </div>
                   )}
@@ -191,6 +189,6 @@ export const FileForm = () => {
           </Button>
         </div>
       </form>
-    </Form >
+    </Form>
   );
-};
+}

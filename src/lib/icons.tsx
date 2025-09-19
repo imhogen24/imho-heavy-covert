@@ -1,9 +1,6 @@
 import type React from "react";
 import { cn } from "./utils";
-
-interface IconProps extends React.SVGProps<SVGSVGElement> {
-  className?: string;
-}
+import { IconProps } from "@/types/ui";
 
 const XIcon = ({ className, ...props }: IconProps) => (
   <svg
