@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Truck, Smile } from "lucide-react";
 import Link from "next/link";
+import { ContactCTALink } from "../../ui/contact-cta-link";
 
 const gradientText = "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
 
@@ -72,9 +73,9 @@ const ProcessSection = () => {
             className="w-fit text-secondary bg-black dark:bg-white hover:bg-black/95 mx-auto p-[14px] h-[42px] md:h-[48px] dark:hover:bg-white/85"
             variant={"secondary"}
           >
-            <Link href="#order">
+            <ContactCTALink href="#contact">
               Order Now
-            </Link>
+            </ContactCTALink>
           </Button>
         </div>
       </div>

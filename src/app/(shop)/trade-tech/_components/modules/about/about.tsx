@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { ContactCTALink } from "../../ui/contact-cta-link";
 
 const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
@@ -101,7 +102,7 @@ const AboutSection = () => {
           </div>
           <div className="p-8 flex justify-start lg:justify-center items-center">
             <Button asChild className="w-fit" variant="primary" size="standard">
-              <Link href="/trading-gear">
+              <Link href="/trade-tech/learn-more">
                 Learn More
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -145,7 +146,7 @@ const AboutSection = () => {
                 variant="outline"
                 size="standard"
               >
-                <Link href="#order">Order Now</Link>
+                <ContactCTALink href="#contact">Order Now</ContactCTALink>
               </Button>
             </div>
             <div className="p-8 border-b lg:border-b-0 lg:border-r muted-border text-center">
@@ -161,7 +162,7 @@ const AboutSection = () => {
                 variant="outline"
                 size="standard"
               >
-                <Link href="#partner">Partner With Us</Link>
+                <ContactCTALink href="#contact">Partner With Us</ContactCTALink>
               </Button>
             </div>
             <div className="p-8 text-center">
@@ -177,7 +178,7 @@ const AboutSection = () => {
                 variant="outline"
                 size="standard"
               >
-                <Link href="#invest">Invest to Scale</Link>
+                <ContactCTALink href="#contact">Invest to Scale</ContactCTALink>
               </Button>
             </div>
           </div>

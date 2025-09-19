@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { PackageCheck, Shirt, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { ContactCTALink } from "../../ui/contact-cta-link";
 
 const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
@@ -83,10 +84,10 @@ const EmpathySection = () => {
             </div>
 
             <Button asChild className="w-fit" variant="primary" size="standard">
-              <Link href="#order">
+              <ContactCTALink href="#contact">
                 <PackageCheck className=" w-4 h-4" />
                 Order Now
-              </Link>
+              </ContactCTALink>
             </Button>
           </div>
         </div>
