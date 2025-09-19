@@ -26,11 +26,14 @@ const BuyersKitSection = () => {
             </p>
           </div>
           <div className="flex justify-start lg:justify-center items-center">
-            <Button asChild className="w-fit" variant="primary" size="standard">
-              <Link href="#download">
-                <Download className="w-4 h-4" />
-                Download the Kit
-              </Link>
+            <Button
+              disabled
+              className="w-fit cursor-not-allowed opacity-50"
+              variant="primary"
+              size="standard"
+            >
+              <Download className="w-4 h-4" />
+              Download the Kit
             </Button>
           </div>
         </div>

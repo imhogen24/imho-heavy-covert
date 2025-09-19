@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
+import { ContactCTALink } from "../../ui/contact-cta-link";
 
 export const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
@@ -54,7 +55,7 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center">
           <Button asChild className="w-full sm:w-auto" variant="primary" size="standard">
-            <Link href="#order">Order Now</Link>
+            <ContactCTALink href="#contact">Order Now</ContactCTALink>
           </Button>
 
           <Button
@@ -63,7 +64,7 @@ const Hero = () => {
             size="standard"
             className="w-full sm:w-auto border muted-border"
           >
-            <Link href="#partner">Partner With Us</Link>
+            <ContactCTALink href="#contact">Partner With Us</ContactCTALink>
           </Button>
         </div>
       </div>

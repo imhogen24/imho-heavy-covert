@@ -8,6 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { ContactCTALink } from "../../ui/contact-cta-link";
 
 const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
@@ -76,10 +77,10 @@ const PositioningSection = () => {
           </div>
           <div className="flex justify-start lg:justify-center items-center">
             <Button asChild className="w-fit" variant="primary" size="standard">
-              <Link href="#order">
+              <ContactCTALink href="#contact">
                 <BadgeCent className=" w-4 h-4" />
                 Get a Quote
-              </Link>
+              </ContactCTALink>
             </Button>
           </div>
         </div>
