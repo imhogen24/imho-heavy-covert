@@ -11,6 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { type ProductFormData } from "@/lib/schemas/product/z";
+import { type FieldConfig, type SectionConfig, type FormPreviewProps } from "@/types/form-preview";
+import { parseFileAttachment, hasSectionContent } from "@/lib/utils/file-parsing";
 import {
   DownloadIcon,
   EyeIcon,
@@ -27,63 +29,13 @@ import {
   X,
 } from "lucide-react";
 import * as React from "react";
+import { memo } from "react";
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useState } from "react";
 import { ProductPDF } from "../../pdf/docs";
 
-interface FormPreviewProps {
-  formData: ProductFormData;
-}
-
-interface FieldConfig {
-  label: string;
-  value: string | boolean | string[] | undefined;
-  fullWidth?: boolean;
-  isMedium?: boolean;
-  isBoolean?: boolean;
-  isArray?: boolean;
-  condition?: boolean;
-}
-
-interface SectionConfig {
-  title: string;
-  icon: React.FC<{ className?: string }>;
-  fields?: FieldConfig[];
-  fileAttachments?: string[];
-}
-
-// Helper function to check if a section has any filled fields
-const hasSectionContent = (
-  fields: (string | boolean | string[] | undefined)[]
-) => {
-  return fields.some((field) => {
-    if (Array.isArray(field)) return field.length > 0;
-    return field !== undefined && field !== "" && field !== false;
-  });
-};
-
-// Update this helper function to better handle file attachment parsing
-const parseFileAttachment = (fileString: string) => {
-  try {
-    const parts = fileString.split(",");
-    if (parts.length >= 2) {
-      // First part is URL, second part is filename
-      return { url: parts[0].trim(), name: parts[1].trim() };
-    }
-
-    // Fallback if splitting fails
-    const url = fileString.trim();
-    const name = url.split("/").pop() || "Attachment";
-    return { url, name };
-  } catch (error) {
-    console.error("Error parsing attachment:", fileString);
-    return { url: "#", name: "Invalid attachment format" };
-  }
-};
-
-export const FormPreview = ({ formData }: FormPreviewProps) => {
-  console.log(formData.fileAttachments);
+export const FormPreview = memo(function FormPreview({ formData }: FormPreviewProps) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPdfPrepared, setIsPdfPrepared] = useState(false);
 
@@ -245,9 +197,9 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               return (
                 <section key={idx} className="border-t muted-border pt-4">
                   <h3 className="inline-flex gap-2 text-lg font-medium leading-none tracking-tight mb-4">
-                    <span>
-                      <Icon className="my-auto size-5" />
-                    </span>{" "}
+                    {Icon && <span>
+                      <Icon className="my-auto size-5" aria-hidden="true" />
+                    </span>}{" "}
                     {section.title}
                   </h3>
                   <div className="grid gap-3">
@@ -255,11 +207,12 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
                       const { url, name } = parseFileAttachment(file);
                       return (
                         <div key={index} className="flex items-center gap-2">
-                          <FileText className="size-4 text-blue-600 dark:text-blue-400" />
+                          <FileText className="size-4 text-blue-600 dark:text-blue-400" aria-hidden="true" />
                           <a
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            aria-label={`Download attachment: ${name} (opens in new tab)`}
                             className="text-blue-600 dark:text-blue-400 hover:underline truncate max-w-full"
                           >
                             {name}
@@ -287,7 +240,7 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
               >
                 <h3 className="inline-flex gap-2 text-xl font-medium leading-none tracking-tight mb-4">
                   <span>
-                    <Icon className="my-auto size-5" />
+                    {Icon && <Icon className="my-auto size-5" aria-hidden="true" />}
                   </span>{" "}
                   {section.title}
                 </h3>
@@ -374,4 +327,4 @@ export const FormPreview = ({ formData }: FormPreviewProps) => {
       </DialogContent>
     </Dialog>
   );
-};
+});

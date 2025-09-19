@@ -1,14 +1,4 @@
-export interface FieldConfig {
-  label: string;
-  value: string | string[] | undefined;
-  isArray?: boolean;
-  condition?: boolean;
-}
-
-export interface SectionConfig {
-  title: string;
-  fields: FieldConfig[];
-}
+import { FieldConfig, SectionConfig } from "@/types/form-preview";
 
 export interface PDFConfig {
   requestType: string;

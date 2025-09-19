@@ -1,5 +1,6 @@
 import { ProductFormData } from "@/lib/schemas/product/z";
-import { PDFConfig, SectionConfig } from "../types";
+import { PDFConfig } from "../types";
+import { SectionConfig } from "@/types/form-preview";
 
 export const productPdfConfig: PDFConfig = {
   requestType: "Product",

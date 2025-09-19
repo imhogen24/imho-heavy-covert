@@ -1,5 +1,6 @@
 import { ProcessFormData } from '@/lib/schemas/process/z';
-import { PDFConfig, SectionConfig } from '../types';
+import { PDFConfig } from '../types';
+import { SectionConfig } from '@/types/form-preview';
 
 export const processPdfConfig: PDFConfig = {
   requestType: "PROCESS",

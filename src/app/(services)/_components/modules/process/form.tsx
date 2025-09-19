@@ -1,9 +1,7 @@
 "use client";
 
-import * as React from "react"
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -12,25 +10,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "sonner";
-import { UploadDropzone } from "@/lib/uploadthing";
-import { useState } from "react";
 import { ProcessSchema, type ProcessFormData } from "@/lib/schemas/process/z";
-import { Button } from "@/components/ui/button";
+import { UploadDropzone } from "@/lib/uploadthing";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
+import * as React from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-import { processFormAction } from "@/actions/action";
-import { FormSection, SectionChild } from "../../wrapper";
+import { processFormAction } from "@/actions";
+import { useFormSubmission } from "@/hooks/use-form-submission";
 import Link from "next/link";
-import { FormPreview } from "./preview";
+import { FormSection, SectionChild } from "../../wrapper";
 import { Agreement } from "../shared/agreement";
+import { FormPreview } from "./preview";
 
 const collaborationPreferences = [
   "Regular Meetings",
   "Weekly Updates via Email",
-  "On-demand Reporting"
+  "On-demand Reporting",
 ] as const;
 
 const painPoints = [
@@ -39,12 +40,10 @@ const painPoints = [
   "Safety concerns",
   "Low output",
   "Quality issues",
-  "Other"
+  "Other",
 ] as const;
 
-
-
-export const ProcessForm = () => {
+export function ProcessForm() {
   const form = useForm<ProcessFormData>({
     resolver: zodResolver(ProcessSchema),
     defaultValues: {
@@ -92,12 +91,22 @@ export const ProcessForm = () => {
       collaborationPreferences: [],
       additionalComments: "",
       fileAttachments: [],
-      disclaimer: false
+      disclaimer: false,
     },
   });
 
-  const [pending, setPending] = useState(false);
   const [showOtherIssues, setShowOtherIssues] = useState(false);
+
+  // Use custom form submission hook
+  const { handleSubmit: onSubmit, pending } = useFormSubmission(
+    processFormAction,
+    form,
+    {
+      successMessage: "Process request submitted successfully!",
+      errorMessage: "Something went wrong!",
+      resetOnSuccess: true,
+    }
+  );
 
   // Check for "Other" option in painPoints and show additional field if needed
   React.useEffect(() => {
@@ -105,42 +114,16 @@ export const ProcessForm = () => {
     setShowOtherIssues(selectedPainPoints?.includes("Other") || false);
   }, [form.watch("painPoints")]);
 
-  async function onSubmit(values: ProcessFormData) {
-    setPending(true);
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-      } else if (value instanceof Date) {
-        formData.append(key, value.toISOString());
-      } else {
-        formData.append(key, String(value));
-      }
-    });
-
-    try {
-      const result = await processFormAction(formData);
-
-      toast.success("Process request submitted successfully!");
-      form.reset();
-      console.log(result)
-      console.log(values)
-    } catch (error) {
-      toast.error("Something went wrong!");
-    } finally {
-      setPending(false);
-    }
-  }
-
   return (
     <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-8">
         Process Development Request Form
       </h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:space-y-20">
-
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 md:space-y-20"
+        >
           {/* Client Information Section */}
           <FormSection label="Client Information">
             <SectionChild label="ORGANIZATION DETAILS">
@@ -165,7 +148,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Contact Person</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter contact person name" {...field} />
+                      <Input
+                        placeholder="Enter contact person name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -181,7 +167,11 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Enter email address" {...field} />
+                      <Input
+                        type="email"
+                        placeholder="Enter email address"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -224,7 +214,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Business Overview</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe your business" {...field} />
+                      <Textarea
+                        placeholder="Describe your business"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -243,7 +236,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Material Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe material inputs required" {...field} />
+                      <Textarea
+                        placeholder="Describe material inputs required"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -257,7 +253,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Energy Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe energy inputs required" {...field} />
+                      <Textarea
+                        placeholder="Describe energy inputs required"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -271,7 +270,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Information Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe information inputs required" {...field} />
+                      <Textarea
+                        placeholder="Describe information inputs required"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -285,7 +287,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Living Inputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe living inputs if applicable" {...field} />
+                      <Textarea
+                        placeholder="Describe living inputs if applicable"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -304,7 +309,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Human Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe human systems involved" {...field} />
+                      <Textarea
+                        placeholder="Describe human systems involved"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -318,7 +326,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Management Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe management systems involved" {...field} />
+                      <Textarea
+                        placeholder="Describe management systems involved"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -332,7 +343,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Technical Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe technical systems involved" {...field} />
+                      <Textarea
+                        placeholder="Describe technical systems involved"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -346,7 +360,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Information Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe information systems involved" {...field} />
+                      <Textarea
+                        placeholder="Describe information systems involved"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -360,7 +377,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Environment</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe environment involved" {...field} />
+                      <Textarea
+                        placeholder="Describe environment involved"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -379,7 +399,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Existing Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe existing systems" {...field} />
+                      <Textarea
+                        placeholder="Describe existing systems"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -393,7 +416,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>New System Requirements</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe new system requirements" {...field} />
+                      <Textarea
+                        placeholder="Describe new system requirements"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -407,7 +433,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Key Metrics</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe key performance metrics" {...field} />
+                      <Textarea
+                        placeholder="Describe key performance metrics"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -426,7 +455,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Material Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe material outputs" {...field} />
+                      <Textarea
+                        placeholder="Describe material outputs"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -440,7 +472,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Energy Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe energy outputs" {...field} />
+                      <Textarea
+                        placeholder="Describe energy outputs"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -454,7 +489,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Information Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe information outputs" {...field} />
+                      <Textarea
+                        placeholder="Describe information outputs"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -468,7 +506,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Living Outputs</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe living outputs if applicable" {...field} />
+                      <Textarea
+                        placeholder="Describe living outputs if applicable"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -485,7 +526,10 @@ export const ProcessForm = () => {
               render={() => (
                 <FormItem className="space-y-4">
                   <FormLabel className="text-base">Pain Points</FormLabel>
-                  <SectionChild label="CURRENT CHALLENGES" className="md:grid-cols-3">
+                  <SectionChild
+                    label="CURRENT CHALLENGES"
+                    className="md:grid-cols-3"
+                  >
                     {painPoints.map((option) => (
                       <FormField
                         key={option}
@@ -503,10 +547,15 @@ export const ProcessForm = () => {
                                   checked={field.value?.includes(option)}
                                   onCheckedChange={(checked) => {
                                     return checked
-                                      ? field.onChange([...(field.value || []), option])
+                                      ? field.onChange([
+                                          ...(field.value || []),
+                                          option,
+                                        ])
                                       : field.onChange(
-                                        field.value?.filter((value) => value !== option)
-                                      );
+                                          field.value?.filter(
+                                            (value) => value !== option
+                                          )
+                                        );
                                   }}
                                 />
                               </FormControl>
@@ -534,7 +583,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Specific Issues Description</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe specific issues or challenges in detail" {...field} />
+                      <Textarea
+                        placeholder="Describe specific issues or challenges in detail"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -551,7 +603,10 @@ export const ProcessForm = () => {
               render={() => (
                 <FormItem className="space-y-4">
                   <FormLabel className="text-base">Future Growth</FormLabel>
-                  <SectionChild label="FUTURE GROWTH PLANS" className="md:grid-cols-2">
+                  <SectionChild
+                    label="FUTURE GROWTH PLANS"
+                    className="md:grid-cols-2"
+                  >
                     <FormField
                       control={form.control}
                       name="futureGrowth"
@@ -585,7 +640,10 @@ export const ProcessForm = () => {
                   <FormItem>
                     <FormLabel>Comparable Systems</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Describe comparable systems you're familiar with or would like to emulate" {...field} />
+                      <Textarea
+                        placeholder="Describe comparable systems you're familiar with or would like to emulate"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -601,8 +659,13 @@ export const ProcessForm = () => {
               name="collaborationPreferences"
               render={() => (
                 <FormItem className="space-y-4">
-                  <FormLabel className="text-base">Collaboration Preferences</FormLabel>
-                  <SectionChild label="COLLABORATION PREFERENCES" className="md:grid-cols-3">
+                  <FormLabel className="text-base">
+                    Collaboration Preferences
+                  </FormLabel>
+                  <SectionChild
+                    label="COLLABORATION PREFERENCES"
+                    className="md:grid-cols-3"
+                  >
                     {collaborationPreferences.map((pref) => (
                       <FormField
                         key={pref}
@@ -618,10 +681,15 @@ export const ProcessForm = () => {
                                 checked={field.value?.includes(pref)}
                                 onCheckedChange={(checked) => {
                                   return checked
-                                    ? field.onChange([...(field.value || []), pref])
+                                    ? field.onChange([
+                                        ...(field.value || []),
+                                        pref,
+                                      ])
                                     : field.onChange(
-                                      field.value?.filter((value) => value !== pref)
-                                    );
+                                        field.value?.filter(
+                                          (value) => value !== pref
+                                        )
+                                      );
                                 }}
                               />
                             </FormControl>
@@ -638,7 +706,10 @@ export const ProcessForm = () => {
               )}
             />
 
-            <SectionChild label="ADDITIONAL COMMENTS" className="md:grid-cols-1">
+            <SectionChild
+              label="ADDITIONAL COMMENTS"
+              className="md:grid-cols-1"
+            >
               <FormField
                 control={form.control}
                 name="additionalComments"
@@ -679,7 +750,9 @@ export const ProcessForm = () => {
                             toast.success("Upload Completed");
                           }}
                           onUploadError={(error: any) => {
-                            toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                            toast.error(
+                              "Something went wrong, check your internet connection or consider reducing the file size"
+                            );
                           }}
                         />
                       </div>
@@ -701,22 +774,29 @@ export const ProcessForm = () => {
 
                               {/* Right: Action Buttons */}
                               <div className="flex gap-2 items-center">
-                                <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
+                                <Link
+                                  href={file.split(",")[0]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
                                 </Link>
                                 <button
                                   type="button"
                                   onClick={() => {
-                                    const newFiles = field.value.filter((_, i) => i !== index);
+                                    const newFiles = field.value.filter(
+                                      (_, i) => i !== index
+                                    );
                                     field.onChange(newFiles);
                                   }}
                                 >
-                                  <span className="sr-only">remove item {index}</span>
+                                  <span className="sr-only">
+                                    remove item {index}
+                                  </span>
                                   <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
                                 </button>
                               </div>
                             </div>
-
                           ))}
                         </div>
                       )}
@@ -749,7 +829,6 @@ export const ProcessForm = () => {
                 </FormItem>
               )}
             />
-
           </FormSection>
 
           <div className="w-full md:w-fit flex flex-col md:flex-row gap-4 justify-start items-start">
@@ -774,6 +853,6 @@ export const ProcessForm = () => {
       </Form>
     </div>
   );
-};
+}
 
 export default ProcessForm;

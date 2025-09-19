@@ -1,10 +1,10 @@
-import CommitedTo from "./_compoennts/modules/commited/commited-to";
+import CommitedTo from "./_components/modules/commited/commited-to";
 
-import ImpactSection from "./_compoennts/modules/impact/impact";
-import Projects from "./_compoennts/modules/projects/projects";
-import WorkWithUs from "./_compoennts/modules/work/work";
-import TheTeam from "./_compoennts/modules/team/the-team";
-import Hero from "./_compoennts/modules/hero/hero";
+import ImpactSection from "./_components/modules/impact/impact";
+import Projects from "./_components/modules/projects/projects";
+import WorkWithUs from "./_components/modules/work/work";
+import TheTeam from "./_components/modules/team/the-team";
+import Hero from "./_components/modules/hero/hero";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 
 export default function Home() {

@@ -20,7 +20,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { ProductFormAction } from "@/actions/action";
+import { ProductFormAction } from "@/actions";
 import Link from "next/link";
 import { FormSection, SectionChild } from "../../wrapper";
 import { Agreement } from "../shared/agreement";
@@ -37,7 +37,7 @@ const maintenanceNeeds = [
   "Ongoing maintenance service form IMHO",
 ] as const;
 
-export const ProductForm = () => {
+export function ProductForm() {
   const form = useForm<ProductFormData>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
@@ -106,8 +106,6 @@ export const ProductForm = () => {
       const result = await ProductFormAction(formData);
       toast.success("Product request submitted successfully!");
       form.reset();
-      console.log(result);
-      console.log(values);
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {
@@ -827,6 +825,6 @@ export const ProductForm = () => {
       </Form>
     </div>
   );
-};
+}
 
 export default ProductForm;
