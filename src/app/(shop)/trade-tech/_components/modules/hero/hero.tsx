@@ -95,12 +95,12 @@ const Hero = () => {
 
         {/* Right Grid - Image Section with Responsive Sub-grid */}
         <div>
-          {/* Mobile: 1x9 horizontal scroll */}
-          <div className="flex sm:hidden overflow-x-auto h-full border-t muted-border">
+          {/* Mobile & Tablet: 1x9 horizontal scroll */}
+          <div className="flex lg:hidden overflow-x-auto h-full border-t border-b muted-border">
             {gearImages.map((image, index) => (
               <div
                 key={index}
-                className="relative flex-shrink-0 w-32 h-32 border-r muted-border last:border-r-0"
+                className="relative flex-shrink-0 w-48 h-48 border-r muted-border last:border-r-0"
               >
                 <Image
                   src={image}
@@ -113,7 +113,7 @@ const Hero = () => {
           </div>
 
           {/* Desktop: 3x3 grid */}
-          <div className="hidden sm:grid grid-cols-3 grid-rows-3 h-full gap-0">
+          <div className="hidden lg:grid grid-cols-3 grid-rows-3 h-full gap-0">
             {/* Grid 1 - Top Left */}
             <div className="relative col-span-1 row-span-1 border-r border-b muted-border">
               <Image
