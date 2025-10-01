@@ -19,7 +19,7 @@ export function TradeTech() {
           </div>
           <div className="flex justify-start lg:justify-center items-center">
             <Button asChild variant="primary-outline" size="standard">
-              <a href="/shop/trade-tech">Learn more</a>
+              <a href="/trade-tech">Learn more</a>
             </Button>
           </div>
         </div>
