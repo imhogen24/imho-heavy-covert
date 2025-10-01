@@ -49,19 +49,12 @@ const ResultsSection = () => {
                   What People are Saying
                 </span>
               </div>
-              <blockquote className="text-base text-foreground leading-relaxed ">
-                "I no longer worry about theft, and I get home less tired."
-              </blockquote>
-              <cite className="text-muted-foreground text-sm not-italic">
-                ~A trader in Kumasi
-              </cite>
-
-              <blockquote className="mt-4 text-base text-foreground leading-relaxed">
+              <blockquote className="text-base text-foreground leading-relaxed">
                 "Notes here, Coins there, my phone also have a pocket and will
                 not be on the table for anyone to pick"
               </blockquote>
               <cite className="text-muted-foreground text-sm not-italic">
-                ~ Another trader in Kumasi
+                ~Trader
               </cite>
             </div>
           </div>
