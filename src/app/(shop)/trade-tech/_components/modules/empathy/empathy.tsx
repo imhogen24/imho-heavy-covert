@@ -30,8 +30,7 @@ const EmpathySection = () => {
             </p>
             <p className="text-lg font-semibold text-muted-foreground">
               IMHO has designed practical solutions with market traders, built
-              locally in Ghana, and trusted by NGOs and trade groups to empower
-              the informal economy.
+              locally in Ghana to empower the informal economy.
             </p>
           </div>
 
