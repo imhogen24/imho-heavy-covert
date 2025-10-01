@@ -4,10 +4,7 @@ import Link from "next/link";
 
 export const FeatureRealease: React.FC = () => {
   return (
-    <Link
-      href="/shop/trade-tech"
-      className="relative top-20 md:top-32 mx-auto "
-    >
+    <Link href="/trade-tech" className="relative top-20 md:top-32 mx-auto ">
       <Badge
         variant="secondary"
         className="muted-border p-1.5  inline-flex gap-1"

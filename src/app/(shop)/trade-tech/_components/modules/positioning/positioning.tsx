@@ -46,7 +46,7 @@ const PricingCard = ({
   isLast,
 }: PricingOption) => (
   <div
-    className={`group relative p-8 hover:bg-muted/50 transition-all duration-300 ${!isLast ? "border-b lg:border-b-0 lg:border-r muted-border" : ""}`}
+    className={`bg-emerald-50group relative p-8 hover:bg-muted/50 transition-all duration-300 ${!isLast ? "border-b lg:border-b-0 lg:border-r muted-border" : ""}`}
   >
     <div className="flex items-start justify-between mb-6">
       <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
@@ -54,13 +54,15 @@ const PricingCard = ({
       </div>
     </div>
     <h3 className="text-lg font-semibold mb-3 text-foreground">{title}</h3>
-    <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
+    <p className="text-muted-foreground text-sm leading-relaxed">
+      {description}
+    </p>
   </div>
 );
 
 const PositioningSection = () => {
   return (
-    <div className="w-full relative overflow-hidden">
+    <div className="w-full relative overflow-hidden ">
       <div className="relative z-10 max-w-7xl mx-auto p-8 lg:p-16 bg-muted/50">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
@@ -85,16 +87,14 @@ const PositioningSection = () => {
           </div>
         </div>
       </div>
-
       {/* Pricing Options Grid - Full Width */}
-      <div className="w-full mb-16 border-t border-b muted-border">
+      <div className="w-full border-t muted-border">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
           {pricingOptions.map((option, index) => (
             <PricingCard key={index} {...option} />
           ))}
         </div>
       </div>
-
     </div>
   );
 };

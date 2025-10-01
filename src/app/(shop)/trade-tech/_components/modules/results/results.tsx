@@ -5,7 +5,7 @@ const gradientText =
 
 const ResultsSection = () => {
   return (
-    <div className="w-full relative overflow-hidden ">
+    <div className="w-full relative overflow-hidden border-b muted-border">
       <div className="relative z-10 max-w-7xl mx-auto border-t muted-border ">
         {/* Header */}
         <div className="text-center p-8 lg:p-16 bg-muted/30">
@@ -35,7 +35,7 @@ const ResultsSection = () => {
                 <span className="text-foreground font-semibold">
                   20,000 traders
                 </span>{" "}
-                equipped in{" "}
+                targeted in{" "}
                 <span className="text-foreground font-semibold">24 months</span>
                 , starting in Ghana and expanding across ECOWAS.
               </p>
@@ -46,14 +46,22 @@ const ResultsSection = () => {
               <div className="flex items-center gap-2 mb-6">
                 <Quote className="w-4 h-4 text-muted-foreground" />
                 <span className="text-sm font-medium text-muted-foreground">
-                  Testimonial
+                  What People are Saying
                 </span>
               </div>
-              <blockquote className="text-xl text-foreground leading-relaxed mb-4">
+              <blockquote className="text-base text-foreground leading-relaxed ">
                 "I no longer worry about theft, and I get home less tired."
               </blockquote>
               <cite className="text-muted-foreground text-sm not-italic">
-                — Trader, Kumasi
+                ~A trader in Kumasi
+              </cite>
+
+              <blockquote className="mt-4 text-base text-foreground leading-relaxed">
+                "Notes here, Coins there, my phone also have a pocket and will
+                not be on the table for anyone to pick"
+              </blockquote>
+              <cite className="text-muted-foreground text-sm not-italic">
+                ~ Another trader in Kumasi
               </cite>
             </div>
           </div>

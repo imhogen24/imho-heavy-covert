@@ -1,6 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Award, CloudRain, Quote, Shield, Users } from "lucide-react";
+import {
+  Award,
+  CloudRain,
+  Quote,
+  Radiation,
+  Shield,
+  Users,
+} from "lucide-react";
 
 const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
@@ -18,10 +25,10 @@ const BenefitsSection = () => {
       description: "Protect cash and phones with lockable, hidden storage",
     },
     {
-      icon: CloudRain,
-      title: "Weather-Resistant",
+      icon: Radiation,
+      title: "Phone radiation shielding",
       description:
-        "Durable against dust and rain, built for African conditions",
+        "Secures traders' phone, shields radiation and protects traders' health.",
     },
     {
       icon: Award,
@@ -70,21 +77,6 @@ const BenefitsSection = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        {/* Testimonial - clean border treatment */}
-        <div className=" mx-8 lg:mx-16 mb-8 lg:mb-16">
-          <div className="text-center">
-            <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center mx-auto mb-6 opacity-30">
-              <Quote className="w-6 h-6" />
-            </div>
-            <blockquote className="text-lg font-medium mb-6 max-w-2xl mx-auto">
-              "Trading Gear makes me feel safer and more respected in my work."
-            </blockquote>
-            <cite className="text-muted-foreground text-sm">
-              — Market Woman, Accra
-            </cite>
-          </div>
         </div>
       </div>
 
