@@ -7,9 +7,9 @@ const Hero = () => {
     <section className="flex flex-col  w-full" id="/#">
       <SmTop />
       <div className="relative flex flex-row justify-center lg:justify-between border-b muted-border">
-        <div className="hidden lg:grid grid-rows-2 w-[200px] muted-border">
+        <div className="hidden lg:grid grid-rows-2 w-[200px] muted-border border-r">
           <div className="flex justify-center items-center w-full h-full rounded-full border muted-border">
-            <div className="w-1/2 h-1/2">
+            <div className="w-1/2 h-1/2 ">
               <img
                 src="/i-dashed.svg"
                 alt="Next.js Logo"
