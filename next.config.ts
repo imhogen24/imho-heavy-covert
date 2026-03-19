@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         pathname: "**",
       },
       {
+        protocal: "https",
+        hostname: "drive.google.com",
+        pathname: "**",
+      }
+      {
         protocol: "https",
         hostname: "cdn.sanity.io",
         pathname: "**",
