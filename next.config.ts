@@ -2,10 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  /*
-  images: {
-   domains: ['res.cloudinary.com','www.notion.so','cdn.sanity.io'], // Add Cloudinary's domain here
-   },*/
   images: {
     remotePatterns: [
       {
@@ -19,10 +15,10 @@ const nextConfig: NextConfig = {
         pathname: "**",
       },
       {
-        protocal: "https",
+        protocol: "https",
         hostname: "drive.google.com",
         pathname: "**",
-      }
+      },
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
