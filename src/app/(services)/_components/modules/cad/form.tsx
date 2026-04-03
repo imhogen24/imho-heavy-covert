@@ -628,11 +628,12 @@ export const CadForm = () => {
                       <div className="relative border border-dashed muted-border rounded-[0.5rem]">
                         <UploadDropzone
                           className="ut-button:bg-accent ut-button:text-accent-foreground border-none"
+                          config={{ mode: "auto" }}
                           endpoint="fileAttachment"
                           onClientUploadComplete={(res: any) => {
-                            const newFile = `${res[0].serverData.fileUrl},${res[0].name}`;
-                            field.onChange([...field.value, newFile]); // Update form value
-                            toast.success("Upload Completed");
+                            const newFiles = res.map((file: any) => `${file.serverData.fileUrl},${file.name}`);
+                            field.onChange([...field.value, ...newFiles]);
+                            toast.success(`${res.length} file${res.length > 1 ? "s" : ""} uploaded`);
                           }}
                           onUploadError={(error: any) => {
                             toast.error("Something went wrong, check your internet connection or consider reducing the file size");
