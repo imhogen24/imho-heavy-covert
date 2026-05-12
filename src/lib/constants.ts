@@ -366,35 +366,27 @@ export const SDG_GOALS: SdgProps[] = [
 ];
 
 export const NAV_ITEMS: NavItemProps[] = [
-  {
-    id: 1,
-    label: "Home",
-    href: "/",
-  },
+ 
+
   {
     id: 2,
-    label: "Projects",
-    href: "/#projects",
+    label: "R&D and Business Improvment",
+    href: "/research-and-development-and-business-improvement",
   },
   {
-    id: 4,
-    label: "Services",
-    href: "/#services",
+    id: 7,
+    label: "Imho Academy",
+    href: "/imho-academy",
   },
   {
-    id: 3,
-    label: "Our team",
-    href: "/#team",
-  },
-
+    id: 8,
+    label: "Techinologies and Industrial Support",
+    href: "/technologies-and-industrial-support",
+  }
+  ,
   {
     id: 5,
     label: "Blog",
     href: "/blog",
-  },
-  {
-    id: 6,
-    label: "Trade tech",
-    href: "/trade-tech",
-  },
+  }
 ];
