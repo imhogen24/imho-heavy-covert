@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@phosphor-icons/react"],
   },
 
-  /* config options here */
   images: {
+    loaderFile: "./src/lib/cloudinary-loader.ts",
     remotePatterns: [
       {
         protocol: "https",
