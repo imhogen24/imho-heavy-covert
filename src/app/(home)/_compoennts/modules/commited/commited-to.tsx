@@ -18,7 +18,6 @@ const CommitedTo = () => {
       </h2>
       <Marquee
         className="z-20 overflow-hidden [--duration:60s] [--gap:1rem] h-[215px]"
-        horizontal
       >
         {MARQUEE.map((data, idx) => (
           <react.Fragment key={idx}>
