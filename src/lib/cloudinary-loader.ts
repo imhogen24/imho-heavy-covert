@@ -8,7 +8,11 @@ export default function cloudinaryLoader({
   quality?: number;
 }): string {
   if (!src.includes("res.cloudinary.com")) {
-    return src;
+    // For non-Cloudinary URLs (local files, other CDNs), pass through with
+    // width in the query so Next.js validation passes. Static file serving
+    // ignores unknown query params.
+    const sep = src.includes("?") ? "&" : "?";
+    return `${src}${sep}w=${width}`;
   }
 
   const parts = src.split("/upload/");
