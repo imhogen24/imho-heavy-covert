@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "uploadthing/tw/v4";
+@source "../../node_modules/@uploadthing/react/dist";
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.ts";
 
 html {
   scroll-behavior: smooth;

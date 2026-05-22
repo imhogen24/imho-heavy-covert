@@ -1,7 +1,7 @@
 "use client";
 
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { HamburgerIcon } from "@/lib/icons";

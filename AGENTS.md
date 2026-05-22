@@ -15,7 +15,7 @@
 - `pnpm lint` — run ESLint; fix issues before committing.
 
 ## Coding Style & Naming Conventions
-- TypeScript + React (TSX). Use 2‑space indentation and Prettier defaults.
+- TypeScript + React (TSX). Use 2‑space indentation and Prettier defaultsi.
 - Components: PascalCase in `src/components/...` (e.g., `HeroSection.tsx`).
 - Hooks: `useSomething.ts` in `src/hooks/`.
 - Schemas: colocate under `src/lib/schemas/<domain>/z.ts` with clear domain names.
@@ -37,4 +37,3 @@
 
 ## Agent-Specific Instructions
 - Read this file when contributing automated changes. Respect file organization and naming patterns above. When adding modules, follow existing route group structure and colocate related components.
-

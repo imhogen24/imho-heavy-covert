@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@phosphor-icons/react"],
   },
 
-  /* config options here */
   images: {
     remotePatterns: [
       {
