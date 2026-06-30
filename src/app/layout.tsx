@@ -6,14 +6,12 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/header/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "./site-config";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CookieBanner } from "@/components/cookie/banner";
 import { CookieSettings } from "@/components/cookie/settings";
 import { CookieConsentProvider } from "../../context/cookies/consent";
 import { ConsentInitializer } from "@/components/cookie/initializer";
-import { Analytics } from '@vercel/analytics/next';
-
-
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -97,14 +95,15 @@ export default function RootLayout({
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          > <CookieConsentProvider>
+          >
+            {" "}
+            <CookieConsentProvider>
               <ConsentInitializer />
               <Navbar />
               {children}
               <Toaster position="bottom-center" />
-
               <SpeedInsights /> {/* Enable speed insights form Vercel*/}
-              <Analytics />   {/* Enable analytics on vercel to track visits */}
+              <Analytics /> {/* Enable analytics on vercel to track visits */}
               <CookieBanner />
               <CookieSettings />
             </CookieConsentProvider>
