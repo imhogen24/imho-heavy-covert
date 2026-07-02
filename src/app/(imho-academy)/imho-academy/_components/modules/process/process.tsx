@@ -39,7 +39,7 @@ const STEPS = [
 
 export function Process({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const nodeRefs = useRef<RefObject<HTMLDivElement | null>[]>([]);
+  const nodeRefs = useRef<RefObject<HTMLElement | null>[]>([]);
   if (nodeRefs.current.length !== STEPS.length) {
     nodeRefs.current = STEPS.map(() => ({ current: null }));
   }
