@@ -8,13 +8,17 @@
 
 | Field | Value |
 |---|---|
-| Status | draft |
+| Status | draft 
+
+
+                                         copied 98 chars to clipboard · disable auto-copy in /config
+────────────────────────────────────────|
 | Audience | Businesses |
 | Objective | convert |
 | CTA Type | Lead |
 | CTA Link | `/forms#project` |
 | Layout Hint | Split visual — CAD render vs real machine |
-| Asset Status | to-produce |
+| Asset Status | to-produce o 
 
 ### Headline
 Engineering Ideas into Impact.

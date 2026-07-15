@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 import { FactoryIcon } from "@phosphor-icons/react/dist/csr/Factory";
@@ -14,18 +15,22 @@ const DELIVERABLES = [
   {
     icon: <FactoryIcon size={20} weight="thin" />,
     label: "Engineering systems designed and deployed",
+    image: "/poe-1.webp",
   },
   {
     icon: <CompassIcon size={20} weight="thin" />,
     label: "CAD-driven industrial machinery development",
+    image: "/poe-2.webp",
   },
   {
     icon: <GraduationCapIcon size={20} weight="thin" />,
     label: "Structured training producing measurable capability",
+    image: "/poe-3.webp",
   },
   {
     icon: <ChartLineUpIcon size={20} weight="thin" />,
     label: "Early-stage industrial impact across multiple sectors",
+    image: "/poe-4.webp",
   },
 ];
 
@@ -89,7 +94,7 @@ export function Poe({ className }: { className?: string }) {
           <div
             key={item.label}
             className={cn(
-              "flex flex-col gap-6 p-8 md:p-10",
+              "flex flex-col",
               // mobile: border after every card except last
               idx < 3 && "border-b muted-border",
               // sm (2-col): reset mobile, add right on left-col, bottom on top-row
@@ -102,12 +107,24 @@ export function Poe({ className }: { className?: string }) {
               idx === 3 && "lg:border-r-0",
             )}
           >
-            <span className="size-9 flex items-center justify-center rounded-full border muted-border bg-background">
-              {item.icon}
-            </span>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {item.label}
-            </p>
+            <div className="flex flex-col gap-6 p-8 md:p-10">
+              <span className="size-9 flex items-center justify-center rounded-full border muted-border bg-background">
+                {item.icon}
+              </span>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {item.label}
+              </p>
+            </div>
+            <div className="relative aspect-[4/3] w-full overflow-hidden border-t muted-border p-4">
+              <div className="relative h-full w-full">
+                <Image
+                  src={item.image}
+                  alt={item.label}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
           </div>
         ))}
       </div>
