@@ -1,23 +1,24 @@
 "use client";
 
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { CaretDownIcon } from "@phosphor-icons/react/dist/csr/CaretDown";
 import { motion, useReducedMotion } from "motion/react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { HamburgerIcon } from "@/lib/icons";
 import Image from "next/image";
-import { NAV_ITEMS } from "@/lib/constants";
+import Link from "next/link";
+import { useState } from "react";
+import { AnimatedSizeContainer } from "@/components/ui/animated-size-container";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { HamburgerIcon } from "@/lib/icons";
+import type { MegaNavItem, NavItemChild } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/theme/switch-mode-toggle";
-
-
+import { navItems } from "./navbar";
 
 // Define the type for the hamburger menu props
 interface HamburgerMenuProps {
   isMenuOpen: boolean;
   onToggleMenuOpen: () => void;
 }
-
-
 
 // hamburger button
 export const Hamburger: React.FC<HamburgerMenuProps> = ({
@@ -37,7 +38,6 @@ export const Hamburger: React.FC<HamburgerMenuProps> = ({
   );
 };
 
-
 // hamburger menu
 
 export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
@@ -53,10 +53,10 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   return (
     <Sheet open={isMenuOpen} onOpenChange={onToggleMenuOpen}>
       <SheetContent className=" w-full border-muted" side={"top"}>
-            <Link href="/" onClick={handleLinkClick} >
-                <Image src="/logos/nav-logo.png" alt="Logo" width={100} height={30} />
-            </Link>
-         <motion.div
+        <Link href="/" onClick={handleLinkClick}>
+          <Image src="/logos/nav-logo.png" alt="Logo" width={100} height={30} />
+        </Link>
+        <motion.div
           className="mt-12 flex w-full flex-col items-start gap-y-4"
           initial="initial"
           animate="animate"
@@ -64,10 +64,10 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             staggerChildren: 0.03,
           }}
         >
-          <div className="w-full flex flex-col gap-[30px] mt-[48px]">
-          {NAV_ITEMS.map((item) => (
+          <div className="mt-[48px] flex w-full flex-col gap-[30px]">
+            {navItems.map((item) => (
               <motion.div
-                key={item.id}
+                key={item.name}
                 className="w-full"
                 variants={{
                   initial: {
@@ -84,21 +84,101 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
                   },
                 }}
               >
-                <Link className="w-full block" href={item.href} onClick={handleLinkClick}>
-                    <span className="text-muted-foreground text-[16px]">{item.label}</span>
-                </Link>
-
+                <MobileNavItem item={item} onLinkClick={handleLinkClick} />
               </motion.div>
             ))}
             {/* THEME SWITCHER */}
-            <ModeToggle/>
-            {/* CONTACT BUTTON */}
-             <Button size={"lg"} asChild className="w-full text-white rounded-xl">
-                <Link href={"/#contact"}>Contact</Link>
-             </Button>
+            <ModeToggle />
+            {/* START A PROJECT BUTTON */}
+            <Button size={"lg"} asChild className="w-full text-white rounded-xl">
+              <Link href="#" onClick={handleLinkClick}>
+                Start a Project
+              </Link>
+            </Button>
           </div>
         </motion.div>
       </SheetContent>
     </Sheet>
+  );
+};
+
+const MobileNavItem = ({
+  item,
+  onLinkClick,
+}: {
+  item: MegaNavItem;
+  onLinkClick: () => void;
+}) => {
+  const [expanded, setExpanded] = useState(false);
+
+  if (item.childItems) {
+    return (
+      <AnimatedSizeContainer height>
+        <button
+          type="button"
+          className="flex w-full items-center justify-between"
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          <span className="text-[16px] font-medium text-muted-foreground">
+            {item.name}
+          </span>
+          <CaretDownIcon
+            size={16}
+            weight="thin"
+            className={cn(
+              "text-muted-foreground transition-transform",
+              expanded && "rotate-180",
+            )}
+          />
+        </button>
+        {expanded && (
+          <div className="grid grid-cols-1 gap-4 pt-4">
+            {item.childItems.map((child) => (
+              <ChildItem key={child.title} item={child} onLinkClick={onLinkClick} />
+            ))}
+          </div>
+        )}
+      </AnimatedSizeContainer>
+    );
+  }
+
+  if (!item.href) {
+    return null;
+  }
+
+  return (
+    <Link className="block w-full" href={item.href} onClick={onLinkClick}>
+      <span className="text-[16px] font-medium text-muted-foreground">
+        {item.name}
+      </span>
+    </Link>
+  );
+};
+
+const ChildItem = ({
+  item,
+  onLinkClick,
+}: {
+  item: NavItemChild;
+  onLinkClick: () => void;
+}) => {
+  const Icon = item.icon;
+
+  return (
+    <Link
+      href={item.href}
+      onClick={onLinkClick}
+      className="flex w-full items-start gap-3"
+    >
+      <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border muted-border bg-muted/40">
+        <Icon size={16} weight="thin" className="text-muted-foreground" />
+      </div>
+      <div>
+        <p className="text-sm font-medium text-foreground">{item.title}</p>
+        {item.description && (
+          <p className="text-xs text-muted-foreground">{item.description}</p>
+        )}
+      </div>
+    </Link>
   );
 };

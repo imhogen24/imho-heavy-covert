@@ -9,10 +9,21 @@ import {
   SunIcon,
   XIcon,
 } from "./icons";
+import { BookOpenIcon } from "@phosphor-icons/react/dist/ssr/BookOpen";
+import { BookOpenTextIcon } from "@phosphor-icons/react/dist/ssr/BookOpenText";
+import { BuildingsIcon } from "@phosphor-icons/react/dist/ssr/Buildings";
+import { ClipboardTextIcon } from "@phosphor-icons/react/dist/ssr/ClipboardText";
+import { FactoryIcon } from "@phosphor-icons/react/dist/ssr/Factory";
+import { FlaskIcon } from "@phosphor-icons/react/dist/ssr/Flask";
+import { GraduationCapIcon } from "@phosphor-icons/react/dist/ssr/GraduationCap";
+import { HammerIcon } from "@phosphor-icons/react/dist/ssr/Hammer";
+import { HandshakeIcon } from "@phosphor-icons/react/dist/ssr/Handshake";
+import { SquaresFourIcon } from "@phosphor-icons/react/dist/ssr/SquaresFour";
+import { UsersIcon } from "@phosphor-icons/react/dist/ssr/Users";
 import {
   HeroIconProps,
   MarqueeProps,
-  NavItemProps,
+  NavItemChildren,
   ProjectCardProps,
   SdgProps,
   ServiceRouteProps,
@@ -365,28 +376,84 @@ export const SDG_GOALS: SdgProps[] = [
   },
 ];
 
-export const NAV_ITEMS: NavItemProps[] = [
- 
-
+export const DIVISIONS_LINKS: NavItemChildren = [
   {
-    id: 2,
-    label: "R&D and Business Improvment",
+    title: "Applied R&D & Business Improvement",
+    description:
+      "Fixed-fee engineering and locked fabrication budget pathway.",
     href: "/research-and-development-and-business-improvement",
+    icon: FlaskIcon,
   },
   {
-    id: 7,
-    label: "Imho Academy",
-    href: "/imho-academy",
-  },
-  {
-    id: 8,
-    label: "Techinologies and Industrial Support",
+    title: "Technologies & Industrial Support",
+    description: "Showcases Trade Tech, Industrial Equipment, and R&D Pipeline.",
     href: "/technologies-and-industrial-support",
-  }
-  ,
+    icon: FactoryIcon,
+  },
+];
+
+export const ACADEMY_LINKS: NavItemChildren = [
   {
-    id: 5,
-    label: "Blog",
-    href: "/blog",
-  }
+    title: "Admissions & Programs",
+    description:
+      "Outputs-based training: transforms learners into capable designers.",
+    href: "#",
+    icon: GraduationCapIcon,
+  },
+  {
+    title: "Capability Assessment",
+    description:
+      "Triage step: tracks errors, time, quality, and engineering maturity.",
+    href: "#",
+    icon: ClipboardTextIcon,
+  },
+  {
+    title: "The Design Forge",
+    description: "Direct route to engineering discussions and mentorship.",
+    href: "#",
+    icon: HammerIcon,
+  },
+  {
+    title: "Industry Team Training",
+    description: "B2B training upskilling pathway for design systems.",
+    href: "#",
+    icon: UsersIcon,
+  },
+];
+
+export const COMPANY_LINKS: NavItemChildren = [
+  {
+    title: "About Us & Narrative",
+    description: "Exposes failure of trial-and-error; proves execution.",
+    href: "#",
+    icon: BookOpenTextIcon,
+  },
+  {
+    title: "Partnerships & Collaboration",
+    description: "Covers workforce development and scaling infrastructure.",
+    href: "#",
+    icon: HandshakeIcon,
+  },
+];
+
+export const PORTALS_LINKS: NavItemChildren = [
+  {
+    title: "Client Workspace",
+    description:
+      "No unpaid design work; files released against milestone payments.",
+    href: "#",
+    icon: SquaresFourIcon,
+  },
+  {
+    title: "Academy Student Portal",
+    description: "Manages performance outputs, calculations, CAD, and trials.",
+    href: "#",
+    icon: BookOpenIcon,
+  },
+  {
+    title: "Internal Staff ERP",
+    description: "Integrates team communication and execution tracking.",
+    href: "#",
+    icon: BuildingsIcon,
+  },
 ];

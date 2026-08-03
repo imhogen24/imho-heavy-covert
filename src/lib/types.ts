@@ -1,4 +1,5 @@
 import { SVGProps } from 'react'
+import type { Icon } from '@phosphor-icons/react'
 
 
 export interface ServiceRouteProps {
@@ -59,12 +60,22 @@ export interface ImpactTextProps{
 
 }
 
-export interface NavItemProps{
-    id: number;
-    label: string;
-    href: string;
-    active?: boolean;
-}
+export type NavItemChild = {
+  title: string;
+  description?: string;
+  href: string;
+  icon: Icon;
+};
+
+export type NavItemChildren = NavItemChild[];
+
+export type MegaNavItem = {
+  name: string;
+  href?: string;
+  segments?: string[];
+  content?: React.ComponentType;
+  childItems?: NavItemChildren;
+};
 
 export interface SdgProps{
     id: number;
