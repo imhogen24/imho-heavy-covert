@@ -48,6 +48,20 @@ const iconMap: Record<string, LucideIcon> = {
     "interest & capability": Lightbulb,
     "commitment": Handshake,
     "final question": MessageSquare,
+    "self-assessment": Sliders,
+    "practical thinking": Lightbulb,
+    "portfolio / project link (optional)": FolderOpen,
+    "basic profile": User,
+    "community interests": Users,
+    "optional links": FolderOpen,
+    "organization profile": BriefcaseBusiness,
+    "partnership interest": Handshake,
+    "optional details": Info,
+    "donor information": User,
+    "support interest": LifeBuoy,
+    "sponsorship interest": Handshake,
+    "impact & collaboration interest": TrendingUp,
+    "optional section": Info,
 
 
 };
@@ -77,6 +91,27 @@ export function SectionChild({ children, label, className, ...props }: FORM_SECT
             <div className={cn("grid md:grid-cols-2 gap-6", className)}>
                 {children}
             </div>
+        </div>
+    );
+}
+
+export function SpecList({ items }: { items: string[] }) {
+    return (
+        <div className="w-full max-w-md flex flex-col border-y muted-border text-left">
+            {items.map((item, i) => (
+                <div
+                    key={item}
+                    className={cn(
+                        "flex items-baseline gap-4 py-3",
+                        i < items.length - 1 && "border-b muted-border"
+                    )}
+                >
+                    <span className="text-xs font-medium tabular-nums text-muted-foreground/50">
+                        {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-sm leading-relaxed">{item}</p>
+                </div>
+            ))}
         </div>
     );
 }
