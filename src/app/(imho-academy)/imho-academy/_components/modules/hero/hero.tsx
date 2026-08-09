@@ -6,9 +6,9 @@ import { GraduationCapIcon } from "@phosphor-icons/react/dist/ssr/GraduationCap"
 
 const CTAS = [
   { label: "Apply Now", href: "#", icon: GraduationCapIcon, primary: true },
-  { label: "Partner With IMHOGEN Academy", href: "#" },
-  { label: "Take Capability Assessment", href: "#" },
-  { label: "Join the Design Forge Community", href: "#" },
+  { label: "Partner With IMHOGEN Academy", href: "/services/academy-partnership" },
+  { label: "Take Capability Assessment", href: "/services/capability-assessment" },
+  { label: "Join the Design Forge Community", href: "/services/design-forge" },
 ];
 
 const CLARIFICATIONS = [

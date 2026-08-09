@@ -57,6 +57,31 @@ export const SERVICE_ROUTES: ServiceRouteProps[] = [
     label: "IMHO GEN Academy",
     href: "/services/imho-gen-academy",
   },
+  {
+    idx: 6,
+    label: "Capability Assessment",
+    href: "/services/capability-assessment",
+  },
+  {
+    idx: 7,
+    label: "Design Forge",
+    href: "/services/design-forge",
+  },
+  {
+    idx: 8,
+    label: "Academy Partnership",
+    href: "/services/academy-partnership",
+  },
+  {
+    idx: 9,
+    label: "Academy Support",
+    href: "/services/academy-support",
+  },
+  {
+    idx: 10,
+    label: "Cohort Sponsorship",
+    href: "/services/cohort-sponsorship",
+  },
 ];
 
 export const SOCIAL_ICONS: SocialIconProps[] = [
@@ -409,13 +434,13 @@ export const ACADEMY_LINKS: NavItemChildren = [
     title: "Capability Assessment",
     description:
       "Triage step: tracks errors, time, quality, and engineering maturity.",
-    href: "#",
+    href: "/services/capability-assessment",
     icon: ClipboardTextIcon,
   },
   {
     title: "The Design Forge",
     description: "Direct route to engineering discussions and mentorship.",
-    href: "#",
+    href: "/services/design-forge",
     icon: HammerIcon,
   },
   {
