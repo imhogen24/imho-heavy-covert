@@ -52,7 +52,7 @@ export function AnimatedBackground({
   }, [defaultValue]);
 
   return (
-    <div className="flex items-center flex-wrap max-w-xl gap-1 p-1">
+    <div className="flex items-center flex-wrap max-w-4xl gap-1 p-1">
       {Children.map(children, (child: any, index) => {
         const id = child.props["data-id"];
         const interactionProps = enableHover

@@ -43,6 +43,11 @@ const iconMap: Record<string, LucideIcon> = {
     "challenges or inefficiencies": TriangleAlert,
     "scalability & future goals": TrendingUp,
     "notice, disclaimer, and terms of agreement": Handshake,
+    "basic information": User,
+    "education / background": GraduationCap,
+    "interest & capability": Lightbulb,
+    "commitment": Handshake,
+    "final question": MessageSquare,
 
 
 };

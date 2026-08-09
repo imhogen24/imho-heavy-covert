@@ -1,0 +1,191 @@
+{
+  "formId": "apply-imhogen-academy",
+  "status": "LOCKED — ready to build",
+  "route": "/services/imho-gen-academy",
+  "title": "Apply to IMHO GEN Academy",
+  "subtitle": "Build real engineering design capability through structured engineering execution, CAD, product development, and practical problem-solving.",
+  "sections": [
+    {
+      "id": "basicInformation",
+      "title": "SECTION 1 — Basic Information",
+      "fields": [
+        {
+          "name": "fullName",
+          "label": "Full Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "phoneNumber",
+          "label": "Phone Number (WhatsApp Preferred)",
+          "type": "phone",
+          "required": true,
+          "note": "E.164 validation, same pattern as ProductSchema.phoneNumber."
+        },
+        {
+          "name": "email",
+          "label": "Email Address",
+          "type": "email",
+          "required": true
+        },
+        {
+          "name": "country",
+          "label": "Country",
+          "type": "dropdown",
+          "required": true,
+          "options": "Full standard ISO country list (searchable dropdown)."
+        },
+        {
+          "name": "cityTown",
+          "label": "City/Town",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "educationBackground",
+      "title": "SECTION 2 — Education / Background",
+      "fields": [
+        {
+          "name": "currentStatus",
+          "label": "Current Status",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "SHS Student",
+            "Engineering Student",
+            "Graduate",
+            "Post Graduate",
+            "National Service Personnel",
+            "Engineer",
+            "Technical Professional",
+            "Builder / Innovator",
+            "Other"
+          ]
+        },
+        {
+          "name": "institutionOrCompany",
+          "label": "Institution / Company",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "programDisciplineRole",
+          "label": "Program / Discipline / Role",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "currentLevelYear",
+          "label": "Current Level / Year",
+          "type": "dropdown",
+          "required": false,
+          "options": ["Level 100", "Level 200", "Level 300", "Level 400", "Other"],
+          "note": "Always visible, always optional — no conditional logic on currentStatus."
+        }
+      ]
+    },
+    {
+      "id": "interestCapability",
+      "title": "SECTION 3 — Interest & Capability",
+      "fields": [
+        {
+          "name": "whyJoin",
+          "label": "Why do you want to join IMHO GEN Academy?",
+          "type": "paragraph",
+          "required": true
+        },
+        {
+          "name": "areasOfInterest",
+          "label": "Which areas interest you most?",
+          "type": "checkbox",
+          "multiple": true,
+          "required": true,
+          "note": "Minimum 1 selection required.",
+          "options": [
+            "Engineering Design",
+            "CAD Modeling",
+            "Product Development",
+            "Manufacturing",
+            "Mechanical Systems",
+            "Technical Problem Solving",
+            "Innovation & Building",
+            "Systems Engineering",
+            "Design Thinking"
+          ]
+        },
+        {
+          "name": "hasPriorProjects",
+          "label": "Have you worked on engineering/CAD/design projects before?",
+          "type": "yesno",
+          "required": true
+        },
+        {
+          "name": "portfolioLink",
+          "label": "Share link to portfolio/project/sample work",
+          "type": "url",
+          "required": false,
+          "note": "Strict URL validation when provided (optional field, valid URL or empty)."
+        }
+      ]
+    },
+    {
+      "id": "commitment",
+      "title": "SECTION 4 — Commitment",
+      "fields": [
+        {
+          "name": "willingForIntensiveTraining",
+          "label": "Are you willing to go through intensive practical training and iterative reviews?",
+          "type": "yesno",
+          "required": true
+        },
+        {
+          "name": "weeklyHoursCommitment",
+          "label": "How many hours can you commit weekly?",
+          "type": "dropdown",
+          "required": true,
+          "options": [
+            "Less than 5 hours",
+            "5–10 hours",
+            "10–20 hours",
+            "20+ hours"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finalQuestion",
+      "title": "Final Question",
+      "fields": [
+        {
+          "name": "whySelectYou",
+          "label": "Why should we select you?",
+          "type": "paragraph",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "submitButton": {
+    "label": "Submit Application"
+  },
+  "successState": {
+    "title": "Application Received",
+    "message": "Thank you for applying to IMHO GEN Academy. Our team will review your application and contact you on your application status soon.",
+    "nextSteps": [
+      { "label": "Take the Capability Assessment", "href": "#" },
+      { "label": "Join the Design Forge Community", "href": "#" },
+      { "label": "Follow IMHO GEN Academy updates", "href": "#" }
+    ],
+    "note": "All 3 next-step links are placeholders (#) for now — swap in real URLs once those destinations exist."
+  },
+  "build": {
+    "route": "src/app/(services)/services/imho-gen-academy/page.tsx",
+    "schema": "src/lib/schemas/imho-gen-academy/z.ts",
+    "action": "new export in src/actions/action.ts, e.g. ImhoGenAcademyFormAction — mirrors ProductFormAction: reads FormData, sends admin notification email via Resend to imhogen22@gmail.com, sends confirmation email to applicant, returns { success } / { error }. requestId prefix e.g. `AA-${Date.now()}`.",
+    "emailTemplates": "new components under src/components/emails/imho-gen-academy/ (admin notification + reuse/extend RequestConfirmationEmail or add a dedicated confirmation matching the 'Application Received' copy above).",
+    "note": "No DB storage — this mirrors the existing product/process/support forms, which are email-only (Resend), not persisted."
+  },
+  "openQuestions": []
+}

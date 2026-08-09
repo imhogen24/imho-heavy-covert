@@ -13,13 +13,46 @@ import {
   COMPANY_LINKS,
   DIVISIONS_LINKS,
   PORTALS_LINKS,
+  SERVICE_ROUTES,
 } from "@/lib/constants";
 import type { MegaNavItem } from "@/lib/types";
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { NavDropdownPanel } from "./nav-content/dropdown-panel";
+import { GraduationCapIcon } from "@phosphor-icons/react/dist/ssr/GraduationCap";
+import { HammerIcon } from "@phosphor-icons/react/dist/ssr/Hammer";
+import { FactoryIcon } from "@phosphor-icons/react/dist/ssr/Factory";
+import { BlueprintIcon } from "@phosphor-icons/react/dist/ssr/Blueprint";
+import { PencilSimpleIcon } from "@phosphor-icons/react/dist/ssr/PencilSimple";
+
+const serviceIcons = [
+  HammerIcon,
+  FactoryIcon,
+  BlueprintIcon,
+  PencilSimpleIcon,
+  GraduationCapIcon,
+];
+
+const SERVICES_LINKS = SERVICE_ROUTES.map((route, idx) => ({
+  title: route.label,
+  description: "",
+  href: route.href,
+  icon: serviceIcons[idx % serviceIcons.length],
+}));
 
 export const navItems: MegaNavItem[] = [
+  {
+    name: "Services",
+    content: () => (
+      <NavDropdownPanel
+        heading="Our service offerings"
+        items={SERVICES_LINKS}
+        columns={2}
+      />
+    ),
+    childItems: SERVICES_LINKS,
+    segments: ["/services"],
+  },
   {
     name: "Divisions",
     content: () => (
@@ -45,7 +78,7 @@ export const navItems: MegaNavItem[] = [
       />
     ),
     childItems: ACADEMY_LINKS,
-    segments: ["/imho-academy"],
+    segments: ["/imho-academy", "/services/imho-gen-academy"],
   },
   {
     name: "Company",

@@ -113,7 +113,7 @@ export function Ep({ className }: { className?: string }) {
       <div className="flex flex-col items-center gap-8 px-6 py-14 md:py-20">
         {/* Tabs */}
         <div
-          className="border muted-border bg-accent h-14 w-full max-w-md inline-flex gap-1 p-1 rounded-full"
+          className="border muted-border bg-background h-9 w-full max-w-xs inline-flex gap-1 p-1 rounded-full"
           role="tablist"
           aria-label="Entry pathway audience"
         >
@@ -128,14 +128,14 @@ export function Ep({ className }: { className?: string }) {
                 id={`ep-tab-${tab.id}`}
                 onClick={() => selectTab(tab.id)}
                 className={cn(
-                  "relative flex-1 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  isActive ? "text-secondary" : "text-muted-foreground",
+                  "relative flex-1 cursor-pointer rounded-full px-3 py-1 text-xs font-medium transition-colors",
+                  isActive ? "text-secondary-foreground" : "text-muted-foreground",
                 )}
               >
                 {isActive && (
                   <motion.span
                     layoutId="ep-tab-pill"
-                    className="absolute inset-0 rounded-full bg-foreground"
+                    className="absolute inset-0 rounded-full bg-secondary"
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
                   />
                 )}

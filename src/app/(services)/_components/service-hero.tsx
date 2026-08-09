@@ -1,7 +1,15 @@
 
 import Link from "next/link"
 
-const ServiceHero = ()=>{
+interface ServiceHeroProps {
+  title?: string;
+  subtitle?: string;
+}
+
+const ServiceHero = ({
+  title = "Experience Seamless Services",
+  subtitle = "Skip the meeting scheduling hassle. Our forms make communication effortless and organized.",
+}: ServiceHeroProps) => {
     return(
         <div className="absolute p-5 lg:p-10 space-y-2 md:space-y-5">
           <div className="flex flex-col md:flex-row lg:items-center gap-2 mb-3">
@@ -25,11 +33,10 @@ const ServiceHero = ()=>{
           </div>
 
           <h1 className="text-lg md:text-3xl font-bold">
-            Experience Seamless Services
+            {title}
           </h1>
           <h1 className="text-xs md:text-base max-w-xl text-muted-foreground">
-            Skip the meeting scheduling hassle. Our forms make communication
-            effortless and organized.
+            {subtitle}
           </h1>
         </div>
     )

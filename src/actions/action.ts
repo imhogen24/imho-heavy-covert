@@ -8,6 +8,8 @@ import { ContactFormEmail } from "../components/emails/contact/contact-template"
 import ProcessRequestEmail from "../components/emails/process/process-template";
 import { ProductFormEmail } from "../components/emails/product/product-template";
 import { SupportFormEmail } from "../components/emails/support/engieering-support-template";
+import { ImhoGenAcademyFormEmail } from "../components/emails/imho-gen-academy/academy-application-template";
+import { ImhoGenAcademyConfirmationEmail } from "../components/emails/imho-gen-academy/academy-confirmation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -372,6 +374,95 @@ export const processFormAction = async (formData: FormData) => {
     return { success: true };
   } catch (error: any) {
     console.error("Process Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//IMHO GEN ACADEMY APPLICATION FORM ACTION
+export const ImhoGenAcademyFormAction = async (formData: FormData) => {
+  try {
+    // Basic Information
+    const fullName = formData.get("fullName") as string;
+    const phoneNumber = formData.get("phoneNumber") as string;
+    const email = formData.get("email") as string;
+    const country = formData.get("country") as string;
+    const cityTown = formData.get("cityTown") as string;
+
+    // Education / Background
+    const currentStatus = formData.get("currentStatus") as string;
+    const institutionOrCompany = formData.get("institutionOrCompany") as string;
+    const programDisciplineRole = formData.get(
+      "programDisciplineRole"
+    ) as string;
+    const currentLevelYear = formData.get("currentLevelYear") as string;
+
+    // Interest & Capability
+    const whyJoin = formData.get("whyJoin") as string;
+    const areasOfInterest = JSON.parse(
+      (formData.get("areasOfInterest") as string) || "[]"
+    );
+    const hasPriorProjects = formData.get("hasPriorProjects") as string;
+    const portfolioLink = formData.get("portfolioLink") as string;
+
+    // Commitment
+    const willingForIntensiveTraining = formData.get(
+      "willingForIntensiveTraining"
+    ) as string;
+    const weeklyHoursCommitment = formData.get(
+      "weeklyHoursCommitment"
+    ) as string;
+
+    // Final Question
+    const whySelectYou = formData.get("whySelectYou") as string;
+
+    const requestId = `AA-${Date.now()}`;
+
+    const { data, error } = await resend.emails.send({
+      from: `Academy Application <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New IMHO GEN Academy Application from ${fullName}`,
+      react: ImhoGenAcademyFormEmail({
+        fullName,
+        phoneNumber,
+        email,
+        country,
+        cityTown,
+        currentStatus,
+        institutionOrCompany,
+        programDisciplineRole,
+        currentLevelYear,
+        whyJoin,
+        areasOfInterest,
+        hasPriorProjects,
+        portfolioLink,
+        willingForIntensiveTraining,
+        weeklyHoursCommitment,
+        whySelectYou,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await resend.emails.send({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Application Received — IMHO GEN Academy`,
+      react: ImhoGenAcademyConfirmationEmail({
+        fullName,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Academy Application Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
 };

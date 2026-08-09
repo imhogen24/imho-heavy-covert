@@ -52,6 +52,11 @@ export const SERVICE_ROUTES: ServiceRouteProps[] = [
     label: "Draftwork",
     href: "/services/draftwork",
   },
+  {
+    idx: 5,
+    label: "IMHO GEN Academy",
+    href: "/services/imho-gen-academy",
+  },
 ];
 
 export const SOCIAL_ICONS: SocialIconProps[] = [
@@ -397,7 +402,7 @@ export const ACADEMY_LINKS: NavItemChildren = [
     title: "Admissions & Programs",
     description:
       "Outputs-based training: transforms learners into capable designers.",
-    href: "#",
+    href: "/services/imho-gen-academy",
     icon: GraduationCapIcon,
   },
   {

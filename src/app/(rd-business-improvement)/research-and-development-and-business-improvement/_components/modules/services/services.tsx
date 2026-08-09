@@ -19,7 +19,7 @@ const SERVICES: Service[] = [
     tier: "Tier 1",
     title: "Custom Product Development",
     body: "Turn complex problems into robust physical realities. We design, simulate, and fabricate bespoke industrial machinery from scratch. By defining your exact inputs (materials, energy) and desired outputs, we engineer a system that delivers maximum throughput with minimum downtime.",
-    idealFor: "Startups and enterprises needing proprietary equipment.",
+    idealFor: "startups and enterprises needing proprietary equipment.",
   },
   {
     Icon: FactoryIcon,
@@ -27,14 +27,14 @@ const SERVICES: Service[] = [
     title: "Turnkey Process & Factory Infrastructure",
     body: "Scale up with mathematical predictability. We design complete processing lines and factory infrastructures. From material handling conveyors to automated sorting, we deliver systems ready for immediate, profitable operation.",
     note: "Packages range from standard lines at GHS 150K to fully automated, high-throughput facilities.",
-    idealFor: "Agro-processing, mining, and large-scale manufacturing.",
+    idealFor: "agro-processing, mining, and large-scale manufacturing.",
   },
   {
     Icon: PencilRulerIcon,
     tier: "Tier 3 Fast-Track",
     title: "Engineering Drafting & Reverse Engineering",
     body: "Digitize, standardize, and optimize existing assets. Have an existing machine or a physical prototype that needs to be mass-produced? We use precision metrology to reverse-engineer physical parts into highly accurate, ISO/ASME standard 3D models and 2D fabrication drawings.",
-    idealFor: "Fabricators, maintenance teams, and patent filings.",
+    idealFor: "fabricators, maintenance teams, and patent filings.",
   },
 ];
 
@@ -87,9 +87,9 @@ export function Services({ className }: { className?: string }) {
               </p>
             )}
 
-            <div className="mt-auto pt-4 border-t muted-border">
+            <div className="mt-auto -mx-8 border-t muted-border px-8 pt-4 lg:-mx-10 lg:px-10">
               <p className="text-sm">
-                <span className="text-muted-foreground">Ideal for:</span>{" "}
+                <span className="text-muted-foreground">Ideal for </span>
                 <span className="font-medium">{service.idealFor}</span>
               </p>
             </div>
