@@ -30,7 +30,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { DesignForgeFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import { FormPreview } from "./preview";
 
 const currentRoleOptions = [
   "Engineering Student",
@@ -131,9 +133,26 @@ export const DesignForgeForm = () => {
 
   async function onSubmit(values: DesignForgeFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; values are validated by the schema.
-      void values;
+      const result = await DesignForgeFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -477,6 +496,7 @@ export const DesignForgeForm = () => {
                 <>Join the Community</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

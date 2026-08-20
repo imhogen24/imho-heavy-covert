@@ -1,6 +1,9 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { ContactFormSchema } from "@/lib/schemas/z";
+import {
+  ContactFormSchema,
+  type ContactFormInput,
+} from "@/lib/schemas/z";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
@@ -21,12 +24,11 @@ import {
 } from "@/components/ui/form";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Link from "next/link";
-import { FormPreview } from "@/app/(services)/_components/modules/cad/preview";
 import { toast } from "sonner";
 
 
 export const FileForm = () => {
-  const form = useForm<z.infer<typeof ContactFormSchema>>({
+  const form = useForm<ContactFormInput, any, z.infer<typeof ContactFormSchema>>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: "",
@@ -124,7 +126,7 @@ export const FileForm = () => {
                       endpoint="fileAttachment"
                       onClientUploadComplete={(res: any) => {
                         const newFiles = res.map((file: any) => `${file.serverData.fileUrl},${file.name}`);
-                        field.onChange([...field.value, ...newFiles]);
+                        field.onChange([...(field.value ?? []), ...newFiles]);
                         toast.success(`${res.length} file${res.length > 1 ? "s" : ""} uploaded`);
                       }}
                       onUploadError={(error: any) => {
@@ -133,9 +135,9 @@ export const FileForm = () => {
                     />
                   </div>
 
-                  {field.value.length > 0 && (
+                  {(field.value ?? []).length > 0 && (
                     <div className="flex flex-col mt-4 gap-2">
-                      {field.value.map((file: string, index: number) => (
+                      {(field.value ?? []).map((file: string, index: number) => (
                         <div
                           key={index}
                           className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
@@ -156,7 +158,7 @@ export const FileForm = () => {
                             <button
                               type="button"
                               onClick={() => {
-                                const newFiles = field.value.filter((_, i) => i !== index);
+                                const newFiles = (field.value ?? []).filter((_, i) => i !== index);
                                 field.onChange(newFiles);
                               }}
                             >

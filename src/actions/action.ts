@@ -1,17 +1,60 @@
 "use server";
 
-import RequestConfirmationEmail from "@/components/emails/confirmation";
 import ContactConfirmationEmail from "@/components/emails/contact/confirmation";
 import { Resend } from "resend";
-import { CadRequestEmail } from "../components/emails/cad/cad-template";
 import { ContactFormEmail } from "../components/emails/contact/contact-template";
-import ProcessRequestEmail from "../components/emails/process/process-template";
-import { ProductFormEmail } from "../components/emails/product/product-template";
-import { SupportFormEmail } from "../components/emails/support/engieering-support-template";
 import { ImhoGenAcademyFormEmail } from "../components/emails/imho-gen-academy/academy-application-template";
 import { ImhoGenAcademyConfirmationEmail } from "../components/emails/imho-gen-academy/academy-confirmation";
+import { AcademyPartnershipFormEmail } from "../components/emails/academy-partnership/partnership-template";
+import { AcademyPartnershipConfirmationEmail } from "../components/emails/academy-partnership/partnership-confirmation";
+import { AcademySupportFormEmail } from "../components/emails/academy-support/support-template";
+import { AcademySupportConfirmationEmail } from "../components/emails/academy-support/support-confirmation";
+import { CapabilityAssessmentFormEmail } from "../components/emails/capability-assessment/assessment-template";
+import { CapabilityAssessmentConfirmationEmail } from "../components/emails/capability-assessment/assessment-confirmation";
+import { CohortSponsorshipFormEmail } from "../components/emails/cohort-sponsorship/sponsorship-template";
+import { CohortSponsorshipConfirmationEmail } from "../components/emails/cohort-sponsorship/sponsorship-confirmation";
+import { DesignForgeFormEmail } from "../components/emails/design-forge/design-forge-template";
+import { DesignForgeConfirmationEmail } from "../components/emails/design-forge/design-forge-confirmation";
+import { CustomEngineeringFormEmail } from "../components/emails/custom-engineering/tier1-template";
+import { CustomEngineeringConfirmationEmail } from "../components/emails/custom-engineering/tier1-confirmation";
+import { DraftingDigitizationFormEmail } from "../components/emails/drafting-digitization/tier3-template";
+import { DraftingDigitizationConfirmationEmail } from "../components/emails/drafting-digitization/tier3-confirmation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+const EMAIL_TIMEOUT_MS = 20000;
+
+/**
+ * The Resend SDK accepts no abort signal, so a stalled request sits on undici's
+ * 300s header timeout and leaves the submit button spinning for five minutes.
+ * Bound it, resolving with the SDK's own error shape so every `if (error)`
+ * branch below keeps working unchanged.
+ */
+const sendEmail = async (
+  payload: Parameters<typeof resend.emails.send>[0]
+): Promise<Awaited<ReturnType<typeof resend.emails.send>>> => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      resend.emails.send(payload),
+      new Promise<Awaited<ReturnType<typeof resend.emails.send>>>((resolve) => {
+        timer = setTimeout(
+          () =>
+            resolve({
+              data: null,
+              error: {
+                name: "application_error",
+                message: `Email request timed out after ${EMAIL_TIMEOUT_MS}ms`,
+              },
+            }),
+          EMAIL_TIMEOUT_MS
+        );
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+};
 
 //CONTACT FORM ACTION
 export const contactFormAction = async (formData: FormData) => {
@@ -25,7 +68,7 @@ export const contactFormAction = async (formData: FormData) => {
     const files = filesString ? JSON.parse(filesString) : [];
 
     // Send notification to admin
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await sendEmail({
       from: `Contact Form <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Contact Form Submission from ${name}`,
@@ -43,7 +86,7 @@ export const contactFormAction = async (formData: FormData) => {
     }
 
     // Send confirmation to submitter
-    const { error: confirmationError } = await resend.emails.send({
+    const { error: confirmationError } = await sendEmail({
       from: `Confirmation <imhogen@admin.imhogen.com>`,
       to: [`${email}`],
       subject: `Thank you for contacting us, ${name}`,
@@ -58,322 +101,6 @@ export const contactFormAction = async (formData: FormData) => {
     return { success: true };
   } catch (error: any) {
     console.error("Contact Form Action Error:", error);
-    return { error: error.message || "An unexpected error occurred" };
-  }
-};
-
-//CAD FORM ACTION
-export const cadFormAction = async (formData: FormData) => {
-  try {
-    const organizationName = formData.get("organizationName") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const address = formData.get("address") as string;
-    const organizationOperations = formData.get(
-      "organizationOperations"
-    ) as string;
-    const documentationPurpose = formData.get("documentationPurpose") as string;
-    const documentationTypes = JSON.parse(
-      (formData.get("documentationTypes") as string) || "[]"
-    );
-    const otherDocumentationTypes = formData.get(
-      "otherDocumentationTypes"
-    ) as string;
-    const fileFormats = JSON.parse(
-      (formData.get("fileFormats") as string) || "[]"
-    );
-    const otherFileFormats = formData.get("otherFileFormats") as string;
-    const technicalSpecifications = formData.get(
-      "technicalSpecifications"
-    ) as string;
-    const technicalStandards = formData.get("technicalStandards") as string;
-    const visualStylePreferences = formData.get(
-      "visualStylePreferences"
-    ) as string;
-    const layoutPreferences = formData.get("layoutPreferences") as string;
-    const additionalDesignFeatures = formData.get(
-      "additionalDesignFeatures"
-    ) as string;
-    const preferredTimeline = formData.get("preferredTimeline") as string;
-    const requirePeriodicDrafts =
-      formData.get("requirePeriodicDrafts") === "true";
-    const additionalServices = JSON.parse(
-      (formData.get("additionalServices") as string) || "[]"
-    );
-    const additionalComments = formData.get("additionalComments") as string;
-    const fileAttachments = JSON.parse(
-      (formData.get("fileAttachments") as string) || "[]"
-    );
-    const requestId = `CAD-${Date.now()}`;
-
-    const { data, error } = await resend.emails.send({
-      from: `CAD Request <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New CAD Request from ${organizationName}`,
-      react: CadRequestEmail({
-        organizationName,
-        contactPerson,
-        email,
-        phoneNumber,
-        address,
-        organizationOperations,
-        documentationPurpose,
-        documentationTypes,
-        otherDocumentationTypes,
-        fileFormats,
-        otherFileFormats,
-        technicalSpecifications,
-        technicalStandards,
-        visualStylePreferences,
-        layoutPreferences,
-        additionalDesignFeatures,
-        preferredTimeline,
-        requirePeriodicDrafts,
-        additionalServices,
-        additionalComments,
-        fileAttachments,
-        requestId,
-      }) as React.ReactElement,
-    });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await resend.emails.send({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Request received`,
-      react: RequestConfirmationEmail({
-        organizationName,
-      }) as React.ReactElement,
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-    return { success: true };
-  } catch (error: any) {
-    console.error("CAD Form Action Error:", error);
-    return { error: error.message || "An unexpected error occurred" };
-  }
-};
-
-export const SupportFormAction = async (formData: FormData) => {
-  try {
-    // Client Information
-    const organizationName = formData.get("organizationName") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const physicalPostalAddress = formData.get(
-      "physicalPostalAddress"
-    ) as string;
-    const businessOverview = formData.get("businessOverview") as string;
-
-    // Training Requirements
-    const trainingNeeds = formData.get("trainingNeeds") as string;
-    const trainingObjectives = formData.get("trainingObjectives") as string;
-    const numberOfParticipants = parseInt(
-      formData.get("numberOfParticipants") as string
-    );
-    const participantRoles = formData.get("participantRoles") as string;
-    const participantSkillLevel = formData.get(
-      "participantSkillLevel"
-    ) as string;
-    const trainingDeliveryMode = formData.get("trainingDeliveryMode") as string;
-    const trainingTimeline = {
-      startDate: new Date(formData.get("trainingTimeline.startDate") as string),
-      endDate: new Date(formData.get("trainingTimeline.endDate") as string),
-    };
-
-    // Project Support
-    const projectOverview = formData.get("projectOverview") as string;
-    const projectScopeDeliverables = formData.get(
-      "projectScopeDeliverables"
-    ) as string;
-    const collaborationPreferences = JSON.parse(
-      (formData.get("collaborationPreferences") as string) || "[]"
-    );
-    const projectDeadline = new Date(formData.get("projectDeadline") as string);
-
-    // Additional Info
-    const toolsAndResources = formData.get("toolsAndResources") as string;
-    const longTermCollaboration =
-      formData.get("longTermCollaboration") === "true";
-    const additionalInformation = formData.get(
-      "additionalInformation"
-    ) as string;
-    const fileAttachments = JSON.parse(
-      (formData.get("fileAttachments") as string) || "[]"
-    );
-    const requestId = `ES-${Date.now()}`;
-
-    const { data, error } = await resend.emails.send({
-      from: `Support Request <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Support & Training Request from ${organizationName}`,
-      react: SupportFormEmail({
-        organizationName,
-        contactPerson,
-        email,
-        phoneNumber,
-        physicalPostalAddress,
-        businessOverview,
-        trainingNeeds,
-        trainingObjectives,
-        numberOfParticipants,
-        participantRoles,
-        participantSkillLevel,
-        trainingDeliveryMode,
-        trainingTimeline,
-        projectOverview,
-        projectScopeDeliverables,
-        collaborationPreferences,
-        projectDeadline,
-        toolsAndResources,
-        longTermCollaboration,
-        additionalInformation,
-        fileAttachments,
-        requestId,
-      }) as React.ReactElement,
-    });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await resend.emails.send({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Request received`,
-      react: RequestConfirmationEmail({
-        organizationName,
-      }) as React.ReactElement,
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-    return { success: true };
-  } catch (error: any) {
-    console.error("Support Form Action Error:", error);
-    return { error: error.message || "An unexpected error occurred" };
-  }
-};
-
-//PROCESS FORM ACTION
-export const processFormAction = async (formData: FormData) => {
-  try {
-    const organizationName = formData.get("organizationName") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const address = formData.get("address") as string;
-    const businessOverview = formData.get("businessOverview") as string;
-
-    // Input Requirements
-    const materialInputs = formData.get("materialInputs") as string;
-    const energyInputs = formData.get("energyInputs") as string;
-    const informationInputs = formData.get("informationInputs") as string;
-    const livingInputs = formData.get("livingInputs") as string;
-
-    // Operational Agents
-    const humanSytems = formData.get("humanSytems") as string;
-    const managementSystems = formData.get("managementSystems") as string;
-    const technicalSytems = formData.get("technicalSytems") as string;
-    const informationSystems = formData.get("informationSystems") as string;
-    const environment = formData.get("environmentalSytems") as string;
-
-    // Process Requirements
-    const existingSytems = formData.get("existingSytems") as string;
-    const newSystemRequiements = formData.get("newSystemRequiements") as string;
-    const KeyMetrics = formData.get("KeyMetrics") as string;
-
-    // Output Requirements
-    const materialOutputs = formData.get("materialOutputs") as string;
-    const EnergyOutputs = formData.get("EnergyOutputs") as string;
-    const informationOutputs = formData.get("informationOutputs") as string;
-    const livingOutputs = formData.get("livingOutputs") as string;
-
-    // Challenges or Inefficiencies
-    const painPoints = formData.getAll("painPoints") as string[];
-    const specificIssues = formData.get("specificIssues") as string;
-
-    // Scalability and Future Goals
-    const futureGrowth = formData.get("futureGrowth") === "on";
-    const comparableSystems = formData.get("comparableSystems") as string;
-
-    // Collaboration and Communication
-    const collaborationPreferences = formData.getAll(
-      "collaborationPreferences"
-    ) as string[];
-    const additionalComments = formData.get("additionalComments") as string;
-    const requestId = `P-${Date.now()}`;
-
-    const { data, error } = await resend.emails.send({
-      from: "Process Improvement Request <imhogen@admin.imhogen.com>",
-      to: ["imhogen22@gmail.com"],
-      subject: `New Process Improvement Request from ${organizationName}`,
-      react: ProcessRequestEmail({
-        organizationName,
-        contactPerson,
-        email,
-        phoneNumber,
-        address,
-        businessOverview,
-        materialInputs,
-        EnergyInputs: energyInputs,
-        informationInputs,
-        livingInputs,
-        humanSytems,
-        managementSystems,
-        technicalSytems,
-        informationSystems,
-        environment,
-        existingSytems,
-        newSystemRequiements,
-        KeyMetrics,
-        materialOutputs,
-        EnergyOutputs,
-        informationOutputs,
-        livingOutputs,
-        painPoints,
-        specificIssues,
-        futureGrowth,
-        comparableSystems,
-        collaborationPreferences,
-        additionalComments,
-        requestId,
-      }),
-    });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await resend.emails.send({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Request received`,
-      react: RequestConfirmationEmail({
-        organizationName,
-      }) as React.ReactElement,
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-    return { success: true };
-  } catch (error: any) {
-    console.error("Process Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -417,7 +144,7 @@ export const ImhoGenAcademyFormAction = async (formData: FormData) => {
 
     const requestId = `AA-${Date.now()}`;
 
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await sendEmail({
       from: `Academy Application <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New IMHO GEN Academy Application from ${fullName}`,
@@ -447,7 +174,7 @@ export const ImhoGenAcademyFormAction = async (formData: FormData) => {
       return { error: "Failed to send email" };
     }
 
-    const { error: confirmationError } = await resend.emails.send({
+    const { error: confirmationError } = await sendEmail({
       from: `Confirmation <imhogen@admin.imhogen.com>`,
       to: [`${email}`],
       subject: `Application Received — IMHO GEN Academy`,
@@ -467,93 +194,422 @@ export const ImhoGenAcademyFormAction = async (formData: FormData) => {
   }
 };
 
-export const ProductFormAction = async (formData: FormData) => {
+//ACADEMY PARTNERSHIP FORM ACTION
+export const AcademyPartnershipFormAction = async (formData: FormData) => {
   try {
-    // Client Information
+    // Organization Profile
+    const organizationName = formData.get("organizationName") as string;
+    const organizationWebsite = formData.get("organizationWebsite") as string;
+    const contactPerson = formData.get("contactPerson") as string;
+    const positionRole = formData.get("positionRole") as string;
+    const email = formData.get("email") as string;
+    const phoneNumber = formData.get("phoneNumber") as string;
+
+    // Partnership Interest
+    const areasOfInterest = JSON.parse(
+      (formData.get("areasOfInterest") as string) || "[]"
+    );
+    const collaborationDescription = formData.get(
+      "collaborationDescription"
+    ) as string;
+
+    // Optional Details
+    const expectedOutcomes = formData.get("expectedOutcomes") as string;
+    const additionalInformation = formData.get(
+      "additionalInformation"
+    ) as string;
+
+    const requestId = `AP-${Date.now()}`;
+
+    const { data, error } = await sendEmail({
+      from: `Academy Partnership <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Academy Partnership Inquiry from ${organizationName}`,
+      react: AcademyPartnershipFormEmail({
+        organizationName,
+        organizationWebsite,
+        contactPerson,
+        positionRole,
+        email,
+        phoneNumber,
+        areasOfInterest,
+        collaborationDescription,
+        expectedOutcomes,
+        additionalInformation,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await sendEmail({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Partnership Inquiry Received — IMHO GEN Academy`,
+      react: AcademyPartnershipConfirmationEmail({
+        organizationName,
+        contactPerson,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Academy Partnership Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//ACADEMY SUPPORT FORM ACTION
+export const AcademySupportFormAction = async (formData: FormData) => {
+  try {
+    // Donor Information
+    const fullName = formData.get("fullName") as string;
+    const email = formData.get("email") as string;
+    const country = formData.get("country") as string;
+    const supportTypes = JSON.parse(
+      (formData.get("supportTypes") as string) || "[]"
+    );
+
+    // Support Interest
+    const supportContribution = formData.get("supportContribution") as string;
+
+    const requestId = `AS-${Date.now()}`;
+
+    const { data, error } = await sendEmail({
+      from: `Academy Support <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Academy Support Offer from ${fullName}`,
+      react: AcademySupportFormEmail({
+        fullName,
+        email,
+        country,
+        supportTypes,
+        supportContribution,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await sendEmail({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Support Offer Received — IMHO GEN Academy`,
+      react: AcademySupportConfirmationEmail({
+        fullName,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Academy Support Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//CAPABILITY ASSESSMENT FORM ACTION
+export const CapabilityAssessmentFormAction = async (formData: FormData) => {
+  try {
+    // Basic Information
+    const fullName = formData.get("fullName") as string;
+    const email = formData.get("email") as string;
+    const background = formData.get("background") as string;
+    const experienceLevel = formData.get("experienceLevel") as string;
+
+    // Self-Assessment (1–5) — submitted as strings, stored as numbers
+    const problemDefinition = Number(formData.get("problemDefinition"));
+    const conceptGeneration = Number(formData.get("conceptGeneration"));
+    const cadModeling = Number(formData.get("cadModeling"));
+    const engineeringAnalysis = Number(formData.get("engineeringAnalysis"));
+    const technicalDocumentation = Number(
+      formData.get("technicalDocumentation")
+    );
+    const manufacturingUnderstanding = Number(
+      formData.get("manufacturingUnderstanding")
+    );
+    const systemsThinking = Number(formData.get("systemsThinking"));
+
+    // Practical Thinking
+    const projectDescription = formData.get("projectDescription") as string;
+    const improvementArea = formData.get("improvementArea") as string;
+    const biggestWeakness = formData.get("biggestWeakness") as string;
+
+    // Optional
+    const portfolioLink = formData.get("portfolioLink") as string;
+
+    const requestId = `CA-${Date.now()}`;
+
+    const { data, error } = await sendEmail({
+      from: `Capability Assessment <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Capability Assessment from ${fullName}`,
+      react: CapabilityAssessmentFormEmail({
+        fullName,
+        email,
+        background,
+        experienceLevel,
+        problemDefinition,
+        conceptGeneration,
+        cadModeling,
+        engineeringAnalysis,
+        technicalDocumentation,
+        manufacturingUnderstanding,
+        systemsThinking,
+        projectDescription,
+        improvementArea,
+        biggestWeakness,
+        portfolioLink,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await sendEmail({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Assessment Received — IMHO GEN Academy`,
+      react: CapabilityAssessmentConfirmationEmail({
+        fullName,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Capability Assessment Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//COHORT SPONSORSHIP FORM ACTION
+export const CohortSponsorshipFormAction = async (formData: FormData) => {
+  try {
+    // Organization Profile
+    const organizationName = formData.get("organizationName") as string;
+    const contactPerson = formData.get("contactPerson") as string;
+    const positionRole = formData.get("positionRole") as string;
+    const website = formData.get("website") as string;
+    const email = formData.get("email") as string;
+    const phoneNumber = formData.get("phoneNumber") as string;
+
+    // Sponsorship Interest
+    const sponsorshipAreas = JSON.parse(
+      (formData.get("sponsorshipAreas") as string) || "[]"
+    );
+
+    // Impact & Collaboration Interest
+    const whySupport = formData.get("whySupport") as string;
+    const impactAreas = formData.get("impactAreas") as string;
+
+    // Optional
+    const scheduleDiscussion = formData.get("scheduleDiscussion") as string;
+
+    const requestId = `CS-${Date.now()}`;
+
+    const { data, error } = await sendEmail({
+      from: `Cohort Sponsorship <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Cohort Sponsorship Inquiry from ${organizationName}`,
+      react: CohortSponsorshipFormEmail({
+        organizationName,
+        contactPerson,
+        positionRole,
+        website,
+        email,
+        phoneNumber,
+        sponsorshipAreas,
+        whySupport,
+        impactAreas,
+        scheduleDiscussion,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await sendEmail({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Sponsorship Inquiry Received — IMHO GEN Academy`,
+      react: CohortSponsorshipConfirmationEmail({
+        organizationName,
+        contactPerson,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Cohort Sponsorship Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//DESIGN FORGE COMMUNITY FORM ACTION
+export const DesignForgeFormAction = async (formData: FormData) => {
+  try {
+    // Basic Profile
+    const fullName = formData.get("fullName") as string;
+    const email = formData.get("email") as string;
+    const phoneNumber = formData.get("phoneNumber") as string;
+    const institutionOrCompany = formData.get("institutionOrCompany") as string;
+    const currentRole = formData.get("currentRole") as string;
+
+    // Community Interests
+    const areasOfInterest = JSON.parse(
+      (formData.get("areasOfInterest") as string) || "[]"
+    );
+    const mentorshipInterest = formData.get("mentorshipInterest") as string;
+    const collaborationsInterest = formData.get(
+      "collaborationsInterest"
+    ) as string;
+    const challengesWorkshopsInterest = formData.get(
+      "challengesWorkshopsInterest"
+    ) as string;
+
+    // Optional Links
+    const linkedinProfile = formData.get("linkedinProfile") as string;
+    const portfolioLink = formData.get("portfolioLink") as string;
+    const socialHandle = formData.get("socialHandle") as string;
+
+    // Final Question
+    const whyJoin = formData.get("whyJoin") as string;
+
+    const requestId = `DF-${Date.now()}`;
+
+    const { data, error } = await sendEmail({
+      from: `Design Forge <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Design Forge Community Sign-up from ${fullName}`,
+      react: DesignForgeFormEmail({
+        fullName,
+        email,
+        phoneNumber,
+        institutionOrCompany,
+        currentRole,
+        areasOfInterest,
+        mentorshipInterest,
+        collaborationsInterest,
+        challengesWorkshopsInterest,
+        linkedinProfile,
+        portfolioLink,
+        socialHandle,
+        whyJoin,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await sendEmail({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Welcome to the Design Forge Community`,
+      react: DesignForgeConfirmationEmail({
+        fullName,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Design Forge Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//TIER 1 — CUSTOM ENGINEERING & FACTORY SOLUTIONS FORM ACTION
+export const CustomEngineeringFormAction = async (formData: FormData) => {
+  try {
+    // 1.0 Client Information
     const organizationName = formData.get("organizationName") as string;
     const contactPerson = formData.get("contactPerson") as string;
     const email = formData.get("email") as string;
     const phoneNumber = formData.get("phoneNumber") as string;
-    const address = formData.get("address") as string;
-    const businessOverview = formData.get("businessOverview") as string;
+    const siteLocation = formData.get("siteLocation") as string;
 
-    // Input Requirements
+    // 2.0 Project Scope & Classification
+    const projectScope = JSON.parse(
+      (formData.get("projectScope") as string) || "[]"
+    );
+    const projectTitle = formData.get("projectTitle") as string;
+    const primaryObjective = formData.get("primaryObjective") as string;
+
+    // 3.0 Systems Engineering Core
     const materialInputs = formData.get("materialInputs") as string;
-    const energyInputs = formData.get("energyInputs") as string;
-    const informationInputs = formData.get("dataInputs") as string;
-    const livingSystemInputs = formData.get("livingSystemInputs") === "true";
-    const livingSystemInputDescription = formData.get(
-      "livingSystemInputDescription"
+    const energyAndInformationInputs = formData.get(
+      "energyAndInformationInputs"
     ) as string;
+    const transformation = formData.get("transformation") as string;
+    const outputs = formData.get("outputs") as string;
+    const byProducts = formData.get("byProducts") as string;
 
-    // Transformation Requirements
-    const transformationDescription = formData.get(
-      "transformationDescription"
-    ) as string;
-    const performanceTargets = formData.get("performanceTargets") as string;
+    // 4.0 Operational Environment & Constraints
+    const humanSystem = formData.get("humanSystem") as string;
+    const activeEnvironment = formData.get("activeEnvironment") as string;
+    const budgetExpectations = formData.get("budgetExpectations") as string;
+    const targetTimeline = formData.get("targetTimeline") as string;
 
-    // Output Requirements
-    const systemOutputs = formData.get("systemOutputs") as string;
-    const informationOutputs = formData.get("dataOutputs") as string;
-    const energyOutputs = formData.get("energyOutputs") as string;
-    const livingThingsOutputs = formData.get("livingThingsOutputs") as string;
-
-    // Operational Agents
-    const humanSystems = formData.get("humanSystems") as string;
-    const technicalSystems = formData.get("technicalSystems") as string;
-    const environment = formData.get("environmentalSystems") as string;
-    const informationSystems = formData.get("informationSystems") as string;
-    const managementSystems = formData.get("managementSystems") as string;
-
-    // Safety, Maintenance and Scalability
-    const safetyRequirements = formData.get("safetyRequirements") as string;
-    const maintenanceNeeds = JSON.parse(
-      (formData.get("maintenanceNeeds") as string) || "[]"
-    );
-    const futureScalability = formData.get("futureScalability") as string;
-
-    // Collaboration and Communication
-    const collaborationPreferences = JSON.parse(
-      (formData.get("collaborationPreferences") as string) || "[]"
-    );
-    const additionalComments = formData.get("additionalComments") as string;
     const fileAttachments = JSON.parse(
       (formData.get("fileAttachments") as string) || "[]"
     );
-    const requestId = `PD-${Date.now()}`;
+    const requestId = `T1-${Date.now()}`;
 
-    const { data, error } = await resend.emails.send({
-      from: `Product Request <imhogen@admin.imhogen.com>`,
+    const { data, error } = await sendEmail({
+      from: `Tier 1 Intake <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
-      subject: `New Product Request from ${organizationName}`,
-      react: ProductFormEmail({
+      subject: `New Tier 1 Custom Engineering Intake from ${organizationName}`,
+      react: CustomEngineeringFormEmail({
         organizationName,
         contactPerson,
         email,
         phoneNumber,
-        address,
-        businessOverview,
+        siteLocation,
+        projectScope,
+        projectTitle,
+        primaryObjective,
         materialInputs,
-        energyInputs,
-        informationInputs,
-        livingSystemInputs,
-        livingSystemInputDescription,
-        transformationDescription,
-        performanceTargets,
-        systemOutputs,
-        informationOutputs,
-        energyOutputs,
-        livingThingsOutputs,
-        humanSystems,
-        technicalSystems,
-        environment,
-        informationSystems,
-        managementSystems,
-        safetyRequirements,
-        maintenanceNeeds,
-        futureScalability,
-        collaborationPreferences,
-        additionalComments,
+        energyAndInformationInputs,
+        transformation,
+        outputs,
+        byProducts,
+        humanSystem,
+        activeEnvironment,
+        budgetExpectations,
+        targetTimeline,
         fileAttachments,
         requestId,
       }) as React.ReactElement,
@@ -564,12 +620,14 @@ export const ProductFormAction = async (formData: FormData) => {
       return { error: "Failed to send email" };
     }
 
-    const { error: confirmationError } = await resend.emails.send({
+    const { error: confirmationError } = await sendEmail({
       from: `Confirmation <imhogen@admin.imhogen.com>`,
       to: [`${email}`],
-      subject: `Request received`,
-      react: RequestConfirmationEmail({
+      subject: `Master Intake Received — IMHOGEN Tier 1`,
+      react: CustomEngineeringConfirmationEmail({
         organizationName,
+        contactPerson,
+        projectTitle,
       }) as React.ReactElement,
     });
 
@@ -579,7 +637,85 @@ export const ProductFormAction = async (formData: FormData) => {
     }
     return { success: true };
   } catch (error: any) {
-    console.error("Product Form Action Error:", error);
+    console.error("Custom Engineering Form Action Error:", error);
+    return { error: error.message || "An unexpected error occurred" };
+  }
+};
+
+//TIER 3 — ENGINEERING DRAFTING & DIGITIZATION FORM ACTION
+export const DraftingDigitizationFormAction = async (formData: FormData) => {
+  try {
+    // 1.0 Client Information
+    const organizationName = formData.get("organizationName") as string;
+    const contactPerson = formData.get("contactPerson") as string;
+    const email = formData.get("email") as string;
+    const phoneNumber = formData.get("phoneNumber") as string;
+    const siteLocation = formData.get("siteLocation") as string;
+
+    // 2.0 The Source Asset
+    const inputMaterialType = formData.get("inputMaterialType") as string;
+    const assetCondition = formData.get("assetCondition") as string;
+
+    // 3.0 Required Deliverables & End Goal
+    const draftingServices = JSON.parse(
+      (formData.get("draftingServices") as string) || "[]"
+    );
+    const endGoal = formData.get("endGoal") as string;
+
+    // 4.0 Technical Specifications & Preferences
+    const draftingStandard = formData.get("draftingStandard") as string;
+    const outputFormats = JSON.parse(
+      (formData.get("outputFormats") as string) || "[]"
+    );
+
+    const fileAttachments = JSON.parse(
+      (formData.get("fileAttachments") as string) || "[]"
+    );
+    const requestId = `T3-${Date.now()}`;
+
+    const { data, error } = await sendEmail({
+      from: `Tier 3 Intake <imhogen@admin.imhogen.com>`,
+      to: ["imhogen22@gmail.com"],
+      subject: `New Tier 3 Drafting Intake from ${organizationName}`,
+      react: DraftingDigitizationFormEmail({
+        organizationName,
+        contactPerson,
+        email,
+        phoneNumber,
+        siteLocation,
+        inputMaterialType,
+        assetCondition,
+        draftingServices,
+        endGoal,
+        draftingStandard,
+        outputFormats,
+        fileAttachments,
+        requestId,
+      }) as React.ReactElement,
+    });
+
+    if (error) {
+      console.error("Resend Email Error:", error);
+      return { error: "Failed to send email" };
+    }
+
+    const { error: confirmationError } = await sendEmail({
+      from: `Confirmation <imhogen@admin.imhogen.com>`,
+      to: [`${email}`],
+      subject: `Green Lane Request Received — IMHOGEN Tier 3`,
+      react: DraftingDigitizationConfirmationEmail({
+        organizationName,
+        contactPerson,
+      }) as React.ReactElement,
+    });
+
+    if (confirmationError) {
+      console.error("Confirmation Email Error:", confirmationError);
+      // We don't fail the entire operation if just the confirmation fails
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error("Drafting Digitization Form Action Error:", error);
     return { error: error.message || "An unexpected error occurred" };
   }
 };

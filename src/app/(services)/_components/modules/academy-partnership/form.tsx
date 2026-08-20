@@ -22,7 +22,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { AcademyPartnershipFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import { FormPreview } from "./preview";
 
 const areasOfInterestOptions = [
   "Engineering Training Programs",
@@ -67,9 +69,26 @@ export const AcademyPartnershipForm = () => {
 
   async function onSubmit(values: AcademyPartnershipFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; values are validated by the schema.
-      void values;
+      const result = await AcademyPartnershipFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -354,6 +373,7 @@ export const AcademyPartnershipForm = () => {
                 <>Submit Partnership Inquiry</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

@@ -29,7 +29,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { CohortSponsorshipFormAction } from "@/actions/action";
 import { FormSection, SectionChild, SpecList } from "../../wrapper";
+import { FormPreview } from "./preview";
 
 const sponsorshipAreaOptions = [
   "Full Cohort Sponsorship",
@@ -86,11 +88,26 @@ export const CohortSponsorshipForm = () => {
 
   async function onSubmit(values: CohortSponsorshipFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; it will also handle the post-submission
-      // automations (thank-you email, sponsorship deck/profile, funding-pipeline
-      // routing, partnership/funding lead notification, meeting scheduling link).
-      void values;
+      const result = await CohortSponsorshipFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -390,6 +407,7 @@ export const CohortSponsorshipForm = () => {
                 <>Submit Sponsorship Offer</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

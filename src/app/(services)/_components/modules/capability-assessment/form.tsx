@@ -20,6 +20,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import {
   CapabilityAssessmentSchema,
+  RATING_SCALE,
   type CapabilityAssessmentFormData,
 } from "@/lib/schemas/capability-assessment/z";
 import { cn } from "@/lib/utils";
@@ -30,7 +31,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { CapabilityAssessmentFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import { FormPreview } from "./preview";
 
 const backgroundOptions = [
   "SHS Student",
@@ -51,13 +54,7 @@ const experienceLevelOptions = [
   "Professional",
 ] as const;
 
-const ratingGuide = [
-  { score: 1, meaning: "Very Weak" },
-  { score: 2, meaning: "Basic" },
-  { score: 3, meaning: "Moderate" },
-  { score: 4, meaning: "Strong" },
-  { score: 5, meaning: "Very Strong" },
-];
+const ratingGuide = RATING_SCALE;
 
 const ratingQuestions: {
   name: keyof Pick<
@@ -120,9 +117,26 @@ export const CapabilityAssessmentForm = () => {
 
   async function onSubmit(values: CapabilityAssessmentFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; values are validated by the schema.
-      void values;
+      const result = await CapabilityAssessmentFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -435,6 +449,7 @@ export const CapabilityAssessmentForm = () => {
                 <>Submit Assessment</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

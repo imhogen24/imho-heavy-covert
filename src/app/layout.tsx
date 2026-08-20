@@ -85,6 +85,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
+          suppressHydrationWarning
           className={cn(
             `${geistSans.variable} ${machina.variable} ${calligraffitti.variable}`,
             "flex flex-col antialiased font-[family-name:var(--font-geist-sans)] max-w-screen",
@@ -94,7 +95,7 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="system"
             enableSystem
-            forcedTheme="dark"
+            forcedTheme="light"
             disableTransitionOnChange
           >
             {" "}

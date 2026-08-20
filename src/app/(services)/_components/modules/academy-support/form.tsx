@@ -30,7 +30,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { AcademySupportFormAction } from "@/actions/action";
 import { FormSection, SectionChild, SpecList } from "../../wrapper";
+import { FormPreview } from "./preview";
 
 const supportTypeOptions = [
   "One-Time Donation",
@@ -81,11 +83,26 @@ export const AcademySupportForm = () => {
 
   async function onSubmit(values: AcademySupportFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; it will also handle the post-submission
-      // automations (thank-you email, impact overview, support options,
-      // funding-pipeline routing, and partnerships/funding lead notification).
-      void values;
+      const result = await AcademySupportFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -296,6 +313,7 @@ export const AcademySupportForm = () => {
                 <>Submit Support Offer</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>
