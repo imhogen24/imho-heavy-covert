@@ -179,7 +179,7 @@ export const Navbar = () => {
               variant="default"
               className="h-[42px] w-auto px-5 text-white"
             >
-              <Link href="/#services">Start a Project</Link>
+              <Link href="/services/custom-engineering">Start a Project</Link>
             </Button>
           </div>
 

@@ -22,7 +22,7 @@ export function Hero({ className }: { className?: string }) {
             vision and the capital; we engineer the thrust.
           </p>
           <Button asChild variant="primary" size="standard" className="w-fit">
-            <Link href="#">
+            <Link href="/services/custom-engineering">
               <KanbanIcon size={20} weight="light" />
               Start Your Project
             </Link>

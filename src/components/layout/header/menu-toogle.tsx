@@ -91,7 +91,10 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             <ModeToggle />
             {/* START A PROJECT BUTTON */}
             <Button size={"lg"} asChild className="w-full text-white rounded-xl">
-              <Link href="/#services" onClick={handleLinkClick}>
+              <Link
+                href="/services/custom-engineering"
+                onClick={handleLinkClick}
+              >
                 Start a Project
               </Link>
             </Button>

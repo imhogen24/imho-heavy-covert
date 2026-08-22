@@ -38,7 +38,7 @@ const HeroText = () => {
             variant="primary"
             size="standard"
           >
-            <Link href={`#`} target="_blank">
+            <Link href="/services/custom-engineering">
               <KanbanIcon size={48} weight="light" /> Start a Project
             </Link>
           </Button>
