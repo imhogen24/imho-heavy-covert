@@ -32,6 +32,7 @@ import { toast } from "sonner";
 
 import { AcademySupportFormAction } from "@/actions/action";
 import { FormSection, SectionChild, SpecList } from "../../wrapper";
+import { StepGrid, SuccessBadge } from "../shared/success";
 import { FormPreview } from "./preview";
 
 const supportTypeOptions = [
@@ -115,27 +116,30 @@ export const AcademySupportForm = () => {
     return (
       <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
         <div className="flex flex-col items-center gap-10 text-center py-10">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-              Thank You for Your Interest in Supporting IMHO GEN Academy
-            </h2>
-            <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-              Your support offer has been received.
-            </p>
+          <div className="flex flex-col items-center gap-5">
+            <SuccessBadge />
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">
+                Thank You for Your Interest in Supporting IMHO GEN Academy
+              </h2>
+              <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Your support offer has been received.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col items-center gap-4 w-full">
             <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Our Team Will Contact You With
             </h3>
-            <SpecList items={teamWillContactWith} />
+            <StepGrid items={teamWillContactWith} />
           </div>
 
           <div className="flex flex-col items-center gap-4 w-full">
             <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Your Support Helps
             </h3>
-            <SpecList items={yourSupportHelps} />
+            <StepGrid items={yourSupportHelps} />
           </div>
         </div>
       </div>
@@ -143,7 +147,7 @@ export const AcademySupportForm = () => {
   }
 
   return (
-    <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
+    <div className="p-5 md:p-10 max-w-4xl mx-auto">
       <div className="mb-8 md:mb-20 flex flex-col gap-4">
         <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
           Your Support Contributes To

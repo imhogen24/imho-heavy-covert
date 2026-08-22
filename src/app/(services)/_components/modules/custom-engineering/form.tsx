@@ -26,7 +26,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { CustomEngineeringFormAction } from "@/actions/action";
-import { FormSection, SectionChild, SpecList } from "../../wrapper";
+import { FormSection, SectionChild } from "../../wrapper";
+import { StepGrid, SuccessBadge } from "../shared/success";
 import { Agreement } from "../shared/agreement";
 import { FormPreview } from "./preview";
 
@@ -123,22 +124,25 @@ export const CustomEngineeringForm = () => {
     return (
       <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
         <div className="flex flex-col items-center gap-10 text-center py-10">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-              Master Intake Received
-            </h2>
-            <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-              Your brief has been recorded as the Single Source of Truth for
-              this project. Our engineering team will review the operands you
-              defined and come back to you with the next step.
-            </p>
+          <div className="flex flex-col items-center gap-5">
+            <SuccessBadge />
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">
+                Master Intake Received
+              </h2>
+              <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Your brief has been recorded as the Single Source of Truth for
+                this project. Our engineering team will review the operands you
+                defined and come back to you with the next step.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col items-center gap-4 w-full">
             <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
               What Happens Next
             </h3>
-            <SpecList items={nextSteps} />
+            <StepGrid items={nextSteps} />
           </div>
         </div>
       </div>
@@ -146,14 +150,7 @@ export const CustomEngineeringForm = () => {
   }
 
   return (
-    <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
-      <div className="mb-8 md:mb-16">
-        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-          This consolidated form is the Master Intake for all Product and
-          Process Engineering requests. The information you provide acts as the
-          Single Source of Truth (SSOT) for the project lifecycle.
-        </p>
-      </div>
+    <div className="p-5 md:p-10 max-w-4xl mx-auto">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
