@@ -79,7 +79,9 @@ export function Cta({ className }: { className?: string }) {
         </div>
 
         <Button asChild variant="primary" size="standard" className="w-fit">
-          <Link href="#">Initiate a Project Request Now</Link>
+          <Link href="/services/custom-engineering">
+            Initiate a Project Request Now
+          </Link>
         </Button>
       </div>
     </section>

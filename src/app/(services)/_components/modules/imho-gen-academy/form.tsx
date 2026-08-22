@@ -26,12 +26,14 @@ import {
 } from "@/lib/schemas/imho-gen-academy/z";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { ImhoGenAcademyFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import { StepGrid, SuccessBadge } from "../shared/success";
 
 const currentStatusOptions = [
   "SHS Student",
@@ -72,6 +74,26 @@ const weeklyHoursOptions = [
   "20+ hours",
 ] as const;
 
+const nextSteps = [
+  "Application review by the IMHO GEN Academy team",
+  "Shortlisting based on capability, interest, and commitment",
+  "A short conversation to confirm fit and availability",
+  "Cohort placement and onboarding details by email",
+];
+
+const recommendedActions = [
+  {
+    label: "Take the Capability Assessment",
+    href: "/services/capability-assessment",
+    variant: "primary" as const,
+  },
+  {
+    label: "Join the Design Forge Community",
+    href: "/services/design-forge",
+    variant: "primary-outline" as const,
+  },
+];
+
 export const ImhoGenAcademyForm = () => {
   const form = useForm<ImhoGenAcademyFormData>({
     resolver: zodResolver(ImhoGenAcademySchema),
@@ -90,6 +112,7 @@ export const ImhoGenAcademyForm = () => {
   });
 
   const [pending, setPending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   async function onSubmit(values: ImhoGenAcademyFormData) {
     setPending(true);
@@ -106,11 +129,14 @@ export const ImhoGenAcademyForm = () => {
     });
 
     try {
-      await ImhoGenAcademyFormAction(formData);
-      toast.success(
-        "Application received! Check your email for confirmation."
-      );
-      form.reset();
+      const result = await ImhoGenAcademyFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {
@@ -118,8 +144,55 @@ export const ImhoGenAcademyForm = () => {
     }
   }
 
+  if (submitted) {
+    return (
+      <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center gap-10 text-center py-10">
+          <div className="flex flex-col items-center gap-5">
+            <SuccessBadge />
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">
+                Application Received
+              </h2>
+              <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Thank you for applying to IMHO GEN Academy. Our team will review
+                your application and contact you about your application status.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 w-full">
+            <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              What Happens Next
+            </h3>
+            <StepGrid items={nextSteps} />
+          </div>
+
+          <div className="flex flex-col items-center gap-4 w-full">
+            <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              While You Wait
+            </h3>
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
+              {recommendedActions.map((action) => (
+                <Button
+                  asChild
+                  key={action.label}
+                  variant={action.variant}
+                  size="standard"
+                  className="w-full sm:w-fit"
+                >
+                  <Link href={action.href}>{action.label}</Link>
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
+    <div className="p-5 md:p-10 max-w-4xl mx-auto">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

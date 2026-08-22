@@ -36,7 +36,11 @@ const PATHWAYS: Record<TabId, Pathway> = {
       "System design",
       "Deployment",
     ],
-    cta: { label: "Start a Project", href: "#", Icon: KanbanIcon },
+    cta: {
+      label: "Start a Project",
+      href: "/services/custom-engineering",
+      Icon: KanbanIcon,
+    },
   },
   individual: {
     kind: "flow",
@@ -45,13 +49,21 @@ const PATHWAYS: Record<TabId, Pathway> = {
       "Capability development",
       "Engineering output",
     ],
-    cta: { label: "Apply to Academy", href: "#", Icon: CompassToolIcon },
+    cta: {
+      label: "Apply to Academy",
+      href: "/services/imho-gen-academy",
+      Icon: CompassToolIcon,
+    },
   },
   partners: {
     kind: "prose",
     description:
       "Collaborate on infrastructure, deployment, or scaling systems under defined financial and operational structures.",
-    cta: { label: "Partner with IMHOGEN", href: "#", Icon: HandshakeIcon },
+    cta: {
+      label: "Partner with IMHOGEN",
+      href: "/services/academy-partnership",
+      Icon: HandshakeIcon,
+    },
   },
 };
 

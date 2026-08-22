@@ -54,7 +54,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
     <Sheet open={isMenuOpen} onOpenChange={onToggleMenuOpen}>
       <SheetContent className=" w-full border-muted" side={"top"}>
         <Link href="/" onClick={handleLinkClick}>
-          <Image src="/logos/nav-logo.png" alt="Logo" width={100} height={30} />
+          <Image src="/logos/nav-logo.png" alt="Logo" width={100} height={24} />
         </Link>
         <motion.div
           className="mt-12 flex w-full flex-col items-start gap-y-4"
@@ -91,7 +91,10 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             <ModeToggle />
             {/* START A PROJECT BUTTON */}
             <Button size={"lg"} asChild className="w-full text-white rounded-xl">
-              <Link href="#" onClick={handleLinkClick}>
+              <Link
+                href="/services/custom-engineering"
+                onClick={handleLinkClick}
+              >
                 Start a Project
               </Link>
             </Button>

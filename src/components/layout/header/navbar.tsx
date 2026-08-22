@@ -13,32 +13,12 @@ import {
   COMPANY_LINKS,
   DIVISIONS_LINKS,
   PORTALS_LINKS,
-  SERVICE_ROUTES,
+  SERVICES_LINKS,
 } from "@/lib/constants";
 import type { MegaNavItem } from "@/lib/types";
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { NavDropdownPanel } from "./nav-content/dropdown-panel";
-import { GraduationCapIcon } from "@phosphor-icons/react/dist/ssr/GraduationCap";
-import { HammerIcon } from "@phosphor-icons/react/dist/ssr/Hammer";
-import { FactoryIcon } from "@phosphor-icons/react/dist/ssr/Factory";
-import { BlueprintIcon } from "@phosphor-icons/react/dist/ssr/Blueprint";
-import { PencilSimpleIcon } from "@phosphor-icons/react/dist/ssr/PencilSimple";
-
-const serviceIcons = [
-  HammerIcon,
-  FactoryIcon,
-  BlueprintIcon,
-  PencilSimpleIcon,
-  GraduationCapIcon,
-];
-
-const SERVICES_LINKS = SERVICE_ROUTES.map((route, idx) => ({
-  title: route.label,
-  description: "",
-  href: route.href,
-  icon: serviceIcons[idx % serviceIcons.length],
-}));
 
 export const navItems: MegaNavItem[] = [
   {
@@ -47,7 +27,7 @@ export const navItems: MegaNavItem[] = [
       <NavDropdownPanel
         heading="Our service offerings"
         items={SERVICES_LINKS}
-        columns={2}
+        columns={3}
       />
     ),
     childItems: SERVICES_LINKS,
@@ -59,13 +39,14 @@ export const navItems: MegaNavItem[] = [
       <NavDropdownPanel
         heading="Access to core engineering engines"
         items={DIVISIONS_LINKS}
-        columns={2}
+        columns={3}
       />
     ),
     childItems: DIVISIONS_LINKS,
     segments: [
       "/research-and-development-and-business-improvement",
       "/technologies-and-industrial-support",
+      "/trade-tech",
     ],
   },
   {
@@ -74,7 +55,7 @@ export const navItems: MegaNavItem[] = [
       <NavDropdownPanel
         heading="For capability development"
         items={ACADEMY_LINKS}
-        columns={2}
+        columns={3}
       />
     ),
     childItems: ACADEMY_LINKS,
@@ -138,7 +119,7 @@ export const Navbar = () => {
                 src="/logos/nav-logo.png"
                 alt="Logo"
                 width={100}
-                height={30}
+                height={24}
               />
             </Link>
           </div>
@@ -198,7 +179,7 @@ export const Navbar = () => {
               variant="default"
               className="h-[42px] w-auto px-5 text-white"
             >
-              <Link href="#">Start a Project</Link>
+              <Link href="/services/custom-engineering">Start a Project</Link>
             </Button>
           </div>
 

@@ -30,7 +30,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { DesignForgeFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import { StepGrid, SuccessBadge } from "../shared/success";
+import { FormPreview } from "./preview";
 
 const currentRoleOptions = [
   "Engineering Student",
@@ -131,9 +134,26 @@ export const DesignForgeForm = () => {
 
   async function onSubmit(values: DesignForgeFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; values are validated by the schema.
-      void values;
+      const result = await DesignForgeFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -146,33 +166,20 @@ export const DesignForgeForm = () => {
     return (
       <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
         <div className="flex flex-col items-center gap-10 text-center py-10">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-              Welcome to the Design Forge Community
-            </h2>
-            <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-              Your registration has been received. You will receive updates
-              about:
-            </p>
+          <div className="flex flex-col items-center gap-5">
+            <SuccessBadge />
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">
+                Welcome to the Design Forge Community
+              </h2>
+              <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Your registration has been received. You will receive updates
+                about:
+              </p>
+            </div>
           </div>
 
-          <div className="w-full max-w-md flex flex-col border-y muted-border text-left">
-            {communityUpdates.map((item, i) => (
-              <div
-                key={item}
-                className={
-                  i < communityUpdates.length - 1
-                    ? "flex items-baseline gap-4 py-3 border-b muted-border"
-                    : "flex items-baseline gap-4 py-3"
-                }
-              >
-                <span className="text-xs font-medium tabular-nums text-muted-foreground/50">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <p className="text-sm leading-relaxed">{item}</p>
-              </div>
-            ))}
-          </div>
+          <StepGrid items={communityUpdates} />
 
           <div className="flex flex-col items-center gap-4 w-full">
             <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -198,7 +205,7 @@ export const DesignForgeForm = () => {
   }
 
   return (
-    <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
+    <div className="p-5 md:p-10 max-w-4xl mx-auto">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -477,6 +484,7 @@ export const DesignForgeForm = () => {
                 <>Join the Community</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

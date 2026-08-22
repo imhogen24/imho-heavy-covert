@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { ThemeShortcut } from "@/components/theme/theme-shortcut";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -85,6 +86,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body
+          suppressHydrationWarning
           className={cn(
             `${geistSans.variable} ${machina.variable} ${calligraffitti.variable}`,
             "flex flex-col antialiased font-[family-name:var(--font-geist-sans)] max-w-screen",
@@ -94,10 +96,10 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="system"
             enableSystem
-            forcedTheme="dark"
             disableTransitionOnChange
           >
             {" "}
+            <ThemeShortcut />
             <CookieConsentProvider>
               <ConsentInitializer />
               <Navbar />

@@ -23,14 +23,14 @@ export function Cta({ className }: { className?: string }) {
 
         <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
           <Link
-            href="/forms#academy"
+            href="/services/imho-gen-academy"
             className="inline-flex items-center justify-center gap-2 rounded-md bg-black dark:bg-white text-secondary hover:bg-black/95 dark:hover:bg-white/85 transition-colors text-sm font-medium p-[14px] h-[42px] md:h-[48px]"
           >
             <GraduationCapIcon size={20} weight="light" />
             Apply Now
           </Link>
           <Link
-            href="/forms#assessment"
+            href="/services/capability-assessment"
             className="inline-flex items-center justify-center gap-2 rounded-md border muted-border bg-background hover:bg-accent hover:text-accent-foreground transition-colors text-sm font-medium p-[14px] h-[42px] md:h-[48px]"
           >
             Take Capability Assessment

@@ -22,7 +22,6 @@ import {
   CapabilityAssessmentSchema,
   type CapabilityAssessmentFormData,
 } from "@/lib/schemas/capability-assessment/z";
-import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
@@ -30,7 +29,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { CapabilityAssessmentFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import {
+  RatingLegend,
+  RatingScale,
+  ratingMeaning,
+} from "../shared/rating-scale";
+import { SuccessBadge } from "../shared/success";
+import { FormPreview } from "./preview";
 
 const backgroundOptions = [
   "SHS Student",
@@ -50,14 +57,6 @@ const experienceLevelOptions = [
   "Advanced",
   "Professional",
 ] as const;
-
-const ratingGuide = [
-  { score: 1, meaning: "Very Weak" },
-  { score: 2, meaning: "Basic" },
-  { score: 3, meaning: "Moderate" },
-  { score: 4, meaning: "Strong" },
-  { score: 5, meaning: "Very Strong" },
-];
 
 const ratingQuestions: {
   name: keyof Pick<
@@ -120,9 +119,26 @@ export const CapabilityAssessmentForm = () => {
 
   async function onSubmit(values: CapabilityAssessmentFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; values are validated by the schema.
-      void values;
+      const result = await CapabilityAssessmentFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -135,15 +151,18 @@ export const CapabilityAssessmentForm = () => {
     return (
       <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
         <div className="flex flex-col items-center gap-10 text-center py-10">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-              Assessment Received
-            </h2>
-            <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-              Thank you for completing the Engineering Design Capability
-              Assessment. Our team will review your responses and recommend the
-              most suitable pathway for your capability development.
-            </p>
+          <div className="flex flex-col items-center gap-5">
+            <SuccessBadge />
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">
+                Assessment Received
+              </h2>
+              <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Thank you for completing the Engineering Design Capability
+                Assessment. Our team will review your responses and recommend the
+                most suitable pathway for your capability development.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col items-center gap-4 w-full">
@@ -170,7 +189,7 @@ export const CapabilityAssessmentForm = () => {
   }
 
   return (
-    <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
+    <div className="p-5 md:p-10 max-w-4xl mx-auto">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -273,28 +292,11 @@ export const CapabilityAssessmentForm = () => {
 
           {/* Section 2 — Self-Assessment */}
           <FormSection label="Self-Assessment">
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <p className="text-sm text-muted-foreground">
                 Rate yourself from 1–5
               </p>
-              <div className="grid grid-cols-5 border muted-border rounded-md overflow-hidden">
-                {ratingGuide.map((item, i) => (
-                  <div
-                    key={item.score}
-                    className={cn(
-                      "flex flex-col items-center gap-1 px-2 py-3 text-center",
-                      i < ratingGuide.length - 1 && "border-r muted-border"
-                    )}
-                  >
-                    <span className="text-sm font-semibold tabular-nums">
-                      {item.score}
-                    </span>
-                    <span className="text-[11px] text-muted-foreground">
-                      {item.meaning}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <RatingLegend />
             </div>
 
             <SectionChild label="RATE YOURSELF">
@@ -304,27 +306,19 @@ export const CapabilityAssessmentForm = () => {
                   control={form.control}
                   name={question.name}
                   render={({ field }) => (
-                    <FormItem className="flex flex-col gap-1 justify-end">
-                      <FormLabel>{question.label}</FormLabel>
+                    <FormItem className="flex flex-col gap-2 justify-end">
+                      <div className="flex items-baseline justify-between gap-3">
+                        <FormLabel>{question.label}</FormLabel>
+                        <span className="shrink-0 text-xs font-medium text-muted-foreground">
+                          {ratingMeaning(field.value)}
+                        </span>
+                      </div>
                       <FormControl>
-                        <div className="flex gap-2">
-                          {[1, 2, 3, 4, 5].map((score) => (
-                            <button
-                              key={score}
-                              type="button"
-                              aria-pressed={field.value === score}
-                              onClick={() => field.onChange(score)}
-                              className={cn(
-                                "size-10 rounded-md border muted-border text-sm font-medium transition-colors",
-                                field.value === score
-                                  ? "bg-black text-white dark:bg-white dark:text-black"
-                                  : "text-muted-foreground hover:bg-accent"
-                              )}
-                            >
-                              {score}
-                            </button>
-                          ))}
-                        </div>
+                        <RatingScale
+                          label={question.label}
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -435,6 +429,7 @@ export const CapabilityAssessmentForm = () => {
                 <>Submit Assessment</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

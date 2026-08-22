@@ -32,10 +32,10 @@ const ServiceHero = ({
             </span>
           </div>
 
-          <h1 className="text-lg md:text-3xl font-bold">
+          <h1 className="text-xl md:text-3xl font-bold">
             {title}
           </h1>
-          <h1 className="text-xs md:text-base max-w-xl text-muted-foreground">
+          <h1 className="text-base max-w-xl text-muted-foreground">
             {subtitle}
           </h1>
         </div>

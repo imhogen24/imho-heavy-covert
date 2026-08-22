@@ -22,7 +22,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { AcademyPartnershipFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
+import { StepGrid, SuccessBadge } from "../shared/success";
+import { FormPreview } from "./preview";
 
 const areasOfInterestOptions = [
   "Engineering Training Programs",
@@ -67,9 +70,26 @@ export const AcademyPartnershipForm = () => {
 
   async function onSubmit(values: AcademyPartnershipFormData) {
     setPending(true);
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (value !== undefined) {
+        formData.append(key, String(value));
+      }
+    });
+
     try {
-      // Server action to be wired later; values are validated by the schema.
-      void values;
+      const result = await AcademyPartnershipFormAction(formData);
+
+      if (result?.error) {
+        toast.error("Something went wrong! Please try again.");
+        return;
+      }
+
       setSubmitted(true);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -82,38 +102,25 @@ export const AcademyPartnershipForm = () => {
     return (
       <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
         <div className="flex flex-col items-center gap-10 text-center py-10">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-              Partnership Inquiry Received
-            </h2>
-            <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-              Thank you for your interest in collaborating with IMHO GEN
-              Academy. Our team will review your inquiry and contact you to
-              explore possible partnership opportunities.
-            </p>
+          <div className="flex flex-col items-center gap-5">
+            <SuccessBadge />
+            <div className="flex flex-col items-center gap-4">
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight">
+                Partnership Inquiry Received
+              </h2>
+              <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Thank you for your interest in collaborating with IMHO GEN
+                Academy. Our team will review your inquiry and contact you to
+                explore possible partnership opportunities.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col items-center gap-4 w-full">
             <h3 className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Possible Next Steps
             </h3>
-            <div className="w-full max-w-md flex flex-col border-y muted-border text-left">
-              {possibleNextSteps.map((item, i) => (
-                <div
-                  key={item}
-                  className={
-                    i < possibleNextSteps.length - 1
-                      ? "flex items-baseline gap-4 py-3 border-b muted-border"
-                      : "flex items-baseline gap-4 py-3"
-                  }
-                >
-                  <span className="text-xs font-medium tabular-nums text-muted-foreground/50">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="text-sm leading-relaxed">{item}</p>
-                </div>
-              ))}
-            </div>
+            <StepGrid items={possibleNextSteps} />
           </div>
         </div>
       </div>
@@ -121,7 +128,7 @@ export const AcademyPartnershipForm = () => {
   }
 
   return (
-    <div className="p-5 md:p-10 lg:p-20 max-w-4xl mx-auto">
+    <div className="p-5 md:p-10 max-w-4xl mx-auto">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -354,6 +361,7 @@ export const AcademyPartnershipForm = () => {
                 <>Submit Partnership Inquiry</>
               )}
             </Button>
+            <FormPreview control={form.control} />
           </div>
         </form>
       </Form>

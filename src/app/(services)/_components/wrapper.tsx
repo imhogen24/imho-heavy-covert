@@ -63,6 +63,16 @@ const iconMap: Record<string, LucideIcon> = {
     "impact & collaboration interest": TrendingUp,
     "optional section": Info,
 
+    // Tier 1 — Custom Engineering & Factory Solutions
+    "project scope & classification": BriefcaseBusiness,
+    "systems engineering core": Settings,
+    "operational environment & constraints": Sliders,
+
+    // Tier 3 — Engineering Drafting & Digitization
+    "the source asset": Package,
+    "required deliverables & end goal": FileText,
+    "technical specifications & preferences": Settings,
+
 
 };
 

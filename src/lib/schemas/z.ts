@@ -8,3 +8,8 @@ export const ContactFormSchema = z.object({
   files: z.array(z.string()).default([])
 });
 
+/**
+ * Form-input shape: fields with a zod `.default()` are optional before parsing.
+ * `useForm` needs this as its input generic, with the parsed type as its output.
+ */
+export type ContactFormInput = z.input<typeof ContactFormSchema>;
