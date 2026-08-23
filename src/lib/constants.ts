@@ -26,6 +26,7 @@ import { NotePencilIcon } from "@phosphor-icons/react/dist/ssr/NotePencil";
 import { SealCheckIcon } from "@phosphor-icons/react/dist/ssr/SealCheck";
 import { SquaresFourIcon } from "@phosphor-icons/react/dist/ssr/SquaresFour";
 import { StorefrontIcon } from "@phosphor-icons/react/dist/ssr/Storefront";
+import { TruckTrailerIcon } from "@phosphor-icons/react/dist/ssr/TruckTrailer";
 import {
   HeroIconProps,
   MarqueeProps,
@@ -513,6 +514,12 @@ export const COMPANY_LINKS: NavItemChildren = [
     description: "Back engineering capability development directly.",
     href: "/services/academy-support",
     icon: HandHeartIcon,
+  },
+  {
+    title: "KAMSMET Trailers",
+    description: "Partner manufacturer of standardized heavy-duty trailers.",
+    href: "/kamsmet",
+    icon: TruckTrailerIcon,
   },
 ];
 

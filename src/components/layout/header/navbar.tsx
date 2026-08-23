@@ -67,10 +67,11 @@ export const navItems: MegaNavItem[] = [
       <NavDropdownPanel
         heading="Institutional trust & cooperation"
         items={COMPANY_LINKS}
-        columns={2}
+        columns={3}
       />
     ),
     childItems: COMPANY_LINKS,
+    segments: ["/kamsmet"],
   },
   {
     name: "Portals",
