@@ -2,17 +2,29 @@
   "name": "project-heavy-covert",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "bun@1.4.0",
   "scripts": {
     "dev": "next dev --turbopack",
     "email": "email dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "oxlint --deny-warnings",
+    "lint:fix": "oxlint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "check": "bun run lint && bun run format:check && bun run typecheck",
+    "prepare": "husky",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@conform-to/react": "^1.19.2",
     "@conform-to/zod": "^1.19.2",
     "@hookform/resolvers": "^5.9.1",
+    "@neondatabase/serverless": "^1.1.0",
     "@notion-render/bookmark-plugin": "^0.0.2",
     "@notion-render/client": "^0.0.2",
     "@notion-render/hljs-plugin": "^0.0.2",
@@ -40,6 +52,7 @@
     "clsx": "^2.1.1",
     "cobe": "^0.6.5",
     "date-fns": "^4.1.0",
+    "drizzle-orm": "^0.45.2",
     "js-cookie": "^3.0.5",
     "lucide-react": "^1.16.0",
     "motion": "^12.40.0",
@@ -61,15 +74,28 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.83.0",
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
+    "oxlint": "1.83.0",
     "postcss": "^8.5.2",
     "prettier": "^3.8.3",
     "react-email": "3.0.6",
     "tailwindcss": "^4.2.4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint --deny-warnings --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{json,md,css,yml,yaml}": "prettier --write --ignore-unknown"
   }
 }

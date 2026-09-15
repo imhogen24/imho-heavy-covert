@@ -83,9 +83,7 @@ export const ImhoGenAcademyFormEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>
-            IMHO GEN Academy Application
-          </Heading>
+          <Heading style={styles.heading}>IMHO GEN Academy Application</Heading>
           <Text style={styles.subHeading}>
             A new academy application has been submitted.
           </Text>
@@ -126,8 +124,7 @@ export const ImhoGenAcademyFormEmail = ({
               <strong>Institution/Company:</strong> {institutionOrCompany}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Program/Discipline/Role:</strong>{" "}
-              {programDisciplineRole}
+              <strong>Program/Discipline/Role:</strong> {programDisciplineRole}
             </Text>
             {currentLevelYear && (
               <Text style={styles.infoText}>
@@ -145,8 +142,7 @@ export const ImhoGenAcademyFormEmail = ({
             </Text>
             {areasOfInterest && areasOfInterest.length > 0 && (
               <Text style={styles.infoText}>
-                <strong>Areas of Interest:</strong>{" "}
-                {areasOfInterest.join(", ")}
+                <strong>Areas of Interest:</strong> {areasOfInterest.join(", ")}
               </Text>
             )}
             <Text style={styles.infoText}>
@@ -168,8 +164,7 @@ export const ImhoGenAcademyFormEmail = ({
               {willingForIntensiveTraining}
             </Text>
             <Text style={styles.infoText}>
-              <strong>Weekly Hours Commitment:</strong>{" "}
-              {weeklyHoursCommitment}
+              <strong>Weekly Hours Commitment:</strong> {weeklyHoursCommitment}
             </Text>
           </Section>
 

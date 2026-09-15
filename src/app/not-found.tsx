@@ -1,10 +1,12 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { DoorOpen, SendToBack, SkipBack, StepBack } from "lucide-react";
+import { DoorOpen } from "lucide-react";
 
 export default function NotFound() {
   const router = useRouter();
+
   return (
     <div className="w-screen h-screen flex flex-col gap-10 justify-center items-center">
       <div className="rounded-full flex flex-col gap-5 justify-center items-center size-64 lg:size-80 p-10 md:p-20 border muted-border border-dashed">

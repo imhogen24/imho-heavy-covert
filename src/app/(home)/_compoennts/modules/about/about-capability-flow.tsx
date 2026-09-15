@@ -28,6 +28,7 @@ function orthPath(points: Pt[], r = 12): string {
   if (points.length < 2) return "";
   const dist = (a: Pt, b: Pt) => Math.hypot(b.x - a.x, b.y - a.y);
   let d = `M ${points[0].x} ${points[0].y}`;
+
   for (let i = 1; i < points.length - 1; i++) {
     const p0 = points[i - 1];
     const p1 = points[i];
@@ -35,12 +36,23 @@ function orthPath(points: Pt[], r = 12): string {
     const len1 = dist(p0, p1) || 1;
     const len2 = dist(p1, p2) || 1;
     const rr = Math.min(r, len1 / 2, len2 / 2);
-    const a = { x: p1.x - ((p1.x - p0.x) / len1) * rr, y: p1.y - ((p1.y - p0.y) / len1) * rr };
-    const b = { x: p1.x + ((p2.x - p1.x) / len2) * rr, y: p1.y + ((p2.y - p1.y) / len2) * rr };
+
+    const a = {
+      x: p1.x - ((p1.x - p0.x) / len1) * rr,
+      y: p1.y - ((p1.y - p0.y) / len1) * rr,
+    };
+
+    const b = {
+      x: p1.x + ((p2.x - p1.x) / len2) * rr,
+      y: p1.y + ((p2.y - p1.y) / len2) * rr,
+    };
+
     d += ` L ${a.x} ${a.y} Q ${p1.x} ${p1.y} ${b.x} ${b.y}`;
   }
+
   const last = points[points.length - 1];
   d += ` L ${last.x} ${last.y}`;
+
   return d;
 }
 
@@ -59,14 +71,17 @@ export function CapabilityFlow({
   useEffect(() => {
     const compute = () => {
       const container = containerRef.current;
+
       if (!container) return;
       const c = container.getBoundingClientRect();
       setDims({ width: c.width, height: c.height });
 
       const next: string[] = [];
+
       for (let i = 0; i < boxRefs.current.length - 1; i++) {
         const aEl = boxRefs.current[i];
         const bEl = boxRefs.current[i + 1];
+
         if (!aEl || !bEl) continue;
         const a = aEl.getBoundingClientRect();
         const b = bEl.getBoundingClientRect();
@@ -82,6 +97,7 @@ export function CapabilityFlow({
         const bTopX = bLeft + b.width / 2;
 
         const staircase = bLeft - aLeft > a.width * 0.25;
+
         const pts: Pt[] = staircase
           ? [
               { x: aRight, y: aMidY },
@@ -94,15 +110,19 @@ export function CapabilityFlow({
               { x: bTopX, y: (aBottom + bTop) / 2 },
               { x: bTopX, y: bTop - 2 },
             ];
+
         next.push(orthPath(pts));
       }
+
       setPaths(next);
     };
 
     compute();
     const ro = new ResizeObserver(compute);
+
     if (containerRef.current) ro.observe(containerRef.current);
     window.addEventListener("resize", compute);
+
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", compute);

@@ -20,8 +20,7 @@ export function Proof({ className }: { className?: string }) {
             Not Claims. Evidence.
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            We don&apos;t tell you you&apos;re improving. We show you—with
-            data.
+            We don&apos;t tell you you&apos;re improving. We show you—with data.
           </p>
         </div>
       </div>
@@ -62,9 +61,7 @@ export function Proof({ className }: { className?: string }) {
               aria-hidden
               className="flex min-h-[200px] md:min-h-[240px] items-center justify-center rounded-xl border muted-border bg-accent/60"
             >
-              <span className="text-sm font-medium">
-                Validated Output
-              </span>
+              <span className="text-sm font-medium">Validated Output</span>
             </div>
           </div>
         </div>

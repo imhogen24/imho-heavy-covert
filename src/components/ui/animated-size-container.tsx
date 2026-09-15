@@ -43,6 +43,7 @@ const AnimatedSizeContainer: ForwardRefExoticComponent<
 
     const measuredWidth = resizeObserverEntry?.contentRect?.width;
     const measuredHeight = resizeObserverEntry?.contentRect?.height;
+
     const isFirstMeasurement =
       (width ? measuredWidth != null : true) &&
       (height ? measuredHeight != null : true) &&

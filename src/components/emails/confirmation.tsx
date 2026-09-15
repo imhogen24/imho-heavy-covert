@@ -4,24 +4,21 @@ import {
   Column,
   Head,
   Heading,
-  Hr,
   Img,
   Html,
   Preview,
   Row,
   Section,
   Text,
-  Link,
 } from "@react-email/components";
 import * as React from "react";
 import { styles } from "./styles/utils";
 
 export interface ContactConfirmationProps {
   organizationName: string;
-
 }
 
-export const RequestConfirmationEmail = ({ organizationName }: ContactConfirmationProps) => (
+export const RequestConfirmationEmail = (_props: ContactConfirmationProps) => (
   <Html>
     <Head />
     <Preview> Confirmation @imhogen Requests</Preview>
@@ -44,7 +41,8 @@ export const RequestConfirmationEmail = ({ organizationName }: ContactConfirmati
         <Section style={styles.content}>
           <Heading style={styles.heading}>Congratulations!</Heading>
           <Text style={styles.subHeading}>
-            We've received your request and will get back to you as soon as possible.
+            We've received your request and will get back to you as soon as
+            possible.
           </Text>
         </Section>
 

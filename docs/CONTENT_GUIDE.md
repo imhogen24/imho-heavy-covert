@@ -4,12 +4,12 @@
 
 Each page has its own content file in `docs/`:
 
-| File | Route | Status |
-|---|---|---|
-| `homepage.md` | `/` | In Progress |
-| `academy.md` | `/academy` | Ready to Build |
+| File                         | Route                      | Status                         |
+| ---------------------------- | -------------------------- | ------------------------------ |
+| `homepage.md`                | `/`                        | In Progress                    |
+| `academy.md`                 | `/academy`                 | Ready to Build                 |
 | `rd-business-improvement.md` | `/rd-business-improvement` | Ready to Build (1 section TBD) |
-| `tech-industrial-support.md` | `/tech-industrial-support` | Content Draft — needs review |
+| `tech-industrial-support.md` | `/tech-industrial-support` | Content Draft — needs review   |
 
 ## Section Block Format
 

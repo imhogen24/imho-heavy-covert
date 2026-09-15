@@ -10,6 +10,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
   return (
     <Sonner
+      // SAFETY: next-themes only yields "light", "dark" or "system" here.
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
       toastOptions={{

@@ -41,9 +41,9 @@ export function Advantage({ className }: { className?: string }) {
             Predictable Capital. Flawless Execution.
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            CapEx investments must be mathematically predictable. Our
-            rigorous 12-Phase Quality Management System (QMS) protects your
-            cash flow while ensuring uninterrupted project momentum.
+            CapEx investments must be mathematically predictable. Our rigorous
+            12-Phase Quality Management System (QMS) protects your cash flow
+            while ensuring uninterrupted project momentum.
           </p>
         </div>
       </div>
@@ -55,7 +55,8 @@ export function Advantage({ className }: { className?: string }) {
             key={advantage.title}
             className={cn(
               "flex flex-col gap-6 p-8 lg:p-10",
-              idx < ADVANTAGES.length - 1 && "border-b md:border-b-0 muted-border",
+              idx < ADVANTAGES.length - 1 &&
+                "border-b md:border-b-0 muted-border",
               idx < ADVANTAGES.length - 1 && "md:border-r",
             )}
           >

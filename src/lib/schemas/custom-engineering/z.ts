@@ -109,9 +109,7 @@ export const CustomEngineeringSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export type CustomEngineeringFormData = z.infer<
-  typeof CustomEngineeringSchema
->;
+export type CustomEngineeringFormData = z.infer<typeof CustomEngineeringSchema>;
 
 /**
  * Form-input shape: fields with a zod `.default()` are optional before parsing.

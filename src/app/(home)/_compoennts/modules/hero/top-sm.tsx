@@ -1,5 +1,3 @@
-
-
 const SmTop = () => {
   return (
     <div className="w-full border-b muted-border">

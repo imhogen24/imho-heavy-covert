@@ -7,7 +7,12 @@ import { cn } from "@/lib/utils";
 export const contentHeadingClassName =
   "text-xs font-medium uppercase tracking-wide text-muted-foreground";
 
-export function NavContentCard({ title, description, href, icon: Icon }: NavItemChild) {
+export function NavContentCard({
+  title,
+  description,
+  href,
+  icon: Icon,
+}: NavItemChild) {
   return (
     <NavigationMenuLink asChild>
       <Link

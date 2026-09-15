@@ -1,4 +1,5 @@
 "use client";
+
 import HeroText from "./hero-text";
 import HeroImage from "./hero-image";
 import SmTop from "./top-sm";

@@ -1,6 +1,5 @@
 /* EMAIL TEMPLATE STYLES */
 
-
 export const styles = {
   main: {
     backgroundColor: "#FFFFFF",

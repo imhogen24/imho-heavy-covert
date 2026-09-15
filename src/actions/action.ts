@@ -31,9 +31,10 @@ const EMAIL_TIMEOUT_MS = 20000;
  * branch below keeps working unchanged.
  */
 const sendEmail = async (
-  payload: Parameters<typeof resend.emails.send>[0]
+  payload: Parameters<typeof resend.emails.send>[0],
 ): Promise<Awaited<ReturnType<typeof resend.emails.send>>> => {
   let timer: ReturnType<typeof setTimeout> | undefined;
+
   try {
     return await Promise.race([
       resend.emails.send(payload),
@@ -47,7 +48,7 @@ const sendEmail = async (
                 message: `Email request timed out after ${EMAIL_TIMEOUT_MS}ms`,
               },
             }),
-          EMAIL_TIMEOUT_MS
+          EMAIL_TIMEOUT_MS,
         );
       }),
     ]);
@@ -56,19 +57,23 @@ const sendEmail = async (
   }
 };
 
+/** Text field value; a missing field reads as "". */
+const text = (formData: FormData, key: string): string =>
+  formData.get(key)?.toString() ?? "";
+
 //CONTACT FORM ACTION
 export const contactFormAction = async (formData: FormData) => {
   try {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const message = formData.get("message") as string;
-    const filesString = formData.get("files") as string;
+    const name = text(formData, "name");
+    const email = text(formData, "email");
+    const message = text(formData, "message");
+    const filesString = text(formData, "files");
 
     // Parse the JSON string back to an array
     const files = filesString ? JSON.parse(filesString) : [];
 
     // Send notification to admin
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Contact Form <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Contact Form Submission from ${name}`,
@@ -77,11 +82,12 @@ export const contactFormAction = async (formData: FormData) => {
         email,
         message,
         files,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -90,7 +96,7 @@ export const contactFormAction = async (formData: FormData) => {
       from: `Confirmation <imhogen@admin.imhogen.com>`,
       to: [`${email}`],
       subject: `Thank you for contacting us, ${name}`,
-      react: ContactConfirmationEmail({ name }) as React.ReactElement,
+      react: ContactConfirmationEmail({ name }),
     });
 
     if (confirmationError) {
@@ -101,6 +107,7 @@ export const contactFormAction = async (formData: FormData) => {
     return { success: true };
   } catch (error: any) {
     console.error("Contact Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -109,42 +116,44 @@ export const contactFormAction = async (formData: FormData) => {
 export const ImhoGenAcademyFormAction = async (formData: FormData) => {
   try {
     // Basic Information
-    const fullName = formData.get("fullName") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const email = formData.get("email") as string;
-    const country = formData.get("country") as string;
-    const cityTown = formData.get("cityTown") as string;
+    const fullName = text(formData, "fullName");
+    const phoneNumber = text(formData, "phoneNumber");
+    const email = text(formData, "email");
+    const country = text(formData, "country");
+    const cityTown = text(formData, "cityTown");
 
     // Education / Background
-    const currentStatus = formData.get("currentStatus") as string;
-    const institutionOrCompany = formData.get("institutionOrCompany") as string;
-    const programDisciplineRole = formData.get(
-      "programDisciplineRole"
-    ) as string;
-    const currentLevelYear = formData.get("currentLevelYear") as string;
+    const currentStatus = text(formData, "currentStatus");
+    const institutionOrCompany = text(formData, "institutionOrCompany");
+
+    const programDisciplineRole = text(formData, "programDisciplineRole");
+
+    const currentLevelYear = text(formData, "currentLevelYear");
 
     // Interest & Capability
-    const whyJoin = formData.get("whyJoin") as string;
+    const whyJoin = text(formData, "whyJoin");
+
     const areasOfInterest = JSON.parse(
-      (formData.get("areasOfInterest") as string) || "[]"
+      text(formData, "areasOfInterest") || "[]",
     );
-    const hasPriorProjects = formData.get("hasPriorProjects") as string;
-    const portfolioLink = formData.get("portfolioLink") as string;
+
+    const hasPriorProjects = text(formData, "hasPriorProjects");
+    const portfolioLink = text(formData, "portfolioLink");
 
     // Commitment
-    const willingForIntensiveTraining = formData.get(
-      "willingForIntensiveTraining"
-    ) as string;
-    const weeklyHoursCommitment = formData.get(
-      "weeklyHoursCommitment"
-    ) as string;
+    const willingForIntensiveTraining = text(
+      formData,
+      "willingForIntensiveTraining",
+    );
+
+    const weeklyHoursCommitment = text(formData, "weeklyHoursCommitment");
 
     // Final Question
-    const whySelectYou = formData.get("whySelectYou") as string;
+    const whySelectYou = text(formData, "whySelectYou");
 
     const requestId = `AA-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Academy Application <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New IMHO GEN Academy Application from ${fullName}`,
@@ -166,11 +175,12 @@ export const ImhoGenAcademyFormAction = async (formData: FormData) => {
         weeklyHoursCommitment,
         whySelectYou,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -180,16 +190,18 @@ export const ImhoGenAcademyFormAction = async (formData: FormData) => {
       subject: `Application Received — IMHO GEN Academy`,
       react: ImhoGenAcademyConfirmationEmail({
         fullName,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Academy Application Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -198,30 +210,28 @@ export const ImhoGenAcademyFormAction = async (formData: FormData) => {
 export const AcademyPartnershipFormAction = async (formData: FormData) => {
   try {
     // Organization Profile
-    const organizationName = formData.get("organizationName") as string;
-    const organizationWebsite = formData.get("organizationWebsite") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const positionRole = formData.get("positionRole") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
+    const organizationName = text(formData, "organizationName");
+    const organizationWebsite = text(formData, "organizationWebsite");
+    const contactPerson = text(formData, "contactPerson");
+    const positionRole = text(formData, "positionRole");
+    const email = text(formData, "email");
+    const phoneNumber = text(formData, "phoneNumber");
 
     // Partnership Interest
     const areasOfInterest = JSON.parse(
-      (formData.get("areasOfInterest") as string) || "[]"
+      text(formData, "areasOfInterest") || "[]",
     );
-    const collaborationDescription = formData.get(
-      "collaborationDescription"
-    ) as string;
+
+    const collaborationDescription = text(formData, "collaborationDescription");
 
     // Optional Details
-    const expectedOutcomes = formData.get("expectedOutcomes") as string;
-    const additionalInformation = formData.get(
-      "additionalInformation"
-    ) as string;
+    const expectedOutcomes = text(formData, "expectedOutcomes");
+
+    const additionalInformation = text(formData, "additionalInformation");
 
     const requestId = `AP-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Academy Partnership <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Academy Partnership Inquiry from ${organizationName}`,
@@ -237,11 +247,12 @@ export const AcademyPartnershipFormAction = async (formData: FormData) => {
         expectedOutcomes,
         additionalInformation,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -252,16 +263,18 @@ export const AcademyPartnershipFormAction = async (formData: FormData) => {
       react: AcademyPartnershipConfirmationEmail({
         organizationName,
         contactPerson,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Academy Partnership Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -270,19 +283,18 @@ export const AcademyPartnershipFormAction = async (formData: FormData) => {
 export const AcademySupportFormAction = async (formData: FormData) => {
   try {
     // Donor Information
-    const fullName = formData.get("fullName") as string;
-    const email = formData.get("email") as string;
-    const country = formData.get("country") as string;
-    const supportTypes = JSON.parse(
-      (formData.get("supportTypes") as string) || "[]"
-    );
+    const fullName = text(formData, "fullName");
+    const email = text(formData, "email");
+    const country = text(formData, "country");
+
+    const supportTypes = JSON.parse(text(formData, "supportTypes") || "[]");
 
     // Support Interest
-    const supportContribution = formData.get("supportContribution") as string;
+    const supportContribution = text(formData, "supportContribution");
 
     const requestId = `AS-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Academy Support <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Academy Support Offer from ${fullName}`,
@@ -293,11 +305,12 @@ export const AcademySupportFormAction = async (formData: FormData) => {
         supportTypes,
         supportContribution,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -307,16 +320,18 @@ export const AcademySupportFormAction = async (formData: FormData) => {
       subject: `Support Offer Received — IMHO GEN Academy`,
       react: AcademySupportConfirmationEmail({
         fullName,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Academy Support Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -325,35 +340,38 @@ export const AcademySupportFormAction = async (formData: FormData) => {
 export const CapabilityAssessmentFormAction = async (formData: FormData) => {
   try {
     // Basic Information
-    const fullName = formData.get("fullName") as string;
-    const email = formData.get("email") as string;
-    const background = formData.get("background") as string;
-    const experienceLevel = formData.get("experienceLevel") as string;
+    const fullName = text(formData, "fullName");
+    const email = text(formData, "email");
+    const background = text(formData, "background");
+    const experienceLevel = text(formData, "experienceLevel");
 
     // Self-Assessment (1–5) — submitted as strings, stored as numbers
     const problemDefinition = Number(formData.get("problemDefinition"));
     const conceptGeneration = Number(formData.get("conceptGeneration"));
     const cadModeling = Number(formData.get("cadModeling"));
     const engineeringAnalysis = Number(formData.get("engineeringAnalysis"));
+
     const technicalDocumentation = Number(
-      formData.get("technicalDocumentation")
+      formData.get("technicalDocumentation"),
     );
+
     const manufacturingUnderstanding = Number(
-      formData.get("manufacturingUnderstanding")
+      formData.get("manufacturingUnderstanding"),
     );
+
     const systemsThinking = Number(formData.get("systemsThinking"));
 
     // Practical Thinking
-    const projectDescription = formData.get("projectDescription") as string;
-    const improvementArea = formData.get("improvementArea") as string;
-    const biggestWeakness = formData.get("biggestWeakness") as string;
+    const projectDescription = text(formData, "projectDescription");
+    const improvementArea = text(formData, "improvementArea");
+    const biggestWeakness = text(formData, "biggestWeakness");
 
     // Optional
-    const portfolioLink = formData.get("portfolioLink") as string;
+    const portfolioLink = text(formData, "portfolioLink");
 
     const requestId = `CA-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Capability Assessment <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Capability Assessment from ${fullName}`,
@@ -374,11 +392,12 @@ export const CapabilityAssessmentFormAction = async (formData: FormData) => {
         biggestWeakness,
         portfolioLink,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -388,16 +407,18 @@ export const CapabilityAssessmentFormAction = async (formData: FormData) => {
       subject: `Assessment Received — IMHO GEN Academy`,
       react: CapabilityAssessmentConfirmationEmail({
         fullName,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Capability Assessment Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -406,28 +427,28 @@ export const CapabilityAssessmentFormAction = async (formData: FormData) => {
 export const CohortSponsorshipFormAction = async (formData: FormData) => {
   try {
     // Organization Profile
-    const organizationName = formData.get("organizationName") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const positionRole = formData.get("positionRole") as string;
-    const website = formData.get("website") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
+    const organizationName = text(formData, "organizationName");
+    const contactPerson = text(formData, "contactPerson");
+    const positionRole = text(formData, "positionRole");
+    const website = text(formData, "website");
+    const email = text(formData, "email");
+    const phoneNumber = text(formData, "phoneNumber");
 
     // Sponsorship Interest
     const sponsorshipAreas = JSON.parse(
-      (formData.get("sponsorshipAreas") as string) || "[]"
+      text(formData, "sponsorshipAreas") || "[]",
     );
 
     // Impact & Collaboration Interest
-    const whySupport = formData.get("whySupport") as string;
-    const impactAreas = formData.get("impactAreas") as string;
+    const whySupport = text(formData, "whySupport");
+    const impactAreas = text(formData, "impactAreas");
 
     // Optional
-    const scheduleDiscussion = formData.get("scheduleDiscussion") as string;
+    const scheduleDiscussion = text(formData, "scheduleDiscussion");
 
     const requestId = `CS-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Cohort Sponsorship <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Cohort Sponsorship Inquiry from ${organizationName}`,
@@ -443,11 +464,12 @@ export const CohortSponsorshipFormAction = async (formData: FormData) => {
         impactAreas,
         scheduleDiscussion,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -458,16 +480,18 @@ export const CohortSponsorshipFormAction = async (formData: FormData) => {
       react: CohortSponsorshipConfirmationEmail({
         organizationName,
         contactPerson,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Cohort Sponsorship Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -476,35 +500,37 @@ export const CohortSponsorshipFormAction = async (formData: FormData) => {
 export const DesignForgeFormAction = async (formData: FormData) => {
   try {
     // Basic Profile
-    const fullName = formData.get("fullName") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const institutionOrCompany = formData.get("institutionOrCompany") as string;
-    const currentRole = formData.get("currentRole") as string;
+    const fullName = text(formData, "fullName");
+    const email = text(formData, "email");
+    const phoneNumber = text(formData, "phoneNumber");
+    const institutionOrCompany = text(formData, "institutionOrCompany");
+    const currentRole = text(formData, "currentRole");
 
     // Community Interests
     const areasOfInterest = JSON.parse(
-      (formData.get("areasOfInterest") as string) || "[]"
+      text(formData, "areasOfInterest") || "[]",
     );
-    const mentorshipInterest = formData.get("mentorshipInterest") as string;
-    const collaborationsInterest = formData.get(
-      "collaborationsInterest"
-    ) as string;
-    const challengesWorkshopsInterest = formData.get(
-      "challengesWorkshopsInterest"
-    ) as string;
+
+    const mentorshipInterest = text(formData, "mentorshipInterest");
+
+    const collaborationsInterest = text(formData, "collaborationsInterest");
+
+    const challengesWorkshopsInterest = text(
+      formData,
+      "challengesWorkshopsInterest",
+    );
 
     // Optional Links
-    const linkedinProfile = formData.get("linkedinProfile") as string;
-    const portfolioLink = formData.get("portfolioLink") as string;
-    const socialHandle = formData.get("socialHandle") as string;
+    const linkedinProfile = text(formData, "linkedinProfile");
+    const portfolioLink = text(formData, "portfolioLink");
+    const socialHandle = text(formData, "socialHandle");
 
     // Final Question
-    const whyJoin = formData.get("whyJoin") as string;
+    const whyJoin = text(formData, "whyJoin");
 
     const requestId = `DF-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Design Forge <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Design Forge Community Sign-up from ${fullName}`,
@@ -523,11 +549,12 @@ export const DesignForgeFormAction = async (formData: FormData) => {
         socialHandle,
         whyJoin,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -537,16 +564,18 @@ export const DesignForgeFormAction = async (formData: FormData) => {
       subject: `Welcome to the Design Forge Community`,
       react: DesignForgeConfirmationEmail({
         fullName,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Design Forge Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -555,40 +584,43 @@ export const DesignForgeFormAction = async (formData: FormData) => {
 export const CustomEngineeringFormAction = async (formData: FormData) => {
   try {
     // 1.0 Client Information
-    const organizationName = formData.get("organizationName") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const siteLocation = formData.get("siteLocation") as string;
+    const organizationName = text(formData, "organizationName");
+    const contactPerson = text(formData, "contactPerson");
+    const email = text(formData, "email");
+    const phoneNumber = text(formData, "phoneNumber");
+    const siteLocation = text(formData, "siteLocation");
 
     // 2.0 Project Scope & Classification
-    const projectScope = JSON.parse(
-      (formData.get("projectScope") as string) || "[]"
-    );
-    const projectTitle = formData.get("projectTitle") as string;
-    const primaryObjective = formData.get("primaryObjective") as string;
+    const projectScope = JSON.parse(text(formData, "projectScope") || "[]");
+
+    const projectTitle = text(formData, "projectTitle");
+    const primaryObjective = text(formData, "primaryObjective");
 
     // 3.0 Systems Engineering Core
-    const materialInputs = formData.get("materialInputs") as string;
-    const energyAndInformationInputs = formData.get(
-      "energyAndInformationInputs"
-    ) as string;
-    const transformation = formData.get("transformation") as string;
-    const outputs = formData.get("outputs") as string;
-    const byProducts = formData.get("byProducts") as string;
+    const materialInputs = text(formData, "materialInputs");
+
+    const energyAndInformationInputs = text(
+      formData,
+      "energyAndInformationInputs",
+    );
+
+    const transformation = text(formData, "transformation");
+    const outputs = text(formData, "outputs");
+    const byProducts = text(formData, "byProducts");
 
     // 4.0 Operational Environment & Constraints
-    const humanSystem = formData.get("humanSystem") as string;
-    const activeEnvironment = formData.get("activeEnvironment") as string;
-    const budgetExpectations = formData.get("budgetExpectations") as string;
-    const targetTimeline = formData.get("targetTimeline") as string;
+    const humanSystem = text(formData, "humanSystem");
+    const activeEnvironment = text(formData, "activeEnvironment");
+    const budgetExpectations = text(formData, "budgetExpectations");
+    const targetTimeline = text(formData, "targetTimeline");
 
     const fileAttachments = JSON.parse(
-      (formData.get("fileAttachments") as string) || "[]"
+      text(formData, "fileAttachments") || "[]",
     );
+
     const requestId = `T1-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Tier 1 Intake <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Tier 1 Custom Engineering Intake from ${organizationName}`,
@@ -612,11 +644,12 @@ export const CustomEngineeringFormAction = async (formData: FormData) => {
         targetTimeline,
         fileAttachments,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -628,16 +661,18 @@ export const CustomEngineeringFormAction = async (formData: FormData) => {
         organizationName,
         contactPerson,
         projectTitle,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Custom Engineering Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };
@@ -646,34 +681,35 @@ export const CustomEngineeringFormAction = async (formData: FormData) => {
 export const DraftingDigitizationFormAction = async (formData: FormData) => {
   try {
     // 1.0 Client Information
-    const organizationName = formData.get("organizationName") as string;
-    const contactPerson = formData.get("contactPerson") as string;
-    const email = formData.get("email") as string;
-    const phoneNumber = formData.get("phoneNumber") as string;
-    const siteLocation = formData.get("siteLocation") as string;
+    const organizationName = text(formData, "organizationName");
+    const contactPerson = text(formData, "contactPerson");
+    const email = text(formData, "email");
+    const phoneNumber = text(formData, "phoneNumber");
+    const siteLocation = text(formData, "siteLocation");
 
     // 2.0 The Source Asset
-    const inputMaterialType = formData.get("inputMaterialType") as string;
-    const assetCondition = formData.get("assetCondition") as string;
+    const inputMaterialType = text(formData, "inputMaterialType");
+    const assetCondition = text(formData, "assetCondition");
 
     // 3.0 Required Deliverables & End Goal
     const draftingServices = JSON.parse(
-      (formData.get("draftingServices") as string) || "[]"
+      text(formData, "draftingServices") || "[]",
     );
-    const endGoal = formData.get("endGoal") as string;
+
+    const endGoal = text(formData, "endGoal");
 
     // 4.0 Technical Specifications & Preferences
-    const draftingStandard = formData.get("draftingStandard") as string;
-    const outputFormats = JSON.parse(
-      (formData.get("outputFormats") as string) || "[]"
-    );
+    const draftingStandard = text(formData, "draftingStandard");
+
+    const outputFormats = JSON.parse(text(formData, "outputFormats") || "[]");
 
     const fileAttachments = JSON.parse(
-      (formData.get("fileAttachments") as string) || "[]"
+      text(formData, "fileAttachments") || "[]",
     );
+
     const requestId = `T3-${Date.now()}`;
 
-    const { data, error } = await sendEmail({
+    const { error } = await sendEmail({
       from: `Tier 3 Intake <imhogen@admin.imhogen.com>`,
       to: ["imhogen22@gmail.com"],
       subject: `New Tier 3 Drafting Intake from ${organizationName}`,
@@ -691,11 +727,12 @@ export const DraftingDigitizationFormAction = async (formData: FormData) => {
         outputFormats,
         fileAttachments,
         requestId,
-      }) as React.ReactElement,
+      }),
     });
 
     if (error) {
       console.error("Resend Email Error:", error);
+
       return { error: "Failed to send email" };
     }
 
@@ -706,16 +743,18 @@ export const DraftingDigitizationFormAction = async (formData: FormData) => {
       react: DraftingDigitizationConfirmationEmail({
         organizationName,
         contactPerson,
-      }) as React.ReactElement,
+      }),
     });
 
     if (confirmationError) {
       console.error("Confirmation Email Error:", confirmationError);
       // We don't fail the entire operation if just the confirmation fails
     }
+
     return { success: true };
   } catch (error: any) {
     console.error("Drafting Digitization Form Action Error:", error);
+
     return { error: error.message || "An unexpected error occurred" };
   }
 };

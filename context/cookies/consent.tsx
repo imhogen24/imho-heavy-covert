@@ -1,7 +1,21 @@
-'use client'
-import { ConsentState, COOKIE_CATEGORIES, hasConsented, getConsentState, acceptAllCookies, acceptNecessaryCookies, saveConsent } from '@/lib/cookie-consent';
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+"use client";
 
+import {
+  ConsentState,
+  COOKIE_CATEGORIES,
+  hasConsented,
+  getConsentState,
+  acceptAllCookies,
+  acceptNecessaryCookies,
+  saveConsent,
+} from "@/lib/cookie-consent";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 
 interface CookieConsentContextType {
   consentState: ConsentState;
@@ -18,33 +32,39 @@ const defaultConsentState: ConsentState = {
   [COOKIE_CATEGORIES.NECESSARY]: true,
   [COOKIE_CATEGORIES.FUNCTIONAL]: false,
   [COOKIE_CATEGORIES.ANALYTICS]: false,
-  [COOKIE_CATEGORIES.MARKETING]: false
+  [COOKIE_CATEGORIES.MARKETING]: false,
 };
 
-const CookieConsentContext = createContext<CookieConsentContextType | null>(null);
+const CookieConsentContext = createContext<CookieConsentContextType | null>(
+  null,
+);
 
 interface CookieConsentProviderProps {
   children: ReactNode;
 }
 
-export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ children }) => {
+export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({
+  children,
+}) => {
   // Track if banner should be shown
   const [showBanner, setShowBanner] = useState<boolean>(false);
 
   // Track consent preferences
-  const [consentState, setConsentState] = useState<ConsentState>(defaultConsentState);
+  const [consentState, setConsentState] =
+    useState<ConsentState>(defaultConsentState);
 
   // Track if detailed settings are open
   const [showSettings, setShowSettings] = useState<boolean>(false);
 
   // Initialize on first render (client-side only)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const hasGivenConsent = hasConsented();
 
       if (hasGivenConsent) {
         // User already made a choice, load their preferences
         const savedState = getConsentState();
+
         if (savedState) {
           setConsentState(savedState);
         }
@@ -81,7 +101,7 @@ export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ ch
 
   // Toggle settings modal
   const toggleSettings = (): void => {
-    setShowSettings(prev => !prev);
+    setShowSettings((prev) => !prev);
   };
 
   // Open consent manager from elsewhere in the app
@@ -97,7 +117,7 @@ export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ ch
     handleRejectAll,
     handleSavePreferences,
     toggleSettings,
-    openConsentManager
+    openConsentManager,
   };
 
   return (
@@ -109,8 +129,12 @@ export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ ch
 
 export const useCookieConsent = (): CookieConsentContextType => {
   const context = useContext(CookieConsentContext);
+
   if (!context) {
-    throw new Error('useCookieConsent must be used within a CookieConsentProvider');
+    throw new Error(
+      "useCookieConsent must be used within a CookieConsentProvider",
+    );
   }
+
   return context;
 };

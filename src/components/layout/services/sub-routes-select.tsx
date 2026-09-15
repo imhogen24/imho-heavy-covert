@@ -23,7 +23,8 @@ export function ServiceRoutesSelect() {
   // Fall back to the first service so the trigger always shows a selection
   // rather than an empty placeholder.
   const current =
-    SERVICE_ROUTES.find((route) => route.href === pathname) ?? SERVICE_ROUTES[0];
+    SERVICE_ROUTES.find((route) => route.href === pathname) ??
+    SERVICE_ROUTES[0];
 
   return (
     <Select value={current?.href} onValueChange={(href) => router.push(href)}>

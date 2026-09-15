@@ -69,6 +69,7 @@ export const draftingDigitizationPdfConfig: PDFConfig = {
     const date = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString()
       : new Date().toLocaleDateString();
+
     return `IMHOGEN ERM SYSTEM | DOCUMENT ID: T3.D1.3a | TIER 3 WORKFLOW • ${date}`;
   },
 };

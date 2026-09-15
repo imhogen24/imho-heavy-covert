@@ -16,8 +16,7 @@ import {
 
 type AnimatedBackgroundProps = {
   children:
-    | ReactElement<{ "data-id": string }>[]
-    | ReactElement<{ "data-id": string }>;
+    ReactElement<{ "data-id": string }>[] | ReactElement<{ "data-id": string }>;
   defaultValue?: string;
   onValueChange?: (newActiveId: string | null) => void;
   className?: string;
@@ -40,6 +39,7 @@ export function AnimatedBackground({
 
   const handleSetActiveId = (id: string | null) => {
     setActiveId(id);
+
     if (onValueChange) {
       onValueChange(id);
     }
@@ -49,6 +49,7 @@ export function AnimatedBackground({
   const currentLabel =
     SERVICE_ROUTES.find((route) => route.href === pathname)?.label ??
     SERVICE_ROUTES[0]?.label;
+
   useEffect(() => {
     if (defaultValue !== undefined) {
       setActiveId(currentLabel);
@@ -61,6 +62,7 @@ export function AnimatedBackground({
   useEffect(() => {
     const list = listRef.current;
     const active = list?.querySelector<HTMLElement>('[data-checked="true"]');
+
     if (!list || !active) return;
 
     const listBox = list.getBoundingClientRect();
@@ -76,6 +78,7 @@ export function AnimatedBackground({
     >
       {Children.map(children, (child: any, index) => {
         const id = child.props["data-id"];
+
         const interactionProps = enableHover
           ? {
               onMouseEnter: () => handleSetActiveId(id),

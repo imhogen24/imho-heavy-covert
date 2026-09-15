@@ -16,6 +16,7 @@ export function useResizeObserver(
 
   useEffect(() => {
     const node = elementRef?.current;
+
     if (!node) return;
 
     const observer = new ResizeObserver(updateEntry);

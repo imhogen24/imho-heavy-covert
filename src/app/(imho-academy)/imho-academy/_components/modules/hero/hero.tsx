@@ -11,8 +11,14 @@ const CTAS = [
     icon: GraduationCapIcon,
     primary: true,
   },
-  { label: "Partner With IMHOGEN Academy", href: "/services/academy-partnership" },
-  { label: "Take Capability Assessment", href: "/services/capability-assessment" },
+  {
+    label: "Partner With IMHOGEN Academy",
+    href: "/services/academy-partnership",
+  },
+  {
+    label: "Take Capability Assessment",
+    href: "/services/capability-assessment",
+  },
   { label: "Join the Design Forge Community", href: "/services/design-forge" },
 ];
 
@@ -85,11 +91,10 @@ export function Hero({ className }: { className?: string }) {
             Capability.
           </h1>
           <p className="max-w-xl text-pretty text-base text-muted-foreground leading-relaxed md:text-lg">
-            A structured engineering capability system that transforms
-            students, graduates, engineers, and technical teams into
-            capable engineering designers and makers—through real
-            projects, measurable performance, industry-standard
-            processes, and practical execution.
+            A structured engineering capability system that transforms students,
+            graduates, engineers, and technical teams into capable engineering
+            designers and makers—through real projects, measurable performance,
+            industry-standard processes, and practical execution.
           </p>
         </div>
 
@@ -97,7 +102,9 @@ export function Hero({ className }: { className?: string }) {
         <div className="p-8 lg:p-14 flex flex-col justify-center gap-5">
           <p className="text-sm">
             <span className="font-semibold">Engineering Design Capability</span>{" "}
-            <span className="text-muted-foreground">means your ability to:</span>
+            <span className="text-muted-foreground">
+              means your ability to:
+            </span>
           </p>
           <div className="flex flex-col border-y muted-border">
             {CLARIFICATIONS.map((item, i) => (
@@ -121,7 +128,10 @@ export function Hero({ className }: { className?: string }) {
       {/* Row 3 — visual placeholders */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {VISUALS.map((item, idx) => (
-          <div key={item.label} className={cn("flex flex-col", cellBorder(idx))}>
+          <div
+            key={item.label}
+            className={cn("flex flex-col", cellBorder(idx))}
+          >
             <div className="relative aspect-[4/3] w-full overflow-hidden p-4">
               <div className="relative h-full w-full">
                 <Image

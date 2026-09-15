@@ -60,7 +60,8 @@ export function Services({ className }: { className?: string }) {
             key={service.title}
             className={cn(
               "flex flex-col gap-6 p-8 lg:p-10",
-              idx < SERVICES.length - 1 && "border-b md:border-b-0 muted-border",
+              idx < SERVICES.length - 1 &&
+                "border-b md:border-b-0 muted-border",
               idx < SERVICES.length - 1 && "md:border-r",
             )}
           >

@@ -1,16 +1,17 @@
-'use client'
-import * as React from "react"
-import { SunIcon } from "@phosphor-icons/react/dist/csr/Sun"
-import { MoonIcon } from "@phosphor-icons/react/dist/csr/Moon"
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import * as React from "react";
+import { SunIcon } from "@phosphor-icons/react/dist/csr/Sun";
+import { MoonIcon } from "@phosphor-icons/react/dist/csr/Moon";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
 
 export function ModeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light")
-  }
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
   return (
     <Button
@@ -29,5 +30,5 @@ export function ModeToggle() {
       />
       <span className="sr-only">Toggle theme</span>
     </Button>
-  )
+  );
 }

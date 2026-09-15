@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { KanbanIcon } from "@phosphor-icons/react/dist/csr/Kanban";
 
@@ -32,12 +33,7 @@ const HeroText = () => {
         </p>
 
         <div className="flex flex-wrap items-center gap-3 md:gap-4">
-          <Button
-            asChild
-            className="w-fit"
-            variant="primary"
-            size="standard"
-          >
+          <Button asChild className="w-fit" variant="primary" size="standard">
             <Link href="/services/custom-engineering">
               <KanbanIcon size={48} weight="light" /> Start a Project
             </Link>

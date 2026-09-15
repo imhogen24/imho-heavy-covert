@@ -1,11 +1,11 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 // Cookie consent categories
 export enum COOKIE_CATEGORIES {
-  NECESSARY = 'necessary',
-  FUNCTIONAL = 'functional',
-  ANALYTICS = 'analytics',
-  MARKETING = 'marketing'
+  NECESSARY = "necessary",
+  FUNCTIONAL = "functional",
+  ANALYTICS = "analytics",
+  MARKETING = "marketing",
 }
 
 // Consent state interface
@@ -20,8 +20,9 @@ export interface ConsentState {
 const CONSENT_EXPIRATION = 180;
 
 // Cookie names
-export const CONSENT_COOKIE_NAME = 'cookie-consent';
-export const CONSENT_TIMESTAMP_COOKIE = 'consent-timestamp';
+export const CONSENT_COOKIE_NAME = "cookie-consent";
+
+export const CONSENT_TIMESTAMP_COOKIE = "consent-timestamp";
 
 // Get cookie consent state
 export const getConsentState = (): ConsentState | null => {
@@ -32,9 +33,12 @@ export const getConsentState = (): ConsentState | null => {
   }
 
   try {
+    // SAFETY: this cookie is only written by saveConsent with a full ConsentState;
+    // malformed JSON throws and is handled below.
     return JSON.parse(consentCookie) as ConsentState;
   } catch (error) {
-    console.error('Error parsing consent cookie:', error);
+    console.error("Error parsing consent cookie:", error);
+
     return null;
   }
 };
@@ -45,23 +49,27 @@ export const hasConsented = (): boolean => {
 };
 
 // Save user consent preferences
-export const saveConsent = (preferences: Partial<ConsentState>): ConsentState => {
+export const saveConsent = (
+  preferences: Partial<ConsentState>,
+): ConsentState => {
   // Always set necessary cookies as true (can't be disabled)
+  // SAFETY: NECESSARY is forced true here and callers pass the remaining
+  // categories from the consent UI, which always sets all of them.
   const consentData: ConsentState = {
     ...preferences,
-    [COOKIE_CATEGORIES.NECESSARY]: true
+    [COOKIE_CATEGORIES.NECESSARY]: true,
   } as ConsentState;
 
   // Save consent preferences
   Cookies.set(CONSENT_COOKIE_NAME, JSON.stringify(consentData), {
     expires: CONSENT_EXPIRATION,
-    sameSite: 'strict'
+    sameSite: "strict",
   });
 
   // Save timestamp for audit purposes
   Cookies.set(CONSENT_TIMESTAMP_COOKIE, new Date().toISOString(), {
     expires: CONSENT_EXPIRATION,
-    sameSite: 'strict'
+    sameSite: "strict",
   });
 
   return consentData;
@@ -73,7 +81,7 @@ export const acceptAllCookies = (): ConsentState => {
     [COOKIE_CATEGORIES.NECESSARY]: true,
     [COOKIE_CATEGORIES.FUNCTIONAL]: true,
     [COOKIE_CATEGORIES.ANALYTICS]: true,
-    [COOKIE_CATEGORIES.MARKETING]: true
+    [COOKIE_CATEGORIES.MARKETING]: true,
   };
 
   return saveConsent(allConsent);
@@ -85,7 +93,7 @@ export const acceptNecessaryCookies = (): ConsentState => {
     [COOKIE_CATEGORIES.NECESSARY]: true,
     [COOKIE_CATEGORIES.FUNCTIONAL]: false,
     [COOKIE_CATEGORIES.ANALYTICS]: false,
-    [COOKIE_CATEGORIES.MARKETING]: false
+    [COOKIE_CATEGORIES.MARKETING]: false,
   };
 
   return saveConsent(necessaryOnly);

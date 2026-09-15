@@ -44,7 +44,7 @@ export const AcademyPartnershipSchema = z.object({
         "Engineering Design Capability Development",
         "Technical Ecosystem Development",
         "Product Development Collaboration",
-      ])
+      ]),
     )
     .min(1, { message: "Please select at least one area of interest" }),
   collaborationDescription: z

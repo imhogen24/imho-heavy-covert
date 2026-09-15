@@ -12,7 +12,8 @@ interface FormPreviewProps {
 }
 
 export const FormPreview = ({ control }: FormPreviewProps) => {
-  // useWatch keeps the preview in sync with the live form values.
+  // SAFETY: useWatch types values as DeepPartial, but useForm is seeded with
+  // defaultValues for this schema and the preview only displays them.
   const formData = useWatch({ control }) as DesignForgeFormData;
 
   const sections: PreviewSection[] = [

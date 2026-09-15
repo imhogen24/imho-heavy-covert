@@ -49,6 +49,7 @@ interface FormPreviewDialogProps {
 
 const isEmpty = (value: PreviewField["value"]) => {
   if (Array.isArray(value)) return value.length === 0;
+
   return value === undefined || value === "" || value === null;
 };
 
@@ -124,6 +125,7 @@ export const FormPreviewDialog = ({
                     }
 
                     let displayValue: React.ReactNode;
+
                     if (field.isBoolean) {
                       displayValue = field.value ? "Yes" : "No";
                     } else if (field.isArray && Array.isArray(field.value)) {

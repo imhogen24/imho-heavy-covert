@@ -43,7 +43,7 @@ export const DraftingDigitizationSchema = z.object({
       "Hand Sketches / Concepts",
       "Existing 3D Models",
     ],
-    { message: "Please select the primary input type" }
+    { message: "Please select the primary input type" },
   ),
   assetCondition: z
     .string()
@@ -61,7 +61,7 @@ export const DraftingDigitizationSchema = z.object({
         "General Arrangement / Assembly",
         "Exploded Views for Manuals",
         "Automated BOM Extraction",
-      ])
+      ]),
     )
     .min(1, { message: "Please select at least one drafting service" }),
   endGoal: z

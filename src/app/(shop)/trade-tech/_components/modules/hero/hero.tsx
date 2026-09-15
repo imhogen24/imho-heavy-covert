@@ -1,4 +1,5 @@
 "use client";
+
 import { GridPattern } from "@/components/magicui/grid-pattern";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -37,7 +38,7 @@ const Hero = () => {
           [6, 2],
         ]}
         className={cn(
-          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] opacity-50"
+          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] opacity-50",
         )}
       />
 
@@ -57,7 +58,7 @@ const Hero = () => {
 
             <h1
               className={cn(
-                "text-3xl md:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-machina)] leading-tight"
+                "text-3xl md:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-machina)] leading-tight",
               )}
             >
               <span className={cn(gradientText)}>Wear Your Craft</span> with

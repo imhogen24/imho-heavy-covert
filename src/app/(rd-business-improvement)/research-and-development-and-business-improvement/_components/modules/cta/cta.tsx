@@ -44,9 +44,9 @@ export function Cta({ className }: { className?: string }) {
             Ready to Build the Future of African Industry?
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            Skip the meeting scheduling hassle. Our digitized onboarding
-            system makes initiating a highly complex engineering project
-            effortless and organized.
+            Skip the meeting scheduling hassle. Our digitized onboarding system
+            makes initiating a highly complex engineering project effortless and
+            organized.
           </p>
         </div>
       </div>
@@ -59,7 +59,10 @@ export function Cta({ className }: { className?: string }) {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-4xl w-full">
           {STEPS.map((step, idx) => (
-            <div key={step.title} className="flex flex-col items-center gap-4 text-center">
+            <div
+              key={step.title}
+              className="flex flex-col items-center gap-4 text-center"
+            >
               <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border bg-background">
                 <step.Icon size={20} weight="thin" />
               </span>

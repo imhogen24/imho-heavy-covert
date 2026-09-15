@@ -93,6 +93,7 @@ export const capabilityAssessmentPdfConfig: PDFConfig = {
     const date = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString()
       : new Date().toLocaleDateString();
+
     return `IMHO Capability Assessment • ${date}`;
   },
 };

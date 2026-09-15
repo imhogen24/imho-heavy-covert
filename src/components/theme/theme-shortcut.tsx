@@ -13,7 +13,9 @@ import { useTheme } from "next-themes";
  */
 const isTypingTarget = (target: EventTarget | null) => {
   if (!(target instanceof HTMLElement)) return false;
+
   if (target.isContentEditable) return true;
+
   return ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName);
 };
 
@@ -23,10 +25,13 @@ export function ThemeShortcut() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() !== "t") return;
+
       // Leave browser and OS chords (Ctrl+T, Cmd+T, …) alone.
       if (event.ctrlKey || event.metaKey || event.altKey) return;
+
       // Mid-composition IME keystrokes report as "t" too.
       if (event.isComposing) return;
+
       if (isTypingTarget(event.target)) return;
 
       event.preventDefault();
@@ -34,6 +39,7 @@ export function ThemeShortcut() {
     };
 
     window.addEventListener("keydown", onKeyDown);
+
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [resolvedTheme, setTheme]);
 

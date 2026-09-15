@@ -101,11 +101,12 @@ export const AcademySupportForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -256,8 +257,8 @@ export const AcademySupportForm = () => {
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
-                                            (value) => value !== option
-                                          )
+                                            (value) => value !== option,
+                                          ),
                                         );
                                   }}
                                 />

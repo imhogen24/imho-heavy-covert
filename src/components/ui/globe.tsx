@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import createGlobe, { type COBEOptions } from "cobe"
-import { useMotionValue, useSpring } from "motion/react"
+import { useEffect, useRef } from "react";
+import createGlobe, { type COBEOptions } from "cobe";
+import { useMotionValue, useSpring } from "motion/react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-const MOVEMENT_DAMPING = 1400
+const MOVEMENT_DAMPING = 1400;
 
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
@@ -34,87 +34,116 @@ const GLOBE_CONFIG: COBEOptions = {
     { location: [34.6937, 135.5022], size: 0.05 },
     { location: [41.0082, 28.9784], size: 0.06 },
   ],
-}
+};
 
 export function Globe({
   className,
   config = GLOBE_CONFIG,
 }: {
-  className?: string
-  config?: COBEOptions
+  className?: string;
+  config?: COBEOptions;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const phiRef = useRef(0)
-  const widthRef = useRef(0)
-  const pointerInteracting = useRef<number | null>(null)
-  const pointerInteractionMovement = useRef(0)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const phiRef = useRef(0);
+  const widthRef = useRef(0);
+  const pointerInteracting = useRef<number | null>(null);
+  const pointerInteractionMovement = useRef(0);
 
-  const r = useMotionValue(0)
+  const r = useMotionValue(0);
+
   const rs = useSpring(r, {
     mass: 1,
     damping: 30,
     stiffness: 100,
-  })
+  });
 
   const updatePointerInteraction = (value: number | null) => {
-    pointerInteracting.current = value
+    pointerInteracting.current = value;
+
     if (canvasRef.current) {
-      canvasRef.current.style.cursor = value !== null ? "grabbing" : "grab"
+      canvasRef.current.style.cursor = value !== null ? "grabbing" : "grab";
     }
-  }
+  };
 
   const updateMovement = (clientX: number) => {
     if (pointerInteracting.current !== null) {
-      const delta = clientX - pointerInteracting.current
-      pointerInteractionMovement.current = delta
-      r.set(r.get() + delta / MOVEMENT_DAMPING)
+      const delta = clientX - pointerInteracting.current;
+      pointerInteractionMovement.current = delta;
+      r.set(r.get() + delta / MOVEMENT_DAMPING);
     }
-  }
+  };
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+
+    if (!canvas) return;
+
     const onResize = () => {
-      if (canvasRef.current) {
-        widthRef.current = canvasRef.current.offsetWidth
+      widthRef.current = canvas.offsetWidth;
+    };
+
+    window.addEventListener("resize", onResize);
+    onResize();
+
+    // cobe hands the context straight to phenomenon without checking it, so a
+    // failed `getContext` surfaces as `Cannot read properties of null`. Probe
+    // first and keep the context around so we can release it on cleanup.
+    const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+
+    let globe: ReturnType<typeof createGlobe> | null = null;
+
+    if (gl) {
+      try {
+        globe = createGlobe(canvas, {
+          ...config,
+          width: widthRef.current * 2,
+          height: widthRef.current * 2,
+          onRender: (state) => {
+            if (!pointerInteracting.current) phiRef.current += 0.005;
+            state.phi = phiRef.current + rs.get();
+            state.width = widthRef.current * 2;
+            state.height = widthRef.current * 2;
+          },
+        });
+      } catch {
+        // WebGL is available but the globe could not be initialised — leave the
+        // canvas transparent rather than taking the page down.
+        globe = null;
       }
     }
 
-    window.addEventListener("resize", onResize)
-    onResize()
+    const reveal = globe
+      ? window.setTimeout(() => {
+          if (canvasRef.current) canvasRef.current.style.opacity = "1";
+        }, 0)
+      : undefined;
 
-    const globe = createGlobe(canvasRef.current!, {
-      ...config,
-      width: widthRef.current * 2,
-      height: widthRef.current * 2,
-      onRender: (state) => {
-        if (!pointerInteracting.current) phiRef.current += 0.005
-        state.phi = phiRef.current + rs.get()
-        state.width = widthRef.current * 2
-        state.height = widthRef.current * 2
-      },
-    })
-
-    setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0)
     return () => {
-      globe.destroy()
-      window.removeEventListener("resize", onResize)
-    }
-  }, [rs, config])
+      if (reveal !== undefined) window.clearTimeout(reveal);
+      globe?.destroy();
+      window.removeEventListener("resize", onResize);
+      // `destroy()` tears down the render loop but leaves the WebGL context
+      // alive. Browsers cap concurrent contexts (~16), so without this every
+      // remount/HMR pass leaks one until `getContext` returns null.
+      gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    };
+  }, [rs, config]);
 
   return (
     <div
       className={cn(
         "absolute inset-0 mx-auto aspect-square w-full max-w-150",
-        className
+        className,
       )}
     >
       <canvas
         className={cn(
-          "size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]"
+          "size-full opacity-0 transition-opacity duration-500 contain-[layout_paint_size]",
         )}
         ref={canvasRef}
         onPointerDown={(e) => {
-          pointerInteracting.current = e.clientX
-          updatePointerInteraction(e.clientX)
+          pointerInteracting.current = e.clientX;
+          updatePointerInteraction(e.clientX);
         }}
         onPointerUp={() => updatePointerInteraction(null)}
         onPointerOut={() => updatePointerInteraction(null)}
@@ -124,5 +153,5 @@ export function Globe({
         }
       />
     </div>
-  )
+  );
 }

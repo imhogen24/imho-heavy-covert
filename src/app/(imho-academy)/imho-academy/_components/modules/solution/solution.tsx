@@ -28,6 +28,7 @@ const TRAINS_YOU_TO = [
 export function Solution({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<RefObject<HTMLDivElement | null>[]>([]);
+
   if (nodeRefs.current.length !== STAGES.length) {
     nodeRefs.current = STAGES.map(() => ({ current: null }));
   }

@@ -36,7 +36,7 @@ export const ImhoGenAcademySchema = z.object({
       "Builder / Innovator",
       "Other",
     ],
-    { message: "Please select your current status" }
+    { message: "Please select your current status" },
   ),
   institutionOrCompany: z
     .string()
@@ -77,7 +77,7 @@ export const ImhoGenAcademySchema = z.object({
         "Innovation & Building",
         "Systems Engineering",
         "Design Thinking",
-      ])
+      ]),
     )
     .min(1, { message: "Please select at least one area of interest" }),
   hasPriorProjects: z.enum(["Yes", "No"], {
@@ -95,14 +95,15 @@ export const ImhoGenAcademySchema = z.object({
   }),
   weeklyHoursCommitment: z.enum(
     ["Less than 5 hours", "5–10 hours", "10–20 hours", "20+ hours"],
-    { message: "Please select your weekly hours commitment" }
+    { message: "Please select your weekly hours commitment" },
   ),
 
   // FINAL QUESTION
   whySelectYou: z
     .string()
     .min(10, {
-      message: "Please share at least 10 characters on why we should select you",
+      message:
+        "Please share at least 10 characters on why we should select you",
     })
     .max(1500, { message: "Response cannot exceed 1500 characters" }),
 

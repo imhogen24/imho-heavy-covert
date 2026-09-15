@@ -9,7 +9,6 @@ import {
   SunIcon,
   XIcon,
 } from "./icons";
-import type { Icon } from "@phosphor-icons/react";
 import { BlueprintIcon } from "@phosphor-icons/react/dist/ssr/Blueprint";
 import { BookOpenIcon } from "@phosphor-icons/react/dist/ssr/BookOpen";
 import { BookOpenTextIcon } from "@phosphor-icons/react/dist/ssr/BookOpenText";
@@ -329,6 +328,7 @@ export const MARQUEE: MarqueeProps[] = [
     ImageHeight: 12.34,
   },
 ];
+
 export const IMPACT_TEXT = [
   {
     idx: 1,
@@ -388,61 +388,65 @@ export const SDG_GOALS: SdgProps[] = [
  * Nav card copy + iconography for each service intake route. Keyed by href so
  * SERVICE_ROUTES stays the single source of truth for the routes themselves.
  */
-const SERVICE_DETAILS: Record<string, { description: string; icon: Icon }> = {
-  "/services/custom-engineering": {
-    description:
-      "Master intake for custom product design and factory/process systems.",
-    icon: FactoryIcon,
-  },
-  "/services/drafting-digitization": {
-    description: "CAD models, fabrication drawings, and 3D renderings.",
-    icon: BlueprintIcon,
-  },
-  "/services/imho-gen-academy": {
-    description: "Apply to the engineering design capability programme.",
-    icon: GraduationCapIcon,
-  },
-  "/services/capability-assessment": {
-    description: "Benchmark engineering design maturity before you commit.",
-    icon: ClipboardTextIcon,
-  },
-  "/services/design-forge": {
-    description: "Join the engineering discussion and mentorship community.",
-    icon: HammerIcon,
-  },
-  "/services/academy-partnership": {
-    description: "Collaborate on workforce and ecosystem development.",
-    icon: HandshakeIcon,
-  },
-  "/services/academy-support": {
-    description: "Back capability development for the next generation.",
-    icon: HandHeartIcon,
-  },
-  "/services/cohort-sponsorship": {
-    description: "Fund a full cohort through the academy programme.",
-    icon: HandCoinsIcon,
-  },
-};
+const SERVICE_DETAILS = new Map(
+  Object.entries({
+    "/services/custom-engineering": {
+      description:
+        "Master intake for custom product design and factory/process systems.",
+      icon: FactoryIcon,
+    },
+    "/services/drafting-digitization": {
+      description: "CAD models, fabrication drawings, and 3D renderings.",
+      icon: BlueprintIcon,
+    },
+    "/services/imho-gen-academy": {
+      description: "Apply to the engineering design capability programme.",
+      icon: GraduationCapIcon,
+    },
+    "/services/capability-assessment": {
+      description: "Benchmark engineering design maturity before you commit.",
+      icon: ClipboardTextIcon,
+    },
+    "/services/design-forge": {
+      description: "Join the engineering discussion and mentorship community.",
+      icon: HammerIcon,
+    },
+    "/services/academy-partnership": {
+      description: "Collaborate on workforce and ecosystem development.",
+      icon: HandshakeIcon,
+    },
+    "/services/academy-support": {
+      description: "Back capability development for the next generation.",
+      icon: HandHeartIcon,
+    },
+    "/services/cohort-sponsorship": {
+      description: "Fund a full cohort through the academy programme.",
+      icon: HandCoinsIcon,
+    },
+  }),
+);
 
 export const SERVICES_LINKS: NavItemChildren = SERVICE_ROUTES.map(
-  ({ label, href }) => ({
-    title: label,
-    href,
-    ...SERVICE_DETAILS[href],
-  }),
+  ({ label, href }) => {
+    const details = SERVICE_DETAILS.get(href);
+
+    if (!details) throw new Error(`Missing SERVICE_DETAILS entry for ${href}`);
+
+    return { title: label, href, ...details };
+  },
 );
 
 export const DIVISIONS_LINKS: NavItemChildren = [
   {
     title: "Applied R&D & Business Improvement",
-    description:
-      "Fixed-fee engineering and locked fabrication budget pathway.",
+    description: "Fixed-fee engineering and locked fabrication budget pathway.",
     href: "/research-and-development-and-business-improvement",
     icon: FlaskIcon,
   },
   {
     title: "Technologies & Industrial Support",
-    description: "Showcases Trade Tech, Industrial Equipment, and R&D Pipeline.",
+    description:
+      "Showcases Trade Tech, Industrial Equipment, and R&D Pipeline.",
     href: "/technologies-and-industrial-support",
     icon: FactoryIcon,
   },
@@ -457,8 +461,7 @@ export const DIVISIONS_LINKS: NavItemChildren = [
 export const ACADEMY_LINKS: NavItemChildren = [
   {
     title: "IMHO GEN Academy",
-    description:
-      "The full programme: structure, process, outcomes, and proof.",
+    description: "The full programme: structure, process, outcomes, and proof.",
     href: "/imho-academy",
     icon: GraduationCapIcon,
   },

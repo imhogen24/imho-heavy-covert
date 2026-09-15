@@ -5,6 +5,7 @@ import { COMPONENT_SPECS, DIMENSION_SPECS, renderSize } from "../../data";
 
 const headCellClassName =
   "px-4 py-3 text-left align-bottom text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground";
+
 const bodyCellClassName = "px-4 py-4 align-top text-sm text-muted-foreground";
 
 const DIMENSION_LEGEND = [

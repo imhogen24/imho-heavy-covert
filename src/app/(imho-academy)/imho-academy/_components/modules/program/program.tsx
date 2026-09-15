@@ -27,6 +27,7 @@ export function Program({ className }: { className?: string }) {
         <div className="flex flex-col">
           {STAGES.map((stage, idx) => {
             const isLast = idx === STAGES.length - 1;
+
             return (
               <div
                 key={stage}

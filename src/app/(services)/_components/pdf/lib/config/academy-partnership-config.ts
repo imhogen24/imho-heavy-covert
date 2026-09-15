@@ -61,6 +61,7 @@ export const academyPartnershipPdfConfig: PDFConfig = {
     const date = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString()
       : new Date().toLocaleDateString();
+
     return `IMHO Academy Partnership Inquiry • ${date}`;
   },
 };

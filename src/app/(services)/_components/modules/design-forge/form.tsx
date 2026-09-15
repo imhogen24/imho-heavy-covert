@@ -68,7 +68,9 @@ const areasOfInterestOptions = [
 const yesNoQuestions: {
   name: keyof Pick<
     DesignForgeFormData,
-    "mentorshipInterest" | "collaborationsInterest" | "challengesWorkshopsInterest"
+    | "mentorshipInterest"
+    | "collaborationsInterest"
+    | "challengesWorkshopsInterest"
   >;
   label: string;
 }[] = [
@@ -151,11 +153,12 @@ export const DesignForgeForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -316,7 +319,10 @@ export const DesignForgeForm = () => {
               render={() => (
                 <FormItem className="flex flex-col gap-1 justify-end">
                   <FormLabel>What are you interested in?</FormLabel>
-                  <SectionChild label="AREAS OF INTEREST" className="md:grid-cols-3">
+                  <SectionChild
+                    label="AREAS OF INTEREST"
+                    className="md:grid-cols-3"
+                  >
                     {areasOfInterestOptions.map((option) => (
                       <FormField
                         key={option}
@@ -340,8 +346,8 @@ export const DesignForgeForm = () => {
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
-                                            (value) => value !== option
-                                          )
+                                            (value) => value !== option,
+                                          ),
                                         );
                                   }}
                                 />
@@ -435,7 +441,9 @@ export const DesignForgeForm = () => {
                 name="socialHandle"
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
-                    <FormLabel>Instagram / X / Social Handle (Optional)</FormLabel>
+                    <FormLabel>
+                      Instagram / X / Social Handle (Optional)
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="@yourhandle" {...field} />
                     </FormControl>

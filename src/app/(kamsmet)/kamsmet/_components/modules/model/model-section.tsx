@@ -10,6 +10,7 @@ import { renderSize, type TrailerModel } from "../../data";
 function cellRules(idx: number, total: number, cols: number) {
   const isLastInRow = (idx + 1) % cols === 0;
   const isLastRow = idx >= total - (total % cols || cols);
+
   return {
     right: !isLastInRow && idx !== total - 1,
     bottom: !isLastRow,
@@ -122,6 +123,7 @@ export function ModelSection({
           // Two columns while wrapped, one row from `sm` up.
           const mobile = cellRules(idx, model.views.length, 2);
           const isLast = idx === model.views.length - 1;
+
           return (
             <div
               key={view.src}

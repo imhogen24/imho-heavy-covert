@@ -87,11 +87,12 @@ export const AcademyPartnershipForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -158,7 +159,10 @@ export const AcademyPartnershipForm = () => {
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>Organization Website (Optional)</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://your-organization.com" {...field} />
+                      <Input
+                        placeholder="https://your-organization.com"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -239,7 +243,10 @@ export const AcademyPartnershipForm = () => {
               render={() => (
                 <FormItem className="flex flex-col gap-1 justify-end">
                   <FormLabel>Areas of partnership interest</FormLabel>
-                  <SectionChild label="AREAS OF INTEREST" className="md:grid-cols-3">
+                  <SectionChild
+                    label="AREAS OF INTEREST"
+                    className="md:grid-cols-3"
+                  >
                     {areasOfInterestOptions.map((option) => (
                       <FormField
                         key={option}
@@ -263,8 +270,8 @@ export const AcademyPartnershipForm = () => {
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
-                                            (value) => value !== option
-                                          )
+                                            (value) => value !== option,
+                                          ),
                                         );
                                   }}
                                 />

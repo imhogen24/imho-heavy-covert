@@ -49,12 +49,9 @@ export const AcademyPartnershipConfirmationEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>
-            Partnership Inquiry Received
-          </Heading>
+          <Heading style={styles.heading}>Partnership Inquiry Received</Heading>
           <Text style={styles.subHeading}>
-            Thank you for your interest in collaborating with IMHO GEN Academy,
-            {" "}
+            Thank you for your interest in collaborating with IMHO GEN Academy,{" "}
             {contactPerson}. Our team will review {organizationName}&apos;s
             inquiry and contact you to explore possible partnership
             opportunities.

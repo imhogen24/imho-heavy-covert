@@ -57,9 +57,7 @@ export const CohortSponsorshipConfirmationEmail = ({
         </Section>
 
         <Section style={styles.content}>
-          <Heading style={styles.heading}>
-            Sponsorship Inquiry Received
-          </Heading>
+          <Heading style={styles.heading}>Sponsorship Inquiry Received</Heading>
           <Text style={styles.subHeading}>
             Thank you, {contactPerson}, for {organizationName}&apos;s interest
             in supporting engineering capability development through IMHO GEN
@@ -80,9 +78,7 @@ export const CohortSponsorshipConfirmationEmail = ({
           <Hr style={styles.divider} />
 
           <Section style={styles.detailSection}>
-            <Text style={styles.sectionTitle}>
-              YOUR SUPPORT CONTRIBUTES TO
-            </Text>
+            <Text style={styles.sectionTitle}>YOUR SUPPORT CONTRIBUTES TO</Text>
             {SUPPORT_CONTRIBUTES_TO.map((item, index) => (
               <Text key={item} style={styles.infoText}>
                 <strong>{String(index + 1).padStart(2, "0")}</strong> {item}

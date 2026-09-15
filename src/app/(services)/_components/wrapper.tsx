@@ -1,27 +1,35 @@
 import { cn } from "@/lib/utils";
-import { LightningBoltIcon } from "@radix-ui/react-icons";
 import {
-    User, FileText, BookUser, Paintbrush,
-    FolderOpen, GraduationCap, Calendar, Info, BookOpen,
-    Lightbulb, Settings, Package, Users, ShieldCheck,
-    MessageSquare,
-    LucideIcon,
-    Sliders,
-    TriangleAlert,
-    TrendingUp,
-    BriefcaseBusiness,
-    LifeBuoy,
-    Keyboard,
-    RefreshCcw,
-    Handshake,
+  User,
+  FileText,
+  Paintbrush,
+  FolderOpen,
+  GraduationCap,
+  Calendar,
+  Info,
+  Lightbulb,
+  Settings,
+  Package,
+  Users,
+  ShieldCheck,
+  MessageSquare,
+  Sliders,
+  TriangleAlert,
+  TrendingUp,
+  BriefcaseBusiness,
+  LifeBuoy,
+  Keyboard,
+  RefreshCcw,
+  Handshake,
 } from "lucide-react";
+
 interface FORM_SECTION_PROPS extends React.HTMLAttributes<HTMLDivElement> {
-    children: React.ReactNode;
-    label?: string;
+  children: React.ReactNode;
+  label?: string;
 }
 
-
-const iconMap: Record<string, LucideIcon> = {
+const iconMap = new Map(
+  Object.entries({
     "client information": User,
     "documentation requirements": FileText,
     "technical details": Settings,
@@ -46,7 +54,7 @@ const iconMap: Record<string, LucideIcon> = {
     "basic information": User,
     "education / background": GraduationCap,
     "interest & capability": Lightbulb,
-    "commitment": Handshake,
+    commitment: Handshake,
     "final question": MessageSquare,
     "self-assessment": Sliders,
     "practical thinking": Lightbulb,
@@ -72,58 +80,61 @@ const iconMap: Record<string, LucideIcon> = {
     "the source asset": Package,
     "required deliverables & end goal": FileText,
     "technical specifications & preferences": Settings,
+  }),
+);
 
+export function FormSection({
+  children,
+  label,
+  className,
+  ...props
+}: FORM_SECTION_PROPS) {
+  const IconComponent = label ? iconMap.get(label.toLowerCase()) : null;
 
-};
-
-
-
-export function FormSection({ children, label, className, ...props }: FORM_SECTION_PROPS) {
-    const IconComponent = label ? iconMap[label.toLowerCase()] : null;
-
-    return (
-        <div className={cn("space-y-8", className)} {...props}>
-            {label && (
-                <div className="inline-flex gap-2">
-                    {IconComponent && <IconComponent className="my-auto size-5 stroke-muted-foreground" />}
-                    <h2 className="text-base md:text-lg capitalize font-semibold">{label}</h2>
-                </div>
-            )}
-            {children}
+  return (
+    <div className={cn("space-y-8", className)} {...props}>
+      {label && (
+        <div className="inline-flex gap-2">
+          {IconComponent && (
+            <IconComponent className="my-auto size-5 stroke-muted-foreground" />
+          )}
+          <h2 className="text-base md:text-lg capitalize font-semibold">
+            {label}
+          </h2>
         </div>
-    );
+      )}
+      {children}
+    </div>
+  );
 }
 
-export function SectionChild({ children, label, className, ...props }: FORM_SECTION_PROPS) {
-    return (
-        <div className={cn("space-y-5", className)}>
-
-            <div className={cn("grid md:grid-cols-2 gap-6", className)}>
-                {children}
-            </div>
-        </div>
-    );
+export function SectionChild({ children, className }: FORM_SECTION_PROPS) {
+  return (
+    <div className={cn("space-y-5", className)}>
+      <div className={cn("grid md:grid-cols-2 gap-6", className)}>
+        {children}
+      </div>
+    </div>
+  );
 }
 
 export function SpecList({ items }: { items: string[] }) {
-    return (
-        <div className="w-full max-w-md flex flex-col border-y muted-border text-left">
-            {items.map((item, i) => (
-                <div
-                    key={item}
-                    className={cn(
-                        "flex items-baseline gap-4 py-3",
-                        i < items.length - 1 && "border-b muted-border"
-                    )}
-                >
-                    <span className="text-xs font-medium tabular-nums text-muted-foreground/50">
-                        {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <p className="text-sm leading-relaxed">{item}</p>
-                </div>
-            ))}
+  return (
+    <div className="w-full max-w-md flex flex-col border-y muted-border text-left">
+      {items.map((item, i) => (
+        <div
+          key={item}
+          className={cn(
+            "flex items-baseline gap-4 py-3",
+            i < items.length - 1 && "border-b muted-border",
+          )}
+        >
+          <span className="text-xs font-medium tabular-nums text-muted-foreground/50">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <p className="text-sm leading-relaxed">{item}</p>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
-
-

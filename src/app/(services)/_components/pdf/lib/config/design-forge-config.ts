@@ -77,6 +77,7 @@ export const designForgePdfConfig: PDFConfig = {
     const date = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString()
       : new Date().toLocaleDateString();
+
     return `IMHO Design Forge Community Sign-up • ${date}`;
   },
 };

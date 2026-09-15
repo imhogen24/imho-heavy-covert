@@ -47,10 +47,7 @@ export function Outcomes({ className }: { className?: string }) {
       className={cn("relative w-full border-t muted-border", className)}
     >
       {/* Visual placeholder */}
-      <div
-        aria-hidden
-        className="border-b muted-border p-6 md:p-10"
-      >
+      <div aria-hidden className="border-b muted-border p-6 md:p-10">
         <div className="flex min-h-[220px] md:min-h-[280px] items-center justify-center rounded-xl border border-dashed muted-border bg-accent/40">
           <span className="text-sm font-medium text-muted-foreground">
             Outcomes Showcase
@@ -71,6 +68,7 @@ export function Outcomes({ className }: { className?: string }) {
         <div className="grid grid-cols-1 sm:grid-cols-2">
           {OUTCOMES.map((outcome, idx) => {
             const isLast = idx === OUTCOMES.length - 1;
+
             return (
               <div
                 key={outcome.title}
@@ -80,7 +78,8 @@ export function Outcomes({ className }: { className?: string }) {
                   idx % 2 === 0 &&
                     idx + 1 < OUTCOMES.length &&
                     "sm:border-r muted-border",
-                  isLast && "sm:col-span-2 sm:flex-row sm:items-center sm:gap-6",
+                  isLast &&
+                    "sm:col-span-2 sm:flex-row sm:items-center sm:gap-6",
                 )}
               >
                 <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border">

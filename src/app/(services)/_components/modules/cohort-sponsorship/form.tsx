@@ -106,11 +106,12 @@ export const CohortSponsorshipForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -190,7 +191,10 @@ export const CohortSponsorshipForm = () => {
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>Website (Optional)</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://your-organization.com" {...field} />
+                      <Input
+                        placeholder="https://your-organization.com"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -273,7 +277,10 @@ export const CohortSponsorshipForm = () => {
                   <FormLabel>
                     What type of sponsorship/support are you interested in?
                   </FormLabel>
-                  <SectionChild label="SPONSORSHIP AREAS" className="md:grid-cols-3">
+                  <SectionChild
+                    label="SPONSORSHIP AREAS"
+                    className="md:grid-cols-3"
+                  >
                     {sponsorshipAreaOptions.map((option) => (
                       <FormField
                         key={option}
@@ -297,8 +304,8 @@ export const CohortSponsorshipForm = () => {
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
-                                            (value) => value !== option
-                                          )
+                                            (value) => value !== option,
+                                          ),
                                         );
                                   }}
                                 />

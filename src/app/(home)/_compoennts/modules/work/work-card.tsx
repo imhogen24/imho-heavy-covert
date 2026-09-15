@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { WorkWithUsProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { Images } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -51,7 +50,6 @@ const WorkCard = (props: WorkWithUsProps) => {
             <Link href={props.route}>{props.cta}</Link>
           </Button>
         </div>
-
       </div>
     </div>
   );

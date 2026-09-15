@@ -6,7 +6,10 @@ export function RdPipeline({ className }: { className?: string }) {
   return (
     <section
       aria-label="R&D Pipeline"
-      className={cn("relative w-full border-t muted-border overflow-hidden", className)}
+      className={cn(
+        "relative w-full border-t muted-border overflow-hidden",
+        className,
+      )}
     >
       {/* Header — left-aligned, large */}
       <div className="px-6 pt-14 md:px-14 md:pt-20 flex flex-col items-start gap-5">
@@ -23,9 +26,7 @@ export function RdPipeline({ className }: { className?: string }) {
       {/* Stacked image placeholders — no separator, back panel fades into the page */}
       <div className="relative h-[360px] md:h-[460px] w-full mt-10 md:mt-14">
         {/* Back placeholder — borderless, fades out at the bottom */}
-        <div
-          className="absolute left-6 top-0 h-[92%] w-[58%] md:left-14 md:w-[48%] rounded-t-xl bg-accent/50 [mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]"
-        >
+        <div className="absolute left-6 top-0 h-[92%] w-[58%] md:left-14 md:w-[48%] rounded-t-xl bg-accent/50 [mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]">
           <div className="flex flex-col items-start gap-2 p-6">
             <FlaskIcon
               size={28}

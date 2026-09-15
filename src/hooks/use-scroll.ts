@@ -16,6 +16,7 @@ export function useScroll(
   useEffect(() => {
     const element = container?.current ?? window;
     element.addEventListener("scroll", onScroll);
+
     return () => element.removeEventListener("scroll", onScroll);
   }, [onScroll, container]);
 
