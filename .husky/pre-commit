@@ -1,2 +1,3 @@
+bunx dotenvx precommit
 bunx lint-staged
 bun run typecheck

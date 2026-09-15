@@ -1,12 +1,10 @@
-import { config } from "dotenv";
 import { defineConfig } from "drizzle-kit";
 
-// drizzle-kit runs outside Next.js, so env files must be loaded explicitly.
-// .env.local takes precedence over .env, matching Next.js behaviour.
-config({ path: [".env.local", ".env"], quiet: true });
-
+// Env vars are injected by dotenvx from .env.staging; run via the db:* scripts.
 if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is not set");
+  throw new Error(
+    "DATABASE_URL is not set. Run drizzle-kit through the db:* scripts.",
+  );
 }
 
 export default defineConfig({

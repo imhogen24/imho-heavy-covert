@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "bun@1.4.0",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "dotenvx run -f .env.staging -- next dev --turbopack",
     "email": "email dev",
     "build": "next build",
     "start": "next start",
@@ -15,10 +15,12 @@
     "typecheck": "next typegen && tsc --noEmit",
     "check": "bun run lint && bun run format:check && bun run typecheck",
     "prepare": "husky",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:generate": "dotenvx run -f .env.staging -- drizzle-kit generate",
+    "db:migrate": "dotenvx run -f .env.staging -- drizzle-kit migrate",
+    "db:push": "dotenvx run -f .env.staging -- drizzle-kit push",
+    "db:studio": "dotenvx run -f .env.staging -- drizzle-kit studio",
+    "env:encrypt": "dotenvx encrypt -f .env.staging --no-native --no-armor",
+    "env:decrypt": "dotenvx decrypt -f .env.staging --no-native --no-armor"
   },
   "dependencies": {
     "@conform-to/react": "^1.19.2",
@@ -74,13 +76,13 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^2.26.0",
     "@oxlint/plugins": "1.83.0",
     "@tailwindcss/postcss": "^4.2.4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
