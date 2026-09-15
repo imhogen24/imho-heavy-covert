@@ -17,8 +17,9 @@ Not activity. Engineered systems that produce output.
 Projects begin with a funded diagnostic. No speculative builds.
 
 **CTA Buttons**
-- Start a Project *(primary → `/forms#project`)*
-- Explore Our System *(secondary → `/rd-business-improvement`)*
+
+- Start a Project _(primary → `/forms#project`)_
+- Explore Our System _(secondary → `/rd-business-improvement`)_
 
 ---
 
@@ -86,11 +87,13 @@ This is not a project-based model. It is a continuous capability engine.
 ## Why Engineering First
 
 **The Reality**
+
 - Reverse engineering from images ignores system constraints
 - Trial-and-error multiplies cost through rework and delays
 - Unstructured builds produce non-functional systems
 
 **The IMHO GEN Approach**
+
 - Defined system architecture before fabrication
 - Controlled material and process selection
 - Build-ready outputs that reduce iteration cycles
@@ -113,6 +116,7 @@ From Concept to Operational Systems
 Each system replaces multiple cycles of failed trial-and-error with a controlled engineering pathway.
 
 **Metrics**
+
 - 80+ engineers trained
 - 5+ industry solutions delivered
 - 3 startups enabled
@@ -147,17 +151,16 @@ Enter Through a Structured Path
 **For Industry**
 Submit project scope and budget range → diagnostic → system design → deployment
 
-*CTA: Start a Project → `/forms#project`*
+_CTA: Start a Project → `/forms#project`_
 
 **For Individuals**
 Enter IMHO Academy → capability development → engineering output
 
-*CTA: Apply to Academy → `/forms#academy`*
+_CTA: Apply to Academy → `/forms#academy`_
 
 **For Partners**
 Collaborate on infrastructure, deployment, or scaling systems under defined financial and operational structures.
 
-*CTA: Partner with IMHOGEN → `/forms#partner`*
+_CTA: Partner with IMHOGEN → `/forms#partner`_
 
 Projects without allocated development budget are not onboarded.
-

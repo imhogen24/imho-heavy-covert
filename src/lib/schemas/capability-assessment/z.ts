@@ -25,11 +25,11 @@ export const CapabilityAssessmentSchema = z.object({
       "Builder / Innovator",
       "Other",
     ],
-    { message: "Please select your current background" }
+    { message: "Please select your current background" },
   ),
   experienceLevel: z.enum(
     ["Basic", "Intermediate", "Advanced", "Professional"],
-    { message: "Please select your experience level" }
+    { message: "Please select your experience level" },
   ),
 
   // SECTION 2 — SELF-ASSESSMENT (1–5)
@@ -51,7 +51,8 @@ export const CapabilityAssessmentSchema = z.object({
   improvementArea: z
     .string()
     .min(10, {
-      message: "Please share at least 10 characters on what you want to improve",
+      message:
+        "Please share at least 10 characters on what you want to improve",
     })
     .max(1000, { message: "Response cannot exceed 1000 characters" }),
   biggestWeakness: z
@@ -91,6 +92,6 @@ export const RATING_SCALE = [
 export const formatRating = (value?: number) => {
   if (!value) return "";
   const meaning = RATING_SCALE.find((item) => item.score === value)?.meaning;
+
   return meaning ? `${value}/5 — ${meaning}` : `${value}/5`;
 };
-

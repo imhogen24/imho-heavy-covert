@@ -134,11 +134,12 @@ export const DraftingDigitizationForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -156,8 +157,8 @@ export const DraftingDigitizationForm = () => {
                 Green Lane Request Received
               </h2>
               <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-                Your drafting request has entered the fast-track workflow.
-                Our team will triage your source asset and respond with the
+                Your drafting request has entered the fast-track workflow. Our
+                team will triage your source asset and respond with the
                 technical approach and turnaround.
               </p>
             </div>
@@ -366,8 +367,8 @@ export const DraftingDigitizationForm = () => {
                                       ])
                                     : field.onChange(
                                         field.value?.filter(
-                                          (value) => value !== option
-                                        )
+                                          (value) => value !== option,
+                                        ),
                                       );
                                 }}
                               />
@@ -416,10 +417,7 @@ export const DraftingDigitizationForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>Drafting Standard</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      value={field.value}
-                    >
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="ISO / ASME / No Preference" />
@@ -471,8 +469,8 @@ export const DraftingDigitizationForm = () => {
                                       ])
                                     : field.onChange(
                                         field.value?.filter(
-                                          (value) => value !== option
-                                        )
+                                          (value) => value !== option,
+                                        ),
                                       );
                                 }}
                               />
@@ -513,19 +511,20 @@ export const DraftingDigitizationForm = () => {
                           onClientUploadComplete={(res: any) => {
                             const newFiles = res.map(
                               (file: any) =>
-                                `${file.serverData.fileUrl},${file.name}`
+                                `${file.serverData.fileUrl},${file.name}`,
                             );
+
                             field.onChange([
                               ...(field.value ?? []),
                               ...newFiles,
                             ]);
                             toast.success(
-                              `${res.length} file${res.length > 1 ? "s" : ""} uploaded`
+                              `${res.length} file${res.length > 1 ? "s" : ""} uploaded`,
                             );
                           }}
                           onUploadError={() => {
                             toast.error(
-                              "Something went wrong, check your internet connection or consider reducing the file size"
+                              "Something went wrong, check your internet connection or consider reducing the file size",
                             );
                           }}
                         />
@@ -560,6 +559,7 @@ export const DraftingDigitizationForm = () => {
                                       const newFiles = (
                                         field.value ?? []
                                       ).filter((_, i) => i !== index);
+
                                       field.onChange(newFiles);
                                     }}
                                   >
@@ -570,7 +570,7 @@ export const DraftingDigitizationForm = () => {
                                   </button>
                                 </div>
                               </div>
-                            )
+                            ),
                           )}
                         </div>
                       )}

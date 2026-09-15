@@ -60,9 +60,7 @@ export function Process({ className }: { className?: string }) {
             <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border text-sm font-semibold tabular-nums text-muted-foreground">
               {step.number}
             </span>
-            <h3 className="text-lg font-semibold leading-snug">
-              {step.title}
-            </h3>
+            <h3 className="text-lg font-semibold leading-snug">{step.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {step.body}
             </p>

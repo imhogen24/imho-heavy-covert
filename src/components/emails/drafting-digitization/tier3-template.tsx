@@ -165,6 +165,7 @@ export const DraftingDigitizationFormEmail = ({
                 <Text style={styles.sectionTitle}>REFERENCE UPLOADS</Text>
                 {fileAttachments.map((file, index) => {
                   const [url, name] = file.split(",");
+
                   return (
                     <Text key={index} style={styles.infoText}>
                       <Link href={url} style={styles.fileLink}>

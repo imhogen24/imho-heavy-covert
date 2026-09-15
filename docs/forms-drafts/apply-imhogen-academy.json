@@ -81,7 +81,13 @@
           "label": "Current Level / Year",
           "type": "dropdown",
           "required": false,
-          "options": ["Level 100", "Level 200", "Level 300", "Level 400", "Other"],
+          "options": [
+            "Level 100",
+            "Level 200",
+            "Level 300",
+            "Level 400",
+            "Other"
+          ],
           "note": "Always visible, always optional — no conditional logic on currentStatus."
         }
       ]

@@ -4,7 +4,7 @@ Complete extraction of every file that makes up the **marketing / public site na
 
 Every file is documented by **name**, with its role, its exports, and its **full source**. Nothing is elided except where a file is a large shared module the nav only borrows one function from; those are marked **EXTRACT** and state exactly what was taken and from where.
 
-> Scope note: this documents the *public site* nav (`@dub/ui` → `Nav` / `NavMobile`). The signed-in dashboard uses a completely separate left-hand sidebar navigation system; see [Appendix B](#appendix-b--the-other-navigation-system-dashboard-sidebar).
+> Scope note: this documents the _public site_ nav (`@dub/ui` → `Nav` / `NavMobile`). The signed-in dashboard uses a completely separate left-hand sidebar navigation system; see [Appendix B](#appendix-b--the-other-navigation-system-dashboard-sidebar).
 
 ---
 
@@ -34,10 +34,10 @@ Every file is documented by **name**, with its role, its exports, and its **full
 
 The nav lives in the shared `@dub/ui` package and is consumed in two places in `apps/web`:
 
-| Consumer file | Purpose |
-| --- | --- |
-| `layout.tsx` (`apps/web/app/[domain]/`) | Layout for custom-domain placeholder pages and `dub.co` marketing pages served through the `[domain]` segment. |
-| `page.tsx` (`apps/web/app/app.dub.co/(share)/share/[dashboardId]/`) | Public shared-analytics dashboard page — passes `staticDomain` to pin the domain. |
+| Consumer file                                                       | Purpose                                                                                                        |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `layout.tsx` (`apps/web/app/[domain]/`)                             | Layout for custom-domain placeholder pages and `dub.co` marketing pages served through the `[domain]` segment. |
+| `page.tsx` (`apps/web/app/app.dub.co/(share)/share/[dashboardId]/`) | Public shared-analytics dashboard page — passes `staticDomain` to pin the domain.                              |
 
 `layout.tsx`:
 
@@ -70,82 +70,82 @@ Every file below is reproduced in full in [§5](#5-file-by-file-source). Jump li
 
 ### Nav components
 
-| File | Exports | Role |
-| --- | --- | --- |
-| `index.ts` | re-exports | Barrel: `export * from "./nav"` + `"./nav-mobile"` |
-| `nav.tsx` | `Nav`, `NavContext`, `navItems`, `NavTheme`, `NavItem` | Desktop sticky nav bar. Also owns the nav item registry and the light/dark theme context. Private helpers: `AnimatedChevron`, `WithTrigger`. |
-| `nav-mobile.tsx` | `NavMobile`, `AuthButton` | Mobile hamburger nav, full-screen overlay. Private helpers: `MobileNavItem`, `ChildItem`, `specialIcons`. |
+| File             | Exports                                                | Role                                                                                                                                         |
+| ---------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.ts`       | re-exports                                             | Barrel: `export * from "./nav"` + `"./nav-mobile"`                                                                                           |
+| `nav.tsx`        | `Nav`, `NavContext`, `navItems`, `NavTheme`, `NavItem` | Desktop sticky nav bar. Also owns the nav item registry and the light/dark theme context. Private helpers: `AnimatedChevron`, `WithTrigger`. |
+| `nav-mobile.tsx` | `NavMobile`, `AuthButton`                              | Mobile hamburger nav, full-screen overlay. Private helpers: `MobileNavItem`, `ChildItem`, `specialIcons`.                                    |
 
 ### Dropdown panels
 
-| File | Exports | Role |
-| --- | --- | --- |
-| `shared.tsx` | `ContentLinkCard`, `ContentIcon`, `ToolLinkCard`, `LargeLinkCard`, `NAV_UTM_PARAMS`, `contentHeadingClassName`, `contentLinkCardClassName` | Shared building blocks + styling tokens for all dropdown panels. |
-| `product-content.tsx` | `ProductContent` | "Product" mega-menu panel. |
-| `solutions-content.tsx` | `SolutionsContent` | "Solutions" mega-menu panel. |
-| `resources-content.tsx` | `ResourcesContent` | "Resources" mega-menu panel. |
+| File                    | Exports                                                                                                                                    | Role                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `shared.tsx`            | `ContentLinkCard`, `ContentIcon`, `ToolLinkCard`, `LargeLinkCard`, `NAV_UTM_PARAMS`, `contentHeadingClassName`, `contentLinkCardClassName` | Shared building blocks + styling tokens for all dropdown panels. |
+| `product-content.tsx`   | `ProductContent`                                                                                                                           | "Product" mega-menu panel.                                       |
+| `solutions-content.tsx` | `SolutionsContent`                                                                                                                         | "Solutions" mega-menu panel.                                     |
+| `resources-content.tsx` | `ResourcesContent`                                                                                                                         | "Resources" mega-menu panel.                                     |
 
 ### Dropdown graphics
 
-| File | Exports | Role |
-| --- | --- | --- |
-| `links-graphic.tsx` | `LinksGraphic` | Inline SVG illustration for the Dub Links card. |
-| `analytics-graphic.tsx` | `AnalyticsGraphic` | SVG chart + DOM cards illustration for the Dub Analytics card. |
-| `partners-graphic.tsx` | `PartnersGraphic`, `PARTNERS` | Fake partner-table illustration for the Dub Partners card. |
-| `dub-wireframe-graphic.tsx` | `DubWireframeGraphic` | Wireframe SVG. **Unused** — no importers anywhere in the repo. |
+| File                        | Exports                       | Role                                                           |
+| --------------------------- | ----------------------------- | -------------------------------------------------------------- |
+| `links-graphic.tsx`         | `LinksGraphic`                | Inline SVG illustration for the Dub Links card.                |
+| `analytics-graphic.tsx`     | `AnalyticsGraphic`            | SVG chart + DOM cards illustration for the Dub Analytics card. |
+| `partners-graphic.tsx`      | `PartnersGraphic`, `PARTNERS` | Fake partner-table illustration for the Dub Partners card.     |
+| `dub-wireframe-graphic.tsx` | `DubWireframeGraphic`         | Wireframe SVG. **Unused** — no importers anywhere in the repo. |
 
 ### Shared UI primitives
 
-| File | Exports | Role |
-| --- | --- | --- |
-| `max-width-wrapper.tsx` | `MaxWidthWrapper` | Centers and constrains the nav bar row. |
-| `nav-wordmark.tsx` | `NavWordmark` | The Dub logo with a right-click context menu (copy SVG, brand guidelines). Consumes `NavContext`. |
-| `grid.tsx` | `Grid` | Repeating SVG grid pattern behind dropdown cards. |
-| `animated-size-container.tsx` | `AnimatedSizeContainer` | Height animation for expanding mobile nav sections. |
-| `button.tsx` | `buttonVariants`, `ButtonProps`, `Button` | Login / Sign up / Dashboard button styling. |
-| `logo.tsx` | `Logo` | Dub symbol mark, rendered by `NavWordmark`. |
-| `wordmark.tsx` | `Wordmark` | Dub wordmark, rendered by `NavWordmark`. |
+| File                          | Exports                                   | Role                                                                                              |
+| ----------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `max-width-wrapper.tsx`       | `MaxWidthWrapper`                         | Centers and constrains the nav bar row.                                                           |
+| `nav-wordmark.tsx`            | `NavWordmark`                             | The Dub logo with a right-click context menu (copy SVG, brand guidelines). Consumes `NavContext`. |
+| `grid.tsx`                    | `Grid`                                    | Repeating SVG grid pattern behind dropdown cards.                                                 |
+| `animated-size-container.tsx` | `AnimatedSizeContainer`                   | Height animation for expanding mobile nav sections.                                               |
+| `button.tsx`                  | `buttonVariants`, `ButtonProps`, `Button` | Login / Sign up / Dashboard button styling.                                                       |
+| `logo.tsx`                    | `Logo`                                    | Dub symbol mark, rendered by `NavWordmark`.                                                       |
+| `wordmark.tsx`                | `Wordmark`                                | Dub wordmark, rendered by `NavWordmark`.                                                          |
 
 ### Link data
 
-| File | Exports | Role |
-| --- | --- | --- |
+| File         | Exports                                                                                                                                             | Role                                                                        |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `content.ts` | `FEATURES_LIST`, `SOLUTIONS`, `RESOURCES`, `SDKS`, `NavItemChild`, `NavItemChildren` (+ footer-only `COMPARE_PAGES`, `LEGAL_PAGES`, `SOCIAL_LINKS`) | Link registry feeding both the desktop dropdowns and the mobile accordions. |
 
 ### Hooks
 
-| File | Exports | Role |
-| --- | --- | --- |
-| `use-scroll.ts` | `useScroll` | Drives the "scrolled" backdrop-blur background. |
-| `use-resize-observer.ts` | `useResizeObserver` | Backing hook for `AnimatedSizeContainer`. |
-| `use-copy-to-clipboard.tsx` | `useCopyToClipboard` | Backing hook for `NavWordmark`'s context menu. |
+| File                        | Exports              | Role                                            |
+| --------------------------- | -------------------- | ----------------------------------------------- |
+| `use-scroll.ts`             | `useScroll`          | Drives the "scrolled" backdrop-blur background. |
+| `use-resize-observer.ts`    | `useResizeObserver`  | Backing hook for `AnimatedSizeContainer`.       |
+| `use-copy-to-clipboard.tsx` | `useCopyToClipboard` | Backing hook for `NavWordmark`'s context menu.  |
 
 ### Icons
 
-| File | Export | Used by |
-| --- | --- | --- |
-| `dub-links.tsx` | `DubLinksIcon` | nav-mobile, product-content, content.ts |
-| `dub-partners.tsx` | `DubPartnersIcon` | nav-mobile, product-content, content.ts |
-| `dub-analytics.tsx` | `DubAnalyticsIcon` | nav-mobile, product-content, content.ts |
-| `dub-api.tsx` | `DubApiIcon` | nav-mobile, content.ts |
-| `expanding-arrow.tsx` | `ExpandingArrow` | shared.tsx (`ContentLinkCard` hover arrow) |
-| `with-fill-variant.tsx` | `withFillVariant` | content.ts |
-| `book2.tsx` | `Book2` | resources-content, content.ts |
-| `life-ring.tsx` | `LifeRing` | resources-content, content.ts |
-| `diamond-turn-right.tsx` | `DiamondTurnRight` | solutions-content, content.ts |
-| `microphone.tsx` | `Microphone` | solutions-content, content.ts |
-| `users.tsx` | `Users` | solutions-content, content.ts |
-| `toggle2.tsx` | `Toggle2` | content.ts |
-| `briefcase.tsx` | `Briefcase` | content.ts |
-| `feather.tsx` | `Feather` | content.ts |
-| `bullet-list.tsx` | `BulletList` | content.ts |
-| `envelope.tsx` | `Envelope` | content.ts |
-| `cursor-rays.tsx` | `CursorRays` | analytics-graphic |
-| `typescript.tsx` | `Typescript` | content.ts (`SDKS`) |
-| `python.tsx` | `Python` | content.ts (`SDKS`) |
-| `go.tsx` | `Go` | content.ts (`SDKS`) |
-| `ruby.tsx` | `Ruby` | content.ts (`SDKS`) |
-| `php.tsx` | `Php` | content.ts (`SDKS`) |
+| File                     | Export             | Used by                                    |
+| ------------------------ | ------------------ | ------------------------------------------ |
+| `dub-links.tsx`          | `DubLinksIcon`     | nav-mobile, product-content, content.ts    |
+| `dub-partners.tsx`       | `DubPartnersIcon`  | nav-mobile, product-content, content.ts    |
+| `dub-analytics.tsx`      | `DubAnalyticsIcon` | nav-mobile, product-content, content.ts    |
+| `dub-api.tsx`            | `DubApiIcon`       | nav-mobile, content.ts                     |
+| `expanding-arrow.tsx`    | `ExpandingArrow`   | shared.tsx (`ContentLinkCard` hover arrow) |
+| `with-fill-variant.tsx`  | `withFillVariant`  | content.ts                                 |
+| `book2.tsx`              | `Book2`            | resources-content, content.ts              |
+| `life-ring.tsx`          | `LifeRing`         | resources-content, content.ts              |
+| `diamond-turn-right.tsx` | `DiamondTurnRight` | solutions-content, content.ts              |
+| `microphone.tsx`         | `Microphone`       | solutions-content, content.ts              |
+| `users.tsx`              | `Users`            | solutions-content, content.ts              |
+| `toggle2.tsx`            | `Toggle2`          | content.ts                                 |
+| `briefcase.tsx`          | `Briefcase`        | content.ts                                 |
+| `feather.tsx`            | `Feather`          | content.ts                                 |
+| `bullet-list.tsx`        | `BulletList`       | content.ts                                 |
+| `envelope.tsx`           | `Envelope`         | content.ts                                 |
+| `cursor-rays.tsx`        | `CursorRays`       | analytics-graphic                          |
+| `typescript.tsx`         | `Typescript`       | content.ts (`SDKS`)                        |
+| `python.tsx`             | `Python`           | content.ts (`SDKS`)                        |
+| `go.tsx`                 | `Go`               | content.ts (`SDKS`)                        |
+| `ruby.tsx`               | `Ruby`             | content.ts (`SDKS`)                        |
+| `php.tsx`                | `Php`              | content.ts (`SDKS`)                        |
 
 The `Icon` type used by `LargeLinkCard` is declared in `packages/ui/src/icons/index.tsx:92`:
 
@@ -204,7 +204,7 @@ apps/web/app/[domain]/layout.tsx
 
 **Theming.** `Nav` accepts `theme?: "light" | "dark"`. Dark mode is applied by conditionally adding the `dark` class to the nav root (not the document), so the nav can be dark on a light page. The value is also published through `NavContext` so descendants like `NavWordmark` can theme their portalled popover content (portals escape the DOM subtree, so they need the context rather than CSS inheritance).
 
-**Active state.** Each nav item declares `segments: string[]`. An item is active when `pathname.startsWith(segment)` for any of its segments. The active pill (`data-[active=true]:bg-neutral-900/5`) is suppressed while a *different* item is hovered, via the CSS trick `group-has-[:hover]:data-[active=true]:[&:not(:hover)]:bg-transparent`.
+**Active state.** Each nav item declares `segments: string[]`. An item is active when `pathname.startsWith(segment)` for any of its segments. The active pill (`data-[active=true]:bg-neutral-900/5`) is suppressed while a _different_ item is hovered, via the CSS trick `group-has-[:hover]:data-[active=true]:[&:not(:hover)]:bg-transparent`.
 
 **Dropdowns.** Built on Radix `NavigationMenu` with `delayDuration={0}`. Each item with a `content` component becomes a `Trigger`; the panel renders into a single shared `Viewport` positioned under the center of the bar. The viewport animates width/height between panels using the Radix CSS vars `--radix-navigation-menu-viewport-{width,height}`, and directional enter/exit animations come from `data-[motion=from-start|from-end|to-start|to-end]`. `AnimatedChevron` flips via `group-data-[state=open]/item:-scale-y-100`.
 
@@ -2994,8 +2994,8 @@ const AnimatedSizeContainer: ForwardRefExoticComponent<
         ref={forwardedRef}
         className={cn("overflow-hidden", className)}
         animate={{
-          width: width ? measuredWidth ?? "auto" : "auto",
-          height: height ? measuredHeight ?? "auto" : "auto",
+          width: width ? (measuredWidth ?? "auto") : "auto",
+          height: height ? (measuredHeight ?? "auto") : "auto",
         }}
         transition={effectiveTransition}
         {...rest}
@@ -3053,7 +3053,8 @@ export const buttonVariants = cva("transition-all", {
 });
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   text?: ReactNode | string;
   textWrapperClassName?: string;
@@ -3292,8 +3293,7 @@ export type NavItemChild = {
 };
 
 export type NavItemChildren = (
-  | NavItemChild
-  | { label: string; items: NavItemChild[] }
+  NavItemChild | { label: string; items: NavItemChild[] }
 )[];
 
 export const FEATURES_LIST = [
@@ -5410,23 +5410,24 @@ keyframes: {
         },
 },
 ```
+
 ---
 
 ## 6. Third-party dependencies
 
 From `packages/ui/package.json`:
 
-| Package | Version | Nav usage |
-| --- | --- | --- |
-| `@radix-ui/react-navigation-menu` | `^1.2.14` | `Root`, `List`, `Item`, `Trigger`, `Content`, `Viewport`, `Link` |
-| `@radix-ui/react-popover` | — | `NavWordmark` context menu |
-| `motion` | `^12.23.22` | `LayoutGroup` (nav), `motion.div` (`AnimatedSizeContainer`) |
-| `swr` | `^2.1.5` | session fetch for the auth buttons |
-| `lucide-react` | `^0.462.0` | `Menu`, `X`, `ChevronDown` (nav-mobile); `Type`, `BoxSelect`, `Home`, `LayoutGrid` (nav-wordmark); `Link2` (analytics graphic) |
-| `class-variance-authority` | — | `buttonVariants` |
-| `sonner` | — | copy toast in `NavWordmark` |
-| `clsx` + `tailwind-merge` | — | backing `cn` |
-| `next` | — | `next/link`, `next/image`, `next/navigation` (`useParams`, `usePathname`) |
+| Package                           | Version     | Nav usage                                                                                                                      |
+| --------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `@radix-ui/react-navigation-menu` | `^1.2.14`   | `Root`, `List`, `Item`, `Trigger`, `Content`, `Viewport`, `Link`                                                               |
+| `@radix-ui/react-popover`         | —           | `NavWordmark` context menu                                                                                                     |
+| `motion`                          | `^12.23.22` | `LayoutGroup` (nav), `motion.div` (`AnimatedSizeContainer`)                                                                    |
+| `swr`                             | `^2.1.5`    | session fetch for the auth buttons                                                                                             |
+| `lucide-react`                    | `^0.462.0`  | `Menu`, `X`, `ChevronDown` (nav-mobile); `Type`, `BoxSelect`, `Home`, `LayoutGrid` (nav-wordmark); `Link2` (analytics graphic) |
+| `class-variance-authority`        | —           | `buttonVariants`                                                                                                               |
+| `sonner`                          | —           | copy toast in `NavWordmark`                                                                                                    |
+| `clsx` + `tailwind-merge`         | —           | backing `cn`                                                                                                                   |
+| `next`                            | —           | `next/link`, `next/image`, `next/navigation` (`useParams`, `usePathname`)                                                      |
 
 ---
 
@@ -5447,13 +5448,13 @@ import { Nav, NavMobile, type NavItem } from "@dub/ui";
 
 **`Nav` props**
 
-| Prop | Type | Default | Notes |
-| --- | --- | --- | --- |
-| `theme` | `"light" \| "dark"` | `"light"` | Adds `dark` to the nav root and publishes via `NavContext`. |
-| `staticDomain` | `string` | — | Overrides the `[domain]` route param; needed outside the `[domain]` segment. |
-| `maxWidthWrapperClassName` | `string` | — | Merged onto the inner `MaxWidthWrapper`. |
-| `navItems` | `NavItem[]` | exported `navItems` | Full replacement of the item registry. |
-| `logo` | `ReactNode` | `<NavWordmark />` in a `<Link>` | Replaces the left slot entirely. |
+| Prop                       | Type                | Default                         | Notes                                                                        |
+| -------------------------- | ------------------- | ------------------------------- | ---------------------------------------------------------------------------- |
+| `theme`                    | `"light" \| "dark"` | `"light"`                       | Adds `dark` to the nav root and publishes via `NavContext`.                  |
+| `staticDomain`             | `string`            | —                               | Overrides the `[domain]` route param; needed outside the `[domain]` segment. |
+| `maxWidthWrapperClassName` | `string`            | —                               | Merged onto the inner `MaxWidthWrapper`.                                     |
+| `navItems`                 | `NavItem[]`         | exported `navItems`             | Full replacement of the item registry.                                       |
+| `logo`                     | `ReactNode`         | `<NavWordmark />` in a `<Link>` | Replaces the left slot entirely.                                             |
 
 **`NavMobile` props**: `theme`, `staticDomain`, `navItems` — same semantics. No `logo` or `maxWidthWrapperClassName`.
 
@@ -5461,11 +5462,11 @@ import { Nav, NavMobile, type NavItem } from "@dub/ui";
 
 ```ts
 type NavItem = {
-  name: string;                                   // label
-  href?: string;                                  // plain link (omit for a dropdown trigger)
-  segments?: string[];                            // pathname prefixes that mark it active
-  content?: ComponentType<{ domain: string }>;    // desktop dropdown panel
-  childItems?: NavItemChildren;                   // mobile accordion contents
+  name: string; // label
+  href?: string; // plain link (omit for a dropdown trigger)
+  segments?: string[]; // pathname prefixes that mark it active
+  content?: ComponentType<{ domain: string }>; // desktop dropdown panel
+  childItems?: NavItemChildren; // mobile accordion contents
 };
 ```
 
@@ -5479,15 +5480,15 @@ type NavItem = {
 
 Distinct from everything above; listed so the two are not confused. The signed-in app (`app.dub.co`, `partners.dub.co`, `admin.dub.co`) uses a left sidebar, not a top bar.
 
-| File | Location | Role |
-| --- | --- | --- |
-| `main-nav.tsx` | `apps/web/ui/layout/` | Sidebar shell: fixed/slide-in container, mobile toggle, backdrop. |
-| `sidebar-nav.tsx` | `apps/web/ui/layout/sidebar/` | Generic sidebar nav renderer (areas, groups, items). |
-| `app-sidebar-nav.tsx` | `apps/web/ui/layout/sidebar/` | Workspace-side nav areas (links, analytics, program, settings). |
-| `partners-sidebar-nav.tsx` | `apps/web/ui/layout/sidebar/` | Partner-portal nav areas. |
-| `sidebar-usage.tsx` | `apps/web/ui/layout/sidebar/` | Usage meters in the sidebar footer. |
-| `nav-button.tsx` | `apps/web/ui/layout/page-content/` | Mobile hamburger that opens the sidebar. |
-| `page-nav-tabs.tsx` | `apps/web/ui/layout/` | Secondary in-page tab navigation. |
-| `layout-nav-client.tsx` | `apps/web/app/(ee)/admin.dub.co/(dashboard)/` | Admin-area nav. |
+| File                       | Location                                      | Role                                                              |
+| -------------------------- | --------------------------------------------- | ----------------------------------------------------------------- |
+| `main-nav.tsx`             | `apps/web/ui/layout/`                         | Sidebar shell: fixed/slide-in container, mobile toggle, backdrop. |
+| `sidebar-nav.tsx`          | `apps/web/ui/layout/sidebar/`                 | Generic sidebar nav renderer (areas, groups, items).              |
+| `app-sidebar-nav.tsx`      | `apps/web/ui/layout/sidebar/`                 | Workspace-side nav areas (links, analytics, program, settings).   |
+| `partners-sidebar-nav.tsx` | `apps/web/ui/layout/sidebar/`                 | Partner-portal nav areas.                                         |
+| `sidebar-usage.tsx`        | `apps/web/ui/layout/sidebar/`                 | Usage meters in the sidebar footer.                               |
+| `nav-button.tsx`           | `apps/web/ui/layout/page-content/`            | Mobile hamburger that opens the sidebar.                          |
+| `page-nav-tabs.tsx`        | `apps/web/ui/layout/`                         | Secondary in-page tab navigation.                                 |
+| `layout-nav-client.tsx`    | `apps/web/app/(ee)/admin.dub.co/(dashboard)/` | Admin-area nav.                                                   |
 
 They share only low-level primitives (`cn`, `buttonVariants`, `MaxWidthWrapper`, icons) — no components are shared between the marketing nav and the dashboard sidebar.

@@ -67,6 +67,7 @@ export const cohortSponsorshipPdfConfig: PDFConfig = {
     const date = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString()
       : new Date().toLocaleDateString();
+
     return `IMHO Cohort Sponsorship Inquiry • ${date}`;
   },
 };

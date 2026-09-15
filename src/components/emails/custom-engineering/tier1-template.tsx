@@ -68,9 +68,7 @@ export const CustomEngineeringFormEmail = ({
 }: CustomEngineeringFormEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      Tier 1 Custom Engineering Intake from {organizationName}
-    </Preview>
+    <Preview>Tier 1 Custom Engineering Intake from {organizationName}</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Section style={styles.header}>
@@ -213,6 +211,7 @@ export const CustomEngineeringFormEmail = ({
                 <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
                 {fileAttachments.map((file, index) => {
                   const [url, name] = file.split(",");
+
                   return (
                     <Text key={index} style={styles.infoText}>
                       <Link href={url} style={styles.fileLink}>

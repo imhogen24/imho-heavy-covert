@@ -134,6 +134,7 @@ export const Navbar = () => {
                 const isActive = (segments ?? []).some((segment) =>
                   pathname?.startsWith(segment),
                 );
+
                 return (
                   <NavigationMenuPrimitive.Item key={name}>
                     <WithTrigger trigger={!!Content}>
@@ -146,7 +147,10 @@ export const Navbar = () => {
                           {name}
                         </Link>
                       ) : (
-                        <button className={navItemClassName} data-active={isActive}>
+                        <button
+                          className={navItemClassName}
+                          data-active={isActive}
+                        >
                           {name}
                           <AnimatedChevron className="size-2.5 text-muted-foreground" />
                         </button>

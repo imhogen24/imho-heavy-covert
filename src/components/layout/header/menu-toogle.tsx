@@ -90,7 +90,11 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             {/* THEME SWITCHER */}
             <ModeToggle />
             {/* START A PROJECT BUTTON */}
-            <Button size={"lg"} asChild className="w-full text-white rounded-xl">
+            <Button
+              size={"lg"}
+              asChild
+              className="w-full text-white rounded-xl"
+            >
               <Link
                 href="/services/custom-engineering"
                 onClick={handleLinkClick}
@@ -137,7 +141,11 @@ const MobileNavItem = ({
         {expanded && (
           <div className="grid grid-cols-1 gap-4 pt-4">
             {item.childItems.map((child) => (
-              <ChildItem key={child.title} item={child} onLinkClick={onLinkClick} />
+              <ChildItem
+                key={child.title}
+                item={child}
+                onLinkClick={onLinkClick}
+              />
             ))}
           </div>
         )}

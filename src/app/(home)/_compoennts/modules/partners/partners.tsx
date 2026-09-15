@@ -18,10 +18,13 @@ import { Globe } from "@/components/ui/globe";
 import { AnchorSimpleIcon } from "@phosphor-icons/react/dist/csr/AnchorSimple";
 
 const LOGOS_PER_PAGE = 6;
+
 /** How long each set stays fully visible before swapping. */
 const ROTATE_MS = 5_500;
+
 /** Exit (recede into screen). Ease-in gives it "attack" as it leaves. */
 const EXIT_DURATION_S = 0.55;
+
 /** Enter (emerge out of screen). Ease-out-expo for punchy then-smooth settle. */
 const ENTER_DURATION_S = 0.75;
 
@@ -35,12 +38,15 @@ function chunkLogos(logos: MarqueeProps[], size: number): MarqueeProps[][] {
   if (logos.length === 0) return [];
 
   const pages: MarqueeProps[][] = [];
+
   for (let i = 0; i < logos.length; i += size) {
     const slice = logos.slice(i, i + size);
     const fill = slice[0] ?? logos[0];
+
     while (slice.length < size) slice.push(fill);
     pages.push(slice);
   }
+
   return pages;
 }
 
@@ -77,13 +83,16 @@ export default function Partners({
     () => chunkLogos(logos, logosPerPage),
     [logos, logosPerPage],
   );
+
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
     if (pages.length <= 1) return;
+
     const timer = window.setInterval(() => {
       setPhase((p) => (p + 1) % pages.length);
     }, rotateMs);
+
     return () => window.clearInterval(timer);
   }, [pages.length, rotateMs]);
 

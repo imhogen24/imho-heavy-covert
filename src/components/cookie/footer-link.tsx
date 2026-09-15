@@ -1,8 +1,7 @@
 // components/ConsentFooterLink.tsx
-import React from 'react';
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { useCookieConsent } from '../../../context/cookies/consent';
-
+import { useCookieConsent } from "../../../context/cookies/consent";
 
 export const ConsentFooterLink: React.FC = () => {
   const { openConsentManager } = useCookieConsent();

@@ -61,7 +61,7 @@ const ProblemSection = () => {
                 index % 2 === 0
                   ? "border-r border-b muted-border"
                   : "border-b muted-border",
-                index >= 2 ? "border-t-0" : ""
+                index >= 2 ? "border-t-0" : "",
               )}
             >
               <div className="text-center">
@@ -71,7 +71,7 @@ const ProblemSection = () => {
                       problem.iconBackground,
                       problem.iconForeground,
                       "inline-flex rounded-lg p-3 ring-2 ring-inset",
-                      problem.ringColorClass
+                      problem.ringColorClass,
                     )}
                   >
                     <problem.icon aria-hidden="true" className="h-6 w-6" />

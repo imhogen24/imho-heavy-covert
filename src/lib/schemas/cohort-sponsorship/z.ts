@@ -42,7 +42,7 @@ export const CohortSponsorshipSchema = z.object({
         "Community Engineering Programs",
         "Innovation & Technical Challenges",
         "Infrastructure Support",
-      ])
+      ]),
     )
     .min(1, { message: "Please select at least one sponsorship area" }),
 

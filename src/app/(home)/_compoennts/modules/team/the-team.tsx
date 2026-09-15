@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { gradientText } from "../hero/hero-text";
 import Image from "next/image";
-import { CrossPositinalIcon } from "@/lib/icons";
 
 const TheTeam = () => {
   return (

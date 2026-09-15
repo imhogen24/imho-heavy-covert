@@ -133,11 +133,12 @@ export const ImhoGenAcademyForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -255,7 +256,10 @@ export const ImhoGenAcademyForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>Country</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select country" />
@@ -301,7 +305,10 @@ export const ImhoGenAcademyForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>Current Status</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select current status" />
@@ -326,7 +333,10 @@ export const ImhoGenAcademyForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>Current Level / Year (Optional)</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select level/year" />
@@ -405,10 +415,11 @@ export const ImhoGenAcademyForm = () => {
               name="areasOfInterest"
               render={() => (
                 <FormItem className="flex flex-col gap-1 justify-end">
-                  <FormLabel>
-                    Which areas interest you most?
-                  </FormLabel>
-                  <SectionChild label="AREAS OF INTEREST" className="md:grid-cols-3">
+                  <FormLabel>Which areas interest you most?</FormLabel>
+                  <SectionChild
+                    label="AREAS OF INTEREST"
+                    className="md:grid-cols-3"
+                  >
                     {areasOfInterestOptions.map((option) => (
                       <FormField
                         key={option}
@@ -432,8 +443,8 @@ export const ImhoGenAcademyForm = () => {
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
-                                            (value) => value !== option
-                                          )
+                                            (value) => value !== option,
+                                          ),
                                         );
                                   }}
                                 />
@@ -461,10 +472,12 @@ export const ImhoGenAcademyForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>
-                      Have you worked on engineering/CAD/design projects
-                      before?
+                      Have you worked on engineering/CAD/design projects before?
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select an option" />
@@ -510,10 +523,13 @@ export const ImhoGenAcademyForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>
-                      Are you willing to go through intensive practical
-                      training and iterative reviews?
+                      Are you willing to go through intensive practical training
+                      and iterative reviews?
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select an option" />
@@ -535,7 +551,10 @@ export const ImhoGenAcademyForm = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
                     <FormLabel>How many hours can you commit weekly?</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select weekly hours" />

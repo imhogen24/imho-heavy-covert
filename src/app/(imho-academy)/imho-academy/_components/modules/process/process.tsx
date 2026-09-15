@@ -7,7 +7,12 @@ import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
 import { CheckIcon } from "@phosphor-icons/react/dist/csr/Check";
 
-const OUTPUTS = ["Design", "CAD model", "Documentation", "Performance validation"];
+const OUTPUTS = [
+  "Design",
+  "CAD model",
+  "Documentation",
+  "Performance validation",
+];
 
 const STEPS = [
   {
@@ -40,6 +45,7 @@ const STEPS = [
 export function Process({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<RefObject<HTMLElement | null>[]>([]);
+
   if (nodeRefs.current.length !== STEPS.length) {
     nodeRefs.current = STEPS.map(() => ({ current: null }));
   }
@@ -64,6 +70,7 @@ export function Process({ className }: { className?: string }) {
           <div ref={containerRef} className="relative flex flex-col">
             {STEPS.map((step, idx) => {
               const isLast = idx === STEPS.length - 1;
+
               return (
                 <div key={step.title} className="flex gap-5">
                   <div className="flex flex-col items-center">
@@ -82,7 +89,12 @@ export function Process({ className }: { className?: string }) {
                     </span>
                     {!isLast && <div className="flex-1 min-h-10 my-2" />}
                   </div>
-                  <div className={cn("flex flex-col gap-2 min-w-0", !isLast && "pb-8")}>
+                  <div
+                    className={cn(
+                      "flex flex-col gap-2 min-w-0",
+                      !isLast && "pb-8",
+                    )}
+                  >
                     <div className="flex flex-wrap items-center gap-2 pt-1">
                       <h3 className="text-base md:text-lg font-semibold leading-snug">
                         {step.title}

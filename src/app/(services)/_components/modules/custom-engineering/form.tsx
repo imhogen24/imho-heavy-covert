@@ -109,11 +109,12 @@ export const CustomEngineeringForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -286,8 +287,8 @@ export const CustomEngineeringForm = () => {
                                       ])
                                     : field.onChange(
                                         field.value?.filter(
-                                          (value) => value !== option.value
-                                        )
+                                          (value) => value !== option.value,
+                                        ),
                                       );
                                 }}
                               />
@@ -539,9 +540,7 @@ export const CustomEngineeringForm = () => {
               name="fileAttachments"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Upload supporting files here (Optional)
-                  </FormLabel>
+                  <FormLabel>Upload supporting files here (Optional)</FormLabel>
                   <FormControl>
                     <div>
                       <div className="relative border border-dashed muted-border rounded-[0.5rem]">
@@ -552,19 +551,20 @@ export const CustomEngineeringForm = () => {
                           onClientUploadComplete={(res: any) => {
                             const newFiles = res.map(
                               (file: any) =>
-                                `${file.serverData.fileUrl},${file.name}`
+                                `${file.serverData.fileUrl},${file.name}`,
                             );
+
                             field.onChange([
                               ...(field.value ?? []),
                               ...newFiles,
                             ]);
                             toast.success(
-                              `${res.length} file${res.length > 1 ? "s" : ""} uploaded`
+                              `${res.length} file${res.length > 1 ? "s" : ""} uploaded`,
                             );
                           }}
                           onUploadError={() => {
                             toast.error(
-                              "Something went wrong, check your internet connection or consider reducing the file size"
+                              "Something went wrong, check your internet connection or consider reducing the file size",
                             );
                           }}
                         />
@@ -599,6 +599,7 @@ export const CustomEngineeringForm = () => {
                                       const newFiles = (
                                         field.value ?? []
                                       ).filter((_, i) => i !== index);
+
                                       field.onChange(newFiles);
                                     }}
                                   >
@@ -609,7 +610,7 @@ export const CustomEngineeringForm = () => {
                                   </button>
                                 </div>
                               </div>
-                            )
+                            ),
                           )}
                         </div>
                       )}

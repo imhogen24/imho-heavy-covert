@@ -23,8 +23,7 @@ type TabId = (typeof TABS)[number]["id"];
 type Pathway = {
   cta: { label: string; href: string; Icon: Icon };
 } & (
-  | { kind: "flow"; steps: string[] }
-  | { kind: "prose"; description: string }
+  { kind: "flow"; steps: string[] } | { kind: "prose"; description: string }
 );
 
 const PATHWAYS: Record<TabId, Pathway> = {
@@ -80,6 +79,7 @@ function cellBorder(idx: number, count: number): string {
       idx === 3 && "lg:border-r-0",
     );
   }
+
   // count === 3
   return cn(
     idx < 2 && "border-b",
@@ -89,6 +89,7 @@ function cellBorder(idx: number, count: number): string {
 }
 
 const partnersPathway = PATHWAYS.partners;
+
 const PARTNERS_DESC =
   partnersPathway.kind === "prose" ? partnersPathway.description : "";
 
@@ -101,11 +102,13 @@ export function Ep({ className }: { className?: string }) {
   const isPartners = activeTab === "partners";
 
   const lastFlowPathway = PATHWAYS[lastFlow];
+
   const gridSteps =
     lastFlowPathway.kind === "flow" ? lastFlowPathway.steps : [];
 
   const selectTab = (id: TabId) => {
     setActiveTab(id);
+
     if (PATHWAYS[id].kind === "flow") setLastFlow(id);
   };
 
@@ -131,6 +134,7 @@ export function Ep({ className }: { className?: string }) {
         >
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
+
             return (
               <button
                 key={tab.id}
@@ -141,7 +145,9 @@ export function Ep({ className }: { className?: string }) {
                 onClick={() => selectTab(tab.id)}
                 className={cn(
                   "relative flex-1 cursor-pointer rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                  isActive ? "text-secondary-foreground" : "text-muted-foreground",
+                  isActive
+                    ? "text-secondary-foreground"
+                    : "text-muted-foreground",
                 )}
               >
                 {isActive && (
@@ -171,7 +177,10 @@ export function Ep({ className }: { className?: string }) {
         <div className="flex flex-col items-center w-full">
           <motion.div
             initial={false}
-            animate={{ height: isPartners ? "auto" : 0, opacity: isPartners ? 1 : 0 }}
+            animate={{
+              height: isPartners ? "auto" : 0,
+              opacity: isPartners ? 1 : 0,
+            }}
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             className="overflow-hidden w-full flex justify-center"
           >
@@ -192,7 +201,10 @@ export function Ep({ className }: { className?: string }) {
       {/* Bottom full-width grid — collapses smoothly for Partners */}
       <motion.div
         initial={false}
-        animate={{ height: isPartners ? 0 : "auto", opacity: isPartners ? 0 : 1 }}
+        animate={{
+          height: isPartners ? 0 : "auto",
+          opacity: isPartners ? 0 : 1,
+        }}
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
         className="overflow-hidden w-full"
       >

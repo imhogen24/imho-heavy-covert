@@ -5,17 +5,15 @@ import { BriefcaseBusiness, Handshake, Info } from "lucide-react";
 import { type Control, useWatch } from "react-hook-form";
 
 import { AcademyPartnershipPDF } from "../../pdf/docs";
-import {
-  FormPreviewDialog,
-  type PreviewSection,
-} from "../shared/form-preview";
+import { FormPreviewDialog, type PreviewSection } from "../shared/form-preview";
 
 interface FormPreviewProps {
   control: Control<AcademyPartnershipFormData>;
 }
 
 export const FormPreview = ({ control }: FormPreviewProps) => {
-  // useWatch keeps the preview in sync with the live form values.
+  // SAFETY: useWatch types values as DeepPartial, but useForm is seeded with
+  // defaultValues for this schema and the preview only displays them.
   const formData = useWatch({ control }) as AcademyPartnershipFormData;
 
   const sections: PreviewSection[] = [

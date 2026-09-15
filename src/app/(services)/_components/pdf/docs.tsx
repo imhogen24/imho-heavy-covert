@@ -1,4 +1,3 @@
-
 import { GenericPDFDocument } from "./generic-pdf";
 import { academyPartnershipPdfConfig } from "./lib/config/academy-partnership-config";
 import { academySupportPdfConfig } from "./lib/config/academy-support-config";
@@ -31,9 +30,7 @@ export const CapabilityAssessmentPDF = ({
   data,
 }: {
   data: CapabilityAssessmentFormData;
-}) => (
-  <GenericPDFDocument data={data} config={capabilityAssessmentPdfConfig} />
-);
+}) => <GenericPDFDocument data={data} config={capabilityAssessmentPdfConfig} />;
 
 export const CohortSponsorshipPDF = ({
   data,
@@ -55,6 +52,4 @@ export const DraftingDigitizationPDF = ({
   data,
 }: {
   data: DraftingDigitizationFormData;
-}) => (
-  <GenericPDFDocument data={data} config={draftingDigitizationPdfConfig} />
-);
+}) => <GenericPDFDocument data={data} config={draftingDigitizationPdfConfig} />;

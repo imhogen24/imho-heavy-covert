@@ -17,8 +17,8 @@ export function Cta({ className }: { className?: string }) {
           Ready to Build Real Engineering Design Capability?
         </h2>
         <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-          If you&apos;re serious about becoming a capable engineering
-          designer, a problem solver, and a builder—then this is for you.
+          If you&apos;re serious about becoming a capable engineering designer,
+          a problem solver, and a builder—then this is for you.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 mt-2">

@@ -34,7 +34,6 @@ export function Wef({ className }: { className?: string }) {
 
       {/* Comparison */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
-
         {/* Reality */}
         <div className="border-b lg:border-b-0 lg:border-r muted-border">
           <div className="h-12 flex items-center px-8 md:px-12 border-b muted-border bg-accent/60">
@@ -51,7 +50,9 @@ export function Wef({ className }: { className?: string }) {
               <span className="mt-0.5 size-5 shrink-0 flex items-center justify-center rounded-full bg-red-500/10 text-red-500">
                 <XIcon size={11} weight="bold" />
               </span>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {item}
+              </p>
             </div>
           ))}
         </div>
@@ -76,7 +77,6 @@ export function Wef({ className }: { className?: string }) {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

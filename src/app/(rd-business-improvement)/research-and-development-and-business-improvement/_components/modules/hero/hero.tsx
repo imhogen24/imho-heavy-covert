@@ -18,8 +18,8 @@ export function Hero({ className }: { className?: string }) {
           </h1>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
             From Concept to Commissioning. We provide the complete industrial
-            pathway for medium to large-scale enterprises. You bring the
-            vision and the capital; we engineer the thrust.
+            pathway for medium to large-scale enterprises. You bring the vision
+            and the capital; we engineer the thrust.
           </p>
           <Button asChild variant="primary" size="standard" className="w-fit">
             <Link href="/services/custom-engineering">

@@ -71,8 +71,14 @@ const ratingQuestions: {
   >;
   label: string;
 }[] = [
-  { name: "problemDefinition", label: "Ability to define engineering problems" },
-  { name: "conceptGeneration", label: "Ability to generate engineering concepts" },
+  {
+    name: "problemDefinition",
+    label: "Ability to define engineering problems",
+  },
+  {
+    name: "conceptGeneration",
+    label: "Ability to generate engineering concepts",
+  },
   { name: "cadModeling", label: "CAD modeling capability" },
   {
     name: "engineeringAnalysis",
@@ -136,11 +142,12 @@ export const CapabilityAssessmentForm = () => {
 
       if (result?.error) {
         toast.error("Something went wrong! Please try again.");
+
         return;
       }
 
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong!");
     } finally {
       setPending(false);
@@ -159,8 +166,8 @@ export const CapabilityAssessmentForm = () => {
               </h2>
               <p className="max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
                 Thank you for completing the Engineering Design Capability
-                Assessment. Our team will review your responses and recommend the
-                most suitable pathway for your capability development.
+                Assessment. Our team will review your responses and recommend
+                the most suitable pathway for your capability development.
               </p>
             </div>
           </div>
@@ -401,7 +408,9 @@ export const CapabilityAssessmentForm = () => {
                 name="portfolioLink"
                 render={({ field }) => (
                   <FormItem className="flex flex-col gap-1 justify-end">
-                    <FormLabel>Portfolio / CAD / GitHub / Project Link</FormLabel>
+                    <FormLabel>
+                      Portfolio / CAD / GitHub / Project Link
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="https://your-portfolio-link.com"

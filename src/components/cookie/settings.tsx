@@ -1,5 +1,6 @@
-'use client'
-import React, { useState, useEffect } from 'react';
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,8 +13,8 @@ import {
 } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { ConsentState, COOKIE_CATEGORIES } from '@/lib/cookie-consent';
-import { useCookieConsent } from '../../../context/cookies/consent';
+import { ConsentState, COOKIE_CATEGORIES } from "@/lib/cookie-consent";
+import { useCookieConsent } from "../../../context/cookies/consent";
 
 export const CookieSettings: React.FC = () => {
   const {
@@ -22,11 +23,13 @@ export const CookieSettings: React.FC = () => {
     toggleSettings,
     handleSavePreferences,
     handleAcceptAll,
-    handleRejectAll
+    handleRejectAll,
   } = useCookieConsent();
 
   // Local state for form
-  const [preferences, setPreferences] = useState<ConsentState>({ ...consentState });
+  const [preferences, setPreferences] = useState<ConsentState>({
+    ...consentState,
+  });
 
   // Update local preferences when context changes
   useEffect(() => {
@@ -46,9 +49,9 @@ export const CookieSettings: React.FC = () => {
   const handleToggle = (category: COOKIE_CATEGORIES): void => {
     if (category === COOKIE_CATEGORIES.NECESSARY) return; // Can't toggle necessary
 
-    setPreferences(prev => ({
+    setPreferences((prev) => ({
       ...prev,
-      [category]: !prev[category]
+      [category]: !prev[category],
     }));
   };
 
@@ -63,7 +66,8 @@ export const CookieSettings: React.FC = () => {
         <DialogHeader>
           <DialogTitle>Cookie Settings</DialogTitle>
           <DialogDescription>
-            Customize which cookies you want to accept. Necessary cookies are required for basic functionality.
+            Customize which cookies you want to accept. Necessary cookies are
+            required for basic functionality.
           </DialogDescription>
         </DialogHeader>
 
@@ -77,11 +81,7 @@ export const CookieSettings: React.FC = () => {
                 Required for the website to function properly.
               </p>
             </div>
-            <Switch
-              id="necessary"
-              checked={true}
-              disabled={true}
-            />
+            <Switch id="necessary" checked={true} disabled={true} />
           </div>
 
           <div className="flex items-center justify-between">
@@ -140,7 +140,7 @@ export const CookieSettings: React.FC = () => {
               type="button"
               onClick={handleRejectAll}
               size="sm"
-              className='w-full md:w-fit p-3'
+              className="w-full md:w-fit p-3"
             >
               Reject All
             </Button>
@@ -149,12 +149,16 @@ export const CookieSettings: React.FC = () => {
               type="button"
               onClick={handleAcceptAll}
               size="sm"
-              className='w-full md:w-fit p-3'
+              className="w-full md:w-fit p-3"
             >
               Accept All
             </Button>
           </div>
-          <Button type="button" className='w-full md:w-fit p-3 text-whtie' onClick={savePreferences}>
+          <Button
+            type="button"
+            className="w-full md:w-fit p-3 text-whtie"
+            onClick={savePreferences}
+          >
             Save Preferences
           </Button>
         </DialogFooter>

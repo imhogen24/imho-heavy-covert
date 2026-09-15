@@ -22,7 +22,7 @@ export const AcademySupportSchema = z.object({
         "Community Program Support",
         "Corporate Support",
         "Other",
-      ])
+      ]),
     )
     .min(1, { message: "Please select at least one support type" }),
 

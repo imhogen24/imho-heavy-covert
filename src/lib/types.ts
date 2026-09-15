@@ -1,23 +1,24 @@
-import { SVGProps } from 'react'
-import type { Icon } from '@phosphor-icons/react'
-
+import { SVGProps } from "react";
+import type { Icon } from "@phosphor-icons/react";
 
 export interface ServiceRouteProps {
-    idx: number;
-    label: string;
-    href: string;
-    active?: boolean;
-    }
-export interface SocialIconProps{
-    idx: number;
-    icon: React.FC<IconProps> | undefined;
-    href: string;
+  idx: number;
+  label: string;
+  href: string;
+  active?: boolean;
 }
-export interface HeroIconProps {
-    idx: number;
-    icon: React.FC<IconProps> | undefined;
 
+export interface SocialIconProps {
+  idx: number;
+  icon: React.FC<IconProps> | undefined;
+  href: string;
 }
+
+export interface HeroIconProps {
+  idx: number;
+  icon: React.FC<IconProps> | undefined;
+}
+
 export interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;
 }
@@ -30,34 +31,35 @@ export type WorkWithUsProps = {
   footer?: string;
   cta?: string;
   route: string;
-}
-export interface ProjectCardProps{
+};
+
+export interface ProjectCardProps {
   idx: number;
   title: string;
   client: string;
   description: string;
   type: string;
   service: string;
-  date:  string;
+  date: string;
   image?: string;
   Video?: string;
   height?: number;
   width?: number;
-
 }
-export interface MarqueeProps{
+
+export interface MarqueeProps {
   id: number;
   image: string;
-  imageLight:string;
+  imageLight: string;
   ImageWidth?: number;
   ImageHeight?: number;
 }
-export interface ImpactTextProps{
-    idx: number;
-    title: string;
-    description: string;
-    footer?: string;
 
+export interface ImpactTextProps {
+  idx: number;
+  title: string;
+  description: string;
+  footer?: string;
 }
 
 export type NavItemChild = {
@@ -77,10 +79,10 @@ export type MegaNavItem = {
   childItems?: NavItemChildren;
 };
 
-export interface SdgProps{
-    id: number;
-    image: string;
-    imageLight: string;
-    ImageWidth?: number;
-    ImageHeight?: number;
+export interface SdgProps {
+  id: number;
+  image: string;
+  imageLight: string;
+  ImageWidth?: number;
+  ImageHeight?: number;
 }

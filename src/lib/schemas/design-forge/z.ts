@@ -37,7 +37,7 @@ export const DesignForgeSchema = z.object({
       "Technical Professional",
       "Other",
     ],
-    { message: "Please select your current role or discipline" }
+    { message: "Please select your current role or discipline" },
   ),
 
   // SECTION 2 — COMMUNITY INTERESTS
@@ -56,7 +56,7 @@ export const DesignForgeSchema = z.object({
         "Innovation & Building",
         "Engineering Research",
         "Technical Entrepreneurship",
-      ])
+      ]),
     )
     .min(1, { message: "Please select at least one area of interest" }),
   mentorshipInterest: z.enum(["Yes", "No"], {

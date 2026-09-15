@@ -25,12 +25,12 @@ const Circle = forwardRef<
 
 Circle.displayName = "Circle";
 
-const BADGE_TONES: Record<string, string> = {
+const BADGE_TONES = {
   paid: "bg-emerald-500/15 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300",
   scoped: "bg-blue-500/15 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300",
   equity:
     "bg-violet-500/15 text-violet-800 dark:bg-violet-500/20 dark:text-violet-300",
-};
+} satisfies Record<string, string>;
 
 function NotionBadge({
   children,
@@ -114,7 +114,10 @@ export function Steps() {
         <div className="flex w-full flex-col gap-10">
           <div className="grid w-full grid-cols-3 gap-0">
             {STEPS.map((step, index) => (
-              <div key={`circle-${step.number}`} className="flex justify-center">
+              <div
+                key={`circle-${step.number}`}
+                className="flex justify-center"
+              >
                 <Circle ref={stepRefs[index]}>{step.number}</Circle>
               </div>
             ))}

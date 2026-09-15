@@ -13,27 +13,29 @@ export type ModelImage = {
  * these so the artwork fills its cell at its own aspect ratio — no letterboxing
  * and nothing stretched — and Next/Image can reserve the space up front.
  */
-const RENDER_SIZES: Record<string, { width: number; height: number }> = {
-  "/kamsmet/flatbed-hero.webp": { width: 1600, height: 828 },
-  "/kamsmet/flatbed-side.webp": { width: 1600, height: 346 },
-  "/kamsmet/flatbed-rear-quarter.webp": { width: 1600, height: 700 },
-  "/kamsmet/flatbed-deck.webp": { width: 1600, height: 899 },
-  "/kamsmet/flatbed-rear.webp": { width: 1600, height: 695 },
-  "/kamsmet/axle-array.webp": { width: 1600, height: 899 },
-  "/kamsmet/landing-gear.webp": { width: 1600, height: 784 },
-  "/kamsmet/full-bucket-hero.webp": { width: 1600, height: 745 },
-  "/kamsmet/full-bucket-rear.webp": { width: 1084, height: 1600 },
-  "/kamsmet/full-bucket-front.webp": { width: 1083, height: 1600 },
-  "/kamsmet/full-bucket-quarter.webp": { width: 1600, height: 698 },
-  "/kamsmet/full-bucket-side.webp": { width: 1600, height: 448 },
-  "/kamsmet/half-bucket-hero.webp": { width: 1600, height: 699 },
-  "/kamsmet/half-bucket-side.webp": { width: 1600, height: 633 },
-  "/kamsmet/half-bucket-rear.webp": { width: 1600, height: 805 },
-  "/kamsmet/half-bucket-front.webp": { width: 1600, height: 825 },
-};
+const RENDER_SIZES = new Map(
+  Object.entries({
+    "/kamsmet/flatbed-hero.webp": { width: 1600, height: 828 },
+    "/kamsmet/flatbed-side.webp": { width: 1600, height: 346 },
+    "/kamsmet/flatbed-rear-quarter.webp": { width: 1600, height: 700 },
+    "/kamsmet/flatbed-deck.webp": { width: 1600, height: 899 },
+    "/kamsmet/flatbed-rear.webp": { width: 1600, height: 695 },
+    "/kamsmet/axle-array.webp": { width: 1600, height: 899 },
+    "/kamsmet/landing-gear.webp": { width: 1600, height: 784 },
+    "/kamsmet/full-bucket-hero.webp": { width: 1600, height: 745 },
+    "/kamsmet/full-bucket-rear.webp": { width: 1084, height: 1600 },
+    "/kamsmet/full-bucket-front.webp": { width: 1083, height: 1600 },
+    "/kamsmet/full-bucket-quarter.webp": { width: 1600, height: 698 },
+    "/kamsmet/full-bucket-side.webp": { width: 1600, height: 448 },
+    "/kamsmet/half-bucket-hero.webp": { width: 1600, height: 699 },
+    "/kamsmet/half-bucket-side.webp": { width: 1600, height: 633 },
+    "/kamsmet/half-bucket-rear.webp": { width: 1600, height: 805 },
+    "/kamsmet/half-bucket-front.webp": { width: 1600, height: 825 },
+  }),
+);
 
 export function renderSize(src: string) {
-  return RENDER_SIZES[src] ?? { width: 1600, height: 900 };
+  return RENDER_SIZES.get(src) ?? { width: 1600, height: 900 };
 }
 
 export type ModelFeature = {
@@ -101,7 +103,9 @@ export const TRAILER_MODELS: TrailerModel[] = [
     description:
       "Engineered specifically for agricultural logistics, livestock, and high-volume packaged goods. This dual-hybrid design features a solid, high-walled lower metal bucket to shield cargo from road spray, paired with a heavy-duty slatted cage upper superstructure that ensures maximum ventilation. Complete with a rear swing-door assembly and an arched overhead cage built to secure protective all-weather tarps, the Gated Cargo trailer offers unparalleled adaptability for transit across diverse terrains.",
     features: [
-      { text: "Solid-walled lower steel bucket for maximum road-spray protection." },
+      {
+        text: "Solid-walled lower steel bucket for maximum road-spray protection.",
+      },
       {
         text: "Well-spaced structural steel ventilation slats for temperature-sensitive cargo.",
       },

@@ -1,17 +1,28 @@
-import { Document, Page, Text, View, Font, Link } from '@react-pdf/renderer';
-import { Header, Field, SubHeader, Section, styles } from './customized-pdf-components';
-import { PDFConfig } from './lib/types';
-
+import { Document, Page, Text, Font } from "@react-pdf/renderer";
+import {
+  Header,
+  Field,
+  SubHeader,
+  Section,
+  styles,
+} from "./customized-pdf-components";
+import { PDFConfig } from "./lib/types";
 
 // Register font
-Font.register({ family: 'font', src: "https://res.cloudinary.com/dstrel8mi/raw/upload/v1740021006/GeistVF_s71176.woff" });
+Font.register({
+  family: "font",
+  src: "https://res.cloudinary.com/dstrel8mi/raw/upload/v1740021006/GeistVF_s71176.woff",
+});
 
 interface GenericPDFDocumentProps {
   data: any;
   config: PDFConfig;
 }
 
-export const GenericPDFDocument = ({ data, config }: GenericPDFDocumentProps) => {
+export const GenericPDFDocument = ({
+  data,
+  config,
+}: GenericPDFDocumentProps) => {
   const sections = config.getSections(data);
   const footerText = config.getFooterText(data);
 
@@ -26,12 +37,14 @@ export const GenericPDFDocument = ({ data, config }: GenericPDFDocumentProps) =>
             <SubHeader title={section.title} />
             {section.fields.map((field, fieldIndex) => {
               // Skip conditional fields that don't meet their condition
-              if (field.hasOwnProperty('condition') && !field.condition) return null;
+              if (field.hasOwnProperty("condition") && !field.condition)
+                return null;
 
               // Handle array values
-              const displayValue = field.isArray && Array.isArray(field.value)
-                ? field.value.join(", ")
-                : String(field.value || "");
+              const displayValue =
+                field.isArray && Array.isArray(field.value)
+                  ? field.value.join(", ")
+                  : String(field.value || "");
 
               return (
                 <Field

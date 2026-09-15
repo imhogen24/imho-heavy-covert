@@ -37,8 +37,8 @@ export function EngineeringDiscipline({ className }: { className?: string }) {
             Engineering Discipline
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            CAD, simulation, QMS, and validation systems ensure reliability
-            and repeatability across all products.
+            CAD, simulation, QMS, and validation systems ensure reliability and
+            repeatability across all products.
           </p>
         </div>
       </div>

@@ -100,6 +100,7 @@ export const customEngineeringPdfConfig: PDFConfig = {
     const date = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString()
       : new Date().toLocaleDateString();
+
     return `IMHOGEN ERM SYSTEM | DOCUMENT ID: D1.1 | TIER 1 WORKFLOW • ${date}`;
   },
 };

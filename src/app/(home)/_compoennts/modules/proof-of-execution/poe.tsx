@@ -61,31 +61,34 @@ export function Poe({ className }: { className?: string }) {
     >
       {/* Zone 1 — Header + Stats */}
       <div className="border-b muted-border">
-      <div className="flex flex-col items-center gap-8 px-6 py-14 md:py-20 text-center max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground border muted-border rounded-full px-3 py-1">
-          <SealCheckIcon size={14} weight="thin" />
-          Proof of Execution
+        <div className="flex flex-col items-center gap-8 px-6 py-14 md:py-20 text-center max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground border muted-border rounded-full px-3 py-1">
+            <SealCheckIcon size={14} weight="thin" />
+            Proof of Execution
+          </div>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+            From Concept to Operational Systems
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            Real systems deployed. Real engineers trained. Real industrial
+            impact — measured in operating capability, not promises.
+          </p>
+          <div className="flex justify-center gap-10 md:gap-16 pt-4">
+            {METRICS.map((metric) => (
+              <div
+                key={metric.label}
+                className="flex flex-col items-center gap-1"
+              >
+                <p className="text-3xl md:text-4xl font-bold text-[#EF7D00] tracking-tight leading-none">
+                  {metric.value}
+                </p>
+                <span className="text-sm text-muted-foreground whitespace-nowrap">
+                  {metric.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-          From Concept to Operational Systems
-        </h2>
-        <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-          Real systems deployed. Real engineers trained. Real industrial
-          impact — measured in operating capability, not promises.
-        </p>
-        <div className="flex justify-center gap-10 md:gap-16 pt-4">
-          {METRICS.map((metric) => (
-            <div key={metric.label} className="flex flex-col items-center gap-1">
-              <p className="text-3xl md:text-4xl font-bold text-[#EF7D00] tracking-tight leading-none">
-                {metric.value}
-              </p>
-              <span className="text-sm text-muted-foreground whitespace-nowrap">
-                {metric.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
       </div>
 
       {/* Zone 2 — Deliverables */}

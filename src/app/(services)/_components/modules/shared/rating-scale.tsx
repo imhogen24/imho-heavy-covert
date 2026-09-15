@@ -6,6 +6,7 @@ import { RATING_SCALE } from "@/lib/schemas/capability-assessment/z";
 import { cn } from "@/lib/utils";
 
 const LOW = RATING_SCALE[0];
+
 const HIGH = RATING_SCALE[RATING_SCALE.length - 1];
 
 /** Word for a score, e.g. 4 -> "Strong". Empty until a choice is made. */
@@ -26,7 +27,11 @@ export function RatingLegend({ className }: { className?: string }) {
     <p className={cn("text-xs text-muted-foreground", className)}>
       {RATING_SCALE.map((item, i) => (
         <span key={item.score}>
-          {i > 0 && <span aria-hidden className="mx-1.5 opacity-40">·</span>}
+          {i > 0 && (
+            <span aria-hidden className="mx-1.5 opacity-40">
+              ·
+            </span>
+          )}
           <span className="tabular-nums font-medium text-foreground/70">
             {item.score}
           </span>{" "}
@@ -67,6 +72,7 @@ export function RatingScale({
         : event.key === "ArrowLeft" || event.key === "ArrowUp"
           ? -1
           : 0;
+
     if (!step) return;
 
     event.preventDefault();
@@ -74,10 +80,12 @@ export function RatingScale({
     // would be clobbered here: `FormControl` renders a Slot, whose `ref` arrives
     // in `props` and would win over one set on this element.
     const track = event.currentTarget;
+
     const next = Math.min(
       HIGH.score,
       Math.max(LOW.score, (value ?? LOW.score - step) + step),
     );
+
     onChange(next);
     track.querySelector<HTMLButtonElement>(`[data-score="${next}"]`)?.focus();
   };
@@ -95,6 +103,7 @@ export function RatingScale({
     >
       {RATING_SCALE.map((item, i) => {
         const selected = value === item.score;
+
         return (
           <button
             key={item.score}
