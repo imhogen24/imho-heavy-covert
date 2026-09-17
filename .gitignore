@@ -44,3 +44,5 @@ next-env.d.ts
 # optimized WebP the site actually ships.
 docs/KAMSMET IMAGES/
 docs/KAMSMET PRODUCTS BROCHURE*.pdf
+bun.lock
+package-lock.json
