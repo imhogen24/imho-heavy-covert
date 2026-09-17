@@ -3,6 +3,7 @@
 @source "../../node_modules/@uploadthing/react/dist";
 @plugin "@tailwindcss/typography";
 @config "../../tailwind.config.ts";
+@import "@c15t/nextjs/styles.css";
 
 html {
   scroll-behavior: smooth;
