@@ -18,7 +18,7 @@ const PRACTICE_AREAS = [
   {
     title: "Technology & Industrial Deployment",
     body: "Putting engineered solutions and technologies to work inside enterprises and institutions.",
-    href: "/technologies-and-industrial-support",
+    href: "/tech-and-deployment",
   },
 ];
 

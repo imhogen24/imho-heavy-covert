@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "dotenvx run -f .env.staging -- next dev --turbopack",
     "email": "email dev",
-    "build": "next build",
+    "build": "dotenvx run -f .env.staging -- next build",
     "start": "next start",
     "lint": "oxlint --deny-warnings",
     "lint:fix": "oxlint --fix",
