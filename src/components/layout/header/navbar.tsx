@@ -46,6 +46,7 @@ export const navItems: MegaNavItem[] = [
     segments: [
       "/research-and-development-and-business-improvement",
       "/technologies-and-industrial-support",
+      "/tech-and-deployment",
       "/trade-tech",
     ],
   },

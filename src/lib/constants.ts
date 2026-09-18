@@ -451,9 +451,10 @@ export const DIVISIONS_LINKS: NavItemChildren = [
     icon: FactoryIcon,
   },
   {
-    title: "Trade Technologies",
-    description: "Field-ready tools and wearable systems built for traders.",
-    href: "/trade-tech",
+    title: "Tech & Deployment",
+    description:
+      "Local problems turned into engineered, field-ready solutions.",
+    href: "/tech-and-deployment",
     icon: StorefrontIcon,
   },
 ];

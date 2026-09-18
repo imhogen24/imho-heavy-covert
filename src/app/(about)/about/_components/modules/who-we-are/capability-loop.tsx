@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 import { cn } from "@/lib/utils";
 
@@ -172,15 +172,17 @@ export function CapabilityLoop({ className }: { className?: string }) {
         aria-live={paused ? "polite" : "off"}
         className="absolute left-1/2 top-1/2 w-[58%] -translate-x-1/2 -translate-y-1/2 text-center"
       >
-        <motion.p
-          key={active}
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-xs sm:text-sm md:text-base leading-relaxed text-foreground"
-        >
-          {current.body}
-        </motion.p>
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.p
+            key={active}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="text-xs sm:text-sm md:text-base leading-relaxed text-foreground"
+          >
+            {current.body}
+          </motion.p>
+        </AnimatePresence>
       </div>
     </div>
   );

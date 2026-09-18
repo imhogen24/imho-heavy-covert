@@ -43,7 +43,7 @@ The pre-commit hook runs oxlint and Prettier on staged files, then a full typech
 
 ## Security & Configuration Tips
 
-- Do not commit secrets. Environment variables live in `.env.staging` (ignored by git) and are loaded with dotenvx (`dotenvx run -f .env.staging --`); `dev` and `db:*` scripts already do this. Mirror required vars from `next.config.ts` or API files.
+- Do not commit secrets. Environment variables live in `.env.staging` (ignored by git) and are loaded with dotenvx (`dotenvx run -f .env.staging --`); `dev`, `build`, and `db:*` scripts already do this. Mirror required vars from `next.config.ts` or API files.
 - Validate user input with zod schemas in `src/lib/schemas/...`.
 
 ## Agent-Specific Instructions
