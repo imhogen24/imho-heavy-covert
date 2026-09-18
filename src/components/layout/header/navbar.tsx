@@ -71,7 +71,7 @@ export const navItems: MegaNavItem[] = [
       />
     ),
     childItems: COMPANY_LINKS,
-    segments: ["/kamsmet"],
+    segments: ["/about", "/kamsmet"],
   },
   {
     name: "Portals",

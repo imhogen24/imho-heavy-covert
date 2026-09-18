@@ -497,7 +497,7 @@ export const COMPANY_LINKS: NavItemChildren = [
   {
     title: "About Us & Narrative",
     description: "Exposes failure of trial-and-error; proves execution.",
-    href: "/#about",
+    href: "/about",
     icon: BookOpenTextIcon,
   },
   {
