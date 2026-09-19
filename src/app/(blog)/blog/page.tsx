@@ -1,24 +1,23 @@
-
 import { gradientText } from "@/app/(home)/_compoennts/modules/hero/hero-text";
 import { fetchPages } from "@/lib/notion";
 import { cn } from "@/lib/utils";
 import { Rss } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 import { ImageWithSkeleton } from "../_components/skeleton";
 import { Metadata } from "next";
 
-
 export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Explore the latest articles, insights, and stories from our blog, covering technology, innovation, and industry trends.",
+  description:
+    "Explore the latest articles, insights, and stories from our blog, covering technology, innovation, and industry trends.",
   keywords: ["Blog", "Technology", "Innovation", "Articles", "Industry Trends"],
-}
+};
+
 const BlogPage = async () => {
   const posts = await fetchPages();
-
 
   return (
     <div className="max-w-screen min-h-dvh flex flex-col">
@@ -43,7 +42,7 @@ const BlogPage = async () => {
         {posts.results.map((post: any, index) => {
           return (
             <Link
-              href={`/blog/${post.properties.slug.rich_text[0].plain_text.replace(/[\s:]+/g, '-').toLowerCase()}`}
+              href={`/blog/${post.properties.slug.rich_text[0].plain_text.replace(/[\s:]+/g, "-").toLowerCase()}`}
 
               key={post.id}
               className={cn(

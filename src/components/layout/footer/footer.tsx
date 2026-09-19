@@ -4,6 +4,8 @@ import Image from "next/image";
 import { SOCIAL_ICONS } from "@/lib/constants";
 import Link from "next/link";
 import { FileForm } from "./contact-form";
+import { ConsentDialogLink } from "@c15t/nextjs/components/consent-dialog-link";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return (
@@ -70,6 +72,11 @@ const Footer = () => {
             <p className="text-muted-foreground">
               @2025 IMHO. All Rights Reserved
             </p>
+            <ConsentDialogLink asChild>
+              <Button variant="link" className="text-xs text-muted-foreground">
+                Cookie Preferences
+              </Button>
+            </ConsentDialogLink>
           </div>
         </section>
 
@@ -95,6 +102,11 @@ const Footer = () => {
           <p className="text-muted-foreground">
             @2025 IMHO. All Rights Reserved
           </p>
+          <ConsentDialogLink asChild>
+            <Button variant="link" className="text-xs text-muted-foreground">
+              Cookie Preferences
+            </Button>
+          </ConsentDialogLink>
         </div>
       </div>
     </div>

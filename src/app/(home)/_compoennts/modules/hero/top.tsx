@@ -1,5 +1,3 @@
-
-
 const Top = () => {
   return (
     <div className="hidden md:block w-full border-b muted-border">

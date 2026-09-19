@@ -1,10 +1,12 @@
 "use client";
+
 import { DoorOpen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 export const PostNotFound: React.FC = () => {
   const router = useRouter();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full min-h-screen">
       <div className="p-5 md:p-20 flex flex-col justify-center gap-5 cols-span-1 h-full border-r muted-border border-dashed ">

@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "uploadthing/tw/v4";
+@source "../../node_modules/@uploadthing/react/dist";
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.ts";
+@import "@c15t/nextjs/styles.css";
 
 html {
   scroll-behavior: smooth;
@@ -14,7 +17,7 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 98% 1;
+    --background: 0 0% 98%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -42,7 +45,7 @@ body {
   }
 
   .dark {
-    --background: 240 10% 4% 1%;
+    --background: 240 10% 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -99,7 +102,54 @@ body {
   @apply text-lg md:text-xl;
 }
 
+/*
+ * Scroller whose scrollbar stays invisible until the section is hovered or
+ * focused. The track always reserves its space, so revealing the thumb never
+ * shifts the layout.
+ *
+ * Chromium ignores ::-webkit-scrollbar once `scrollbar-width`/`scrollbar-color`
+ * are set on the same element, so the two styling models are kept apart:
+ * pseudo-elements where they are supported, standard properties elsewhere.
+ */
+.hover-scrollbar {
+  overflow-x: auto;
+}
 
+@supports selector(::-webkit-scrollbar) {
+  .hover-scrollbar::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .hover-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .hover-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 9999px;
+    transition: background-color 200ms ease;
+  }
+
+  .hover-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.4);
+  }
+
+  .hover-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.65);
+  }
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .hover-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 200ms ease;
+  }
+
+  .hover-scrollbar:hover {
+    scrollbar-color: hsl(var(--muted-foreground) / 0.4) transparent;
+  }
+}
 
 @layer base {
   * {

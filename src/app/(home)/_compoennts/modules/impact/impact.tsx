@@ -43,11 +43,11 @@ const ImpactSection = () => {
               <h4 className="scroll-m-20 my-auto font-semibold tracking-tight text-2xl">
                 {impact.title}
               </h4>
-              <p className="text-muted-foreground leading-relaxed leading-7 [&:not(:first-child)]">
+              <p className="text-muted-foreground leading-7 [&:not(:first-child)]">
                 {impact.description}
               </p>
               {impact.footer && (
-                <p className="text-muted-foreground leading-relaxed leading-7 [&:not(:first-child)]">
+                <p className="text-muted-foreground leading-7 [&:not(:first-child)]">
                   {impact.footer}
                 </p>
               )}
