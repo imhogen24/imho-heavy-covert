@@ -79,7 +79,7 @@ export const imghogenPartnershipSubmissions = pgTable(
     areasOfInterest: jsonb("areas_of_interest").$type<string[]>().notNull(),
     collaborationDescription: text("collaboration_description").notNull(),
     expectedOutcomes: text("expected_outcomes"),
-    additionalInformation: text("additonal_information"),
+    additionalInformation: text("additional_information"),
     requestId: text("request_id"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()
@@ -94,7 +94,7 @@ export const imghogenPartnershipSubmissions = pgTable(
 export const academySupportSubmissions = pgTable(
   "academy_support_submissions",
   {
-    academySupportId: text("acedemy_support_id")
+    academySupportId: text("academy_support_id")
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
     fullName: text("full_name").notNull(),
@@ -181,7 +181,7 @@ export const DesignForgeSubmissions = pgTable("design_forge_submissions", {
   fullName: text("full_name").notNull(),
   email: text("email").notNull(),
   phoneNumber: text("phone_number").notNull(),
-  institutionOrCompany: text("instituation_or_company").notNull(),
+  institutionOrCompany: text("institution_or_company").notNull(),
   currentRole: text("current_role").notNull(),
   areasOfInterest: jsonb("areas_of_interest").$type<string[]>().notNull(),
   mentorshipInterest: text("mentorship_interest").notNull(),
