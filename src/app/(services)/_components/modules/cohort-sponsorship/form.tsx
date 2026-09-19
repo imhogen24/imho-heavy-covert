@@ -29,7 +29,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { CohortSponsorshipFormAction } from "@/actions/action";
 import { FormSection, SectionChild, SpecList } from "../../wrapper";
 import { StepGrid, SuccessBadge } from "../shared/success";
 import { FormPreview } from "./preview";
@@ -102,10 +101,15 @@ export const CohortSponsorshipForm = () => {
     });
 
     try {
-      const result = await CohortSponsorshipFormAction(formData);
+      const response = await fetch("/api/submissions/cohort-sponsorship", {
+        method: "POST",
+        body: formData,
+      });
 
-      if (result?.error) {
-        toast.error("Something went wrong! Please try again.");
+      const result = await response.json();
+
+      if (!response.ok || result?.error) {
+        toast.error(result?.error || "Something went wrong! Please try again.");
 
         return;
       }

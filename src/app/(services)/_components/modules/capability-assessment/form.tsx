@@ -29,7 +29,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { CapabilityAssessmentFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
 import {
   RatingLegend,
@@ -138,10 +137,15 @@ export const CapabilityAssessmentForm = () => {
     });
 
     try {
-      const result = await CapabilityAssessmentFormAction(formData);
+      const response = await fetch("/api/submissions/capability-assessment", {
+        method: "POST",
+        body: formData,
+      });
 
-      if (result?.error) {
-        toast.error("Something went wrong! Please try again.");
+      const result = await response.json();
+
+      if (!response.ok || result?.error) {
+        toast.error(result?.error || "Something went wrong! Please try again.");
 
         return;
       }

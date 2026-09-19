@@ -25,10 +25,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { CustomEngineeringFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
-import { StepGrid, SuccessBadge } from "../shared/success";
 import { Agreement } from "../shared/agreement";
+import { StepGrid, SuccessBadge } from "../shared/success";
 import { FormPreview } from "./preview";
 
 const projectScopeOptions = [
@@ -105,10 +104,15 @@ export const CustomEngineeringForm = () => {
     });
 
     try {
-      const result = await CustomEngineeringFormAction(formData);
+      const response = await fetch("/api/submissions/custom-engineering", {
+        method: "POST",
+        body: formData,
+      });
 
-      if (result?.error) {
-        toast.error("Something went wrong! Please try again.");
+      const result = await response.json();
+
+      if (!response.ok || result?.error) {
+        toast.error(result?.error || "Something went wrong! Please try again.");
 
         return;
       }
