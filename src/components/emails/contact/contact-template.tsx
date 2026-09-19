@@ -4,7 +4,6 @@ import {
   Column,
   Head,
   Heading,
-  Hr,
   Img,
   Html,
   Preview,
@@ -74,6 +73,7 @@ export const ContactFormEmail = ({
               <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
               {files.map((file: string, index: number) => {
                 const [fileUrl, fileName] = file.split(",");
+
                 return (
                   <Text key={index} style={styles.infoText}>
                     <Link href={fileUrl} style={styles.fileLink}>

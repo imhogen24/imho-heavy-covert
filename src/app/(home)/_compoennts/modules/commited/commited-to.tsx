@@ -5,7 +5,6 @@ import Image from "next/image";
 import { MARQUEE } from "@/lib/constants";
 import { gradientText } from "../hero/hero-text";
 
-
 const CommitedTo = () => {
   return (
     <div className="flex flex-col w-full h-fit dark:bg-[#030E11]  border-y muted-border">
@@ -16,10 +15,7 @@ const CommitedTo = () => {
       >
         we are <span className={cn(gradientText)}>commited</span> to
       </h2>
-      <Marquee
-        className="z-20 overflow-hidden [--duration:60s] [--gap:1rem] h-[215px]"
-        horizontal
-      >
+      <Marquee className="z-20 overflow-hidden [--duration:60s] [--gap:1rem] h-[215px]">
         {MARQUEE.map((data, idx) => (
           <react.Fragment key={idx}>
             <Image

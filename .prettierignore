@@ -1,0 +1,10 @@
+# Vendored agent skills and tooling
+.agent/
+.agents/
+.claude/
+.codex/
+tools/oxlint/anti-slop/
+
+# Generated
+drizzle/meta/
+bun.lock

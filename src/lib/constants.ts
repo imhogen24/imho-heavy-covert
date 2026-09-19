@@ -9,10 +9,27 @@ import {
   SunIcon,
   XIcon,
 } from "./icons";
+import { BlueprintIcon } from "@phosphor-icons/react/dist/ssr/Blueprint";
+import { BookOpenIcon } from "@phosphor-icons/react/dist/ssr/BookOpen";
+import { BookOpenTextIcon } from "@phosphor-icons/react/dist/ssr/BookOpenText";
+import { BuildingsIcon } from "@phosphor-icons/react/dist/ssr/Buildings";
+import { ClipboardTextIcon } from "@phosphor-icons/react/dist/ssr/ClipboardText";
+import { FactoryIcon } from "@phosphor-icons/react/dist/ssr/Factory";
+import { FlaskIcon } from "@phosphor-icons/react/dist/ssr/Flask";
+import { GraduationCapIcon } from "@phosphor-icons/react/dist/ssr/GraduationCap";
+import { HammerIcon } from "@phosphor-icons/react/dist/ssr/Hammer";
+import { HandCoinsIcon } from "@phosphor-icons/react/dist/ssr/HandCoins";
+import { HandHeartIcon } from "@phosphor-icons/react/dist/ssr/HandHeart";
+import { HandshakeIcon } from "@phosphor-icons/react/dist/ssr/Handshake";
+import { NotePencilIcon } from "@phosphor-icons/react/dist/ssr/NotePencil";
+import { SealCheckIcon } from "@phosphor-icons/react/dist/ssr/SealCheck";
+import { SquaresFourIcon } from "@phosphor-icons/react/dist/ssr/SquaresFour";
+import { StorefrontIcon } from "@phosphor-icons/react/dist/ssr/Storefront";
+import { TruckTrailerIcon } from "@phosphor-icons/react/dist/ssr/TruckTrailer";
 import {
   HeroIconProps,
   MarqueeProps,
-  NavItemProps,
+  NavItemChildren,
   ProjectCardProps,
   SdgProps,
   ServiceRouteProps,
@@ -23,23 +40,43 @@ import {
 export const SERVICE_ROUTES: ServiceRouteProps[] = [
   {
     idx: 1,
-    label: "Product",
-    href: "/services/product",
+    label: "Custom Engineering",
+    href: "/services/custom-engineering",
   },
   {
     idx: 2,
-    label: "Engineering Support",
-    href: "/services/engineering-support",
+    label: "Drafting & Digitization",
+    href: "/services/drafting-digitization",
   },
   {
     idx: 3,
-    label: "Process",
-    href: "/services/process",
+    label: "IMHO GEN Academy",
+    href: "/services/imho-gen-academy",
   },
   {
     idx: 4,
-    label: "Draftwork",
-    href: "/services/draftwork",
+    label: "Capability Assessment",
+    href: "/services/capability-assessment",
+  },
+  {
+    idx: 5,
+    label: "Design Forge",
+    href: "/services/design-forge",
+  },
+  {
+    idx: 6,
+    label: "Academy Partnership",
+    href: "/services/academy-partnership",
+  },
+  {
+    idx: 7,
+    label: "Academy Support",
+    href: "/services/academy-support",
+  },
+  {
+    idx: 8,
+    label: "Cohort Sponsorship",
+    href: "/services/cohort-sponsorship",
   },
 ];
 
@@ -93,41 +130,22 @@ export const WORK_WITH_US: WorkWithUsProps[] = [
   {
     idx: 0,
     image: "/sun.svg",
-    title: "Product",
+    title: "Custom Engineering & Factory Solutions",
     description:
-      "Bring us on board to transform your ideas, requirements, and constraints into a physical product. From the engineering design phase, where exceptional function and form are seamlessly blended to create a robust product, we cover all aspects, including machine design, industrial design, prototyping, and testing.",
-    cta: "Develop a Product",
-    route: "/services/product",
+      "Bring us your product or process brief and we will turn it into a manufacturable system. Define the material, energy, and information going in, the transformation required, and the throughput you need out — we cover machine design, industrial design, prototyping, testing, and complete processing lines.",
+    footer:
+      "Improve efficiency, safety, reduce cost, overall output and quality",
+    cta: "Start an Intake",
+    route: "/services/custom-engineering",
   },
   {
     idx: 1,
-    image: "/pyramid.svg",
-    title: "Engineering Support",
-    description:
-      "Expand the skills of your engineering team, whether in engineering design, project management, the engineering design process, computer-aided design (CAD), or statics and dynamics analytical tools. Are project timelines tight? Expand your engineering team by bringing us on board to help with the heavy lifting.",
-    footer: "",
-    cta: "Launch Support",
-    route: "/services/engineering-support",
-  },
-  {
-    idx: 2,
-    image: "/heaven-and-earth.svg",
-    title: "Process",
-    description:
-      "Our engineering team well vested in systems design can help optimize your processes be it manufacturing, materials, and various forms of production systems.",
-    footer:
-      "Improve efficiency, safety, reduce cost, overall output and quality",
-    cta: "Develop a Process",
-    route: "/services/process",
-  },
-  {
-    idx: 3,
     image: "/obelisk.svg",
-    title: "Draftwork",
+    title: "Engineering Drafting & Digitization",
     description:
-      "Rely on our drafting team to document your designs and prototypes through detailed models, engineering drawings, and 3D renderings—whether for manufacturing, patent filings, presentations, marketing, user manuals, or academic publications.",
+      "Rely on our drafting team to document your designs through detailed models, engineering drawings, and 3D renderings. Bring us a physical part, legacy 2D drawings, hand sketches, or existing 3D models — for manufacturing, patent filings, presentations, marketing, user manuals, or academic publications.",
     cta: "Start Documentation",
-    route: "/services/draftwork",
+    route: "/services/drafting-digitization",
   },
 ];
 
@@ -310,6 +328,7 @@ export const MARQUEE: MarqueeProps[] = [
     ImageHeight: 12.34,
   },
 ];
+
 export const IMPACT_TEXT = [
   {
     idx: 1,
@@ -365,36 +384,168 @@ export const SDG_GOALS: SdgProps[] = [
   },
 ];
 
-export const NAV_ITEMS: NavItemProps[] = [
-  {
-    id: 1,
-    label: "Home",
-    href: "/",
-  },
-  {
-    id: 2,
-    label: "Projects",
-    href: "/#projects",
-  },
-  {
-    id: 4,
-    label: "Services",
-    href: "/#services",
-  },
-  {
-    id: 3,
-    label: "Our team",
-    href: "/#team",
-  },
+/**
+ * Nav card copy + iconography for each service intake route. Keyed by href so
+ * SERVICE_ROUTES stays the single source of truth for the routes themselves.
+ */
+const SERVICE_DETAILS = new Map(
+  Object.entries({
+    "/services/custom-engineering": {
+      description:
+        "Master intake for custom product design and factory/process systems.",
+      icon: FactoryIcon,
+    },
+    "/services/drafting-digitization": {
+      description: "CAD models, fabrication drawings, and 3D renderings.",
+      icon: BlueprintIcon,
+    },
+    "/services/imho-gen-academy": {
+      description: "Apply to the engineering design capability programme.",
+      icon: GraduationCapIcon,
+    },
+    "/services/capability-assessment": {
+      description: "Benchmark engineering design maturity before you commit.",
+      icon: ClipboardTextIcon,
+    },
+    "/services/design-forge": {
+      description: "Join the engineering discussion and mentorship community.",
+      icon: HammerIcon,
+    },
+    "/services/academy-partnership": {
+      description: "Collaborate on workforce and ecosystem development.",
+      icon: HandshakeIcon,
+    },
+    "/services/academy-support": {
+      description: "Back capability development for the next generation.",
+      icon: HandHeartIcon,
+    },
+    "/services/cohort-sponsorship": {
+      description: "Fund a full cohort through the academy programme.",
+      icon: HandCoinsIcon,
+    },
+  }),
+);
 
+export const SERVICES_LINKS: NavItemChildren = SERVICE_ROUTES.map(
+  ({ label, href }) => {
+    const details = SERVICE_DETAILS.get(href);
+
+    if (!details) throw new Error(`Missing SERVICE_DETAILS entry for ${href}`);
+
+    return { title: label, href, ...details };
+  },
+);
+
+export const DIVISIONS_LINKS: NavItemChildren = [
   {
-    id: 5,
-    label: "Blog",
-    href: "/blog",
+    title: "Applied R&D & Business Improvement",
+    description: "Fixed-fee engineering and locked fabrication budget pathway.",
+    href: "/research-and-development-and-business-improvement",
+    icon: FlaskIcon,
   },
   {
-    id: 6,
-    label: "Trade tech",
-    href: "/trade-tech",
+    title: "Technologies & Industrial Support",
+    description:
+      "Showcases Trade Tech, Industrial Equipment, and R&D Pipeline.",
+    href: "/technologies-and-industrial-support",
+    icon: FactoryIcon,
+  },
+  {
+    title: "Tech & Deployment",
+    description:
+      "Local problems turned into engineered, field-ready solutions.",
+    href: "/tech-and-deployment",
+    icon: StorefrontIcon,
+  },
+];
+
+export const ACADEMY_LINKS: NavItemChildren = [
+  {
+    title: "IMHO GEN Academy",
+    description: "The full programme: structure, process, outcomes, and proof.",
+    href: "/imho-academy",
+    icon: GraduationCapIcon,
+  },
+  {
+    title: "Admissions & Programs",
+    description:
+      "Outputs-based training: transforms learners into capable designers.",
+    href: "/services/imho-gen-academy",
+    icon: NotePencilIcon,
+  },
+  {
+    title: "Capability Assessment",
+    description:
+      "Triage step: tracks errors, time, quality, and engineering maturity.",
+    href: "/services/capability-assessment",
+    icon: ClipboardTextIcon,
+  },
+  {
+    title: "The Design Forge",
+    description: "Direct route to engineering discussions and mentorship.",
+    href: "/services/design-forge",
+    icon: HammerIcon,
+  },
+  {
+    title: "Cohort Sponsorship",
+    description: "Fund a cohort and widen access to the programme.",
+    href: "/services/cohort-sponsorship",
+    icon: HandCoinsIcon,
+  },
+];
+
+export const COMPANY_LINKS: NavItemChildren = [
+  {
+    title: "About Us & Narrative",
+    description: "Exposes failure of trial-and-error; proves execution.",
+    href: "/about",
+    icon: BookOpenTextIcon,
+  },
+  {
+    title: "Proof of Execution",
+    description: "Delivered products, processes, and equipment in the field.",
+    href: "/#proof-of-execution",
+    icon: SealCheckIcon,
+  },
+  {
+    title: "Partnerships & Collaboration",
+    description: "Covers workforce development and scaling infrastructure.",
+    href: "/services/academy-partnership",
+    icon: HandshakeIcon,
+  },
+  {
+    title: "Support the Mission",
+    description: "Back engineering capability development directly.",
+    href: "/services/academy-support",
+    icon: HandHeartIcon,
+  },
+  {
+    title: "KAMSMET Trailers",
+    description: "Partner manufacturer of standardized heavy-duty trailers.",
+    href: "/kamsmet",
+    icon: TruckTrailerIcon,
+  },
+];
+
+// TODO: no routes exist for these yet — wire up once the portals ship.
+export const PORTALS_LINKS: NavItemChildren = [
+  {
+    title: "Client Workspace",
+    description:
+      "No unpaid design work; files released against milestone payments.",
+    href: "#",
+    icon: SquaresFourIcon,
+  },
+  {
+    title: "Academy Student Portal",
+    description: "Manages performance outputs, calculations, CAD, and trials.",
+    href: "#",
+    icon: BookOpenIcon,
+  },
+  {
+    title: "Internal Staff ERP",
+    description: "Integrates team communication and execution tracking.",
+    href: "#",
+    icon: BuildingsIcon,
   },
 ];

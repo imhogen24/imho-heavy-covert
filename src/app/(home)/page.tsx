@@ -1,25 +1,25 @@
-import CommitedTo from "./_compoennts/modules/commited/commited-to";
-
-import ImpactSection from "./_compoennts/modules/impact/impact";
-import Projects from "./_compoennts/modules/projects/projects";
-import WorkWithUs from "./_compoennts/modules/work/work";
-import TheTeam from "./_compoennts/modules/team/the-team";
 import Hero from "./_compoennts/modules/hero/hero";
-import { Button } from "@/components/ui/button";
+import Partners from "./_compoennts/modules/partners/partners";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
-import { TradeTech } from "./_compoennts/modules/trade-tech/trade-tech";
+import { Wef } from "./_compoennts/modules/why-engineering-first/wef";
+import { Services } from "./_compoennts/modules/services/services";
+import { About } from "./_compoennts/modules/about/about";
+import { Poe } from "./_compoennts/modules/proof-of-execution/poe";
+import { Em } from "./_compoennts/modules/Egagement-models/em";
+import { Ep } from "./_compoennts/modules/entry-pathways/ep";
 
 export default function Home() {
   return (
     <div className="max-w-screen min-h-dvh flex flex-col overflow-x-hidden">
-      <ScrollProgress className="top-[72px]" />
+      <ScrollProgress className="top-18" />
       <Hero />
-      <ImpactSection />
-      <CommitedTo />
-      <Projects />
-      <TradeTech />
-      <WorkWithUs />
-      <TheTeam />
+      <Partners />
+      <Services />
+      <About />
+      <Wef />
+      <Poe />
+      <Em />
+      <Ep />
     </div>
   );
 }

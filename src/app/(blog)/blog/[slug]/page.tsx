@@ -10,6 +10,7 @@ import PostNotFound from "../../_components/post-not-found";
 import estimateReadingTime from "../../_components/reading-time";
 
 export const revalidate = 60;
+
 export default async function Page({
   params,
 }: {
@@ -34,6 +35,7 @@ export default async function Page({
   }
 
   const blocks = await fetchPageBlocks(post.id);
+
   const renderer = new NotionRenderer({
     client: notion,
   });

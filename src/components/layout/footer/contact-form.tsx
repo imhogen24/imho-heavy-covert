@@ -1,16 +1,16 @@
 "use client";
+
 import { useForm } from "react-hook-form";
-import { ContactFormSchema } from "@/lib/schemas/z";
+import { ContactFormSchema, type ContactFormInput } from "@/lib/schemas/z";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { XIcon, FileIcon, Trash2, EyeIcon } from "lucide-react";
-import Image from "next/image";
+import { FileIcon, Trash2, EyeIcon } from "lucide-react";
 import { contactFormAction } from "@/actions/action";
-import { LoaderCircle, CloudUpload } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -21,12 +21,14 @@ import {
 } from "@/components/ui/form";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Link from "next/link";
-import { FormPreview } from "@/app/(services)/_components/modules/cad/preview";
 import { toast } from "sonner";
 
-
 export const FileForm = () => {
-  const form = useForm<z.infer<typeof ContactFormSchema>>({
+  const form = useForm<
+    ContactFormInput,
+    any,
+    z.infer<typeof ContactFormSchema>
+  >({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: "",
@@ -35,8 +37,8 @@ export const FileForm = () => {
       files: [],
     },
   });
-  const [pending, setPending] = useState(false);
 
+  const [pending, setPending] = useState(false);
 
   async function onSubmit(values: z.infer<typeof ContactFormSchema>) {
     setPending(true);
@@ -51,22 +53,19 @@ export const FileForm = () => {
       const result = await contactFormAction(formData);
 
       if (result?.error) {
-
-
         toast.error(result.error);
       } else {
-
         toast.success("Message sent successfully!");
-        console.log(values)
+        console.log(values);
         form.reset();
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setPending(false);
-
     }
   }
+
   return (
     <Form {...form}>
       <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
@@ -123,50 +122,68 @@ export const FileForm = () => {
                       config={{ mode: "auto" }}
                       endpoint="fileAttachment"
                       onClientUploadComplete={(res: any) => {
-                        const newFiles = res.map((file: any) => `${file.serverData.fileUrl},${file.name}`);
-                        field.onChange([...field.value, ...newFiles]);
-                        toast.success(`${res.length} file${res.length > 1 ? "s" : ""} uploaded`);
+                        const newFiles = res.map(
+                          (file: any) =>
+                            `${file.serverData.fileUrl},${file.name}`,
+                        );
+
+                        field.onChange([...(field.value ?? []), ...newFiles]);
+                        toast.success(
+                          `${res.length} file${res.length > 1 ? "s" : ""} uploaded`,
+                        );
                       }}
-                      onUploadError={(error: any) => {
-                        toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                      onUploadError={() => {
+                        toast.error(
+                          "Something went wrong, check your internet connection or consider reducing the file size",
+                        );
                       }}
                     />
                   </div>
 
-                  {field.value.length > 0 && (
+                  {(field.value ?? []).length > 0 && (
                     <div className="flex flex-col mt-4 gap-2">
-                      {field.value.map((file: string, index: number) => (
-                        <div
-                          key={index}
-                          className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
-                        >
-                          {/* Left: File Icon & Name */}
-                          <div className="flex items-center gap-2 min-w-0">
-                            <FileIcon className="w-4 h-4 flex-shrink-0" />
-                            <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] overflow-hidden whitespace-nowrap">
-                              {file.split(",")[1]}
-                            </span>
-                          </div>
+                      {(field.value ?? []).map(
+                        (file: string, index: number) => (
+                          <div
+                            key={index}
+                            className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
+                          >
+                            {/* Left: File Icon & Name */}
+                            <div className="flex items-center gap-2 min-w-0">
+                              <FileIcon className="w-4 h-4 flex-shrink-0" />
+                              <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] overflow-hidden whitespace-nowrap">
+                                {file.split(",")[1]}
+                              </span>
+                            </div>
 
-                          {/* Right: Action Buttons */}
-                          <div className="flex gap-2 items-center">
-                            <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
-                              <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
-                            </Link>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const newFiles = field.value.filter((_, i) => i !== index);
-                                field.onChange(newFiles);
-                              }}
-                            >
-                              <span className="sr-only">remove item {index}</span>
-                              <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
-                            </button>
-                          </div>
-                        </div>
+                            {/* Right: Action Buttons */}
+                            <div className="flex gap-2 items-center">
+                              <Link
+                                href={file.split(",")[0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const newFiles = (field.value ?? []).filter(
+                                    (_, i) => i !== index,
+                                  );
 
-                      ))}
+                                  field.onChange(newFiles);
+                                }}
+                              >
+                                <span className="sr-only">
+                                  remove item {index}
+                                </span>
+                                <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
+                              </button>
+                            </div>
+                          </div>
+                        ),
+                      )}
                     </div>
                   )}
                 </div>
@@ -192,6 +209,6 @@ export const FileForm = () => {
           </Button>
         </div>
       </form>
-    </Form >
+    </Form>
   );
 };
