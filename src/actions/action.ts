@@ -381,12 +381,15 @@ export const CapabilityAssessmentFormAction = async (formData: FormData) => {
     const conceptGeneration = Number(formData.get("conceptGeneration"));
     const cadModeling = Number(formData.get("cadModeling"));
     const engineeringAnalysis = Number(formData.get("engineeringAnalysis"));
+
     const technicalDocumentation = Number(
       formData.get("technicalDocumentation"),
     );
+
     const manufacturingUnderstanding = Number(
       formData.get("manufacturingUnderstanding"),
     );
+
     const systemsThinking = Number(formData.get("systemsThinking"));
 
     const projectDescription = text(formData, "projectDescription");
