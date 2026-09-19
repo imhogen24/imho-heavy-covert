@@ -22,7 +22,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { AcademyPartnershipFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
 import { StepGrid, SuccessBadge } from "../shared/success";
 import { FormPreview } from "./preview";
@@ -83,10 +82,15 @@ export const AcademyPartnershipForm = () => {
     });
 
     try {
-      const result = await AcademyPartnershipFormAction(formData);
+      const response = await fetch("/api/submissions/partnership", {
+        method: "POST",
+        body: formData,
+      });
 
-      if (result?.error) {
-        toast.error("Something went wrong! Please try again.");
+      const result = await response.json();
+
+      if (!response.ok || result?.error) {
+        toast.error(result?.error || "Something went wrong! Please try again.");
 
         return;
       }
