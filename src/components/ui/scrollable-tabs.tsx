@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface ScrollableTabsProps {
@@ -44,7 +45,7 @@ export function ScrollableTabs({ children, className }: ScrollableTabsProps) {
 
     if (!el) return;
 
-    const scrollAmount = el.clientWidth * 0.6;
+    const scrollAmount = el.scrollWidth / 2;
     el.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
@@ -52,34 +53,45 @@ export function ScrollableTabs({ children, className }: ScrollableTabsProps) {
   };
 
   return (
-    <div className={cn("relative flex items-center w-full group", className)}>
+    <div
+      className={cn(
+        "relative flex items-center max-w-full px-8 mx-auto",
+        className,
+      )}
+    >
       {canScrollLeft && (
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="icon"
           onClick={() => handleScroll("left")}
-          className="absolute left-0 z-20 flex h-7 w-7 -translate-x-3 items-center justify-center rounded-full border muted-border bg-background shadow-md transition-all hover:bg-accent focus:outline-none"
+          className="absolute left-0 z-20 h-7 w-7 rounded-full shadow-md transition-all"
           aria-label="Scroll left"
         >
           <ChevronLeft className="h-4 w-4 text-muted-foreground" />
-        </button>
+        </Button>
       )}
 
-      <div
-        ref={scrollRef}
-        className="flex w-full items-center gap-2 overflow-x-auto scroll-smooth py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {children}
+      <div className="w-full overflow-hidden">
+        <div
+          ref={scrollRef}
+          className="flex items-center gap-3 overflow-x-auto scroll-smooth py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {children}
+        </div>
       </div>
 
       {canScrollRight && (
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="icon"
           onClick={() => handleScroll("right")}
-          className="absolute right-0 z-20 flex h-7 w-7 translate-x-3 items-center justify-center rounded-full border muted-border bg-background shadow-md transition-all hover:bg-accent focus:outline-none"
+          className="absolute right-0 z-20 h-7 w-7 rounded-full shadow-md transition-all"
           aria-label="Scroll right"
         >
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-        </button>
+        </Button>
       )}
     </div>
   );
