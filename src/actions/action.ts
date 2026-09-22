@@ -1,6 +1,5 @@
-"use server";
-
 import ContactConfirmationEmail from "@/components/emails/contact/confirmation";
+import { after } from "next/server";
 import { Resend } from "resend";
 import { ContactFormEmail } from "../components/emails/contact/contact-template";
 import { ImhoGenAcademyFormEmail } from "../components/emails/imho-gen-academy/academy-application-template";
@@ -20,18 +19,36 @@ import { CustomEngineeringConfirmationEmail } from "../components/emails/custom-
 import { DraftingDigitizationFormEmail } from "../components/emails/drafting-digitization/tier3-template";
 import { DraftingDigitizationConfirmationEmail } from "../components/emails/drafting-digitization/tier3-confirmation";
 
+import { db } from "@/lib/db";
+import {
+  contactSubmissions,
+  imhogenAcademySubmissions,
+  imhogenPartnershipSubmissions,
+  academySupportSubmissions,
+  capabilityAssessmentSubmissions,
+  cohortSponsorshipSubmissions,
+  designForgeSubmissions,
+  customEngineeringSubmissions,
+  draftingDigitizationSubmissions,
+} from "@/lib/db/schema";
+import type { ContactFormData } from "@/lib/schemas/z";
+import type { ImhoGenAcademyFormData } from "@/lib/schemas/imho-gen-academy/z";
+import type { AcademyPartnershipFormData } from "@/lib/schemas/academy-partnership/z";
+import type { AcademySupportFormData } from "@/lib/schemas/academy-support/z";
+import type { CapabilityAssessmentFormData } from "@/lib/schemas/capability-assessment/z";
+import type { CohortSponsorshipFormData } from "@/lib/schemas/cohort-sponsorship/z";
+import type { DesignForgeFormData } from "@/lib/schemas/design-forge/z";
+import type { CustomEngineeringFormData } from "@/lib/schemas/custom-engineering/z";
+import type { DraftingDigitizationFormData } from "@/lib/schemas/drafting-digitization/z";
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const EMAIL_TIMEOUT_MS = 20000;
 
-/**
- * The Resend SDK accepts no abort signal, so a stalled request sits on undici's
- * 300s header timeout and leaves the submit button spinning for five minutes.
- * Bound it, resolving with the SDK's own error shape so every `if (error)`
- * branch below keeps working unchanged.
- */
+type EmailPayload = Parameters<typeof resend.emails.send>[0];
+
 const sendEmail = async (
-  payload: Parameters<typeof resend.emails.send>[0],
+  payload: EmailPayload,
 ): Promise<Awaited<ReturnType<typeof resend.emails.send>>> => {
   let timer: ReturnType<typeof setTimeout> | undefined;
 
@@ -57,704 +74,442 @@ const sendEmail = async (
   }
 };
 
-/** Text field value; a missing field reads as "". */
-const text = (formData: FormData, key: string): string =>
-  formData.get(key)?.toString() ?? "";
+/** A submission that passed its form schema, with its public reference. */
+export type Submission<T> = { data: T; requestId: string };
 
-//CONTACT FORM ACTION
-export const contactFormAction = async (formData: FormData) => {
-  try {
-    const name = text(formData, "name");
-    const email = text(formData, "email");
-    const message = text(formData, "message");
-    const filesString = text(formData, "files");
+/** Optional answers are stored as NULL, never as "". */
+const orNull = (value?: string) => value || null;
 
-    // Parse the JSON string back to an array
-    const files = filesString ? JSON.parse(filesString) : [];
+const yes = (value?: "Yes" | "No") => value === "Yes";
 
-    // Send notification to admin
-    const { error } = await sendEmail({
-      from: `Contact Form <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Contact Form Submission from ${name}`,
-      react: ContactFormEmail({
-        name,
-        email,
-        message,
-        files,
-      }),
-    });
+/**
+ * Sends the admin notification and the submitter's confirmation after the
+ * response is sent. The submission is already saved, so a failed email is
+ * logged with its request id rather than reported to the user as a failure.
+ */
+const notify = (
+  requestId: string,
+  emails: { admin: EmailPayload; confirmation: EmailPayload },
+) => {
+  after(async () => {
+    const [admin, confirmation] = await Promise.allSettled([
+      sendEmail(emails.admin),
+      sendEmail(emails.confirmation),
+    ]);
 
-    if (error) {
-      console.error("Resend Email Error:", error);
+    for (const [kind, outcome] of [
+      ["Admin", admin],
+      ["Confirmation", confirmation],
+    ] as const) {
+      const error =
+        outcome.status === "rejected" ? outcome.reason : outcome.value.error;
 
-      return { error: "Failed to send email" };
+      if (error) {
+        console.error(`${kind} email failed for ${requestId}:`, error);
+      }
     }
+  });
+};
 
-    // Send confirmation to submitter
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Thank you for contacting us, ${name}`,
-      react: ContactConfirmationEmail({ name }),
+// CONTACT FORM
+export const contactFormAction = async ({
+  data,
+  requestId,
+}: Submission<ContactFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(contactSubmissions)
+    .values({
+      name: data.name,
+      email: data.email,
+      message: data.message,
+      files: data.files,
+      requestId,
+    })
+    .onConflictDoNothing({ target: contactSubmissions.requestId })
+    .returning({ requestId: contactSubmissions.requestId });
+
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Contact Form <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Contact Form Submission from ${data.name}`,
+        react: ContactFormEmail(data),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Thank you for contacting us, ${data.name}`,
+        react: ContactConfirmationEmail({ name: data.name }),
+      },
     });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Contact Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//IMHO GEN ACADEMY APPLICATION FORM ACTION
-export const ImhoGenAcademyFormAction = async (formData: FormData) => {
-  try {
-    // Basic Information
-    const fullName = text(formData, "fullName");
-    const phoneNumber = text(formData, "phoneNumber");
-    const email = text(formData, "email");
-    const country = text(formData, "country");
-    const cityTown = text(formData, "cityTown");
+// IMHO GEN ACADEMY APPLICATION FORM
+export const ImhoGenAcademyFormAction = async ({
+  data,
+  requestId,
+}: Submission<ImhoGenAcademyFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(imhogenAcademySubmissions)
+    .values({
+      fullName: data.fullName,
+      phoneNumber: data.phoneNumber,
+      email: data.email,
+      country: data.country,
+      cityTown: data.cityTown,
+      currentStatus: data.currentStatus,
+      institutionOrCompany: data.institutionOrCompany,
+      programDisciplineRole: data.programDisciplineRole,
+      currentLevelYear: orNull(data.currentLevelYear),
+      whyJoin: data.whyJoin,
+      areasOfInterest: data.areasOfInterest,
+      hasPriorProjects: yes(data.hasPriorProjects),
+      portfolioLink: orNull(data.portfolioLink),
+      willingForIntensiveTraining: yes(data.willingForIntensiveTraining),
+      weeklyHoursCommitment: data.weeklyHoursCommitment,
+      whySelectYou: data.whySelectYou,
+      requestId,
+    })
+    .onConflictDoNothing({ target: imhogenAcademySubmissions.requestId })
+    .returning({ requestId: imhogenAcademySubmissions.requestId });
 
-    // Education / Background
-    const currentStatus = text(formData, "currentStatus");
-    const institutionOrCompany = text(formData, "institutionOrCompany");
-
-    const programDisciplineRole = text(formData, "programDisciplineRole");
-
-    const currentLevelYear = text(formData, "currentLevelYear");
-
-    // Interest & Capability
-    const whyJoin = text(formData, "whyJoin");
-
-    const areasOfInterest = JSON.parse(
-      text(formData, "areasOfInterest") || "[]",
-    );
-
-    const hasPriorProjects = text(formData, "hasPriorProjects");
-    const portfolioLink = text(formData, "portfolioLink");
-
-    // Commitment
-    const willingForIntensiveTraining = text(
-      formData,
-      "willingForIntensiveTraining",
-    );
-
-    const weeklyHoursCommitment = text(formData, "weeklyHoursCommitment");
-
-    // Final Question
-    const whySelectYou = text(formData, "whySelectYou");
-
-    const requestId = `AA-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Academy Application <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New IMHO GEN Academy Application from ${fullName}`,
-      react: ImhoGenAcademyFormEmail({
-        fullName,
-        phoneNumber,
-        email,
-        country,
-        cityTown,
-        currentStatus,
-        institutionOrCompany,
-        programDisciplineRole,
-        currentLevelYear,
-        whyJoin,
-        areasOfInterest,
-        hasPriorProjects,
-        portfolioLink,
-        willingForIntensiveTraining,
-        weeklyHoursCommitment,
-        whySelectYou,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Academy Application <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New IMHO GEN Academy Application from ${data.fullName}`,
+        react: ImhoGenAcademyFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Application Received — IMHO GEN Academy`,
+        react: ImhoGenAcademyConfirmationEmail({ fullName: data.fullName }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Application Received — IMHO GEN Academy`,
-      react: ImhoGenAcademyConfirmationEmail({
-        fullName,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Academy Application Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//ACADEMY PARTNERSHIP FORM ACTION
-export const AcademyPartnershipFormAction = async (formData: FormData) => {
-  try {
-    // Organization Profile
-    const organizationName = text(formData, "organizationName");
-    const organizationWebsite = text(formData, "organizationWebsite");
-    const contactPerson = text(formData, "contactPerson");
-    const positionRole = text(formData, "positionRole");
-    const email = text(formData, "email");
-    const phoneNumber = text(formData, "phoneNumber");
+// ACADEMY PARTNERSHIP FORM
+export const AcademyPartnershipFormAction = async ({
+  data,
+  requestId,
+}: Submission<AcademyPartnershipFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(imhogenPartnershipSubmissions)
+    .values({
+      organizationName: data.organizationName,
+      organizationWebsite: orNull(data.organizationWebsite),
+      contactPerson: data.contactPerson,
+      positionRole: data.positionRole,
+      email: data.email,
+      phoneNumber: orNull(data.phoneNumber),
+      areasOfInterest: data.areasOfInterest,
+      collaborationDescription: data.collaborationDescription,
+      expectedOutcomes: orNull(data.expectedOutcomes),
+      additionalInformation: orNull(data.additionalInformation),
+      requestId,
+    })
+    .onConflictDoNothing({ target: imhogenPartnershipSubmissions.requestId })
+    .returning({ requestId: imhogenPartnershipSubmissions.requestId });
 
-    // Partnership Interest
-    const areasOfInterest = JSON.parse(
-      text(formData, "areasOfInterest") || "[]",
-    );
-
-    const collaborationDescription = text(formData, "collaborationDescription");
-
-    // Optional Details
-    const expectedOutcomes = text(formData, "expectedOutcomes");
-
-    const additionalInformation = text(formData, "additionalInformation");
-
-    const requestId = `AP-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Academy Partnership <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Academy Partnership Inquiry from ${organizationName}`,
-      react: AcademyPartnershipFormEmail({
-        organizationName,
-        organizationWebsite,
-        contactPerson,
-        positionRole,
-        email,
-        phoneNumber,
-        areasOfInterest,
-        collaborationDescription,
-        expectedOutcomes,
-        additionalInformation,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Academy Partnership <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Academy Partnership Inquiry from ${data.organizationName}`,
+        react: AcademyPartnershipFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Partnership Inquiry Received — IMHO GEN Academy`,
+        react: AcademyPartnershipConfirmationEmail({
+          organizationName: data.organizationName,
+          contactPerson: data.contactPerson,
+        }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Partnership Inquiry Received — IMHO GEN Academy`,
-      react: AcademyPartnershipConfirmationEmail({
-        organizationName,
-        contactPerson,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Academy Partnership Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//ACADEMY SUPPORT FORM ACTION
-export const AcademySupportFormAction = async (formData: FormData) => {
-  try {
-    // Donor Information
-    const fullName = text(formData, "fullName");
-    const email = text(formData, "email");
-    const country = text(formData, "country");
+// ACADEMY SUPPORT FORM
+export const AcademySupportFormAction = async ({
+  data,
+  requestId,
+}: Submission<AcademySupportFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(academySupportSubmissions)
+    .values({
+      fullName: data.fullName,
+      email: data.email,
+      country: data.country,
+      supportTypes: data.supportTypes,
+      supportContribution: data.supportContribution,
+      requestId,
+    })
+    .onConflictDoNothing({ target: academySupportSubmissions.requestId })
+    .returning({ requestId: academySupportSubmissions.requestId });
 
-    const supportTypes = JSON.parse(text(formData, "supportTypes") || "[]");
-
-    // Support Interest
-    const supportContribution = text(formData, "supportContribution");
-
-    const requestId = `AS-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Academy Support <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Academy Support Offer from ${fullName}`,
-      react: AcademySupportFormEmail({
-        fullName,
-        email,
-        country,
-        supportTypes,
-        supportContribution,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Academy Support <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Academy Support Offer from ${data.fullName}`,
+        react: AcademySupportFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Support Offer Received — IMHO GEN Academy`,
+        react: AcademySupportConfirmationEmail({ fullName: data.fullName }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Support Offer Received — IMHO GEN Academy`,
-      react: AcademySupportConfirmationEmail({
-        fullName,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Academy Support Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//CAPABILITY ASSESSMENT FORM ACTION
-export const CapabilityAssessmentFormAction = async (formData: FormData) => {
-  try {
-    // Basic Information
-    const fullName = text(formData, "fullName");
-    const email = text(formData, "email");
-    const background = text(formData, "background");
-    const experienceLevel = text(formData, "experienceLevel");
+// CAPABILITY ASSESSMENT FORM
+export const CapabilityAssessmentFormAction = async ({
+  data,
+  requestId,
+}: Submission<CapabilityAssessmentFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(capabilityAssessmentSubmissions)
+    .values({
+      fullName: data.fullName,
+      email: data.email,
+      background: data.background,
+      experienceLevel: data.experienceLevel,
+      problemDefinition: data.problemDefinition,
+      conceptGeneration: data.conceptGeneration,
+      cadModeling: data.cadModeling,
+      engineeringAnalysis: data.engineeringAnalysis,
+      technicalDocumentation: data.technicalDocumentation,
+      manufacturingUnderstanding: data.manufacturingUnderstanding,
+      systemsThinking: data.systemsThinking,
+      projectDescription: data.projectDescription,
+      improvementArea: data.improvementArea,
+      biggestWeakness: data.biggestWeakness,
+      portfolioLink: orNull(data.portfolioLink),
+      requestId,
+    })
+    .onConflictDoNothing({ target: capabilityAssessmentSubmissions.requestId })
+    .returning({ requestId: capabilityAssessmentSubmissions.requestId });
 
-    // Self-Assessment (1–5) — submitted as strings, stored as numbers
-    const problemDefinition = Number(formData.get("problemDefinition"));
-    const conceptGeneration = Number(formData.get("conceptGeneration"));
-    const cadModeling = Number(formData.get("cadModeling"));
-    const engineeringAnalysis = Number(formData.get("engineeringAnalysis"));
-
-    const technicalDocumentation = Number(
-      formData.get("technicalDocumentation"),
-    );
-
-    const manufacturingUnderstanding = Number(
-      formData.get("manufacturingUnderstanding"),
-    );
-
-    const systemsThinking = Number(formData.get("systemsThinking"));
-
-    // Practical Thinking
-    const projectDescription = text(formData, "projectDescription");
-    const improvementArea = text(formData, "improvementArea");
-    const biggestWeakness = text(formData, "biggestWeakness");
-
-    // Optional
-    const portfolioLink = text(formData, "portfolioLink");
-
-    const requestId = `CA-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Capability Assessment <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Capability Assessment from ${fullName}`,
-      react: CapabilityAssessmentFormEmail({
-        fullName,
-        email,
-        background,
-        experienceLevel,
-        problemDefinition,
-        conceptGeneration,
-        cadModeling,
-        engineeringAnalysis,
-        technicalDocumentation,
-        manufacturingUnderstanding,
-        systemsThinking,
-        projectDescription,
-        improvementArea,
-        biggestWeakness,
-        portfolioLink,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Capability Assessment <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Capability Assessment from ${data.fullName}`,
+        react: CapabilityAssessmentFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Assessment Received — IMHO GEN Academy`,
+        react: CapabilityAssessmentConfirmationEmail({
+          fullName: data.fullName,
+        }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Assessment Received — IMHO GEN Academy`,
-      react: CapabilityAssessmentConfirmationEmail({
-        fullName,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Capability Assessment Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//COHORT SPONSORSHIP FORM ACTION
-export const CohortSponsorshipFormAction = async (formData: FormData) => {
-  try {
-    // Organization Profile
-    const organizationName = text(formData, "organizationName");
-    const contactPerson = text(formData, "contactPerson");
-    const positionRole = text(formData, "positionRole");
-    const website = text(formData, "website");
-    const email = text(formData, "email");
-    const phoneNumber = text(formData, "phoneNumber");
+// COHORT SPONSORSHIP FORM
+export const CohortSponsorshipFormAction = async ({
+  data,
+  requestId,
+}: Submission<CohortSponsorshipFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(cohortSponsorshipSubmissions)
+    .values({
+      organizationName: data.organizationName,
+      contactPerson: data.contactPerson,
+      positionRole: data.positionRole,
+      website: orNull(data.website),
+      email: data.email,
+      phoneNumber: orNull(data.phoneNumber),
+      sponsorshipAreas: data.sponsorshipAreas,
+      whySupport: data.whySupport,
+      impactAreas: data.impactAreas,
+      scheduleDiscussion: data.scheduleDiscussion
+        ? yes(data.scheduleDiscussion)
+        : null,
+      requestId,
+    })
+    .onConflictDoNothing({ target: cohortSponsorshipSubmissions.requestId })
+    .returning({ requestId: cohortSponsorshipSubmissions.requestId });
 
-    // Sponsorship Interest
-    const sponsorshipAreas = JSON.parse(
-      text(formData, "sponsorshipAreas") || "[]",
-    );
-
-    // Impact & Collaboration Interest
-    const whySupport = text(formData, "whySupport");
-    const impactAreas = text(formData, "impactAreas");
-
-    // Optional
-    const scheduleDiscussion = text(formData, "scheduleDiscussion");
-
-    const requestId = `CS-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Cohort Sponsorship <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Cohort Sponsorship Inquiry from ${organizationName}`,
-      react: CohortSponsorshipFormEmail({
-        organizationName,
-        contactPerson,
-        positionRole,
-        website,
-        email,
-        phoneNumber,
-        sponsorshipAreas,
-        whySupport,
-        impactAreas,
-        scheduleDiscussion,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Cohort Sponsorship <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Cohort Sponsorship Inquiry from ${data.organizationName}`,
+        react: CohortSponsorshipFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Sponsorship Inquiry Received — IMHO GEN Academy`,
+        react: CohortSponsorshipConfirmationEmail({
+          organizationName: data.organizationName,
+          contactPerson: data.contactPerson,
+        }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Sponsorship Inquiry Received — IMHO GEN Academy`,
-      react: CohortSponsorshipConfirmationEmail({
-        organizationName,
-        contactPerson,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Cohort Sponsorship Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//DESIGN FORGE COMMUNITY FORM ACTION
-export const DesignForgeFormAction = async (formData: FormData) => {
-  try {
-    // Basic Profile
-    const fullName = text(formData, "fullName");
-    const email = text(formData, "email");
-    const phoneNumber = text(formData, "phoneNumber");
-    const institutionOrCompany = text(formData, "institutionOrCompany");
-    const currentRole = text(formData, "currentRole");
+// DESIGN FORGE COMMUNITY FORM
+export const DesignForgeFormAction = async ({
+  data,
+  requestId,
+}: Submission<DesignForgeFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(designForgeSubmissions)
+    .values({
+      fullName: data.fullName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      institutionOrCompany: data.institutionOrCompany,
+      currentRole: data.currentRole,
+      areasOfInterest: data.areasOfInterest,
+      mentorshipInterest: yes(data.mentorshipInterest),
+      collaborationsInterest: yes(data.collaborationsInterest),
+      challengesWorkshopsInterest: yes(data.challengesWorkshopsInterest),
+      linkedinProfile: orNull(data.linkedinProfile),
+      portfolioLink: orNull(data.portfolioLink),
+      socialHandle: orNull(data.socialHandle),
+      whyJoin: data.whyJoin,
+      requestId,
+    })
+    .onConflictDoNothing({ target: designForgeSubmissions.requestId })
+    .returning({ requestId: designForgeSubmissions.requestId });
 
-    // Community Interests
-    const areasOfInterest = JSON.parse(
-      text(formData, "areasOfInterest") || "[]",
-    );
-
-    const mentorshipInterest = text(formData, "mentorshipInterest");
-
-    const collaborationsInterest = text(formData, "collaborationsInterest");
-
-    const challengesWorkshopsInterest = text(
-      formData,
-      "challengesWorkshopsInterest",
-    );
-
-    // Optional Links
-    const linkedinProfile = text(formData, "linkedinProfile");
-    const portfolioLink = text(formData, "portfolioLink");
-    const socialHandle = text(formData, "socialHandle");
-
-    // Final Question
-    const whyJoin = text(formData, "whyJoin");
-
-    const requestId = `DF-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Design Forge <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Design Forge Community Sign-up from ${fullName}`,
-      react: DesignForgeFormEmail({
-        fullName,
-        email,
-        phoneNumber,
-        institutionOrCompany,
-        currentRole,
-        areasOfInterest,
-        mentorshipInterest,
-        collaborationsInterest,
-        challengesWorkshopsInterest,
-        linkedinProfile,
-        portfolioLink,
-        socialHandle,
-        whyJoin,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Design Forge <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Design Forge Community Sign-up from ${data.fullName}`,
+        react: DesignForgeFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Welcome to the Design Forge Community`,
+        react: DesignForgeConfirmationEmail({ fullName: data.fullName }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Welcome to the Design Forge Community`,
-      react: DesignForgeConfirmationEmail({
-        fullName,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Design Forge Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//TIER 1 — CUSTOM ENGINEERING & FACTORY SOLUTIONS FORM ACTION
-export const CustomEngineeringFormAction = async (formData: FormData) => {
-  try {
-    // 1.0 Client Information
-    const organizationName = text(formData, "organizationName");
-    const contactPerson = text(formData, "contactPerson");
-    const email = text(formData, "email");
-    const phoneNumber = text(formData, "phoneNumber");
-    const siteLocation = text(formData, "siteLocation");
+// TIER 1 — CUSTOM ENGINEERING & FACTORY SOLUTIONS FORM
+export const CustomEngineeringFormAction = async ({
+  data,
+  requestId,
+}: Submission<CustomEngineeringFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(customEngineeringSubmissions)
+    .values({
+      organizationName: data.organizationName,
+      contactPerson: data.contactPerson,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      siteLocation: data.siteLocation,
+      projectScope: data.projectScope,
+      projectTitle: data.projectTitle,
+      primaryObjective: data.primaryObjective,
+      materialInputs: data.materialInputs,
+      energyAndInformationInputs: data.energyAndInformationInputs,
+      transformation: data.transformation,
+      outputs: data.outputs,
+      byProducts: orNull(data.byProducts),
+      humanSystem: orNull(data.humanSystem),
+      activeEnvironment: orNull(data.activeEnvironment),
+      budgetExpectations: orNull(data.budgetExpectations),
+      targetTimeline: orNull(data.targetTimeline),
+      fileAttachments: data.fileAttachments,
+      // The schema only accepts a submission whose disclaimer is ticked.
+      termsAcceptedAt: new Date(),
+      requestId,
+    })
+    .onConflictDoNothing({ target: customEngineeringSubmissions.requestId })
+    .returning({ requestId: customEngineeringSubmissions.requestId });
 
-    // 2.0 Project Scope & Classification
-    const projectScope = JSON.parse(text(formData, "projectScope") || "[]");
-
-    const projectTitle = text(formData, "projectTitle");
-    const primaryObjective = text(formData, "primaryObjective");
-
-    // 3.0 Systems Engineering Core
-    const materialInputs = text(formData, "materialInputs");
-
-    const energyAndInformationInputs = text(
-      formData,
-      "energyAndInformationInputs",
-    );
-
-    const transformation = text(formData, "transformation");
-    const outputs = text(formData, "outputs");
-    const byProducts = text(formData, "byProducts");
-
-    // 4.0 Operational Environment & Constraints
-    const humanSystem = text(formData, "humanSystem");
-    const activeEnvironment = text(formData, "activeEnvironment");
-    const budgetExpectations = text(formData, "budgetExpectations");
-    const targetTimeline = text(formData, "targetTimeline");
-
-    const fileAttachments = JSON.parse(
-      text(formData, "fileAttachments") || "[]",
-    );
-
-    const requestId = `T1-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Tier 1 Intake <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Tier 1 Custom Engineering Intake from ${organizationName}`,
-      react: CustomEngineeringFormEmail({
-        organizationName,
-        contactPerson,
-        email,
-        phoneNumber,
-        siteLocation,
-        projectScope,
-        projectTitle,
-        primaryObjective,
-        materialInputs,
-        energyAndInformationInputs,
-        transformation,
-        outputs,
-        byProducts,
-        humanSystem,
-        activeEnvironment,
-        budgetExpectations,
-        targetTimeline,
-        fileAttachments,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Tier 1 Intake <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Tier 1 Custom Engineering Intake from ${data.organizationName}`,
+        react: CustomEngineeringFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Master Intake Received — IMHOGEN Tier 1`,
+        react: CustomEngineeringConfirmationEmail({
+          organizationName: data.organizationName,
+          contactPerson: data.contactPerson,
+          projectTitle: data.projectTitle,
+        }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Master Intake Received — IMHOGEN Tier 1`,
-      react: CustomEngineeringConfirmationEmail({
-        organizationName,
-        contactPerson,
-        projectTitle,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Custom Engineering Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };
 
-//TIER 3 — ENGINEERING DRAFTING & DIGITIZATION FORM ACTION
-export const DraftingDigitizationFormAction = async (formData: FormData) => {
-  try {
-    // 1.0 Client Information
-    const organizationName = text(formData, "organizationName");
-    const contactPerson = text(formData, "contactPerson");
-    const email = text(formData, "email");
-    const phoneNumber = text(formData, "phoneNumber");
-    const siteLocation = text(formData, "siteLocation");
+// TIER 3 — ENGINEERING DRAFTING & DIGITIZATION FORM
+export const DraftingDigitizationFormAction = async ({
+  data,
+  requestId,
+}: Submission<DraftingDigitizationFormData>): Promise<void> => {
+  const inserted = await db
+    .insert(draftingDigitizationSubmissions)
+    .values({
+      organizationName: data.organizationName,
+      contactPerson: data.contactPerson,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      siteLocation: data.siteLocation,
+      inputMaterialType: data.inputMaterialType,
+      assetCondition: data.assetCondition,
+      draftingServices: data.draftingServices,
+      endGoal: data.endGoal,
+      draftingStandard: data.draftingStandard,
+      outputFormats: data.outputFormats,
+      fileAttachments: data.fileAttachments,
+      // The schema only accepts a submission whose disclaimer is ticked.
+      termsAcceptedAt: new Date(),
+      requestId,
+    })
+    .onConflictDoNothing({ target: draftingDigitizationSubmissions.requestId })
+    .returning({ requestId: draftingDigitizationSubmissions.requestId });
 
-    // 2.0 The Source Asset
-    const inputMaterialType = text(formData, "inputMaterialType");
-    const assetCondition = text(formData, "assetCondition");
-
-    // 3.0 Required Deliverables & End Goal
-    const draftingServices = JSON.parse(
-      text(formData, "draftingServices") || "[]",
-    );
-
-    const endGoal = text(formData, "endGoal");
-
-    // 4.0 Technical Specifications & Preferences
-    const draftingStandard = text(formData, "draftingStandard");
-
-    const outputFormats = JSON.parse(text(formData, "outputFormats") || "[]");
-
-    const fileAttachments = JSON.parse(
-      text(formData, "fileAttachments") || "[]",
-    );
-
-    const requestId = `T3-${Date.now()}`;
-
-    const { error } = await sendEmail({
-      from: `Tier 3 Intake <imhogen@admin.imhogen.com>`,
-      to: ["imhogen22@gmail.com"],
-      subject: `New Tier 3 Drafting Intake from ${organizationName}`,
-      react: DraftingDigitizationFormEmail({
-        organizationName,
-        contactPerson,
-        email,
-        phoneNumber,
-        siteLocation,
-        inputMaterialType,
-        assetCondition,
-        draftingServices,
-        endGoal,
-        draftingStandard,
-        outputFormats,
-        fileAttachments,
-        requestId,
-      }),
+  if (inserted.length > 0) {
+    notify(requestId, {
+      admin: {
+        from: `Tier 3 Intake <imhogen@admin.imhogen.com>`,
+        to: ["imhogen22@gmail.com"],
+        subject: `New Tier 3 Drafting Intake from ${data.organizationName}`,
+        react: DraftingDigitizationFormEmail({ ...data, requestId }),
+      },
+      confirmation: {
+        from: `Confirmation <imhogen@admin.imhogen.com>`,
+        to: [data.email],
+        subject: `Green Lane Request Received — IMHOGEN Tier 3`,
+        react: DraftingDigitizationConfirmationEmail({
+          organizationName: data.organizationName,
+          contactPerson: data.contactPerson,
+        }),
+      },
     });
-
-    if (error) {
-      console.error("Resend Email Error:", error);
-
-      return { error: "Failed to send email" };
-    }
-
-    const { error: confirmationError } = await sendEmail({
-      from: `Confirmation <imhogen@admin.imhogen.com>`,
-      to: [`${email}`],
-      subject: `Green Lane Request Received — IMHOGEN Tier 3`,
-      react: DraftingDigitizationConfirmationEmail({
-        organizationName,
-        contactPerson,
-      }),
-    });
-
-    if (confirmationError) {
-      console.error("Confirmation Email Error:", confirmationError);
-      // We don't fail the entire operation if just the confirmation fails
-    }
-
-    return { success: true };
-  } catch (error: any) {
-    console.error("Drafting Digitization Form Action Error:", error);
-
-    return { error: error.message || "An unexpected error occurred" };
   }
 };

@@ -25,6 +25,7 @@ import {
   type DraftingDigitizationFormInput,
 } from "@/lib/schemas/drafting-digitization/z";
 import { UploadDropzone } from "@/lib/uploadthing";
+import { useSubmission } from "@/hooks/use-submission";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -32,10 +33,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { DraftingDigitizationFormAction } from "@/actions/action";
 import { FormSection, SectionChild } from "../../wrapper";
-import { StepGrid, SuccessBadge } from "../shared/success";
 import { Agreement } from "../shared/agreement";
+import { StepGrid, SuccessBadge } from "../shared/success";
 import { FormPreview } from "./preview";
 
 const inputMaterialTypeOptions = [
@@ -114,26 +114,16 @@ export const DraftingDigitizationForm = () => {
 
   const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const submit = useSubmission("drafting-digitization");
 
   async function onSubmit(values: DraftingDigitizationFormData) {
     setPending(true);
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-      } else if (value instanceof Date) {
-        formData.append(key, value.toISOString());
-      } else if (value !== undefined) {
-        formData.append(key, String(value));
-      }
-    });
 
     try {
-      const result = await DraftingDigitizationFormAction(formData);
+      const result = await submit(values);
 
-      if (result?.error) {
-        toast.error("Something went wrong! Please try again.");
+      if (!result.ok) {
+        toast.error(result.error || "Something went wrong! Please try again.");
 
         return;
       }

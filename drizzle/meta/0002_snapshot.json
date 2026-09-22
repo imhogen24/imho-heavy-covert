@@ -1,0 +1,1359 @@
+{
+  "id": "dfee9d35-53a0-4c75-b4bb-48bc4290ca10",
+  "prevId": "fde0b209-cf2e-4193-a7ec-b9f7ab8311a7",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.academy_support_submissions": {
+      "name": "academy_support_submissions",
+      "schema": "",
+      "columns": {
+        "academy_support_id": {
+          "name": "academy_support_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "name": "country",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "support_types": {
+          "name": "support_types",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "support_contribution": {
+          "name": "support_contribution",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "academy_support_submissions_email_idx": {
+          "name": "academy_support_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "academy_support_submissions_created_at_idx": {
+          "name": "academy_support_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "academy_support_submissions_request_id_unique": {
+          "name": "academy_support_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.capability_assessment_submissions": {
+      "name": "capability_assessment_submissions",
+      "schema": "",
+      "columns": {
+        "capability_assessment_id": {
+          "name": "capability_assessment_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "background": {
+          "name": "background",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "experience_level": {
+          "name": "experience_level",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "problem_definition": {
+          "name": "problem_definition",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "concept_generation": {
+          "name": "concept_generation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cad_modelling": {
+          "name": "cad_modelling",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "engineering_analysis": {
+          "name": "engineering_analysis",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "technical_documentation": {
+          "name": "technical_documentation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "manufacturing_understanding": {
+          "name": "manufacturing_understanding",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "systems_thinking": {
+          "name": "systems_thinking",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "project_description": {
+          "name": "project_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "improvement_area": {
+          "name": "improvement_area",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "biggest_weakness": {
+          "name": "biggest_weakness",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "portfolio_link": {
+          "name": "portfolio_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "capability_assessment_submissions_email_idx": {
+          "name": "capability_assessment_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "capability_assessment_submissions_created_at_idx": {
+          "name": "capability_assessment_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "capability_assessment_submissions_request_id_unique": {
+          "name": "capability_assessment_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "capability_assessment_ratings_range": {
+          "name": "capability_assessment_ratings_range",
+          "value": "\"capability_assessment_submissions\".\"problem_definition\" BETWEEN 1 AND 5\n        AND \"capability_assessment_submissions\".\"concept_generation\" BETWEEN 1 AND 5\n        AND \"capability_assessment_submissions\".\"cad_modelling\" BETWEEN 1 AND 5\n        AND \"capability_assessment_submissions\".\"engineering_analysis\" BETWEEN 1 AND 5\n        AND \"capability_assessment_submissions\".\"technical_documentation\" BETWEEN 1 AND 5\n        AND \"capability_assessment_submissions\".\"manufacturing_understanding\" BETWEEN 1 AND 5\n        AND \"capability_assessment_submissions\".\"systems_thinking\" BETWEEN 1 AND 5"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.cohort_sponsorship_submissions": {
+      "name": "cohort_sponsorship_submissions",
+      "schema": "",
+      "columns": {
+        "cohort_sponsorship_id": {
+          "name": "cohort_sponsorship_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "organization_name": {
+          "name": "organization_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_person": {
+          "name": "contact_person",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position_role": {
+          "name": "position_role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "website": {
+          "name": "website",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sponsorship_areas": {
+          "name": "sponsorship_areas",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "why_support": {
+          "name": "why_support",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "impact_areas": {
+          "name": "impact_areas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scheduleDiscussion": {
+          "name": "scheduleDiscussion",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "cohort_sponsorship_submissions_email_idx": {
+          "name": "cohort_sponsorship_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "cohort_sponsorship_submissions_created_at_idx": {
+          "name": "cohort_sponsorship_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "cohort_sponsorship_submissions_request_id_unique": {
+          "name": "cohort_sponsorship_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.contact_submissions": {
+      "name": "contact_submissions",
+      "schema": "",
+      "columns": {
+        "contact_id": {
+          "name": "contact_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "files": {
+          "name": "files",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "contact_submissions_email_idx": {
+          "name": "contact_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "contact_submissions_created_at_idx": {
+          "name": "contact_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "contact_submissions_request_id_unique": {
+          "name": "contact_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.custom_engineering_submissions": {
+      "name": "custom_engineering_submissions",
+      "schema": "",
+      "columns": {
+        "custom_engineering_id": {
+          "name": "custom_engineering_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "organization_name": {
+          "name": "organization_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_person": {
+          "name": "contact_person",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "site_location": {
+          "name": "site_location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "project_scope": {
+          "name": "project_scope",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "project_title": {
+          "name": "project_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "primary_objective": {
+          "name": "primary_objective",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "material_inputs": {
+          "name": "material_inputs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "energy_and_information_inputs": {
+          "name": "energy_and_information_inputs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transformation": {
+          "name": "transformation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "outputs": {
+          "name": "outputs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "by_products": {
+          "name": "by_products",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "human_system": {
+          "name": "human_system",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "active_environment": {
+          "name": "active_environment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "budget_expectations": {
+          "name": "budget_expectations",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_timeline": {
+          "name": "target_timeline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "file_attachments": {
+          "name": "file_attachments",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "terms_accepted_at": {
+          "name": "terms_accepted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "custom_engineering_submissions_email_idx": {
+          "name": "custom_engineering_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "custom_engineering_submissions_created_at_idx": {
+          "name": "custom_engineering_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "custom_engineering_submissions_request_id_unique": {
+          "name": "custom_engineering_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.design_forge_submissions": {
+      "name": "design_forge_submissions",
+      "schema": "",
+      "columns": {
+        "design_forge_id": {
+          "name": "design_forge_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "institution_or_company": {
+          "name": "institution_or_company",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_role": {
+          "name": "current_role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "areas_of_interest": {
+          "name": "areas_of_interest",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mentorship_interest": {
+          "name": "mentorship_interest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "collaborations_interest": {
+          "name": "collaborations_interest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "challenge_workshop_interest": {
+          "name": "challenge_workshop_interest",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "linkedin_profile": {
+          "name": "linkedin_profile",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "portfolio_link": {
+          "name": "portfolio_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "social_handle": {
+          "name": "social_handle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "why_join": {
+          "name": "why_join",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "design_forge_submissions_email_idx": {
+          "name": "design_forge_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "design_forge_submissions_created_at_idx": {
+          "name": "design_forge_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "design_forge_submissions_request_id_unique": {
+          "name": "design_forge_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.drafting_digitization_submissions": {
+      "name": "drafting_digitization_submissions",
+      "schema": "",
+      "columns": {
+        "drafting_digitization_id": {
+          "name": "drafting_digitization_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "organization_name": {
+          "name": "organization_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contact_person": {
+          "name": "contact_person",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "site_location": {
+          "name": "site_location",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "input_material_type": {
+          "name": "input_material_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "asset_condition": {
+          "name": "asset_condition",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "drafting_services": {
+          "name": "drafting_services",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_goal": {
+          "name": "end_goal",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "drafting_standard": {
+          "name": "drafting_standard",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "output_formats": {
+          "name": "output_formats",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_attachment": {
+          "name": "file_attachment",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "terms_accepted_at": {
+          "name": "terms_accepted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "drafting_digitization_submissions_email_idx": {
+          "name": "drafting_digitization_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "drafting_digitization_submissions_created_at_idx": {
+          "name": "drafting_digitization_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "drafting_digitization_submissions_request_id_unique": {
+          "name": "drafting_digitization_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.imhogen_academy_submissions": {
+      "name": "imhogen_academy_submissions",
+      "schema": "",
+      "columns": {
+        "imho_academy_id": {
+          "name": "imho_academy_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "name": "country",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city_town": {
+          "name": "city_town",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_status": {
+          "name": "current_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "institution_company": {
+          "name": "institution_company",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "program_discipline_role": {
+          "name": "program_discipline_role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_level_year": {
+          "name": "current_level_year",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "why_join": {
+          "name": "why_join",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "areas_of_interest": {
+          "name": "areas_of_interest",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "has_prior_projects": {
+          "name": "has_prior_projects",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "portfolio_link": {
+          "name": "portfolio_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "willing_for_intensive_training": {
+          "name": "willing_for_intensive_training",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weekly_hours_commitment": {
+          "name": "weekly_hours_commitment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "why_select_you": {
+          "name": "why_select_you",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "imhogen_academy_submissions_email_idx": {
+          "name": "imhogen_academy_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "imhogen_academy_submissions_created_at_idx": {
+          "name": "imhogen_academy_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "imhogen_academy_submissions_request_id_unique": {
+          "name": "imhogen_academy_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.imhogen_partnership_submissions": {
+      "name": "imhogen_partnership_submissions",
+      "schema": "",
+      "columns": {
+        "imho_partnership_id": {
+          "name": "imho_partnership_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "organization_name": {
+          "name": "organization_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organization_website": {
+          "name": "organization_website",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contact_person": {
+          "name": "contact_person",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "positionRole": {
+          "name": "positionRole",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "areas_of_interest": {
+          "name": "areas_of_interest",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "collaboration_description": {
+          "name": "collaboration_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expected_outcomes": {
+          "name": "expected_outcomes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "additional_information": {
+          "name": "additional_information",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "imhogen_partnership_submissions_email_idx": {
+          "name": "imhogen_partnership_submissions_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "imhogen_partnership_submissions_created_at_idx": {
+          "name": "imhogen_partnership_submissions_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "imhogen_partnership_submissions_request_id_unique": {
+          "name": "imhogen_partnership_submissions_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

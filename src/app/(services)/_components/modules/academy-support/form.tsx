@@ -24,13 +24,13 @@ import {
   AcademySupportSchema,
   type AcademySupportFormData,
 } from "@/lib/schemas/academy-support/z";
+import { useSubmission } from "@/hooks/use-submission";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { AcademySupportFormAction } from "@/actions/action";
 import { FormSection, SectionChild, SpecList } from "../../wrapper";
 import { StepGrid, SuccessBadge } from "../shared/success";
 import { FormPreview } from "./preview";
@@ -81,26 +81,16 @@ export const AcademySupportForm = () => {
 
   const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const submit = useSubmission("support");
 
   async function onSubmit(values: AcademySupportFormData) {
     setPending(true);
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-      } else if (value instanceof Date) {
-        formData.append(key, value.toISOString());
-      } else if (value !== undefined) {
-        formData.append(key, String(value));
-      }
-    });
 
     try {
-      const result = await AcademySupportFormAction(formData);
+      const result = await submit(values);
 
-      if (result?.error) {
-        toast.error("Something went wrong! Please try again.");
+      if (!result.ok) {
+        toast.error(result.error || "Something went wrong! Please try again.");
 
         return;
       }

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { UploadedFilesSchema } from "@/lib/schemas/uploads/z";
+
 /**
  * TIER 3 — Engineering Drafting & Digitization Intake.
  * Initiates the "Green Lane" fast-track workflow for drafting, reverse
@@ -77,7 +79,7 @@ export const DraftingDigitizationSchema = z.object({
     .array(z.enum(["PDF", "DWG", "DXF", "STEP", "Native CAD"]))
     .min(1, { message: "Please select at least one output format" }),
 
-  fileAttachments: z.array(z.string()).default([]),
+  fileAttachments: UploadedFilesSchema,
   disclaimer: z.boolean().refine((value) => value === true, {
     message: "You must agree to the terms of agreement",
   }),
