@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useSubmission } from "@/hooks/use-submission";
 import { ContactFormSchema, type ContactFormInput } from "@/lib/schemas/z";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,29 +38,18 @@ export const FileForm = () => {
   });
 
   const [pending, setPending] = useState(false);
+  const submit = useSubmission("contact");
 
   async function onSubmit(values: z.infer<typeof ContactFormSchema>) {
     setPending(true);
-    console.log(values);
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("email", values.email);
-    formData.append("message", values.message);
-    formData.append("files", JSON.stringify(values.files));
 
     try {
-      const response = await fetch("/api/submissions/contact", {
-        method: "POST",
-        body: formData,
-      });
+      const result = await submit(values);
 
-      const result = await response.json();
-
-      if (!response.ok || result?.error) {
-        toast.error(result?.error || "Something went wrong. Please try again.");
+      if (!result.ok) {
+        toast.error(result.error || "Something went wrong. Please try again.");
       } else {
         toast.success("Message sent successfully!");
-        console.log(values);
         form.reset();
       }
     } catch {

@@ -15,6 +15,20 @@
       "when": 1789851034082,
       "tag": "0001_ordinary_lucky_pierre",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790065785413,
+      "tag": "0002_harden_submissions",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790065822351,
+      "tag": "0003_snake_case_columns",
+      "breakpoints": true
     }
   ]
 }

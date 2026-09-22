@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { UploadedFilesSchema } from "@/lib/schemas/uploads/z";
+
 /**
  * TIER 1 — Custom Engineering & Factory Solutions Intake.
  * Master intake for all Product and Process Engineering requests; the values
@@ -100,7 +102,7 @@ export const CustomEngineeringSchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  fileAttachments: z.array(z.string()).default([]),
+  fileAttachments: UploadedFilesSchema,
   disclaimer: z.boolean().refine((value) => value === true, {
     message: "You must agree to the terms of agreement",
   }),

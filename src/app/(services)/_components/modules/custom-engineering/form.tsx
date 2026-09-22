@@ -18,6 +18,7 @@ import {
   type CustomEngineeringFormInput,
 } from "@/lib/schemas/custom-engineering/z";
 import { UploadDropzone } from "@/lib/uploadthing";
+import { useSubmission } from "@/hooks/use-submission";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
@@ -88,31 +89,16 @@ export const CustomEngineeringForm = () => {
 
   const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const submit = useSubmission("custom-engineering");
 
   async function onSubmit(values: CustomEngineeringFormData) {
     setPending(true);
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-      } else if (value instanceof Date) {
-        formData.append(key, value.toISOString());
-      } else if (value !== undefined) {
-        formData.append(key, String(value));
-      }
-    });
 
     try {
-      const response = await fetch("/api/submissions/custom-engineering", {
-        method: "POST",
-        body: formData,
-      });
+      const result = await submit(values);
 
-      const result = await response.json();
-
-      if (!response.ok || result?.error) {
-        toast.error(result?.error || "Something went wrong! Please try again.");
+      if (!result.ok) {
+        toast.error(result.error || "Something went wrong! Please try again.");
 
         return;
       }

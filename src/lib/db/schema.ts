@@ -1,25 +1,28 @@
 // Drizzle table definitions. Export every table from this file so both
 // the `db` client and drizzle-kit pick it up.
-//
-// Example:
-// import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-//
-// export const leads = pgTable("leads", {
-//   id: uuid("id").primaryKey().defaultRandom(),
-//   email: text("email").notNull(),
-//   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-// });
 
-import { integer, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import {
+  boolean,
+  check,
+  index,
+  integer,
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core";
 
-export const contactSubmissions = pgTable("contact_submissions", {
-  contactId: text("contact_id")
+const primaryId = (name: string) =>
+  text(name)
     .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  message: text("message").notNull(),
-  files: jsonb("files").$type<string[]>().default([]).notNull(),
+    .$defaultFn(() => crypto.randomUUID());
+
+// Public reference for a submission, built from the client's idempotency key.
+// Unique so a retried POST cannot insert the same submission twice.
+const requestId = () => text("request_id").notNull().unique();
+
+const timestamps = {
   createdAt: timestamp("created_at", { withTimezone: true })
     .defaultNow()
     .notNull(),
@@ -27,14 +30,29 @@ export const contactSubmissions = pgTable("contact_submissions", {
     .defaultNow()
     .$onUpdateFn(() => new Date())
     .notNull(),
-});
+};
+
+export const contactSubmissions = pgTable(
+  "contact_submissions",
+  {
+    contactId: primaryId("contact_id"),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    message: text("message").notNull(),
+    files: jsonb("files").$type<string[]>().default([]).notNull(),
+    requestId: requestId(),
+    ...timestamps,
+  },
+  (t) => [
+    index("contact_submissions_email_idx").on(t.email),
+    index("contact_submissions_created_at_idx").on(t.createdAt),
+  ],
+);
 
 export const imhogenAcademySubmissions = pgTable(
   "imhogen_academy_submissions",
   {
-    imhoAcademyId: text("imho_academy_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    imhoAcademyId: primaryId("imho_academy_id"),
     fullName: text("full_name").notNull(),
     phoneNumber: text("phone_number").notNull(),
     email: text("email").notNull(),
@@ -46,79 +64,67 @@ export const imhogenAcademySubmissions = pgTable(
     currentLevelYear: text("current_level_year"),
     whyJoin: text("why_join").notNull(),
     areasOfInterest: jsonb("areas_of_interest").$type<string[]>().notNull(),
-    hasPriorProjects: text("has_prior_projects").notNull(),
+    hasPriorProjects: boolean("has_prior_projects").notNull(),
     portfolioLink: text("portfolio_link"),
-    willingForIntensiveTraining: text(
+    willingForIntensiveTraining: boolean(
       "willing_for_intensive_training",
     ).notNull(),
     weeklyHoursCommitment: text("weekly_hours_commitment").notNull(),
     whySelectYou: text("why_select_you").notNull(),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("imhogen_academy_submissions_email_idx").on(t.email),
+    index("imhogen_academy_submissions_created_at_idx").on(t.createdAt),
+  ],
 );
 
-export const imghogenPartnershipSubmissions = pgTable(
+export const imhogenPartnershipSubmissions = pgTable(
   "imhogen_partnership_submissions",
   {
-    imhoPartnershipId: text("imho_partnership_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    imhoPartnershipId: primaryId("imho_partnership_id"),
     organizationName: text("organization_name").notNull(),
     organizationWebsite: text("organization_website"),
     contactPerson: text("contact_person").notNull(),
-    positionRole: text("positionRole").notNull(),
+    positionRole: text("position_role").notNull(),
     email: text("email").notNull(),
     phoneNumber: text("phone_number"),
     areasOfInterest: jsonb("areas_of_interest").$type<string[]>().notNull(),
     collaborationDescription: text("collaboration_description").notNull(),
     expectedOutcomes: text("expected_outcomes"),
     additionalInformation: text("additional_information"),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("imhogen_partnership_submissions_email_idx").on(t.email),
+    index("imhogen_partnership_submissions_created_at_idx").on(t.createdAt),
+  ],
 );
 
 export const academySupportSubmissions = pgTable(
   "academy_support_submissions",
   {
-    academySupportId: text("academy_support_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    academySupportId: primaryId("academy_support_id"),
     fullName: text("full_name").notNull(),
     email: text("email").notNull(),
     country: text("country").notNull(),
     supportTypes: jsonb("support_types").$type<string[]>().notNull(),
     supportContribution: text("support_contribution").notNull(),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("academy_support_submissions_email_idx").on(t.email),
+    index("academy_support_submissions_created_at_idx").on(t.createdAt),
+  ],
 );
 
 export const capabilityAssessmentSubmissions = pgTable(
   "capability_assessment_submissions",
   {
-    capabilityAssessmentId: text("capability_assessment_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    capabilityAssessmentId: primaryId("capability_assessment_id"),
     fullName: text("full_name").notNull(),
     email: text("email").notNull(),
     background: text("background").notNull(),
@@ -136,23 +142,30 @@ export const capabilityAssessmentSubmissions = pgTable(
     improvementArea: text("improvement_area").notNull(),
     biggestWeakness: text("biggest_weakness").notNull(),
     portfolioLink: text("portfolio_link"),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("capability_assessment_submissions_email_idx").on(t.email),
+    index("capability_assessment_submissions_created_at_idx").on(t.createdAt),
+    // Every self-assessment score sits on the 1–5 RATING_SCALE.
+    check(
+      "capability_assessment_ratings_range",
+      sql`${t.problemDefinition} BETWEEN 1 AND 5
+        AND ${t.conceptGeneration} BETWEEN 1 AND 5
+        AND ${t.cadModeling} BETWEEN 1 AND 5
+        AND ${t.engineeringAnalysis} BETWEEN 1 AND 5
+        AND ${t.technicalDocumentation} BETWEEN 1 AND 5
+        AND ${t.manufacturingUnderstanding} BETWEEN 1 AND 5
+        AND ${t.systemsThinking} BETWEEN 1 AND 5`,
+    ),
+  ],
 );
 
-export const CohortSponsorshipSubmissions = pgTable(
+export const cohortSponsorshipSubmissions = pgTable(
   "cohort_sponsorship_submissions",
   {
-    cohortSponsorshipId: text("cohort_sponsorship_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    cohortSponsorshipId: primaryId("cohort_sponsorship_id"),
     organizationName: text("organization_name").notNull(),
     contactPerson: text("contact_person").notNull(),
     positionRole: text("position_role").notNull(),
@@ -162,51 +175,49 @@ export const CohortSponsorshipSubmissions = pgTable(
     sponsorshipAreas: jsonb("sponsorship_areas").$type<string[]>().notNull(),
     whySupport: text("why_support").notNull(),
     impactAreas: text("impact_areas").notNull(),
-    scheduleDiscussion: text("scheduleDiscussion"),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    // Optional question: NULL means it was left unanswered.
+    scheduleDiscussion: boolean("schedule_discussion"),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("cohort_sponsorship_submissions_email_idx").on(t.email),
+    index("cohort_sponsorship_submissions_created_at_idx").on(t.createdAt),
+  ],
 );
 
-export const DesignForgeSubmissions = pgTable("design_forge_submissions", {
-  designForgeId: text("design_forge_id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  fullName: text("full_name").notNull(),
-  email: text("email").notNull(),
-  phoneNumber: text("phone_number").notNull(),
-  institutionOrCompany: text("institution_or_company").notNull(),
-  currentRole: text("current_role").notNull(),
-  areasOfInterest: jsonb("areas_of_interest").$type<string[]>().notNull(),
-  mentorshipInterest: text("mentorship_interest").notNull(),
-  collaborationsInterest: text("collaborations_interest").notNull(),
-  challengesWorkshopsInterest: text("challenge_workshop_interest").notNull(),
-  linkedinProfile: text("linkedin_profile"),
-  portfolioLink: text("portfolio_link"),
-  socialHandle: text("social_handle"),
-  whyJoin: text("why_join").notNull(),
-  requestId: text("request_id"),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true })
-    .defaultNow()
-    .$onUpdateFn(() => new Date())
-    .notNull(),
-});
+export const designForgeSubmissions = pgTable(
+  "design_forge_submissions",
+  {
+    designForgeId: primaryId("design_forge_id"),
+    fullName: text("full_name").notNull(),
+    email: text("email").notNull(),
+    phoneNumber: text("phone_number").notNull(),
+    institutionOrCompany: text("institution_or_company").notNull(),
+    currentRole: text("current_role").notNull(),
+    areasOfInterest: jsonb("areas_of_interest").$type<string[]>().notNull(),
+    mentorshipInterest: boolean("mentorship_interest").notNull(),
+    collaborationsInterest: boolean("collaborations_interest").notNull(),
+    challengesWorkshopsInterest: boolean(
+      "challenge_workshop_interest",
+    ).notNull(),
+    linkedinProfile: text("linkedin_profile"),
+    portfolioLink: text("portfolio_link"),
+    socialHandle: text("social_handle"),
+    whyJoin: text("why_join").notNull(),
+    requestId: requestId(),
+    ...timestamps,
+  },
+  (t) => [
+    index("design_forge_submissions_email_idx").on(t.email),
+    index("design_forge_submissions_created_at_idx").on(t.createdAt),
+  ],
+);
 
-export const CustomEngineeringSubmissions = pgTable(
+export const customEngineeringSubmissions = pgTable(
   "custom_engineering_submissions",
   {
-    customEngineeringId: text("custom_engineering_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    customEngineeringId: primaryId("custom_engineering_id"),
     organizationName: text("organization_name").notNull(),
     contactPerson: text("contact_person").notNull(),
     email: text("email").notNull(),
@@ -228,23 +239,23 @@ export const CustomEngineeringSubmissions = pgTable(
       .$type<string[]>()
       .default([])
       .notNull(),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    // When the submitter accepted the terms of agreement (the disclaimer).
+    termsAcceptedAt: timestamp("terms_accepted_at", {
+      withTimezone: true,
+    }).notNull(),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("custom_engineering_submissions_email_idx").on(t.email),
+    index("custom_engineering_submissions_created_at_idx").on(t.createdAt),
+  ],
 );
 
-export const DraftingDigitizationSubmissions = pgTable(
+export const draftingDigitizationSubmissions = pgTable(
   "drafting_digitization_submissions",
   {
-    draftingDigitizationId: text("drafting_digitization_id")
-      .primaryKey()
-      .$defaultFn(() => crypto.randomUUID()),
+    draftingDigitizationId: primaryId("drafting_digitization_id"),
     organizationName: text("organization_name").notNull(),
     contactPerson: text("contact_person").notNull(),
     email: text("email").notNull(),
@@ -260,13 +271,15 @@ export const DraftingDigitizationSubmissions = pgTable(
       .$type<string[]>()
       .default([])
       .notNull(),
-    requestId: text("request_id"),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
-      .defaultNow()
-      .$onUpdateFn(() => new Date())
-      .notNull(),
+    // When the submitter accepted the terms of agreement (the disclaimer).
+    termsAcceptedAt: timestamp("terms_accepted_at", {
+      withTimezone: true,
+    }).notNull(),
+    requestId: requestId(),
+    ...timestamps,
   },
+  (t) => [
+    index("drafting_digitization_submissions_email_idx").on(t.email),
+    index("drafting_digitization_submissions_created_at_idx").on(t.createdAt),
+  ],
 );

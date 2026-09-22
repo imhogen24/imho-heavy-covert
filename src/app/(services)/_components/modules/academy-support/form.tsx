@@ -24,6 +24,7 @@ import {
   AcademySupportSchema,
   type AcademySupportFormData,
 } from "@/lib/schemas/academy-support/z";
+import { useSubmission } from "@/hooks/use-submission";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
@@ -80,31 +81,16 @@ export const AcademySupportForm = () => {
 
   const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const submit = useSubmission("support");
 
   async function onSubmit(values: AcademySupportFormData) {
     setPending(true);
-    const formData = new FormData();
-
-    Object.entries(values).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        formData.append(key, JSON.stringify(value));
-      } else if (value instanceof Date) {
-        formData.append(key, value.toISOString());
-      } else if (value !== undefined) {
-        formData.append(key, String(value));
-      }
-    });
 
     try {
-      const response = await fetch("/api/submissions/support", {
-        method: "POST",
-        body: formData,
-      });
+      const result = await submit(values);
 
-      const result = await response.json();
-
-      if (!response.ok || result?.error) {
-        toast.error(result?.error || "Something went wrong! Please try again.");
+      if (!result.ok) {
+        toast.error(result.error || "Something went wrong! Please try again.");
 
         return;
       }
