@@ -33,7 +33,8 @@ export function ConsentManager({ children }: { children: React.ReactNode }) {
             primary: "hsl(31, 100%, 47%)",
             surface: "hsl(240, 10%, 3.9%)",
             surfaceHover: "hsl(240, 3.7%, 15.9%)",
-            border: "hsl(240, 6%, 93%)",
+            border: "hsl(240, 3.7%, 15.9%)",
+            borderHover: "hsl(240, 3.7%, 22%)",
             text: "hsl(0, 0%, 98%)",
             textMuted: "hsl(240, 5%, 64.9%)",
             textOnPrimary: "hsl(240, 5.9%, 10%)",
@@ -41,10 +42,12 @@ export function ConsentManager({ children }: { children: React.ReactNode }) {
           },
           slots: {
             consentBannerCard:
-              "rounded-2xl ring-1 ring-foreground/10 dark:ring-foreground/20 shadow-lg max-w-md w-full",
+              "rounded-2xl border muted-border max-w-md w-full",
             consentBannerFooter: "gap-3 p-4",
             consentBannerTitle: "text-base font-semibold",
             consentBannerDescription: "text-sm",
+            buttonPrimary: "rounded-2xl",
+            buttonSecondary: "rounded-2xl",
           },
           consentActions: {
             default: { mode: "filled" },
