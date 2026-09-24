@@ -25,3 +25,39 @@ ALTER TABLE "imhogen_academy_submissions" ADD COLUMN "notify_attempts" integer D
 ALTER TABLE "imhogen_partnership_submissions" ADD COLUMN "admin_notified_at" timestamp with time zone;--> statement-breakpoint
 ALTER TABLE "imhogen_partnership_submissions" ADD COLUMN "confirmation_sent_at" timestamp with time zone;--> statement-breakpoint
 ALTER TABLE "imhogen_partnership_submissions" ADD COLUMN "notify_attempts" integer DEFAULT 0 NOT NULL;
+
+UPDATE "contact_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "imhogen_academy_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "imhogen_partnership_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "academy_support_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "capability_assessment_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "cohort_sponsorship_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "design_forge_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "custom_engineering_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
+
+UPDATE "drafting_digitization_submissions" 
+SET "admin_notified_at" = NOW(), "confirmation_sent_at" = NOW() 
+WHERE "admin_notified_at" IS NULL;
