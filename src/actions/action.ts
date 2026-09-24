@@ -20,6 +20,7 @@ import { DraftingDigitizationFormEmail } from "../components/emails/drafting-dig
 import { DraftingDigitizationConfirmationEmail } from "../components/emails/drafting-digitization/tier3-confirmation";
 
 import { db } from "@/lib/db";
+
 import {
   contactSubmissions,
   imhogenAcademySubmissions,
@@ -31,6 +32,9 @@ import {
   customEngineeringSubmissions,
   draftingDigitizationSubmissions,
 } from "@/lib/db/schema";
+
+import { eq, sql } from "drizzle-orm";
+
 import type { ContactFormData } from "@/lib/schemas/z";
 import type { ImhoGenAcademyFormData } from "@/lib/schemas/imho-gen-academy/z";
 import type { AcademyPartnershipFormData } from "@/lib/schemas/academy-partnership/z";
@@ -49,12 +53,19 @@ type EmailPayload = Parameters<typeof resend.emails.send>[0];
 
 const sendEmail = async (
   payload: EmailPayload,
+  idempotencyKey: string,
 ): Promise<Awaited<ReturnType<typeof resend.emails.send>>> => {
   let timer: ReturnType<typeof setTimeout> | undefined;
 
   try {
     return await Promise.race([
-      resend.emails.send(payload),
+      resend.emails.send({
+        ...payload,
+        headers: {
+          "Idempotency-Key": idempotencyKey,
+          ...payload.headers,
+        },
+      }),
       new Promise<Awaited<ReturnType<typeof resend.emails.send>>>((resolve) => {
         timer = setTimeout(
           () =>
@@ -87,27 +98,88 @@ const yes = (value?: "Yes" | "No") => value === "Yes";
  * response is sent. The submission is already saved, so a failed email is
  * logged with its request id rather than reported to the user as a failure.
  */
-const notify = (
+
+export type AnySubmissionTable =
+  | typeof contactSubmissions
+  | typeof imhogenAcademySubmissions
+  | typeof cohortSponsorshipSubmissions
+  | typeof draftingDigitizationSubmissions
+  | typeof academySupportSubmissions
+  | typeof designForgeSubmissions
+  | typeof customEngineeringSubmissions
+  | typeof capabilityAssessmentSubmissions
+  | typeof imhogenPartnershipSubmissions;
+
+export const processNotification = (
+  table: AnySubmissionTable,
   requestId: string,
   emails: { admin: EmailPayload; confirmation: EmailPayload },
 ) => {
   after(async () => {
-    const [admin, confirmation] = await Promise.allSettled([
-      sendEmail(emails.admin),
-      sendEmail(emails.confirmation),
-    ]);
+    //increase the notification attempts in db
+    const [updatedRow] = await db
+      .update(table)
+      .set({
+        notifyAttempts: sql`${table.notifyAttempts} + 1`,
+      })
+      .where(eq(table.requestId, requestId))
+      .returning();
 
-    for (const [kind, outcome] of [
-      ["Admin", admin],
-      ["Confirmation", confirmation],
-    ] as const) {
-      const error =
-        outcome.status === "rejected" ? outcome.reason : outcome.value.error;
+    if (!updatedRow) return;
 
-      if (error) {
-        console.error(`${kind} email failed for ${requestId}:`, error);
+    //using adminNotifiedAt as target, check if email has been sent or not; if not send it
+    if (!updatedRow.adminNotifiedAt) {
+      const admin = await sendEmail(emails.admin, `${requestId}:admin`);
+
+      //if there's an error log it
+      if (admin.error) {
+        console.log(`Admin email failed for ${requestId}:`, admin.error);
+
+        //if email has been sent, check and save the adminNotified time
+      } else {
+        await db
+          .update(table)
+          .set({ adminNotifiedAt: new Date() })
+          .where(eq(table.requestId, requestId));
       }
     }
+
+    //same process for use email
+    if (!updatedRow.confirmationSentAt) {
+      const confirmation = await sendEmail(
+        emails.confirmation,
+        `${requestId}:confirmation`,
+      );
+
+      if (confirmation.error) {
+        console.log(
+          `Confirmation email to user failed for ${requestId}:`,
+          confirmation.error,
+        );
+      } else {
+        await db
+          .update(table)
+          .set({ confirmationSentAt: new Date() })
+          .where(eq(table.requestId, requestId));
+      }
+    }
+
+    //cut attempting after 5
+    if (updatedRow.notifyAttempts >= 5) {
+      console.error(
+        `[NOTIFY_GIVE_UP] Reached maximum attempts(5) for submission ${requestId}`,
+      );
+    }
+  });
+};
+
+const notify = (
+  table: AnySubmissionTable,
+  requestId: string,
+  emails: { admin: EmailPayload; confirmation: EmailPayload },
+) => {
+  after(async () => {
+    await processNotification(table, requestId, emails);
   });
 };
 
@@ -129,7 +201,7 @@ export const contactFormAction = async ({
     .returning({ requestId: contactSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(contactSubmissions, requestId, {
       admin: {
         from: `Contact Form <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -176,7 +248,7 @@ export const ImhoGenAcademyFormAction = async ({
     .returning({ requestId: imhogenAcademySubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(imhogenAcademySubmissions, requestId, {
       admin: {
         from: `Academy Application <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -217,7 +289,7 @@ export const AcademyPartnershipFormAction = async ({
     .returning({ requestId: imhogenPartnershipSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(imhogenPartnershipSubmissions, requestId, {
       admin: {
         from: `Academy Partnership <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -256,7 +328,7 @@ export const AcademySupportFormAction = async ({
     .returning({ requestId: academySupportSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(academySupportSubmissions, requestId, {
       admin: {
         from: `Academy Support <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -302,7 +374,7 @@ export const CapabilityAssessmentFormAction = async ({
     .returning({ requestId: capabilityAssessmentSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(capabilityAssessmentSubmissions, requestId, {
       admin: {
         from: `Capability Assessment <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -347,7 +419,7 @@ export const CohortSponsorshipFormAction = async ({
     .returning({ requestId: cohortSponsorshipSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(cohortSponsorshipSubmissions, requestId, {
       admin: {
         from: `Cohort Sponsorship <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -394,7 +466,7 @@ export const DesignForgeFormAction = async ({
     .returning({ requestId: designForgeSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(designForgeSubmissions, requestId, {
       admin: {
         from: `Design Forge <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -445,7 +517,7 @@ export const CustomEngineeringFormAction = async ({
     .returning({ requestId: customEngineeringSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(customEngineeringSubmissions, requestId, {
       admin: {
         from: `Tier 1 Intake <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
@@ -494,7 +566,7 @@ export const DraftingDigitizationFormAction = async ({
     .returning({ requestId: draftingDigitizationSubmissions.requestId });
 
   if (inserted.length > 0) {
-    notify(requestId, {
+    notify(draftingDigitizationSubmissions, requestId, {
       admin: {
         from: `Tier 3 Intake <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
