@@ -59,12 +59,8 @@ const sendEmail = async (
 
   try {
     return await Promise.race([
-      resend.emails.send({
-        ...payload,
-        headers: {
-          "Idempotency-Key": idempotencyKey,
-          ...payload.headers,
-        },
+      resend.emails.send(payload, {
+        idempotencyKey,
       }),
       new Promise<Awaited<ReturnType<typeof resend.emails.send>>>((resolve) => {
         timer = setTimeout(
