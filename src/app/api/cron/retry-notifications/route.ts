@@ -15,24 +15,19 @@ import { retrySubmission } from "@/lib/notifications/retry";
 import { and, isNull, lt, or } from "drizzle-orm";
 
 export async function GET(request: Request) {
-  //   const requestAuthHeader = request.headers.get("authorization");
-
-  //   if (requestAuthHeader !== `Bearer $(process.env.CRON_SECRET)`) {
-  //     return new Response("Unauthorized", { status: 401 });
-  //   }
-
   const authHeader = request.headers.get("authorization");
   const expectedSecret = process.env.CRON_SECRET;
 
-  // Debug log to terminal to see what both sides actually contain
-  console.log("RECEIVED:", authHeader);
-  console.log("EXPECTED:", `Bearer ${expectedSecret}`);
+  console.log(
+    "[CRON] Auth check:",
+    authHeader === `Bearer ${expectedSecret}` ? "SUCCESS" : "FAILED",
+  );
 
   if (authHeader !== `Bearer ${expectedSecret}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 6000);
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
   const tables = [
     contactSubmissions,
