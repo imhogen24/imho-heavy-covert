@@ -75,13 +75,22 @@ export async function retrySubmission(table: AnySubmissionTable, row: any) {
         from: `Academy Application <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
         subject: `New IMHO GEN Academy Application from ${row.fullName}`,
-        react: ImhoGenAcademyFormEmail({ ...row, requestId: row.requestId }),
+        react: ImhoGenAcademyFormEmail({
+          ...row,
+          hasPriorProjects: row.hasPriorProjects ? "Yes" : "No",
+          willingForIntensiveTraining: row.willingForIntensiveTraining
+            ? "Yes"
+            : "No",
+          requestId: row.requestId,
+        }),
       },
       confirmation: {
         from: `Confirmation <imhogen@admin.imhogen.com>`,
         to: [row.email],
         subject: `Application Received — IMHO GEN Academy`,
-        react: ImhoGenAcademyConfirmationEmail({ fullName: row.fullName }),
+        react: ImhoGenAcademyConfirmationEmail({
+          fullName: row.fullName,
+        }),
       },
     };
   } else if (table === imhogenPartnershipSubmissions) {
@@ -146,7 +155,16 @@ export async function retrySubmission(table: AnySubmissionTable, row: any) {
         from: `Cohort Sponsorship <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
         subject: `New Cohort Sponsorship Inquiry from ${row.organizationName}`,
-        react: CohortSponsorshipFormEmail({ ...row, requestId: row.requestId }),
+        react: CohortSponsorshipFormEmail({
+          ...row,
+          scheduleDiscussion:
+            row.scheduleDiscussion === null
+              ? undefined
+              : row.scheduleDiscussion
+                ? "Yes"
+                : "No",
+          requestId: row.requestId,
+        }),
       },
       confirmation: {
         from: `Confirmation <imhogen@admin.imhogen.com>`,
@@ -164,7 +182,15 @@ export async function retrySubmission(table: AnySubmissionTable, row: any) {
         from: `Design Forge <imhogen@admin.imhogen.com>`,
         to: ["imhogen22@gmail.com"],
         subject: `New Design Forge Community Sign-up from ${row.fullName}`,
-        react: DesignForgeFormEmail({ ...row, requestId: row.requestId }),
+        react: DesignForgeFormEmail({
+          ...row,
+          mentorshipInterest: row.mentorshipInterest ? "Yes" : "No",
+          collaborationsInterest: row.mentorshipInterest ? "Yes" : "No",
+          challengesWorkshopsInterest: row.challengesWorkshopsInterest
+            ? "Yes"
+            : "No",
+          requestId: row.requestId,
+        }),
       },
       confirmation: {
         from: `Confirmation <imhogen@admin.imhogen.com>`,
