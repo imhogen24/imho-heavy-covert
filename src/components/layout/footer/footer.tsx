@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FileForm } from "./contact-form";
 import { ConsentDialogLink } from "@c15t/nextjs/components/consent-dialog-link";
 import { Button } from "@/components/ui/button";
+import { FooterThemeToggle } from "@/components/theme/footer-theme-toggle";
 
 const Footer = () => {
   return (
@@ -69,14 +70,20 @@ const Footer = () => {
               ))}
             </div>
 
-            <p className="text-muted-foreground">
-              @2025 IMHO. All Rights Reserved
-            </p>
-            <ConsentDialogLink asChild>
-              <Button variant="link" className="text-xs text-muted-foreground">
-                Cookie Preferences
-              </Button>
-            </ConsentDialogLink>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-muted-foreground">
+                @2025 IMHO. All Rights Reserved
+              </p>
+              <ConsentDialogLink asChild>
+                <Button
+                  variant="link"
+                  className="text-xs text-muted-foreground"
+                >
+                  Cookie Preferences
+                </Button>
+              </ConsentDialogLink>
+              <FooterThemeToggle />
+            </div>
           </div>
         </section>
 
@@ -99,14 +106,17 @@ const Footer = () => {
             ))}
           </div>
 
-          <p className="text-muted-foreground">
-            @2025 IMHO. All Rights Reserved
-          </p>
-          <ConsentDialogLink asChild>
-            <Button variant="link" className="text-xs text-muted-foreground">
-              Cookie Preferences
-            </Button>
-          </ConsentDialogLink>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-muted-foreground">
+              @2025 IMHO. All Rights Reserved
+            </p>
+            <ConsentDialogLink asChild>
+              <Button variant="link" className="text-xs text-muted-foreground">
+                Cookie Preferences
+              </Button>
+            </ConsentDialogLink>
+            <FooterThemeToggle />
+          </div>
         </div>
       </div>
     </div>
