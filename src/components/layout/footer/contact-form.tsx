@@ -12,7 +12,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useSubmission } from "@/hooks/use-submission";
-import { ContactFormSchema, type ContactFormInput } from "@/lib/schemas/z";
+import {
+  ContactFormSchema,
+  type ContactFormData,
+  type ContactFormInput,
+} from "@/lib/schemas/contact-form/z";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
@@ -20,14 +24,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 
 export const FileForm = () => {
-  const form = useForm<
-    ContactFormInput,
-    any,
-    z.infer<typeof ContactFormSchema>
-  >({
+  const form = useForm<ContactFormInput, any, ContactFormData>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: "",
@@ -40,7 +39,7 @@ export const FileForm = () => {
   const [pending, setPending] = useState(false);
   const submit = useSubmission("contact");
 
-  async function onSubmit(values: z.infer<typeof ContactFormSchema>) {
+  async function onSubmit(values: ContactFormData) {
     setPending(true);
 
     try {

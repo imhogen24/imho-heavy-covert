@@ -57,10 +57,9 @@ export const academyPartnershipPdfConfig: PDFConfig = {
     },
   ],
 
-  getFooterText: (data: AcademyPartnershipFormData) => {
-    const date = data.createdAt
-      ? new Date(data.createdAt).toLocaleDateString()
-      : new Date().toLocaleDateString();
+  getFooterText: () => {
+    // Rendered from live form values, so the date is always today.
+    const date = new Date().toLocaleDateString();
 
     return `IMHO Academy Partnership Inquiry • ${date}`;
   },

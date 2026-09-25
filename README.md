@@ -7,7 +7,8 @@ IMHO Heavy Covert is a web application for an engineering and product-developmen
 ```text
 imho-heavy-covert/
 ├── public/                  # Static assets, logos, and trade-tech media
-├── context/                 # Shared React context, including cookie consent
+├── drizzle/                 # Database migrations
+├── docs/                    # Internal technical notes
 ├── src/
 │   ├── actions/             # Server actions
 │   ├── app/                 # Next.js App Router routes and layouts
@@ -15,24 +16,27 @@ imho-heavy-covert/
 │   │   ├── (services)/      # Engineering service pages and related PDFs
 │   │   ├── (shop)/          # Trade technology and product pages
 │   │   ├── (blog)/          # Blog pages and posts
-│   │   └── api/             # API routes, including UploadThing
+│   │   ├── …                # Further content route groups (about, academy, kamsmet, …)
+│   │   └── api/             # Form submissions, UploadThing, and cron routes
 │   ├── components/          # Shared UI, layouts, forms, emails, and utilities
 │   ├── hooks/               # Reusable React hooks
-│   └── lib/                 # Utilities, integrations, types, and Zod schemas
+│   └── lib/                 # Database, notifications, Zod schemas, and utilities
 ├── next.config.ts           # Next.js configuration and remote image hosts
+├── drizzle.config.ts        # Drizzle Kit configuration
 ├── tailwind.config.ts       # Tailwind CSS configuration
 ├── package.json             # Scripts and dependencies
-└── pnpm-lock.yaml           # Locked pnpm dependency versions
+└── bun.lock                 # Locked Bun dependency versions
 ```
 
 ## Technologies
 
-- Next.js 15 with the App Router
+- Next.js 16 with the App Router
 - React 19 and TypeScript
-- Tailwind CSS with PostCSS
+- Tailwind CSS v4 with PostCSS
 - Radix UI primitives and custom reusable components
-- Framer Motion and Motion for animations
-- Zod, Conform, and React Hook Form for typed form validation
+- Motion for animations
+- Zod and React Hook Form for typed form validation
+- Drizzle ORM with Neon serverless Postgres
 - Notion API for blog content
 - UploadThing for file uploads
 - React PDF for generated service documents
@@ -41,18 +45,18 @@ imho-heavy-covert/
 
 ## Package Manager
 
-This project uses **pnpm**, as indicated by `pnpm-lock.yaml`.
+This project uses **Bun**, as indicated by `bun.lock` and the `packageManager` field in `package.json`.
 
 ```bash
-pnpm install
-pnpm dev
-pnpm lint
-pnpm build
-pnpm start
+bun install
+bun dev
+bun run check    # lint + format check + typecheck; the gate CI runs
+bun run build
+bun start
 ```
+
+The `dev`, `build`, and `db:*` scripts load environment variables from `.env.staging` with dotenvx, so they must be run through these scripts rather than invoking `next` directly.
 
 ## Deployment
 
-The application is deployed on **Vercel**. Vercel Analytics and Speed Insights are integrated into the root application layout, and the local `.vercel` directory is excluded from version control.
-
-Configure the required environment variables in the Vercel project settings before deploying integrations such as Notion, UploadThing, and Resend.
+The application is deployed on **Vercel**.

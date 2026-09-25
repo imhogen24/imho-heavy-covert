@@ -24,8 +24,6 @@
   },
   "dependencies": {
     "@c15t/nextjs": "^2.2.1",
-    "@conform-to/react": "^1.19.2",
-    "@conform-to/zod": "^1.19.2",
     "@hookform/resolvers": "^5.9.1",
     "@neondatabase/serverless": "^1.1.0",
     "@notion-render/bookmark-plugin": "^0.0.2",

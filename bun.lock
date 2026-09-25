@@ -6,8 +6,6 @@
       "name": "project-heavy-covert",
       "dependencies": {
         "@c15t/nextjs": "^2.2.1",
-        "@conform-to/react": "^1.19.2",
-        "@conform-to/zod": "^1.19.2",
         "@hookform/resolvers": "^5.9.1",
         "@neondatabase/serverless": "^1.1.0",
         "@notion-render/bookmark-plugin": "^0.0.2",
@@ -126,12 +124,6 @@
     "@c15t/translations": ["@c15t/translations@2.2.1", "", {}, "sha512-JgYXn+bTyys/7e7SMfu19zVBlW1cED6/CqJ5mbOmmfMr9MSkaAq0/UK/6/29FhcfCJKmHq+kQqKa0igX86mJeA=="],
 
     "@c15t/ui": ["@c15t/ui@2.2.1", "", { "dependencies": { "@c15t/translations": "2.2.1", "c15t": "2.2.1" } }, "sha512-OlmEhScePX3xF+sPNWemLZaiJv80KuxsuxTf+Ip0ImREGeXdaOIG7Hp6IBU+8IOeJ723Q4LlD74gyV2NgTbXIQ=="],
-
-    "@conform-to/dom": ["@conform-to/dom@1.21.1", "", {}, "sha512-pYnhrJoM1xDbAx36rVxxm4643TFWwquTDoI8abtgnC40XIHDZDUhy3pIrZrv+QjwtLEgSWGP5GX/LqJ+IDfe/Q=="],
-
-    "@conform-to/react": ["@conform-to/react@1.21.1", "", { "dependencies": { "@conform-to/dom": "1.21.1" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" } }, "sha512-q0kzC5dEHL4okfmdbih95OfuelXw6xlLeN9WvtxQ7CP047D6A5lRK+0DykZZHCFP4idsQzC8NUBQd/tkKXPukg=="],
-
-    "@conform-to/zod": ["@conform-to/zod@1.21.1", "", { "dependencies": { "@conform-to/dom": "1.21.1" }, "peerDependencies": { "zod": "^3.21.0 || ^4.0.0" } }, "sha512-VqMuYoUVtZJ57P1EYD4tDuOyOaN5jiep1Ui6BRl7aP1m6tA8Do+mKioR7WXkGKULiNsjgPR7/FyWLtMUmtJNHg=="],
 
     "@date-fns/tz": ["@date-fns/tz@1.5.0", "", {}, "sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg=="],
 

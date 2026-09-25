@@ -1,27 +1,21 @@
 import { z } from "zod";
+
 import { COUNTRIES } from "@/lib/countries";
+import {
+  email,
+  nameText,
+  optionalUrl,
+  phoneNumber,
+  requiredText,
+} from "@/lib/schemas/fields/z";
 
 export const ImhoGenAcademySchema = z.object({
   // SECTION 1 — BASIC INFORMATION
-  fullName: z
-    .string()
-    .min(2, { message: "Full name must be at least 2 characters long" })
-    .max(100, { message: "Full name cannot exceed 100 characters" }),
-  phoneNumber: z
-    .string()
-    .trim()
-    .refine((value) => /^\+[1-9]\d{1,14}$/.test(value), {
-      message:
-        "Phone number must be in E.164 format with country code (e.g., +12025550123)",
-    }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  country: z.enum(COUNTRIES, {
-    message: "Please select a country",
-  }),
-  cityTown: z
-    .string()
-    .min(2, { message: "City/Town must be at least 2 characters long" })
-    .max(100, { message: "City/Town cannot exceed 100 characters" }),
+  fullName: nameText("Full name", 100),
+  phoneNumber,
+  email,
+  country: z.enum(COUNTRIES, { error: "Please select a country" }),
+  cityTown: nameText("City/Town", 100),
 
   // SECTION 2 — EDUCATION / BACKGROUND
   currentStatus: z.enum(
@@ -36,35 +30,20 @@ export const ImhoGenAcademySchema = z.object({
       "Builder / Innovator",
       "Other",
     ],
-    { message: "Please select your current status" },
+    { error: "Please select your current status" },
   ),
-  institutionOrCompany: z
-    .string()
-    .min(2, {
-      message: "Institution/Company must be at least 2 characters long",
-    })
-    .max(200, {
-      message: "Institution/Company cannot exceed 200 characters",
-    }),
-  programDisciplineRole: z
-    .string()
-    .min(2, {
-      message: "Program/Discipline/Role must be at least 2 characters long",
-    })
-    .max(200, {
-      message: "Program/Discipline/Role cannot exceed 200 characters",
-    }),
+  institutionOrCompany: nameText("Institution/Company", 200),
+  programDisciplineRole: nameText("Program/Discipline/Role", 200),
   currentLevelYear: z
     .enum(["Level 100", "Level 200", "Level 300", "Level 400", "Other"])
     .optional(),
 
   // SECTION 3 — INTEREST & CAPABILITY
-  whyJoin: z
-    .string()
-    .min(10, {
-      message: "Please share at least 10 characters on why you want to join",
-    })
-    .max(1000, { message: "Response cannot exceed 1000 characters" }),
+  whyJoin: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on why you want to join",
+  ),
   areasOfInterest: z
     .array(
       z.enum([
@@ -79,36 +58,25 @@ export const ImhoGenAcademySchema = z.object({
         "Design Thinking",
       ]),
     )
-    .min(1, { message: "Please select at least one area of interest" }),
-  hasPriorProjects: z.enum(["Yes", "No"], {
-    message: "Please select an option",
-  }),
-  portfolioLink: z
-    .string()
-    .url({ message: "Please enter a valid URL" })
-    .optional()
-    .or(z.literal("")),
+    .min(1, { error: "Please select at least one area of interest" }),
+  hasPriorProjects: z.enum(["Yes", "No"], { error: "Please select an option" }),
+  portfolioLink: optionalUrl,
 
   // SECTION 4 — COMMITMENT
   willingForIntensiveTraining: z.enum(["Yes", "No"], {
-    message: "Please select an option",
+    error: "Please select an option",
   }),
   weeklyHoursCommitment: z.enum(
     ["Less than 5 hours", "5–10 hours", "10–20 hours", "20+ hours"],
-    { message: "Please select your weekly hours commitment" },
+    { error: "Please select your weekly hours commitment" },
   ),
 
   // FINAL QUESTION
-  whySelectYou: z
-    .string()
-    .min(10, {
-      message:
-        "Please share at least 10 characters on why we should select you",
-    })
-    .max(1500, { message: "Response cannot exceed 1500 characters" }),
-
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  whySelectYou: requiredText(
+    10,
+    1500,
+    "Please share at least 10 characters on why we should select you",
+  ),
 });
 
 export type ImhoGenAcademyFormData = z.infer<typeof ImhoGenAcademySchema>;

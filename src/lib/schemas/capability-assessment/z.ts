@@ -1,18 +1,22 @@
 import { z } from "zod";
 
+import {
+  email,
+  nameText,
+  optionalUrl,
+  requiredText,
+} from "@/lib/schemas/fields/z";
+
 const ratingField = z
-  .number({ message: "Please select a rating from 1 to 5" })
+  .number({ error: "Please select a rating from 1 to 5" })
   .int()
-  .min(1, { message: "Please select a rating from 1 to 5" })
-  .max(5, { message: "Please select a rating from 1 to 5" });
+  .min(1, { error: "Please select a rating from 1 to 5" })
+  .max(5, { error: "Please select a rating from 1 to 5" });
 
 export const CapabilityAssessmentSchema = z.object({
   // SECTION 1 — BASIC INFORMATION
-  fullName: z
-    .string()
-    .min(2, { message: "Full name must be at least 2 characters long" })
-    .max(100, { message: "Full name cannot exceed 100 characters" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
+  fullName: nameText("Full name", 100),
+  email,
   background: z.enum(
     [
       "SHS Student",
@@ -25,11 +29,11 @@ export const CapabilityAssessmentSchema = z.object({
       "Builder / Innovator",
       "Other",
     ],
-    { message: "Please select your current background" },
+    { error: "Please select your current background" },
   ),
   experienceLevel: z.enum(
     ["Basic", "Intermediate", "Advanced", "Professional"],
-    { message: "Please select your experience level" },
+    { error: "Please select your experience level" },
   ),
 
   // SECTION 2 — SELF-ASSESSMENT (1–5)
@@ -42,35 +46,24 @@ export const CapabilityAssessmentSchema = z.object({
   systemsThinking: ratingField,
 
   // SECTION 3 — PRACTICAL THINKING
-  projectDescription: z
-    .string()
-    .min(10, {
-      message: "Please share at least 10 characters about your project",
-    })
-    .max(1500, { message: "Response cannot exceed 1500 characters" }),
-  improvementArea: z
-    .string()
-    .min(10, {
-      message:
-        "Please share at least 10 characters on what you want to improve",
-    })
-    .max(1000, { message: "Response cannot exceed 1000 characters" }),
-  biggestWeakness: z
-    .string()
-    .min(10, {
-      message: "Please share at least 10 characters on your biggest weakness",
-    })
-    .max(1000, { message: "Response cannot exceed 1000 characters" }),
+  projectDescription: requiredText(
+    10,
+    1500,
+    "Please share at least 10 characters about your project",
+  ),
+  improvementArea: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on what you want to improve",
+  ),
+  biggestWeakness: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on your biggest weakness",
+  ),
 
   // OPTIONAL SECTION — PORTFOLIO / PROJECT LINK
-  portfolioLink: z
-    .string()
-    .url({ message: "Please enter a valid URL" })
-    .optional()
-    .or(z.literal("")),
-
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  portfolioLink: optionalUrl,
 });
 
 export type CapabilityAssessmentFormData = z.infer<

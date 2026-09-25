@@ -1,17 +1,22 @@
 import { z } from "zod";
 
+import { email, requiredText } from "@/lib/schemas/fields/z";
 import { UploadedFilesSchema } from "@/lib/schemas/uploads/z";
 
 export const ContactFormSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name cannot exceed 100 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  message: z
-    .string()
-    .min(10, "Message must be at least 10 characters long")
-    .max(5000, "Message cannot exceed 5000 characters"),
+  name: requiredText(
+    1,
+    100,
+    "Name is required",
+    "Name cannot exceed 100 characters",
+  ),
+  email,
+  message: requiredText(
+    10,
+    5000,
+    "Message must be at least 10 characters long",
+    "Message cannot exceed 5000 characters",
+  ),
   files: UploadedFilesSchema,
 });
 

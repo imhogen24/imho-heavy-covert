@@ -63,10 +63,9 @@ export const cohortSponsorshipPdfConfig: PDFConfig = {
     },
   ],
 
-  getFooterText: (data: CohortSponsorshipFormData) => {
-    const date = data.createdAt
-      ? new Date(data.createdAt).toLocaleDateString()
-      : new Date().toLocaleDateString();
+  getFooterText: () => {
+    // Rendered from live form values, so the date is always today.
+    const date = new Date().toLocaleDateString();
 
     return `IMHO Cohort Sponsorship Inquiry • ${date}`;
   },
