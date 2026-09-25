@@ -21,6 +21,7 @@ import { CohortSponsorshipSchema } from "@/lib/schemas/cohort-sponsorship/z";
 import { DesignForgeSchema } from "@/lib/schemas/design-forge/z";
 import { CustomEngineeringSchema } from "@/lib/schemas/custom-engineering/z";
 import { DraftingDigitizationSchema } from "@/lib/schemas/drafting-digitization/z";
+import { submissionRatelimit } from "@/lib/rate-limit";
 
 // Generated once per form fill on the client and resent on every retry, so a
 // repeated POST maps to the same request_id and is not stored twice.
@@ -136,6 +137,18 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ type: string }> },
 ) {
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "127.0.0.1";
+
+  const { success } = await submissionRatelimit.limit(ip);
+
+  if (!success) {
+    return NextResponse.json(
+      { error: "Too many submissions. Please try again in a few minutes." },
+      { status: 429 },
+    );
+  }
+
   const { type: submissionType } = await params;
   const handler = handlers.get(submissionType);
 
