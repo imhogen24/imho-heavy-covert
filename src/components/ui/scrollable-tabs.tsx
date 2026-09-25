@@ -34,9 +34,21 @@ export function ScrollableTabs({ children, className }: ScrollableTabsProps) {
     el.addEventListener("scroll", checkScroll, { passive: true });
     window.addEventListener("resize", checkScroll);
 
+    /*
+     * The chevrons are always on screen now, so a stale reading shows as a
+     * wrongly enabled or wrongly greyed-out button rather than as nothing at
+     * all. Watch the track itself: tab content and web fonts can both change
+     * its width without a window resize.
+     */
+    const observer = new ResizeObserver(checkScroll);
+    observer.observe(el);
+
+    for (const child of Array.from(el.children)) observer.observe(child);
+
     return () => {
       el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
+      observer.disconnect();
     };
   }, [checkScroll]);
 
@@ -59,18 +71,17 @@ export function ScrollableTabs({ children, className }: ScrollableTabsProps) {
         className,
       )}
     >
-      {canScrollLeft && (
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={() => handleScroll("left")}
-          className="absolute left-0 z-20 h-7 w-7 rounded-full shadow-md transition-all"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="h-4 w-4 text-muted-foreground" />
-        </Button>
-      )}
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        disabled={!canScrollLeft}
+        onClick={() => handleScroll("left")}
+        className="absolute left-0 z-20 h-7 w-7 rounded-full shadow-md transition-all"
+        aria-label="Scroll left"
+      >
+        <ChevronLeft className="h-4 w-4 text-muted-foreground" />
+      </Button>
 
       <div className="w-full overflow-hidden">
         <div
@@ -81,18 +92,17 @@ export function ScrollableTabs({ children, className }: ScrollableTabsProps) {
         </div>
       </div>
 
-      {canScrollRight && (
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={() => handleScroll("right")}
-          className="absolute right-0 z-20 h-7 w-7 rounded-full shadow-md transition-all"
-          aria-label="Scroll right"
-        >
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
-        </Button>
-      )}
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        disabled={!canScrollRight}
+        onClick={() => handleScroll("right")}
+        className="absolute right-0 z-20 h-7 w-7 rounded-full shadow-md transition-all"
+        aria-label="Scroll right"
+      >
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+      </Button>
     </div>
   );
 }
