@@ -32,6 +32,12 @@ const timestamps = {
     .notNull(),
 };
 
+const notificationTracking = {
+  adminNotifiedAt: timestamp("admin_notified_at", { withTimezone: true }),
+  confirmationSentAt: timestamp("confirmation_sent_at", { withTimezone: true }),
+  notifyAttempts: integer("notify_attempts").default(0).notNull(),
+};
+
 export const contactSubmissions = pgTable(
   "contact_submissions",
   {
@@ -42,6 +48,7 @@ export const contactSubmissions = pgTable(
     files: jsonb("files").$type<string[]>().default([]).notNull(),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("contact_submissions_email_idx").on(t.email),
@@ -73,6 +80,7 @@ export const imhogenAcademySubmissions = pgTable(
     whySelectYou: text("why_select_you").notNull(),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("imhogen_academy_submissions_email_idx").on(t.email),
@@ -96,6 +104,7 @@ export const imhogenPartnershipSubmissions = pgTable(
     additionalInformation: text("additional_information"),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("imhogen_partnership_submissions_email_idx").on(t.email),
@@ -114,6 +123,7 @@ export const academySupportSubmissions = pgTable(
     supportContribution: text("support_contribution").notNull(),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("academy_support_submissions_email_idx").on(t.email),
@@ -144,6 +154,7 @@ export const capabilityAssessmentSubmissions = pgTable(
     portfolioLink: text("portfolio_link"),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("capability_assessment_submissions_email_idx").on(t.email),
@@ -179,6 +190,7 @@ export const cohortSponsorshipSubmissions = pgTable(
     scheduleDiscussion: boolean("schedule_discussion"),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("cohort_sponsorship_submissions_email_idx").on(t.email),
@@ -207,6 +219,7 @@ export const designForgeSubmissions = pgTable(
     whyJoin: text("why_join").notNull(),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("design_forge_submissions_email_idx").on(t.email),
@@ -245,6 +258,7 @@ export const customEngineeringSubmissions = pgTable(
     }).notNull(),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("custom_engineering_submissions_email_idx").on(t.email),
@@ -277,6 +291,7 @@ export const draftingDigitizationSubmissions = pgTable(
     }).notNull(),
     requestId: requestId(),
     ...timestamps,
+    ...notificationTracking,
   },
   (t) => [
     index("drafting_digitization_submissions_email_idx").on(t.email),
