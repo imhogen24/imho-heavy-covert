@@ -159,3 +159,54 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/*
+ * Consent (c15t) button tokens.
+ *
+ * The prebuilt button CSS is unlayered, so Tailwind utilities passed through
+ * `slots` lose to it on the cascade unless the rule they come from is unlayered
+ * too (as `.muted-border` is). The `--button-*` custom properties are the
+ * reliable lever for colour.
+ *
+ * Buttons are addressed by `data-testid`, the only stable per-button hook the
+ * library exposes (its class names are build-hashed).
+ *
+ * Border colours are not handled here: `muted-border` is applied to the
+ * bordered slots, and the theme's `border` token follows the same light/dark
+ * pair for the few elements that have no slot.
+ *
+ * Kept outside @layer so it wins over the unlayered `@c15t/react/styles.css`.
+ */
+:root,
+.c15t-theme-root {
+  /*
+   * A filled neutral button rests on `--c15t-text-muted` by default and only
+   * reaches full contrast on hover, which reads as disabled. Rest it solid.
+   */
+  --button-neutral: hsl(var(--foreground));
+  --button-neutral-dark: hsl(var(--foreground));
+  --button-neutral-hover: hsl(var(--foreground) / 0.9);
+  --button-neutral-hover-dark: hsl(var(--foreground) / 0.9);
+}
+
+/* Reject / accept: accent background in both modes. Filled buttons take their
+ * label from `--button-background-color`, not from `textOnPrimary`. */
+[data-testid="consent-banner-reject-button"],
+[data-testid="consent-banner-accept-button"],
+[data-testid="consent-widget-reject-button"],
+[data-testid="consent-widget-footer-accept-button"] {
+  --button-neutral: hsl(var(--accent));
+  --button-neutral-dark: hsl(var(--accent));
+  --button-neutral-hover: hsl(var(--accent-foreground) / 0.08);
+  --button-neutral-hover-dark: hsl(var(--accent-foreground) / 0.08);
+  --button-background-color: hsl(var(--accent-foreground));
+  --button-background-color-dark: hsl(var(--accent-foreground));
+}
+
+/* Primary-filled buttons: light label on the orange in dark mode, where the
+ * default resolves to the near-black `--background`. */
+[data-testid="consent-banner-customize-button"],
+[data-testid="consent-widget-footer-customize-button"],
+[data-testid="consent-widget-footer-save-button"] {
+  --button-background-color-dark: hsl(var(--foreground));
+}

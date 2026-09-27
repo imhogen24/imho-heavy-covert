@@ -82,8 +82,11 @@ const Footer = () => {
                   Cookie Preferences
                 </Button>
               </ConsentDialogLink>
-              <FooterThemeToggle />
             </div>
+          </div>
+
+          <div className="mt-auto hidden lg:block">
+            <FooterThemeToggle />
           </div>
         </section>
 
@@ -94,9 +97,9 @@ const Footer = () => {
           <FileForm />
         </section>
       </div>
-      <div className="flex justify-center items-center border-t muted-border">
+      <div className="flex flex-col border-t muted-border">
         <div className="hidden lg:block w-full"></div>
-        <div className="h-full lg:hidden gap-2 flex-col justify-center items-center border-t muted-border p-[24px] md:p-[48px]">
+        <div className="h-full lg:hidden flex gap-2 flex-col justify-center items-center border-t muted-border p-[24px] md:p-[48px]">
           <div className="flex justify-center items-center my-2 gap-2">
             {SOCIAL_ICONS.map(({ idx, icon: Icon, href }) => (
               <Link href={href} className="" key={idx}>
@@ -115,8 +118,11 @@ const Footer = () => {
                 Cookie Preferences
               </Button>
             </ConsentDialogLink>
-            <FooterThemeToggle />
           </div>
+        </div>
+
+        <div className="lg:hidden">
+          <FooterThemeToggle />
         </div>
       </div>
     </div>
