@@ -7,7 +7,7 @@ export const ContactFormSchema = z.object({
     .string()
     .min(1, "Name is required")
     .max(100, "Name cannot exceed 100 characters"),
-  email: z.string().email("Please enter a valid email address"),
+  email: z.email("Please enter a valid email address"),
   message: z
     .string()
     .min(10, "Message must be at least 10 characters long")

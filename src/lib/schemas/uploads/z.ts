@@ -11,5 +11,5 @@ const UPLOADED_FILE =
 // The `fileAttachment` route allows 5 images and 5 PDFs per upload.
 export const UploadedFilesSchema = z
   .array(z.string().max(500).regex(UPLOADED_FILE, "Invalid file attachment"))
-  .max(10, { message: "You can attach at most 10 files" })
+  .max(10, { error: "You can attach at most 10 files" })
   .default([]);
