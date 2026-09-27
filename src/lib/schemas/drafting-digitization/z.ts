@@ -80,11 +80,9 @@ export const DraftingDigitizationSchema = z.object({
     .min(1, { error: "Please select at least one output format" }),
 
   fileAttachments: UploadedFilesSchema,
-  disclaimer: z
-    .boolean()
-    .refine((value) => value === true, {
-      error: "You must agree to the terms of agreement",
-    }),
+  disclaimer: z.boolean().refine((value) => value === true, {
+    error: "You must agree to the terms of agreement",
+  }),
 
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
