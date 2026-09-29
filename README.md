@@ -22,12 +22,12 @@ imho-heavy-covert/
 ├── next.config.ts           # Next.js configuration and remote image hosts
 ├── tailwind.config.ts       # Tailwind CSS configuration
 ├── package.json             # Scripts and dependencies
-└── pnpm-lock.yaml           # Locked pnpm dependency versions
+└── bun.lock                 # Locked Bun dependency versions
 ```
 
 ## Technologies
 
-- Next.js 15 with the App Router
+- Next.js 16.2.6 with the App Router
 - React 19 and TypeScript
 - Tailwind CSS with PostCSS
 - Radix UI primitives and custom reusable components
@@ -41,14 +41,14 @@ imho-heavy-covert/
 
 ## Package Manager
 
-This project uses **pnpm**, as indicated by `pnpm-lock.yaml`.
+This project uses **Bun** (`bun@1.4.0`), as indicated by `package.json` and `bun.lock`.
 
 ```bash
-pnpm install
-pnpm dev
-pnpm lint
-pnpm build
-pnpm start
+bun install
+bun run dev
+bun run lint
+bun run build
+bun run start
 ```
 
 ## Deployment
