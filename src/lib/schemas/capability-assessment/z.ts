@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+import {
+  email,
+  nameText,
+  optionalUrl,
+  requiredText,
+} from "@/lib/schemas/fields/z";
+
 const ratingField = z
   .number({ error: "Please select a rating from 1 to 5" })
   .int()
@@ -8,11 +15,8 @@ const ratingField = z
 
 export const CapabilityAssessmentSchema = z.object({
   // SECTION 1 — BASIC INFORMATION
-  fullName: z
-    .string()
-    .min(2, { error: "Full name must be at least 2 characters long" })
-    .max(100, { error: "Full name cannot exceed 100 characters" }),
-  email: z.email({ error: "Please enter a valid email address" }),
+  fullName: nameText("Full name", 100),
+  email,
   background: z.enum(
     [
       "SHS Student",
@@ -42,33 +46,24 @@ export const CapabilityAssessmentSchema = z.object({
   systemsThinking: ratingField,
 
   // SECTION 3 — PRACTICAL THINKING
-  projectDescription: z
-    .string()
-    .min(10, {
-      error: "Please share at least 10 characters about your project",
-    })
-    .max(1500, { error: "Response cannot exceed 1500 characters" }),
-  improvementArea: z
-    .string()
-    .min(10, {
-      error: "Please share at least 10 characters on what you want to improve",
-    })
-    .max(1000, { error: "Response cannot exceed 1000 characters" }),
-  biggestWeakness: z
-    .string()
-    .min(10, {
-      error: "Please share at least 10 characters on your biggest weakness",
-    })
-    .max(1000, { error: "Response cannot exceed 1000 characters" }),
+  projectDescription: requiredText(
+    10,
+    1500,
+    "Please share at least 10 characters about your project",
+  ),
+  improvementArea: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on what you want to improve",
+  ),
+  biggestWeakness: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on your biggest weakness",
+  ),
 
   // OPTIONAL SECTION — PORTFOLIO / PROJECT LINK
-  portfolioLink: z
-    .url({ error: "Please enter a valid URL" })
-    .optional()
-    .or(z.literal("")),
-
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  portfolioLink: optionalUrl,
 });
 
 export type CapabilityAssessmentFormData = z.infer<

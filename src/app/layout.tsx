@@ -85,12 +85,12 @@ export default function RootLayout({
           suppressHydrationWarning
           className={cn(
             `${geistSans.variable} ${machina.variable} ${calligraffitti.variable}`,
-            "flex flex-col antialiased font-[family-name:var(--font-geist-sans)] max-w-screen",
+            "flex flex-col antialiased font-(family-name:--font-geist-sans) max-w-screen",
           )}
         >
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >

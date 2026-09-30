@@ -96,10 +96,9 @@ export const customEngineeringPdfConfig: PDFConfig = {
     },
   ],
 
-  getFooterText: (data: CustomEngineeringFormData) => {
-    const date = data.createdAt
-      ? new Date(data.createdAt).toLocaleDateString()
-      : new Date().toLocaleDateString();
+  getFooterText: () => {
+    // Rendered from live form values, so the date is always today.
+    const date = new Date().toLocaleDateString();
 
     return `IMHOGEN ERM SYSTEM | DOCUMENT ID: D1.1 | TIER 1 WORKFLOW • ${date}`;
   },

@@ -12,7 +12,7 @@ import {
   DraftingDigitizationFormAction,
   type Submission,
 } from "@/actions/action";
-import { ContactFormSchema } from "@/lib/schemas/z";
+import { ContactFormSchema } from "@/lib/schemas/contact-form/z";
 import { ImhoGenAcademySchema } from "@/lib/schemas/imho-gen-academy/z";
 import { AcademyPartnershipSchema } from "@/lib/schemas/academy-partnership/z";
 import { AcademySupportSchema } from "@/lib/schemas/academy-support/z";

@@ -59,7 +59,7 @@ const PATHWAYS: Record<TabId, Pathway> = {
     description:
       "Collaborate on infrastructure, deployment, or scaling systems under defined financial and operational structures.",
     cta: {
-      label: "Partner with IMHOGEN",
+      label: "Partner With Us",
       href: "/services/academy-partnership",
       Icon: HandshakeIcon,
     },

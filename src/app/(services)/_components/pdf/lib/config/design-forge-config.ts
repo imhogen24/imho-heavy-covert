@@ -73,10 +73,9 @@ export const designForgePdfConfig: PDFConfig = {
     },
   ],
 
-  getFooterText: (data: DesignForgeFormData) => {
-    const date = data.createdAt
-      ? new Date(data.createdAt).toLocaleDateString()
-      : new Date().toLocaleDateString();
+  getFooterText: () => {
+    // Rendered from live form values, so the date is always today.
+    const date = new Date().toLocaleDateString();
 
     return `IMHO Design Forge Community Sign-up • ${date}`;
   },

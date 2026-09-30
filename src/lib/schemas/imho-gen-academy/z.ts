@@ -1,25 +1,21 @@
 import { z } from "zod";
+
 import { COUNTRIES } from "@/lib/countries";
+import {
+  email,
+  nameText,
+  optionalUrl,
+  phoneNumber,
+  requiredText,
+} from "@/lib/schemas/fields/z";
 
 export const ImhoGenAcademySchema = z.object({
   // SECTION 1 — BASIC INFORMATION
-  fullName: z
-    .string()
-    .min(2, { error: "Full name must be at least 2 characters long" })
-    .max(100, { error: "Full name cannot exceed 100 characters" }),
-  phoneNumber: z
-    .string()
-    .trim()
-    .refine((value) => /^\+[1-9]\d{1,14}$/.test(value), {
-      error:
-        "Phone number must be in E.164 format with country code (e.g., +12025550123)",
-    }),
-  email: z.email({ error: "Please enter a valid email address" }),
+  fullName: nameText("Full name", 100),
+  phoneNumber,
+  email,
   country: z.enum(COUNTRIES, { error: "Please select a country" }),
-  cityTown: z
-    .string()
-    .min(2, { error: "City/Town must be at least 2 characters long" })
-    .max(100, { error: "City/Town cannot exceed 100 characters" }),
+  cityTown: nameText("City/Town", 100),
 
   // SECTION 2 — EDUCATION / BACKGROUND
   currentStatus: z.enum(
@@ -36,29 +32,18 @@ export const ImhoGenAcademySchema = z.object({
     ],
     { error: "Please select your current status" },
   ),
-  institutionOrCompany: z
-    .string()
-    .min(2, { error: "Institution/Company must be at least 2 characters long" })
-    .max(200, { error: "Institution/Company cannot exceed 200 characters" }),
-  programDisciplineRole: z
-    .string()
-    .min(2, {
-      error: "Program/Discipline/Role must be at least 2 characters long",
-    })
-    .max(200, {
-      error: "Program/Discipline/Role cannot exceed 200 characters",
-    }),
+  institutionOrCompany: nameText("Institution/Company", 200),
+  programDisciplineRole: nameText("Program/Discipline/Role", 200),
   currentLevelYear: z
     .enum(["Level 100", "Level 200", "Level 300", "Level 400", "Other"])
     .optional(),
 
   // SECTION 3 — INTEREST & CAPABILITY
-  whyJoin: z
-    .string()
-    .min(10, {
-      error: "Please share at least 10 characters on why you want to join",
-    })
-    .max(1000, { error: "Response cannot exceed 1000 characters" }),
+  whyJoin: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on why you want to join",
+  ),
   areasOfInterest: z
     .array(
       z.enum([
@@ -75,10 +60,7 @@ export const ImhoGenAcademySchema = z.object({
     )
     .min(1, { error: "Please select at least one area of interest" }),
   hasPriorProjects: z.enum(["Yes", "No"], { error: "Please select an option" }),
-  portfolioLink: z
-    .url({ error: "Please enter a valid URL" })
-    .optional()
-    .or(z.literal("")),
+  portfolioLink: optionalUrl,
 
   // SECTION 4 — COMMITMENT
   willingForIntensiveTraining: z.enum(["Yes", "No"], {
@@ -90,15 +72,11 @@ export const ImhoGenAcademySchema = z.object({
   ),
 
   // FINAL QUESTION
-  whySelectYou: z
-    .string()
-    .min(10, {
-      error: "Please share at least 10 characters on why we should select you",
-    })
-    .max(1500, { error: "Response cannot exceed 1500 characters" }),
-
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  whySelectYou: requiredText(
+    10,
+    1500,
+    "Please share at least 10 characters on why we should select you",
+  ),
 });
 
 export type ImhoGenAcademyFormData = z.infer<typeof ImhoGenAcademySchema>;
