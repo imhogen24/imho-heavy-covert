@@ -35,7 +35,7 @@ import {
 
 import { eq, sql } from "drizzle-orm";
 
-import type { ContactFormData } from "@/lib/schemas/z";
+import type { ContactFormData } from "@/lib/schemas/contact-form/z";
 import type { ImhoGenAcademyFormData } from "@/lib/schemas/imho-gen-academy/z";
 import type { AcademyPartnershipFormData } from "@/lib/schemas/academy-partnership/z";
 import type { AcademySupportFormData } from "@/lib/schemas/academy-support/z";

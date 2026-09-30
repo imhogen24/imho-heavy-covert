@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 import { CapabilityFlow } from "./about-capability-flow";
 
@@ -32,11 +34,15 @@ export function About({ className }: { className?: string }) {
 
         {/* Media */}
         <div className="px-6 md:px-12 lg:px-20 pb-10 md:pb-14">
-          <div
-            aria-hidden
-            className="flex min-h-[360px] md:min-h-[480px] items-center justify-center rounded-xl border border-dashed muted-border bg-accent/40"
-          >
-            <span className="text-sm text-muted-foreground">Media</span>
+          <div className="overflow-hidden rounded-xl border muted-border">
+            <Image
+              src="/media.png"
+              alt="A stainless steel process skid: three jacketed tanks piped to a control panel and pump unit"
+              width={1954}
+              height={805}
+              sizes="(min-width: 1024px) calc(100vw - 10rem), (min-width: 768px) calc(100vw - 6rem), calc(100vw - 3rem)"
+              className="h-auto w-full"
+            />
           </div>
         </div>
       </div>

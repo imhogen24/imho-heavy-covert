@@ -1,23 +1,20 @@
 import { z } from "zod";
 
+import {
+  email,
+  nameText,
+  optionalText,
+  optionalUrl,
+  phoneNumber,
+  requiredText,
+} from "@/lib/schemas/fields/z";
+
 export const DesignForgeSchema = z.object({
   // SECTION 1 — BASIC PROFILE
-  fullName: z
-    .string()
-    .min(2, { error: "Full name must be at least 2 characters long" })
-    .max(100, { error: "Full name cannot exceed 100 characters" }),
-  email: z.email({ error: "Please enter a valid email address" }),
-  phoneNumber: z
-    .string()
-    .trim()
-    .refine((value) => /^\+[1-9]\d{1,14}$/.test(value), {
-      error:
-        "Phone number must be in E.164 format with country code (e.g., +12025550123)",
-    }),
-  institutionOrCompany: z
-    .string()
-    .min(2, { error: "Institution/Company must be at least 2 characters long" })
-    .max(200, { error: "Institution/Company cannot exceed 200 characters" }),
+  fullName: nameText("Full name", 100),
+  email,
+  phoneNumber,
+  institutionOrCompany: nameText("Institution/Company", 200),
   currentRole: z.enum(
     [
       "Engineering Student",
@@ -66,30 +63,16 @@ export const DesignForgeSchema = z.object({
   }),
 
   // SECTION 3 — OPTIONAL LINKS
-  linkedinProfile: z
-    .url({ error: "Please enter a valid URL" })
-    .optional()
-    .or(z.literal("")),
-  portfolioLink: z
-    .url({ error: "Please enter a valid URL" })
-    .optional()
-    .or(z.literal("")),
-  socialHandle: z
-    .string()
-    .max(100, { error: "Social handle cannot exceed 100 characters" })
-    .optional()
-    .or(z.literal("")),
+  linkedinProfile: optionalUrl,
+  portfolioLink: optionalUrl,
+  socialHandle: optionalText(100, "Social handle cannot exceed 100 characters"),
 
   // FINAL QUESTION
-  whyJoin: z
-    .string()
-    .min(10, {
-      error: "Please share at least 10 characters on why you want to join",
-    })
-    .max(1000, { error: "Response cannot exceed 1000 characters" }),
-
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+  whyJoin: requiredText(
+    10,
+    1000,
+    "Please share at least 10 characters on why you want to join",
+  ),
 });
 
 export type DesignForgeFormData = z.infer<typeof DesignForgeSchema>;

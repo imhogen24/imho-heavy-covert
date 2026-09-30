@@ -327,6 +327,34 @@ export const MARQUEE: MarqueeProps[] = [
     ImageWidth: 199.28,
     ImageHeight: 12.34,
   },
+  {
+    id: 12,
+    image: "/logos/amsha-africa.png",
+    imageLight: "/logos/amsha-africa.png",
+    ImageWidth: 549,
+    ImageHeight: 263,
+  },
+  {
+    id: 13,
+    image: "/logos/kamsmet.png",
+    imageLight: "/logos/kamsmet.png",
+    ImageWidth: 600,
+    ImageHeight: 110,
+  },
+  {
+    id: 14,
+    image: "/logos/simcha.png",
+    imageLight: "/logos/simcha.png",
+    ImageWidth: 600,
+    ImageHeight: 540,
+  },
+  {
+    id: 15,
+    image: "/logos/womens-haven-africa.png",
+    imageLight: "/logos/womens-haven-africa.png",
+    ImageWidth: 457,
+    ImageHeight: 392,
+  },
 ];
 
 export const IMPACT_TEXT = [

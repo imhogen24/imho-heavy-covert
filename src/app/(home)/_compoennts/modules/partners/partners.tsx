@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 
 import { MARQUEE } from "@/lib/constants";
 import type { MarqueeProps } from "@/lib/types";
-import { Globe } from "@/components/ui/globe";
 
 import { AnchorSimpleIcon } from "@phosphor-icons/react/dist/csr/AnchorSimple";
 
@@ -41,9 +40,13 @@ function chunkLogos(logos: MarqueeProps[], size: number): MarqueeProps[][] {
 
   for (let i = 0; i < logos.length; i += size) {
     const slice = logos.slice(i, i + size);
-    const fill = slice[0] ?? logos[0];
 
-    while (slice.length < size) slice.push(fill);
+    // Pad a short final page by wrapping back to the start of the list rather
+    // than repeating one mark, so no page ever shows the same logo twice.
+    while (slice.length < size) {
+      slice.push(logos[(i + slice.length) % logos.length]);
+    }
+
     pages.push(slice);
   }
 
@@ -63,6 +66,51 @@ function PartnerLogoCell({ item }: { item: MarqueeProps }) {
       role="presentation"
       className="h-auto max-h-10 w-auto max-w-full object-contain dark:invert sm:max-h-12"
     />
+  );
+}
+
+/**
+ * Backdrop clip for the controls panel, occupying the slot the globe used to
+ * sit in: same absolute placement, same overflow clipping by the cell, so the
+ * grid keeps its dimensions.
+ *
+ * The footage is line art — white and brand-orange strokes on a pure black
+ * ground — so it is blended into the panel rather than laid over it, which lets
+ * the cell keep the themed `bg-accent` instead of being pinned to dark:
+ *
+ * - dark: `screen` drops the black ground, leaving the strokes lit on the panel.
+ * - light: `screen` would wash the art out, so the frame is first inverted to
+ *   dark strokes on white and `multiply` drops the white ground instead.
+ *   Inverting alone would swing the orange to cyan, so `hue-rotate(180deg)`
+ *   puts the hue back where it started and only the luminance stays flipped.
+ *
+ * The elliptical mask stays to soften the crop; blending removes the hard
+ * rectangle, the mask keeps the footage from ending on a visible edge.
+ */
+function HeroLoop() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 top-28 mx-auto aspect-[3/2] w-full max-w-150 mix-blend-multiply [filter:invert(1)_hue-rotate(180deg)] lg:top-48 dark:mix-blend-screen dark:[filter:none] [-webkit-mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_85%)] [mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_85%)]"
+    >
+      <video
+        className="size-full object-cover opacity-90 motion-reduce:hidden dark:opacity-100"
+        poster="/hero-poster.webp"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="none"
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
+
+      <img
+        src="/hero-poster.webp"
+        alt=""
+        className="hidden size-full object-cover opacity-90 motion-reduce:block dark:opacity-100"
+      />
+    </div>
   );
 }
 
@@ -178,13 +226,13 @@ export default function Partners({
             problems and deploy working systems.
           </p>
         </div>
-        <div className="min-h-96 border-b bg-accent relative overflow-hidden p-[32px] muted-border lg:border-b-0 lg:p-[64px]">
+        <div className="relative isolate min-h-96 overflow-hidden border-b bg-accent p-[32px] muted-border lg:border-b-0 lg:p-[64px]">
           <h2 className="relative z-10 mx-auto max-w-[16rem] text-center text-base leading-relaxed text-muted-foreground sm:max-w-xs md:max-w-md md:text-lg lg:max-w-xl lg:text-xl">
             All engagements are executed within defined budgets, timelines, and
             engineering controls.
           </h2>
-          <Globe className="top-28 lg:top-48" />
-          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+          <HeroLoop />
+          <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.06),rgba(255,255,255,0))] dark:bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
         </div>
         <div className="relative col-span-1 flex flex-col gap-5 px-[32px] py-[64px] lg:border-l muted-border">
           <div className="flex h-fit w-20 justify-center items-center rounded-full border p-2 ring-4 ring-accent muted-border">

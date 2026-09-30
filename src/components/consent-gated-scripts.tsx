@@ -4,11 +4,15 @@
 import { useConsentManager } from "@c15t/nextjs";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { useEffect, useState } from "react";
 
 export function ConsentGatedScripts() {
   const { has } = useConsentManager();
+  const [mounted, setMounted] = useState(false);
 
-  if (!has("measurement")) {
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted || !has("measurement")) {
     return null;
   }
 
