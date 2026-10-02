@@ -31,6 +31,12 @@
       "skillPath": "skills/install-anti-slop/SKILL.md",
       "computedHash": "4031728fbe75bdcad6ee3208fd52b5d66e167b056fefee1fa9758e9a6cb9c0c8"
     },
+    "mux-video": {
+      "source": "muxinc/skills",
+      "sourceType": "github",
+      "skillPath": "skills/mux-docs/SKILL.md",
+      "computedHash": "865b8d870d6dc2e8df13f672fa32eaf46da7084fdae06422efc1cefdb98c91cf"
+    },
     "neon-drizzle": {
       "source": "neondatabase/ai-rules",
       "sourceType": "github",

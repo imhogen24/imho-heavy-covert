@@ -44,6 +44,7 @@ export const contactSubmissions = pgTable(
     contactId: primaryId("contact_id"),
     name: text("name").notNull(),
     email: text("email").notNull(),
+    organizationName: text("organization_name"),
     message: text("message").notNull(),
     files: jsonb("files").$type<string[]>().default([]).notNull(),
     requestId: requestId(),

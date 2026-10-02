@@ -29,17 +29,18 @@ export function Services({ className }: { className?: string }) {
           </span>
         </h2>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 border-t muted-border lg:min-h-96">
-        <div className="border-b lg:border-b-0 lg:border-r muted-border lg:col-span-2 lg:relative lg:min-h-96">
+      <div className="border-t muted-border">
+        <div className="relative grid grid-cols-1 lg:grid-cols-3 border-b muted-border lg:min-h-96">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden lg:grid lg:grid-cols-2"
+            className="pointer-events-none absolute inset-0 hidden lg:grid lg:grid-cols-3"
           >
             <div className="border-r muted-border" />
             <div />
+            <div />
           </div>
 
-          <div className="relative z-10 flex flex-col gap-10 p-8 lg:p-16">
+          <div className="relative z-10 lg:col-span-2 flex flex-col justify-center p-8 lg:p-16">
             <h3 className="text-2xl font-semibold">
               These are not separate services.{" "}
               <span className="text-muted-foreground">
@@ -47,40 +48,40 @@ export function Services({ className }: { className?: string }) {
                 capability and industrial output
               </span>
             </h3>
-            <div className="flex flex-col gap-10">
-              <div className="flex items-center gap-2">
-                <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border p-2">
-                  <CertificateIcon size={20} weight="thin" />
+          </div>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-rows-3 border-t lg:border-t-0 lg:border-l muted-border">
+            <div className="flex items-center gap-2 p-8 lg:px-10">
+              <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border p-2">
+                <CertificateIcon size={20} weight="thin" />
+              </span>
+              <h4 className="text-muted-foreground">
+                All work is{" "}
+                <span className="text-black dark:text-white">
+                  milestone-based{" "}
                 </span>
-                <h4 className="text-muted-foreground">
-                  All work is{" "}
-                  <span className="text-black dark:text-white">
-                    milestone-based{" "}
-                  </span>
-                  and <span className="text-black dark:text-white">funded</span>
-                </h4>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border p-2">
-                  <CreditCardIcon size={20} weight="thin" />
-                </span>
-                <h4 className="text-muted-foreground">
-                  Design outputs are controlled and released against payment
-                </h4>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border p-2">
-                  <StampIcon size={20} weight="thin" />
-                </span>
-                <h4 className="text-muted-foreground">
-                  Prototype execution follows approved engineering plans only
-                </h4>
-              </div>
+                and <span className="text-black dark:text-white">funded</span>
+              </h4>
+            </div>
+            <div className="flex items-center gap-2 p-8 lg:px-10">
+              <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border p-2">
+                <CreditCardIcon size={20} weight="thin" />
+              </span>
+              <h4 className="text-muted-foreground">
+                Design outputs are controlled and released against payment
+              </h4>
+            </div>
+            <div className="flex items-center gap-2 p-8 lg:px-10">
+              <span className="size-10 flex shrink-0 justify-center items-center rounded-full border muted-border p-2">
+                <StampIcon size={20} weight="thin" />
+              </span>
+              <h4 className="text-muted-foreground">
+                Prototype execution follows approved engineering plans only
+              </h4>
             </div>
           </div>
         </div>
-        <div className="grid grid-rows-1 lg:grid-rows-3">
-          <div className="border-b muted-border min-h-48 md:min-h-64 flex justify-center items-center w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-3">
+          <div className="border-b lg:border-b-0 lg:border-r muted-border min-h-48 md:min-h-64 flex justify-center items-center w-full">
             <PixelBackground
               className="w-full h-full"
               speed={1.5}
@@ -101,7 +102,7 @@ export function Services({ className }: { className?: string }) {
               </div>
             </PixelBackground>
           </div>
-          <div className="border-b muted-border min-h-48 md:min-h-64 flex justify-center items-center w-full">
+          <div className="border-b lg:border-b-0 lg:border-r muted-border min-h-48 md:min-h-64 flex justify-center items-center w-full">
             <PixelBackground
               className="w-full h-full"
               speed={1.5}

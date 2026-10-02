@@ -31,6 +31,7 @@ export const FileForm = () => {
     defaultValues: {
       name: "",
       email: "",
+      organizationName: "",
       message: "",
       files: [],
     },
@@ -89,12 +90,32 @@ export const FileForm = () => {
         />
         <FormField
           control={form.control}
+          name="organizationName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Organisation</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Company / Organisation"
+                  {...field}
+                  value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="message"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Message</FormLabel>
               <FormControl>
-                <Textarea placeholder="eg. Dear IMHO team..." {...field} />
+                <Textarea
+                  placeholder="Tell us what you're building, solving, or exploring..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -105,13 +126,19 @@ export const FileForm = () => {
           name="files"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>File upload</FormLabel>
+              <FormLabel>File Upload</FormLabel>
               <FormControl>
                 <div>
                   <div className="relative border border-dashed muted-border rounded-[0.5rem]">
                     <UploadDropzone
                       className="ut-button:bg-accent ut-button:text-accent-foreground border-none"
                       config={{ mode: "auto" }}
+                      content={{
+                        label:
+                          "Upload drawings, project briefs, specifications or other relevant documents.",
+                        allowedContent: "Image and pdfs",
+                        button: "Choose File(s)",
+                      }}
                       endpoint="fileAttachment"
                       onClientUploadComplete={(res: any) => {
                         const newFiles = res.map(
@@ -196,7 +223,7 @@ export const FileForm = () => {
                 <LoaderCircle className="animate-spin" />
               </>
             ) : (
-              <>Send message</>
+              <>Send Message</>
             )}
           </Button>
         </div>

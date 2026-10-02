@@ -27,9 +27,9 @@ const HeroText = () => {
         </h1>
 
         <p className="max-w-xl text-pretty text-base text-muted-foreground md:text-lg">
-          IMHO GEN designs. and deploys engineering systems that eliminate
+          IMHOGEN designs and deploys engineering systems that eliminate
           trial-and-error and convert capital into working industrial output
-          from concept to commissioning
+          from concept to commissioning.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 md:gap-4">

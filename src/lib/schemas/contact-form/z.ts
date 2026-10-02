@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { email, requiredText } from "@/lib/schemas/fields/z";
+import { email, optionalText, requiredText } from "@/lib/schemas/fields/z";
 import { UploadedFilesSchema } from "@/lib/schemas/uploads/z";
 
 export const ContactFormSchema = z.object({
@@ -11,6 +11,8 @@ export const ContactFormSchema = z.object({
     "Name cannot exceed 100 characters",
   ),
   email,
+  // Optional: someone writing in as an individual has no organisation to give.
+  organizationName: optionalText(200),
   message: requiredText(
     10,
     5000,

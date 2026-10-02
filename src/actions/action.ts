@@ -189,6 +189,7 @@ export const contactFormAction = async ({
     .values({
       name: data.name,
       email: data.email,
+      organizationName: data.organizationName,
       message: data.message,
       files: data.files,
       requestId,
