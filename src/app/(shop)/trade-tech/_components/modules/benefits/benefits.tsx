@@ -1,13 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import {
-  Award,
-  CloudRain,
-  Quote,
-  Radiation,
-  Shield,
-  Users,
-} from "lucide-react";
+import { Award, Radiation, Shield, Users } from "lucide-react";
 
 const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";

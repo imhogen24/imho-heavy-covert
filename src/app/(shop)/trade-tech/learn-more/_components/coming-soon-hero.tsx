@@ -20,7 +20,7 @@ const ComingSoonHero = () => {
 
         <h1
           className={cn(
-            "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-machina)] leading-tight"
+            "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-machina)] leading-tight",
           )}
         >
           <span className={cn(gradientText)}>Trading Gear</span>
@@ -49,7 +49,12 @@ const ComingSoonHero = () => {
             </Link>
           </Button>
 
-          <Button asChild variant="primary" size="standard" className="w-full sm:w-auto">
+          <Button
+            asChild
+            variant="primary"
+            size="standard"
+            className="w-full sm:w-auto"
+          >
             <Link href="#contact">Contact Us</Link>
           </Button>
         </div>

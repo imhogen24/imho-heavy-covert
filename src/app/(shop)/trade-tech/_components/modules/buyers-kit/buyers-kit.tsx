@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Download, FileText } from "lucide-react";
-import Link from "next/link";
 
 const gradientText =
   "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";

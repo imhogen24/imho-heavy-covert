@@ -3,11 +3,9 @@ import {
   BadgeCent,
   Building,
   CreditCard,
-  Plus,
   WalletCards,
   type LucideIcon,
 } from "lucide-react";
-import Link from "next/link";
 import { ContactCTALink } from "../../ui/contact-cta-link";
 
 const gradientText =

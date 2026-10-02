@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { PackageCheck, Shirt, Sparkles } from "lucide-react";
-import Link from "next/link";
 import { ContactCTALink } from "../../ui/contact-cta-link";
 
 const gradientText =

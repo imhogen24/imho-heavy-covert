@@ -4,24 +4,23 @@ import {
   Column,
   Head,
   Heading,
-  Hr,
   Img,
   Html,
   Preview,
   Row,
   Section,
   Text,
-  Link,
 } from "@react-email/components";
 import * as React from "react";
 import { styles } from "../styles/utils";
 
 export interface ContactConfirmationProps {
   name: string;
-
 }
 
-export const ContactConfirmationEmail = ({ name }: ContactConfirmationProps) => (
+export const ContactConfirmationEmail = ({
+  name,
+}: ContactConfirmationProps) => (
   <Html>
     <Head />
     <Preview> Hello, {name}!</Preview>
@@ -44,7 +43,8 @@ export const ContactConfirmationEmail = ({ name }: ContactConfirmationProps) => 
         <Section style={styles.content}>
           <Heading style={styles.heading}>Hello, {name}!</Heading>
           <Text style={styles.subHeading}>
-            We've received your message and will get back to you as soon as possible.
+            We've received your message and will get back to you as soon as
+            possible.
           </Text>
         </Section>
 

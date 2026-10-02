@@ -4,7 +4,6 @@ import {
   Column,
   Head,
   Heading,
-  Hr,
   Img,
   Html,
   Preview,
@@ -19,6 +18,7 @@ import { styles } from "../styles/utils";
 export interface ContactFormEmailProps {
   name: string;
   email: string;
+  organizationName?: string | null;
   message: string;
   files?: string[];
 }
@@ -26,6 +26,7 @@ export interface ContactFormEmailProps {
 export const ContactFormEmail = ({
   name,
   email,
+  organizationName,
   message,
   files,
 }: ContactFormEmailProps) => (
@@ -62,6 +63,11 @@ export const ContactFormEmail = ({
             <Text style={styles.infoText}>
               <strong>Email:</strong> {email}
             </Text>
+            {organizationName && (
+              <Text style={styles.infoText}>
+                <strong>Organisation:</strong> {organizationName}
+              </Text>
+            )}
           </Section>
 
           <Section style={styles.detailSection}>
@@ -74,6 +80,7 @@ export const ContactFormEmail = ({
               <Text style={styles.sectionTitle}>ATTACHMENTS</Text>
               {files.map((file: string, index: number) => {
                 const [fileUrl, fileName] = file.split(",");
+
                 return (
                   <Text key={index} style={styles.infoText}>
                     <Link href={fileUrl} style={styles.fileLink}>

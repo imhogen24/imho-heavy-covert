@@ -1,16 +1,6 @@
 "use client";
-import { useForm } from "react-hook-form";
-import { ContactFormSchema } from "@/lib/schemas/z";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import { XIcon, FileIcon, Trash2, EyeIcon } from "lucide-react";
-import Image from "next/image";
-import { contactFormAction } from "@/actions/action";
-import { LoaderCircle, CloudUpload } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -19,54 +9,56 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useSubmission } from "@/hooks/use-submission";
+import {
+  ContactFormSchema,
+  type ContactFormData,
+  type ContactFormInput,
+} from "@/lib/schemas/contact-form/z";
 import { UploadDropzone } from "@/lib/uploadthing";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { EyeIcon, FileIcon, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { FormPreview } from "@/app/(services)/_components/modules/cad/preview";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-
 export const FileForm = () => {
-  const form = useForm<z.infer<typeof ContactFormSchema>>({
+  const form = useForm<ContactFormInput, any, ContactFormData>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: "",
       email: "",
+      organizationName: "",
       message: "",
       files: [],
     },
   });
+
   const [pending, setPending] = useState(false);
+  const submit = useSubmission("contact");
 
-
-  async function onSubmit(values: z.infer<typeof ContactFormSchema>) {
+  async function onSubmit(values: ContactFormData) {
     setPending(true);
-    console.log(values);
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("email", values.email);
-    formData.append("message", values.message);
-    formData.append("files", JSON.stringify(values.files));
 
     try {
-      const result = await contactFormAction(formData);
+      const result = await submit(values);
 
-      if (result?.error) {
-
-
-        toast.error(result.error);
+      if (!result.ok) {
+        toast.error(result.error || "Something went wrong. Please try again.");
       } else {
-
         toast.success("Message sent successfully!");
-        console.log(values)
         form.reset();
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setPending(false);
-
     }
   }
+
   return (
     <Form {...form}>
       <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
@@ -98,12 +90,32 @@ export const FileForm = () => {
         />
         <FormField
           control={form.control}
+          name="organizationName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Organisation</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Company / Organisation"
+                  {...field}
+                  value={field.value ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="message"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Message</FormLabel>
               <FormControl>
-                <Textarea placeholder="eg. Dear IMHO team..." {...field} />
+                <Textarea
+                  placeholder="Tell us what you're building, solving, or exploring..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -114,59 +126,83 @@ export const FileForm = () => {
           name="files"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>File upload</FormLabel>
+              <FormLabel>File Upload</FormLabel>
               <FormControl>
                 <div>
                   <div className="relative border border-dashed muted-border rounded-[0.5rem]">
                     <UploadDropzone
                       className="ut-button:bg-accent ut-button:text-accent-foreground border-none"
                       config={{ mode: "auto" }}
+                      content={{
+                        label:
+                          "Upload drawings, project briefs, specifications or other relevant documents.",
+                        allowedContent: "Image and pdfs",
+                        button: "Choose File(s)",
+                      }}
                       endpoint="fileAttachment"
                       onClientUploadComplete={(res: any) => {
-                        const newFiles = res.map((file: any) => `${file.serverData.fileUrl},${file.name}`);
-                        field.onChange([...field.value, ...newFiles]);
-                        toast.success(`${res.length} file${res.length > 1 ? "s" : ""} uploaded`);
+                        const newFiles = res.map(
+                          (file: any) =>
+                            `${file.serverData.fileUrl},${file.name}`,
+                        );
+
+                        field.onChange([...(field.value ?? []), ...newFiles]);
+                        toast.success(
+                          `${res.length} file${res.length > 1 ? "s" : ""} uploaded`,
+                        );
                       }}
-                      onUploadError={(error: any) => {
-                        toast.error("Something went wrong, check your internet connection or consider reducing the file size");
+                      onUploadError={() => {
+                        toast.error(
+                          "Something went wrong, check your internet connection or consider reducing the file size",
+                        );
                       }}
                     />
                   </div>
 
-                  {field.value.length > 0 && (
+                  {(field.value ?? []).length > 0 && (
                     <div className="flex flex-col mt-4 gap-2">
-                      {field.value.map((file: string, index: number) => (
-                        <div
-                          key={index}
-                          className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
-                        >
-                          {/* Left: File Icon & Name */}
-                          <div className="flex items-center gap-2 min-w-0">
-                            <FileIcon className="w-4 h-4 flex-shrink-0" />
-                            <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] overflow-hidden whitespace-nowrap">
-                              {file.split(",")[1]}
-                            </span>
-                          </div>
+                      {(field.value ?? []).map(
+                        (file: string, index: number) => (
+                          <div
+                            key={index}
+                            className="w-full p-2 bg-accent flex flex-wrap justify-between rounded-[0.5em] gap-2 items-center"
+                          >
+                            {/* Left: File Icon & Name */}
+                            <div className="flex items-center gap-2 min-w-0">
+                              <FileIcon className="w-4 h-4 flex-shrink-0" />
+                              <span className="truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] overflow-hidden whitespace-nowrap">
+                                {file.split(",")[1]}
+                              </span>
+                            </div>
 
-                          {/* Right: Action Buttons */}
-                          <div className="flex gap-2 items-center">
-                            <Link href={file.split(",")[0]} target="_blank" rel="noopener noreferrer">
-                              <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
-                            </Link>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const newFiles = field.value.filter((_, i) => i !== index);
-                                field.onChange(newFiles);
-                              }}
-                            >
-                              <span className="sr-only">remove item {index}</span>
-                              <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
-                            </button>
-                          </div>
-                        </div>
+                            {/* Right: Action Buttons */}
+                            <div className="flex gap-2 items-center">
+                              <Link
+                                href={file.split(",")[0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <EyeIcon className="w-4 h-4 hover:stroke-muted-foreground transition duration-200 ease-in-out" />
+                              </Link>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const newFiles = (field.value ?? []).filter(
+                                    (_, i) => i !== index,
+                                  );
 
-                      ))}
+                                  field.onChange(newFiles);
+                                }}
+                              >
+                                <span className="sr-only">
+                                  remove item {index}
+                                </span>
+                                <Trash2 className="w-4 h-4 hover:stroke-destructive transition duration-200 ease-in-out" />
+                              </button>
+                            </div>
+                          </div>
+                        ),
+                      )}
                     </div>
                   )}
                 </div>
@@ -187,11 +223,11 @@ export const FileForm = () => {
                 <LoaderCircle className="animate-spin" />
               </>
             ) : (
-              <>Send message</>
+              <>Send Message</>
             )}
           </Button>
         </div>
       </form>
-    </Form >
+    </Form>
   );
 };

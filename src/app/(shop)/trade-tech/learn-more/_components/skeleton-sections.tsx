@@ -1,13 +1,4 @@
-import {
-  Image as ImageIcon,
-  Camera,
-  Layers,
-  Palette,
-  FileText,
-  Package,
-  Ruler,
-  User
-} from "lucide-react";
+import { Image as ImageIcon, Camera, Layers, Package } from "lucide-react";
 
 const SkeletonSections = () => {
   return (
@@ -31,7 +22,10 @@ const SkeletonSections = () => {
           {/* Secondary images grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4">
             {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="aspect-square bg-muted rounded-xl flex items-center justify-center">
+              <div
+                key={item}
+                className="aspect-square bg-muted rounded-xl flex items-center justify-center"
+              >
                 <ImageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-muted-foreground/30" />
               </div>
             ))}

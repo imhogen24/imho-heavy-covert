@@ -29,8 +29,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files (can opt-in for commiting if needed)
-.env*
+# env files: .env.staging is committed encrypted (dotenvx); never commit the keys
+.env
+.env.keys
 
 # vercel
 .vercel
@@ -38,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# KAMSMET source renders + brochure (~127MB). public/kamsmet/ holds the
+# optimized WebP the site actually ships.
+docs/KAMSMET IMAGES/
+docs/KAMSMET PRODUCTS BROCHURE*.pdf
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

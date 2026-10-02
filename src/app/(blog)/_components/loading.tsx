@@ -1,5 +1,5 @@
 // loading.tsx
-import React from 'react'
+import React from "react";
 
 const BlogSkeleton = () => {
   return (
@@ -24,7 +24,7 @@ const BlogSkeleton = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default BlogSkeleton
+export default BlogSkeleton;

@@ -53,6 +53,7 @@ export function Highlighter({
     if (!shouldShow) return;
 
     const element = elementRef.current;
+
     if (!element) return;
 
     const annotationConfig = {

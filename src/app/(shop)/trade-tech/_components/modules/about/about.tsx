@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Building2,
   HandHeart,
-  Heart,
   MapPin,
   Sparkles,
   TrendingUp,
@@ -11,9 +10,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { ContactCTALink } from "../../ui/contact-cta-link";
-
-const gradientText =
-  "text-transparent bg-clip-text bg-gradient-to-r from-[#EF7D00] to-[#FEB667]";
 
 const AboutSection = () => {
   return (
