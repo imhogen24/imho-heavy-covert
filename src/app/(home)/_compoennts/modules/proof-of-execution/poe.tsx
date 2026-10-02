@@ -15,22 +15,22 @@ const DELIVERABLES = [
   {
     icon: <FactoryIcon size={20} weight="thin" />,
     label: "Engineering systems designed and deployed",
-    image: "/poe-1.webp",
+    image: "/poe-skid-angled.webp",
   },
   {
     icon: <CompassIcon size={20} weight="thin" />,
     label: "CAD-driven industrial machinery development",
-    image: "/poe-2.webp",
+    image: "/poe-skid-cad.webp",
   },
   {
     icon: <GraduationCapIcon size={20} weight="thin" />,
     label: "Structured training producing measurable capability",
-    image: "/poe-3.webp",
+    image: "/poe-column.webp",
   },
   {
     icon: <ChartLineUpIcon size={20} weight="thin" />,
     label: "Early-stage industrial impact across multiple sectors",
-    image: "/poe-4.webp",
+    image: "/poe-skid-front.webp",
   },
 ];
 

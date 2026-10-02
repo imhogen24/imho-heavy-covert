@@ -1,7 +1,12 @@
-import Image from "next/image";
-
 import { cn } from "@/lib/utils";
 import { CapabilityFlow } from "./about-capability-flow";
+import { AboutVideo } from "./about-video";
+
+/** Public playback ID of the Mux asset for this section. */
+const MUX_PLAYBACK_ID = "i02R5ZN4XfmhLnWRNmOyXLK9PNdgH01wGR1LrO6EOPuuM";
+
+/** That asset's aspect ratio, so the slot reserves its height before the video loads. */
+const MUX_ASPECT_RATIO = "16 / 9";
 
 export function About({ className }: { className?: string }) {
   return (
@@ -35,13 +40,9 @@ export function About({ className }: { className?: string }) {
         {/* Media */}
         <div className="px-6 md:px-12 lg:px-20 pb-10 md:pb-14">
           <div className="overflow-hidden rounded-xl border muted-border">
-            <Image
-              src="/media.png"
-              alt="A stainless steel process skid: three jacketed tanks piped to a control panel and pump unit"
-              width={1954}
-              height={805}
-              sizes="(min-width: 1024px) calc(100vw - 10rem), (min-width: 768px) calc(100vw - 6rem), calc(100vw - 3rem)"
-              className="h-auto w-full"
+            <AboutVideo
+              playbackId={MUX_PLAYBACK_ID}
+              aspectRatio={MUX_ASPECT_RATIO}
             />
           </div>
         </div>

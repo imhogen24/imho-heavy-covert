@@ -1,5 +1,5 @@
 import { CrossPositinalIcon } from "@/lib/icons";
-import { MapPinned, PhoneCall } from "lucide-react";
+import { Mail, MapPinned, PhoneCall } from "lucide-react";
 import Image from "next/image";
 import { SOCIAL_ICONS } from "@/lib/constants";
 import Link from "next/link";
@@ -28,19 +28,23 @@ const Footer = () => {
               </div>
               <span>
                 <h1 className="text-[20px] font-[family-name:var(--font-machina)]">
-                  Innovate Make and Have Ours
+                  IMHOGEN LTD
                 </h1>
                 <p className="text-[20px] font-[family-name:var(--font-calligraffitti)]">
-                  Make it Real
+                  Engineering Ideas Into Impact
+                </p>
+                <p className="text-[16px] text-muted-foreground">
+                  Designing Solutions. Building Skills. Powering Industry.
                 </p>
               </span>
             </div>
 
             <div className="px-[24px] md:px-[48px]">
               <p className="text-[16px] text-muted-foreground">
-                Our vision is to Empower a sustainable and survivable future. By
-                innovating transformational technologies and upskilling the next
-                generation of innovators.
+                We build engineering design-and-make capability for Africa;
+                designing solutions, building skills, and supporting the
+                development of technologies that respond to real industrial
+                needs.
               </p>
             </div>
           </div>
@@ -49,7 +53,7 @@ const Footer = () => {
             <div className="flex flex-row gap-8 items-center text-muted-foreground">
               <MapPinned />
               <span>
-                KBI KNUST Commercial Area <br /> Kumasi, Ghana
+                KBI, KNUST Commercial Area <br /> Kumasi, Ghana
               </span>
             </div>
 
@@ -58,6 +62,11 @@ const Footer = () => {
               <span>
                 +233 (0) 50 165 4825 <br /> +233 (0) 55 381 2626
               </span>
+            </div>
+
+            <div className="flex flex-row gap-8 items-center text-muted-foreground">
+              <Mail />
+              <span>admin@imhogen.com</span>
             </div>
           </div>
           <div className="h-full hidden gap-2 lg:flex flex-col justify-center items-center border-t muted-border p-[24px] md:p-[48px]">
@@ -72,16 +81,37 @@ const Footer = () => {
 
             <div className="flex flex-col items-center gap-2">
               <p className="text-muted-foreground">
-                @2025 IMHO. All Rights Reserved
+                © 2026 IMHOGEN LTD. All Rights Reserved.
               </p>
-              <ConsentDialogLink asChild>
+              <div className="flex items-center gap-2">
                 <Button
+                  asChild
                   variant="link"
+                  size="standard"
                   className="text-xs text-muted-foreground"
                 >
-                  Cookie Preferences
+                  <Link href="/privacy-policy">Privacy Policy</Link>
                 </Button>
-              </ConsentDialogLink>
+                <span className="text-xs text-muted-foreground">|</span>
+                <Button
+                  asChild
+                  variant="link"
+                  size="standard"
+                  className="text-xs text-muted-foreground"
+                >
+                  <Link href="/terms-of-use">Terms of Use</Link>
+                </Button>
+                <span className="text-xs text-muted-foreground">|</span>
+                <ConsentDialogLink asChild>
+                  <Button
+                    variant="link"
+                    size="standard"
+                    className="text-xs text-muted-foreground"
+                  >
+                    Cookie Preferences
+                  </Button>
+                </ConsentDialogLink>
+              </div>
             </div>
           </div>
 
@@ -92,8 +122,13 @@ const Footer = () => {
 
         <section className="flex flex-col justify-center p-[24px] md:p-[48px] gap-[16px]">
           <h1 className="font-[family-name:var(--font-machina)] text-[24px]">
-            Talk to <span className="text-[#EF7D00]     ">IMHO</span>
+            LET&apos;S BUILD{" "}
+            <span className="text-[#EF7D00]">WHAT MATTERS.</span>
           </h1>
+          <p className="text-[16px] text-muted-foreground">
+            Have a problem worth solving, an idea worth building, or a vision
+            for what industry could become? Let&apos;s work on it together.
+          </p>
           <FileForm />
         </section>
       </div>
@@ -111,13 +146,37 @@ const Footer = () => {
 
           <div className="flex flex-col items-center gap-2">
             <p className="text-muted-foreground">
-              @2025 IMHO. All Rights Reserved
+              © 2026 IMHOGEN LTD. All Rights Reserved.
             </p>
-            <ConsentDialogLink asChild>
-              <Button variant="link" className="text-xs text-muted-foreground">
-                Cookie Preferences
+            <div className="flex items-center gap-2">
+              <Button
+                asChild
+                variant="link"
+                size="standard"
+                className="text-xs text-muted-foreground"
+              >
+                <Link href="/privacy-policy">Privacy Policy</Link>
               </Button>
-            </ConsentDialogLink>
+              <span className="text-xs text-muted-foreground">|</span>
+              <Button
+                asChild
+                variant="link"
+                size="standard"
+                className="text-xs text-muted-foreground"
+              >
+                <Link href="/terms-of-use">Terms of Use</Link>
+              </Button>
+              <span className="text-xs text-muted-foreground">|</span>
+              <ConsentDialogLink asChild>
+                <Button
+                  variant="link"
+                  size="standard"
+                  className="text-xs text-muted-foreground"
+                >
+                  Cookie Preferences
+                </Button>
+              </ConsentDialogLink>
+            </div>
           </div>
         </div>
 

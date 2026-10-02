@@ -25,6 +25,7 @@
   "dependencies": {
     "@c15t/nextjs": "^2.2.1",
     "@hookform/resolvers": "^5.9.1",
+    "@mux/mux-player-react": "^3.13.4",
     "@neondatabase/serverless": "^1.1.0",
     "@notion-render/bookmark-plugin": "^0.0.2",
     "@notion-render/client": "^0.0.2",
