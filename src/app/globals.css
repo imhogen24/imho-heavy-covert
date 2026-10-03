@@ -210,3 +210,56 @@ body {
 [data-testid="consent-widget-footer-save-button"] {
   --button-background-color-dark: hsl(var(--foreground));
 }
+
+/* Attention cue on the About section's video play button.
+ *
+ * Styled through the player's exposed shadow part. `center play button` matches
+ * both controls media-chrome swaps between: the bare 40px icon on narrow
+ * players and the filled 90px circle once the player is >=384px wide.
+ *
+ * The class is removed (not just the animation stopped) as soon as the pointer
+ * enters the frame or playback starts, so this never contends with the fade-out
+ * the player puts on the very same element when it hides. */
+.about-video-attention::part(center play button) {
+  animation: about-video-bounce 1.8s ease-in-out infinite;
+}
+
+@container (min-width: 384px) {
+  /* The halo only reads as one against the filled circle; at the narrow
+   * breakpoint the control is a transparent icon with no radius to ring. */
+  .about-video-attention::part(center play button) {
+    animation:
+      about-video-bounce 1.8s ease-in-out infinite,
+      about-video-halo 1.8s ease-out infinite;
+  }
+}
+
+@keyframes about-video-bounce {
+  0%,
+  55%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-14%);
+  }
+  38% {
+    transform: translateY(-5%);
+  }
+}
+
+@keyframes about-video-halo {
+  0% {
+    box-shadow: 0 0 0 0 rgb(239 125 0 / 0.5);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 16px rgb(239 125 0 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-video-attention::part(center play button) {
+    animation: none;
+  }
+}
