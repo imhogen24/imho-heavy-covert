@@ -22,6 +22,11 @@ import { NavDropdownPanel } from "./nav-content/dropdown-panel";
 
 export const navItems: MegaNavItem[] = [
   {
+    name: "Home",
+    href: "/",
+    exact: true,
+  },
+  {
     name: "Services",
     content: () => (
       <NavDropdownPanel
@@ -131,41 +136,45 @@ export const Navbar = () => {
             className="relative hidden lg:block"
           >
             <NavigationMenuPrimitive.List className="group relative z-0 flex">
-              {navItems.map(({ name, href, segments, content: Content }) => {
-                const isActive = (segments ?? []).some((segment) =>
-                  pathname?.startsWith(segment),
-                );
+              {navItems.map(
+                ({ name, href, segments, exact, content: Content }) => {
+                  const isActive = exact
+                    ? pathname === href
+                    : (segments ?? []).some((segment) =>
+                        pathname?.startsWith(segment),
+                      );
 
-                return (
-                  <NavigationMenuPrimitive.Item key={name}>
-                    <WithTrigger trigger={!!Content}>
-                      {href !== undefined ? (
-                        <Link
-                          href={href}
-                          className={navItemClassName}
-                          data-active={isActive}
-                        >
-                          {name}
-                        </Link>
-                      ) : (
-                        <button
-                          className={navItemClassName}
-                          data-active={isActive}
-                        >
-                          {name}
-                          <AnimatedChevron className="size-2.5 text-muted-foreground" />
-                        </button>
+                  return (
+                    <NavigationMenuPrimitive.Item key={name}>
+                      <WithTrigger trigger={!!Content}>
+                        {href !== undefined ? (
+                          <Link
+                            href={href}
+                            className={navItemClassName}
+                            data-active={isActive}
+                          >
+                            {name}
+                          </Link>
+                        ) : (
+                          <button
+                            className={navItemClassName}
+                            data-active={isActive}
+                          >
+                            {name}
+                            <AnimatedChevron className="size-2.5 text-muted-foreground" />
+                          </button>
+                        )}
+                      </WithTrigger>
+
+                      {Content && (
+                        <NavigationMenuPrimitive.Content className="data-[motion=from-start]:animate-enter-from-left data-[motion=from-end]:animate-enter-from-right data-[motion=to-start]:animate-exit-to-left data-[motion=to-end]:animate-exit-to-right absolute left-0 top-0">
+                          <Content />
+                        </NavigationMenuPrimitive.Content>
                       )}
-                    </WithTrigger>
-
-                    {Content && (
-                      <NavigationMenuPrimitive.Content className="data-[motion=from-start]:animate-enter-from-left data-[motion=from-end]:animate-enter-from-right data-[motion=to-start]:animate-exit-to-left data-[motion=to-end]:animate-exit-to-right absolute left-0 top-0">
-                        <Content />
-                      </NavigationMenuPrimitive.Content>
-                    )}
-                  </NavigationMenuPrimitive.Item>
-                );
-              })}
+                    </NavigationMenuPrimitive.Item>
+                  );
+                },
+              )}
             </NavigationMenuPrimitive.List>
 
             <div className="absolute left-1/2 top-full mt-3 -translate-x-1/2">

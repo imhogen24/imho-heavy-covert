@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/select";
 
 /**
- * Small-screen counterpart to the service tabs. Eight labels wrap into a wall
- * of buttons below `md`, so the same routes are offered as a dropdown instead.
+ * Small-screen counterpart to the service tabs. The labels wrap into a wall of
+ * buttons below `md`, so the same routes are offered as a dropdown instead.
  */
 export function ServiceRoutesSelect() {
   const pathname = usePathname();

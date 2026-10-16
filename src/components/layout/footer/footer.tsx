@@ -27,7 +27,7 @@ const Footer = () => {
                 />
               </div>
               <span>
-                <h1 className="text-[20px] font-[family-name:var(--font-machina)]">
+                <h1 className="text-[20px] font-semibold font-[family-name:var(--font-geist-sans)]">
                   IMHOGEN LTD
                 </h1>
                 <p className="text-[20px] font-[family-name:var(--font-calligraffitti)]">
@@ -121,7 +121,7 @@ const Footer = () => {
         </section>
 
         <section className="flex flex-col justify-center p-[24px] md:p-[48px] gap-[16px]">
-          <h1 className="font-[family-name:var(--font-machina)] text-[24px]">
+          <h1 className="font-[family-name:var(--font-geist-sans)] text-[24px] font-semibold">
             LET&apos;S BUILD{" "}
             <span className="text-[#EF7D00]">WHAT MATTERS.</span>
           </h1>

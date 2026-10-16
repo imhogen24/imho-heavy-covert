@@ -53,31 +53,6 @@ export const SERVICE_ROUTES: ServiceRouteProps[] = [
     label: "IMHO GEN Academy",
     href: "/services/imho-gen-academy",
   },
-  {
-    idx: 4,
-    label: "Capability Assessment",
-    href: "/services/capability-assessment",
-  },
-  {
-    idx: 5,
-    label: "Design Forge",
-    href: "/services/design-forge",
-  },
-  {
-    idx: 6,
-    label: "Academy Partnership",
-    href: "/services/academy-partnership",
-  },
-  {
-    idx: 7,
-    label: "Academy Support",
-    href: "/services/academy-support",
-  },
-  {
-    idx: 8,
-    label: "Cohort Sponsorship",
-    href: "/services/cohort-sponsorship",
-  },
 ];
 
 export const SOCIAL_ICONS: SocialIconProps[] = [
@@ -414,7 +389,10 @@ export const SDG_GOALS: SdgProps[] = [
 
 /**
  * Nav card copy + iconography for each service intake route. Keyed by href so
- * SERVICE_ROUTES stays the single source of truth for the routes themselves.
+ * SERVICE_ROUTES stays the single source of truth for the services themselves.
+ * Engagement channels (capability assessment, the design forge, partnership,
+ * support, cohort sponsorship) are not services and live in ACADEMY_LINKS /
+ * COMPANY_LINKS instead.
  */
 const SERVICE_DETAILS = new Map(
   Object.entries({
@@ -428,28 +406,8 @@ const SERVICE_DETAILS = new Map(
       icon: BlueprintIcon,
     },
     "/services/imho-gen-academy": {
-      description: "Apply to the engineering design capability programme.",
+      description: "Engineering design capability training & development.",
       icon: GraduationCapIcon,
-    },
-    "/services/capability-assessment": {
-      description: "Benchmark engineering design maturity before you commit.",
-      icon: ClipboardTextIcon,
-    },
-    "/services/design-forge": {
-      description: "Join the engineering discussion and mentorship community.",
-      icon: HammerIcon,
-    },
-    "/services/academy-partnership": {
-      description: "Collaborate on workforce and ecosystem development.",
-      icon: HandshakeIcon,
-    },
-    "/services/academy-support": {
-      description: "Back capability development for the next generation.",
-      icon: HandHeartIcon,
-    },
-    "/services/cohort-sponsorship": {
-      description: "Fund a full cohort through the academy programme.",
-      icon: HandCoinsIcon,
     },
   }),
 );
@@ -466,20 +424,14 @@ export const SERVICES_LINKS: NavItemChildren = SERVICE_ROUTES.map(
 
 export const DIVISIONS_LINKS: NavItemChildren = [
   {
-    title: "Applied R&D & Business Improvement",
-    description: "Fixed-fee engineering and locked fabrication budget pathway.",
+    title: "Engineering Design and R&D",
+    description:
+      "Product design, process design, Drafting, Applied R&D, Business productivity improvement.",
     href: "/research-and-development-and-business-improvement",
     icon: FlaskIcon,
   },
   {
-    title: "Technologies & Industrial Support",
-    description:
-      "Showcases Trade Tech, Industrial Equipment, and R&D Pipeline.",
-    href: "/technologies-and-industrial-support",
-    icon: FactoryIcon,
-  },
-  {
-    title: "Tech & Deployment",
+    title: "Technology and Industrial Deployment",
     description:
       "Local problems turned into engineered, field-ready solutions.",
     href: "/tech-and-deployment",
