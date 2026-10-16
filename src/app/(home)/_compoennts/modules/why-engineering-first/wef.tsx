@@ -3,7 +3,7 @@ import { XIcon } from "@phosphor-icons/react/dist/ssr/X";
 import { CheckIcon } from "@phosphor-icons/react/dist/ssr/Check";
 
 const REALITY = [
-  "Reverse engineering from images ignores system constraints",
+  "Replicating products/technologies without engineering first, ignores system constraints",
   "Trial-and-error multiplies cost through rework and delays",
   "Unstructured builds produce non-functional systems",
 ];
@@ -24,7 +24,7 @@ export function Wef({ className }: { className?: string }) {
       <div className="border-b muted-border">
         <div className="flex flex-col items-center gap-4 px-6 py-14 md:py-20 text-center max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-            Why Engineering First.
+            Why Engineering First?
           </h2>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
             The cost of avoiding engineering is paid in failure.

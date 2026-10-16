@@ -75,6 +75,8 @@ export type MegaNavItem = {
   name: string;
   href?: string;
   segments?: string[];
+  /** Mark active only on an exact pathname match (e.g. "/" would otherwise prefix-match every route). */
+  exact?: boolean;
   content?: React.ComponentType;
   childItems?: NavItemChildren;
 };

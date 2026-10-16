@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { gradientText } from "../hero/hero-text";
 import { GearFineIcon } from "@phosphor-icons/react/dist/csr/GearFine";
 import { EngineIcon } from "@phosphor-icons/react/dist/csr/Engine";
 import { PixelBackground } from "@/components/ui/pixel-background";
@@ -14,6 +15,7 @@ import { StampIcon } from "@phosphor-icons/react/dist/csr/Stamp";
 export function Services({ className }: { className?: string }) {
   return (
     <section
+      id="system"
       aria-label="Organizations we collaborate with"
       className={cn("relative w-full border-t muted-border", className)}
     >
@@ -31,21 +33,13 @@ export function Services({ className }: { className?: string }) {
       </div>
       <div className="border-t muted-border">
         <div className="relative grid grid-cols-1 lg:grid-cols-3 border-b muted-border lg:min-h-96">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 hidden lg:grid lg:grid-cols-3"
-          >
-            <div className="border-r muted-border" />
-            <div />
-            <div />
-          </div>
-
           <div className="relative z-10 lg:col-span-2 flex flex-col justify-center p-8 lg:p-16">
             <h3 className="text-2xl font-semibold">
               These are not separate services.{" "}
               <span className="text-muted-foreground">
-                They operate as a closed-loop system that continuously produces
-                capability and industrial output
+                They operate as a{" "}
+                <span className={cn(gradientText)}>closed-loop system</span>{" "}
+                that continuously produces capability and industrial output
               </span>
             </h3>
           </div>

@@ -16,7 +16,7 @@ const HeroText = () => {
       <div className="flex h-full w-full flex-col gap-4 md:gap-[16px]">
         <h1
           className={cn(
-            "text-balance font-[family-name:var(--font-machina)] text-2xl md:text-3xl lg:text-4xl",
+            "text-balance font-[family-name:var(--font-geist-sans)] text-2xl font-bold md:text-3xl lg:text-4xl",
           )}
         >
           Engineering{" "}
@@ -44,9 +44,7 @@ const HeroText = () => {
             variant="primary-outline"
             size="standard"
           >
-            <Link href={`#`} target="_blank">
-              Explore Our System
-            </Link>
+            <Link href="/#system">Explore Our System</Link>
           </Button>
         </div>
       </div>
