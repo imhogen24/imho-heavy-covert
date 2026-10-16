@@ -60,7 +60,7 @@ export function Values({ className }: { className?: string }) {
       <div className="border-b muted-border">
         <div className="flex flex-col items-center gap-4 px-6 py-14 md:py-20 text-center max-w-2xl mx-auto">
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            04 — Core Values
+            Core Values
           </span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
             What We Hold Ourselves To

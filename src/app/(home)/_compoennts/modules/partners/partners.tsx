@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import {
   AnimatePresence,
@@ -26,6 +26,36 @@ const EXIT_DURATION_S = 0.55;
 
 /** Enter (emerge out of screen). Ease-out-expo for punchy then-smooth settle. */
 const ENTER_DURATION_S = 0.75;
+
+/**
+ * Optical sizing for the logo wall.
+ *
+ * The marks run from 0.72:1 (tall, SAYeTECH) to 3.7:1 (wide, IC) — a 5x spread.
+ * Capping height alone makes every mark the same height but not the same
+ * *weight*: at one shared height a 3.7:1 wordmark lays down five times the ink
+ * of a square mark, so the compact ones read as shrunken. Sizing by area has
+ * the opposite failure — tall marks tower over the row.
+ *
+ * So each mark is sized from its aspect ratio against a baseline, with the
+ * exponent sitting between the two: 0 would be equal height, 0.5 equal area.
+ */
+/** The aspect ratio that renders at exactly the baseline height. */
+const BASELINE_RATIO = 2;
+
+/** Height (px) a baseline-ratio mark gets at `sm` and up. */
+const BASELINE_HEIGHT_PX = 34;
+
+/** 0 = equal height for every mark, 0.5 = equal area. */
+const NORMALIZATION = 0.45;
+
+/** Height (px) at which this mark carries the same visual weight as the rest. */
+function opticalHeight(width: number, height: number): number {
+  if (!(width > 0) || !(height > 0)) return BASELINE_HEIGHT_PX;
+
+  const ratio = width / height;
+
+  return BASELINE_HEIGHT_PX * (BASELINE_RATIO / ratio) ** NORMALIZATION;
+}
 
 const evidenceAnchors = [
   "Industrial systems engineered and deployed",
@@ -64,7 +94,20 @@ function PartnerLogoCell({ item }: { item: MarqueeProps }) {
       width={w}
       height={h}
       role="presentation"
-      className="h-auto max-h-10 w-auto max-w-full object-contain dark:invert sm:max-h-12"
+      // `--logo-h` is the optical height; narrow viewports take 85% of it.
+      // `max-w-full` still wins on a cramped cell — object-contain then fits
+      // the mark inside the box instead of letting it overflow.
+      //
+      // SAFETY: the object holds one custom property with a px string value,
+      // which is a valid inline style React passes straight through; the
+      // assertion only exists because CSSProperties has no index signature for
+      // `--*` keys.
+      style={
+        {
+          "--logo-h": `${opticalHeight(item.ImageWidth ?? w, item.ImageHeight ?? h).toFixed(2)}px`,
+        } as CSSProperties
+      }
+      className="h-[calc(var(--logo-h)*0.85)] w-auto max-w-full object-contain dark:invert sm:h-[var(--logo-h)]"
     />
   );
 }

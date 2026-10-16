@@ -37,7 +37,7 @@ export function Commitment({ className }: { className?: string }) {
 
       <div className="flex min-h-[560px] md:min-h-[640px] flex-col justify-end gap-8 px-8 py-16 md:px-14 md:py-20">
         <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">
-          06 — The Commitment
+          The Commitment
         </span>
         <h2 className="max-w-4xl text-balance text-3xl font-bold uppercase leading-[1.02] tracking-[-0.03em] md:text-5xl lg:text-6xl">
           We are committed to building{" "}

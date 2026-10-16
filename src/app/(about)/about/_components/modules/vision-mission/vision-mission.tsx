@@ -7,13 +7,13 @@ const STATEMENTS = [
   },
   {
     label: "Mission",
-    text: "To bridge the gap between engineering education and industry.",
+    text: "To bridge the gap between engineering education and industry by delivering research-driven design solutions, hands-on skills training and innovative technologies that enhance productivity, empower talent and strengthen Africa's industrial ecosystem.",
   },
 ];
 
 const SIMPLE_TERMS = [
   { verb: "design", object: "solutions" },
-  { verb: "build", object: "capability" },
+  { verb: "build", object: "engineering design capability" },
   { verb: "strengthen", object: "industry" },
 ];
 
@@ -32,7 +32,7 @@ export function VisionMission({ className }: { className?: string }) {
           <h2 className="pt-2 text-sm font-semibold text-muted-foreground">
             {s.label}
           </h2>
-          <p className="max-w-3xl text-balance text-2xl font-medium leading-snug tracking-[-0.02em] md:text-3xl lg:text-4xl">
+          <p className="max-w-3xl text-balance text-lg font-normal leading-relaxed md:text-xl">
             {s.text}
           </p>
         </div>
@@ -53,7 +53,7 @@ export function VisionMission({ className }: { className?: string }) {
               i < SIMPLE_TERMS.length - 1 && "sm:border-r",
             )}
           >
-            <p className="text-2xl md:text-3xl font-semibold leading-tight tracking-tight">
+            <p className="text-balance text-2xl md:text-3xl font-semibold leading-tight tracking-tight">
               We <span className="text-[#EF7D00]">{t.verb}</span>
               <br />
               {t.object}.

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { StorefrontIcon } from "@phosphor-icons/react/dist/ssr/Storefront";
 import { CadFieldSlider } from "./cad-field-slider";
 
 const JOURNEY = ["Design", "Prototype", "Field testing", "Deployment"];
@@ -10,16 +11,24 @@ const FRAME_WIDTH = 380;
 export function Hero({ className }: { className?: string }) {
   return (
     <section
-      aria-label="Technology and Deployment"
+      aria-label="Technology & Industrial Deployment"
       className={cn(
         "relative grid w-full grid-cols-1 items-center gap-12 px-8 py-16 md:px-14 md:py-24 lg:grid-cols-[1fr_auto] lg:gap-20",
         className,
       )}
     >
       <div className="flex flex-col gap-8">
-        <h1 className="max-w-2xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] md:text-6xl">
-          Turning Local Problems into Engineered Solutions
-        </h1>
+        {/* Division eyebrow, matching the pill the other division pages lead
+            with so the three read as one set. */}
+        <div className="flex flex-col gap-5">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border muted-border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <StorefrontIcon size={14} weight="thin" />
+            Technology &amp; Industrial Deployment
+          </span>
+          <h1 className="max-w-2xl text-balance text-3xl font-semibold leading-[1.1] tracking-[-0.025em] md:text-4xl lg:text-5xl">
+            Turning Local Problems into Engineered Solutions
+          </h1>
+        </div>
         <p className="max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
           Across Africa, millions work with tools not designed for their
           realities. We develop practical technologies around real problems

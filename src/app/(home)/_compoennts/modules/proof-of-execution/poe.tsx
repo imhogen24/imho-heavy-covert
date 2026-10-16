@@ -9,7 +9,8 @@ import { GraduationCapIcon } from "@phosphor-icons/react/dist/csr/GraduationCap"
 import { ChartLineUpIcon } from "@phosphor-icons/react/dist/csr/ChartLineUp";
 import { GearFineIcon } from "@phosphor-icons/react/dist/csr/GearFine";
 import { RocketLaunchIcon } from "@phosphor-icons/react/dist/csr/RocketLaunch";
-import { SealCheckIcon } from "@phosphor-icons/react/dist/csr/SealCheck";
+import { PresentationIcon } from "@phosphor-icons/react/dist/csr/Presentation";
+import { HammerIcon } from "@phosphor-icons/react/dist/csr/Hammer";
 
 const DELIVERABLES = [
   {
@@ -36,13 +37,23 @@ const DELIVERABLES = [
 
 const METRICS = [
   {
-    value: "80+",
-    label: "Engineers trained",
+    value: "350+",
+    label: "Learners reached",
+    icon: <PresentationIcon size={16} weight="thin" />,
+  },
+  {
+    value: "100+",
+    label: "Trained in design & CAD",
     icon: <GraduationCapIcon size={16} weight="thin" />,
   },
   {
-    value: "5+",
-    label: "Industry solutions delivered",
+    value: "30+",
+    label: "Artisans engaged",
+    icon: <HammerIcon size={16} weight="thin" />,
+  },
+  {
+    value: "10+",
+    label: "Engineering projects",
     icon: <GearFineIcon size={16} weight="thin" />,
   },
   {
@@ -59,21 +70,33 @@ export function Poe({ className }: { className?: string }) {
       aria-label="Proof of Execution"
       className={cn("relative w-full border-t muted-border", className)}
     >
-      {/* Zone 1 — Header + Stats */}
-      <div className="border-b muted-border">
-        <div className="flex flex-col items-center gap-8 px-6 py-14 md:py-20 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground border muted-border rounded-full px-3 py-1">
-            <SealCheckIcon size={14} weight="thin" />
-            Proof of Execution
+      {/* Zone 1 — Header + Stats over the workshop plate */}
+      <div className="relative isolate overflow-hidden border-b muted-border">
+        <Image
+          src="/overlay.jpeg"
+          alt=""
+          aria-hidden
+          fill
+          sizes="100vw"
+          className="-z-10 object-cover object-[50%_38%]"
+        />
+        {/* Scrim: the plate is a bright, detailed workshop photo, so it needs a
+            heavy wash before white type reads cleanly over it. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/88 via-black/78 to-black/92"
+        />
+        <div className="flex flex-col items-center gap-8 px-6 py-14 md:py-20 text-center">
+          <div className="flex max-w-2xl flex-col items-center gap-4">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
+              From Concept to Operational Systems
+            </h2>
+            <p className="text-base md:text-lg text-white/75 leading-relaxed">
+              Real systems deployed. Real engineers trained. Real industrial
+              impact — measured in operating capability, not promises.
+            </p>
           </div>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-            From Concept to Operational Systems
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            Real systems deployed. Real engineers trained. Real industrial
-            impact — measured in operating capability, not promises.
-          </p>
-          <div className="flex justify-center gap-10 md:gap-16 pt-4">
+          <div className="grid w-full max-w-4xl grid-cols-2 gap-x-6 gap-y-8 pt-4 sm:grid-cols-3 lg:grid-cols-5">
             {METRICS.map((metric) => (
               <div
                 key={metric.label}
@@ -82,7 +105,7 @@ export function Poe({ className }: { className?: string }) {
                 <p className="text-3xl md:text-4xl font-bold text-[#EF7D00] tracking-tight leading-none">
                   {metric.value}
                 </p>
-                <span className="text-sm text-muted-foreground whitespace-nowrap">
+                <span className="text-sm text-white/70 text-balance">
                   {metric.label}
                 </span>
               </div>

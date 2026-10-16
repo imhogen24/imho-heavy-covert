@@ -4,7 +4,6 @@ import React, { forwardRef, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
-import { badgeVariants } from "@/components/ui/badge";
 
 const Circle = forwardRef<
   HTMLDivElement,
@@ -25,53 +24,20 @@ const Circle = forwardRef<
 
 Circle.displayName = "Circle";
 
-const BADGE_TONES = {
-  paid: "bg-emerald-500/15 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300",
-  scoped: "bg-blue-500/15 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300",
-  equity:
-    "bg-violet-500/15 text-violet-800 dark:bg-violet-500/20 dark:text-violet-300",
-} satisfies Record<string, string>;
-
-function NotionBadge({
-  children,
-  tone = "paid",
-}: {
-  children: React.ReactNode;
-  tone?: keyof typeof BADGE_TONES;
-}) {
-  return (
-    <span
-      className={cn(
-        badgeVariants({ variant: "outline" }),
-        "rounded-full border-0 px-2.5 py-0.5 text-xs font-medium",
-        BADGE_TONES[tone],
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
 const STEPS = [
   {
     number: 1,
-    badge: "Paid",
-    badgeTone: "paid" as const,
     label: "Diagnostic",
     description:
       "Requirements, constraints, and deliverables agreed before design work.",
   },
   {
     number: 2,
-    badge: "Paid",
-    badgeTone: "scoped" as const,
     label: "Budget approval",
     description: "Capital, timeline, and engagement terms approved in writing.",
   },
   {
     number: 3,
-    badge: "Funded",
-    badgeTone: "equity" as const,
     label: "Controlled execution",
     description:
       "Engineering, procurement, and fabrication within the approved plan.",
@@ -93,7 +59,6 @@ export function Steps() {
           <div key={step.number} className="flex flex-col items-center">
             <div className="flex flex-col items-center gap-3 py-6 text-center max-w-xs">
               <Circle>{step.number}</Circle>
-              <NotionBadge tone={step.badgeTone}>{step.badge}</NotionBadge>
               <p className="text-lg font-medium">{step.label}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {step.description}
@@ -129,7 +94,6 @@ export function Steps() {
                 key={`copy-${step.number}`}
                 className="flex flex-col items-center gap-2 text-center"
               >
-                <NotionBadge tone={step.badgeTone}>{step.badge}</NotionBadge>
                 <p className="text-lg font-medium">{step.label}</p>
                 <p className="text-sm text-muted-foreground">
                   {step.description}
