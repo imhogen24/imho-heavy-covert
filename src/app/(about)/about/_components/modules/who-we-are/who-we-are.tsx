@@ -33,7 +33,7 @@ export function WhoWeAre({ className }: { className?: string }) {
       <div className="border-b muted-border">
         <div className="flex flex-col items-center gap-4 px-6 py-14 md:py-20 text-center max-w-2xl mx-auto">
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            02 — Who We Are
+            Who We Are
           </span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-balance">
             Strengthening People, Enterprises, and Institutions

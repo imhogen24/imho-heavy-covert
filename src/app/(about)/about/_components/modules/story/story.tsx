@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -49,22 +50,38 @@ export function Story({ className }: { className?: string }) {
       className={cn("relative w-full", className)}
     >
       <div className="relative isolate overflow-hidden px-8 pt-16 pb-14 md:px-14 md:pt-24 md:pb-20">
+        <Image
+          src="/about_overlay.jpg"
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover object-[50%_35%]"
+        />
+        {/* Scrim: a bright daylight photo needs a heavy wash before the
+            headline reads over it. Dark in both themes, so the copy inside this
+            block is pinned light rather than left on theme tokens. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/88 via-black/78 to-black/92"
+        />
         <GridPattern
           width={56}
           height={56}
-          className="-z-10 stroke-border/70 fill-transparent dark:stroke-muted/70 [mask-image:radial-gradient(ellipse_70%_60%_at_85%_0%,white,transparent)]"
+          className="-z-10 stroke-white/10 fill-transparent [mask-image:radial-gradient(ellipse_70%_60%_at_85%_0%,white,transparent)]"
         />
 
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={t(0)}
-          className="block text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground"
+          className="block text-xs font-medium uppercase tracking-[0.18em] text-white/70"
         >
-          01 — Our Story
+          Our Story
         </motion.span>
 
-        <h1 className="mt-8 max-w-4xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.035em] md:text-6xl lg:text-7xl">
+        <h1 className="mt-8 max-w-3xl text-balance text-3xl font-semibold leading-[1.1] tracking-[-0.025em] text-white md:text-4xl lg:text-5xl">
           {HEADLINE.split(" ").map((word, i) => (
             <motion.span
               key={i}
@@ -85,7 +102,7 @@ export function Story({ className }: { className?: string }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={t(0.2)}
-            className="max-w-md text-pretty text-base leading-relaxed text-muted-foreground md:text-lg"
+            className="max-w-md text-pretty text-base leading-relaxed text-white/75 md:text-lg"
           >
             It all started with CAD in 2018–2019 at KNUST. From a CAD Bureau to
             establishing Innovate Make and Have Ours Ltd in 2021, one thing
@@ -97,7 +114,7 @@ export function Story({ className }: { className?: string }) {
             initial="hidden"
             whileInView="shown"
             viewport={{ once: true, amount: 0.8 }}
-            className="text-2xl font-semibold leading-snug tracking-tight md:text-3xl"
+            className="text-2xl font-semibold leading-snug tracking-tight text-white md:text-3xl"
           >
             The core problem wasn&apos;t{" "}
             <span className="whitespace-nowrap">
