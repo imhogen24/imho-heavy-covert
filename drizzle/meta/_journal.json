@@ -43,6 +43,13 @@
       "when": 1790904121576,
       "tag": "0005_bent_terror",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795102508350,
+      "tag": "0006_thankful_hiroim",
+      "breakpoints": true
     }
   ]
 }

@@ -81,8 +81,15 @@ const sendEmail = async (
   }
 };
 
-/** A submission that passed its form schema, with its public reference. */
-export type Submission<T> = { data: T; requestId: string };
+/**
+ * A submission that passed its form schema, with its public reference and
+ * the client's idempotency key.
+ */
+export type Submission<T> = {
+  data: T;
+  requestId: string;
+  submissionKey: string;
+};
 
 /** Optional answers are stored as NULL, never as "". */
 const orNull = (value?: string) => value || null;
@@ -183,6 +190,7 @@ const notify = (
 export const contactFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<ContactFormData>): Promise<void> => {
   const inserted = await db
     .insert(contactSubmissions)
@@ -193,8 +201,9 @@ export const contactFormAction = async ({
       message: data.message,
       files: data.files,
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: contactSubmissions.requestId })
+    .onConflictDoNothing({ target: contactSubmissions.submissionKey })
     .returning({ requestId: contactSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -219,6 +228,7 @@ export const contactFormAction = async ({
 export const ImhoGenAcademyFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<ImhoGenAcademyFormData>): Promise<void> => {
   const inserted = await db
     .insert(imhogenAcademySubmissions)
@@ -240,8 +250,9 @@ export const ImhoGenAcademyFormAction = async ({
       weeklyHoursCommitment: data.weeklyHoursCommitment,
       whySelectYou: data.whySelectYou,
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: imhogenAcademySubmissions.requestId })
+    .onConflictDoNothing({ target: imhogenAcademySubmissions.submissionKey })
     .returning({ requestId: imhogenAcademySubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -266,6 +277,7 @@ export const ImhoGenAcademyFormAction = async ({
 export const AcademyPartnershipFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<AcademyPartnershipFormData>): Promise<void> => {
   const inserted = await db
     .insert(imhogenPartnershipSubmissions)
@@ -281,8 +293,11 @@ export const AcademyPartnershipFormAction = async ({
       expectedOutcomes: orNull(data.expectedOutcomes),
       additionalInformation: orNull(data.additionalInformation),
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: imhogenPartnershipSubmissions.requestId })
+    .onConflictDoNothing({
+      target: imhogenPartnershipSubmissions.submissionKey,
+    })
     .returning({ requestId: imhogenPartnershipSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -310,6 +325,7 @@ export const AcademyPartnershipFormAction = async ({
 export const AcademySupportFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<AcademySupportFormData>): Promise<void> => {
   const inserted = await db
     .insert(academySupportSubmissions)
@@ -320,8 +336,9 @@ export const AcademySupportFormAction = async ({
       supportTypes: data.supportTypes,
       supportContribution: data.supportContribution,
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: academySupportSubmissions.requestId })
+    .onConflictDoNothing({ target: academySupportSubmissions.submissionKey })
     .returning({ requestId: academySupportSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -346,6 +363,7 @@ export const AcademySupportFormAction = async ({
 export const CapabilityAssessmentFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<CapabilityAssessmentFormData>): Promise<void> => {
   const inserted = await db
     .insert(capabilityAssessmentSubmissions)
@@ -366,8 +384,11 @@ export const CapabilityAssessmentFormAction = async ({
       biggestWeakness: data.biggestWeakness,
       portfolioLink: orNull(data.portfolioLink),
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: capabilityAssessmentSubmissions.requestId })
+    .onConflictDoNothing({
+      target: capabilityAssessmentSubmissions.submissionKey,
+    })
     .returning({ requestId: capabilityAssessmentSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -394,6 +415,7 @@ export const CapabilityAssessmentFormAction = async ({
 export const CohortSponsorshipFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<CohortSponsorshipFormData>): Promise<void> => {
   const inserted = await db
     .insert(cohortSponsorshipSubmissions)
@@ -411,8 +433,9 @@ export const CohortSponsorshipFormAction = async ({
         ? yes(data.scheduleDiscussion)
         : null,
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: cohortSponsorshipSubmissions.requestId })
+    .onConflictDoNothing({ target: cohortSponsorshipSubmissions.submissionKey })
     .returning({ requestId: cohortSponsorshipSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -440,6 +463,7 @@ export const CohortSponsorshipFormAction = async ({
 export const DesignForgeFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<DesignForgeFormData>): Promise<void> => {
   const inserted = await db
     .insert(designForgeSubmissions)
@@ -458,8 +482,9 @@ export const DesignForgeFormAction = async ({
       socialHandle: orNull(data.socialHandle),
       whyJoin: data.whyJoin,
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: designForgeSubmissions.requestId })
+    .onConflictDoNothing({ target: designForgeSubmissions.submissionKey })
     .returning({ requestId: designForgeSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -484,6 +509,7 @@ export const DesignForgeFormAction = async ({
 export const CustomEngineeringFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<CustomEngineeringFormData>): Promise<void> => {
   const inserted = await db
     .insert(customEngineeringSubmissions)
@@ -509,8 +535,9 @@ export const CustomEngineeringFormAction = async ({
       // The schema only accepts a submission whose disclaimer is ticked.
       termsAcceptedAt: new Date(),
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: customEngineeringSubmissions.requestId })
+    .onConflictDoNothing({ target: customEngineeringSubmissions.submissionKey })
     .returning({ requestId: customEngineeringSubmissions.requestId });
 
   if (inserted.length > 0) {
@@ -539,6 +566,7 @@ export const CustomEngineeringFormAction = async ({
 export const DraftingDigitizationFormAction = async ({
   data,
   requestId,
+  submissionKey,
 }: Submission<DraftingDigitizationFormData>): Promise<void> => {
   const inserted = await db
     .insert(draftingDigitizationSubmissions)
@@ -558,8 +586,11 @@ export const DraftingDigitizationFormAction = async ({
       // The schema only accepts a submission whose disclaimer is ticked.
       termsAcceptedAt: new Date(),
       requestId,
+      submissionKey,
     })
-    .onConflictDoNothing({ target: draftingDigitizationSubmissions.requestId })
+    .onConflictDoNothing({
+      target: draftingDigitizationSubmissions.submissionKey,
+    })
     .returning({ requestId: draftingDigitizationSubmissions.requestId });
 
   if (inserted.length > 0) {

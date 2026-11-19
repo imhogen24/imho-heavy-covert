@@ -18,9 +18,12 @@ const primaryId = (name: string) =>
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID());
 
-// Public reference for a submission, built from the client's idempotency key.
-// Unique so a retried POST cannot insert the same submission twice.
+// Public reference people quote, e.g. "T1-12364563". Generated on the server.
 const requestId = () => text("request_id").notNull().unique();
+
+// The client's idempotency key (a UUID). Unique so a retried POST cannot
+// insert the same submission twice. Internal only; never shown to anyone.
+const submissionKey = () => text("submission_key").notNull().unique();
 
 const timestamps = {
   createdAt: timestamp("created_at", { withTimezone: true })
@@ -48,6 +51,7 @@ export const contactSubmissions = pgTable(
     message: text("message").notNull(),
     files: jsonb("files").$type<string[]>().default([]).notNull(),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -80,6 +84,7 @@ export const imhogenAcademySubmissions = pgTable(
     weeklyHoursCommitment: text("weekly_hours_commitment").notNull(),
     whySelectYou: text("why_select_you").notNull(),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -104,6 +109,7 @@ export const imhogenPartnershipSubmissions = pgTable(
     expectedOutcomes: text("expected_outcomes"),
     additionalInformation: text("additional_information"),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -123,6 +129,7 @@ export const academySupportSubmissions = pgTable(
     supportTypes: jsonb("support_types").$type<string[]>().notNull(),
     supportContribution: text("support_contribution").notNull(),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -154,6 +161,7 @@ export const capabilityAssessmentSubmissions = pgTable(
     biggestWeakness: text("biggest_weakness").notNull(),
     portfolioLink: text("portfolio_link"),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -190,6 +198,7 @@ export const cohortSponsorshipSubmissions = pgTable(
     // Optional question: NULL means it was left unanswered.
     scheduleDiscussion: boolean("schedule_discussion"),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -219,6 +228,7 @@ export const designForgeSubmissions = pgTable(
     socialHandle: text("social_handle"),
     whyJoin: text("why_join").notNull(),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -258,6 +268,7 @@ export const customEngineeringSubmissions = pgTable(
       withTimezone: true,
     }).notNull(),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
@@ -291,6 +302,7 @@ export const draftingDigitizationSubmissions = pgTable(
       withTimezone: true,
     }).notNull(),
     requestId: requestId(),
+    submissionKey: submissionKey(),
     ...timestamps,
     ...notificationTracking,
   },
