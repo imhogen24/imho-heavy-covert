@@ -1,5 +1,5 @@
 {
-  "id": "0ac0ab70-f9c1-4806-b1a2-36c3907da2f7",
+  "id": "a256a5ef-bfb0-46b3-b36a-9eea971c4e6f",
   "prevId": "6a67a600-87d9-4936-8991-0458e9ef2a88",
   "version": "7",
   "dialect": "postgresql",
@@ -54,7 +54,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -254,7 +254,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -429,7 +429,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -570,7 +570,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -795,7 +795,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -983,7 +983,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -1172,7 +1172,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -1378,7 +1378,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -1548,7 +1548,7 @@
           "name": "submission_key",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",

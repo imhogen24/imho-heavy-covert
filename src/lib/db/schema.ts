@@ -23,7 +23,9 @@ const requestId = () => text("request_id").notNull().unique();
 
 // The client's idempotency key (a UUID). Unique so a retried POST cannot
 // insert the same submission twice. Internal only; never shown to anyone.
-const submissionKey = () => text("submission_key").notNull().unique();
+// Nullable in the database so the previous deploy, which doesn't write it,
+// keeps working during rollout; this code always sets it.
+const submissionKey = () => text("submission_key").unique();
 
 const timestamps = {
   createdAt: timestamp("created_at", { withTimezone: true })
