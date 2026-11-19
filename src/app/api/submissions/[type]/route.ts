@@ -1,3 +1,4 @@
+import { randomInt } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import {
@@ -24,16 +25,34 @@ import { DraftingDigitizationSchema } from "@/lib/schemas/drafting-digitization/
 import { submissionRatelimit } from "@/lib/rate-limit";
 
 // Generated once per form fill on the client and resent on every retry, so a
-// repeated POST maps to the same request_id and is not stored twice.
+// repeated POST maps to the same submission_key and is not stored twice.
 const SubmissionEnvelope = z.object({ submissionId: z.uuid() });
+
+/** A short public reference: the form prefix and 8 digits, e.g. "T1-12364563". */
+const newRequestId = (prefix: string) =>
+  `${prefix}-${randomInt(10_000_000, 100_000_000)}`;
+
+const REQUEST_ID_ATTEMPTS = 5;
+
+// Postgres unique violation on request_id: the random number is already
+// taken. Drizzle wraps the driver error, so it may sit on `cause`.
+const UniqueViolation = z.object({
+  code: z.literal("23505"),
+  constraint: z.string().regex(/request_id/),
+});
+
+const RequestIdCollision = z.union([
+  UniqueViolation,
+  z.object({ cause: UniqueViolation }),
+]);
 
 const INVALID_SUBMISSION =
   "Some answers are invalid. Please review the form and try again.";
 
 /**
  * Builds the handler for one form: validates the body against the form's own
- * schema (the browser check is not a trust boundary), derives the request id
- * from the idempotency key, and hands typed data to the service function.
+ * schema (the browser check is not a trust boundary), assigns a short public
+ * request id, and hands typed data to the service function.
  */
 const submissionHandler =
   <S extends z.ZodType>(
@@ -70,11 +89,27 @@ const submissionHandler =
       return NextResponse.json({ error: INVALID_SUBMISSION }, { status: 400 });
     }
 
-    const requestId = `${prefix}-${envelope.data.submissionId}`;
+    const submissionKey = envelope.data.submissionId;
 
-    await save({ data: parsed.data, requestId });
+    // 90 million numbers per form make a clash very unlikely; if one happens,
+    // draw again rather than failing the submission.
+    for (let attempt = 1; ; attempt++) {
+      const requestId = newRequestId(prefix);
 
-    return NextResponse.json({ success: true, requestId }, { status: 200 });
+      try {
+        await save({ data: parsed.data, requestId, submissionKey });
+
+        return NextResponse.json({ success: true }, { status: 200 });
+      } catch (error) {
+        const collided = RequestIdCollision.safeParse(error).success;
+
+        if (attempt < REQUEST_ID_ATTEMPTS && collided) {
+          continue;
+        }
+
+        throw error;
+      }
+    }
   };
 
 const handlers = new Map([
